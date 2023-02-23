@@ -1,4 +1,8 @@
+using ChainImpactAPI.Application;
+using ChainImpactAPI.Infrastructure;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +13,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// Application layer: services
+builder.Services.AddServices();
+
+
+
+// Logger
 
 var logger = new LoggerConfiguration().ReadFrom
     .Configuration(builder.Configuration)
@@ -22,6 +34,21 @@ builder.Services.AddHttpLogging(options =>
 {
     options.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.ResponseBody;
 });
+
+
+// Infrastructure layer: database, repositories
+
+//builder.Services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
+
+builder.Services.AddDbContextPool<ApiDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");
+    options.UseNpgsql(connectionString);
+});
+
+builder.Services.AddRepositories();
+
+
 
 var app = builder.Build();
 app.UseAuthorization();

@@ -1,4 +1,5 @@
-﻿using ChainImpactAPI.Services;
+﻿using ChainImpactAPI.Application.ServiceInterfaces;
+using ChainImpactAPI.Infrastructure.Services;
 
 namespace ChainImpactAPI.Application
 {

@@ -1,4 +1,4 @@
-﻿using ChainImpactAPI.Application;
+﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Infrastructure.Repositories;
 
 namespace ChainImpactAPI.Infrastructure

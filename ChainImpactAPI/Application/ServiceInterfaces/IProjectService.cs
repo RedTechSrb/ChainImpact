@@ -1,6 +1,6 @@
 ﻿using ChainImpactAPI.Dtos;
 
-namespace ChainImpactAPI.Services
+namespace ChainImpactAPI.Application.ServiceInterfaces
 {
     public interface IProjectService
     {

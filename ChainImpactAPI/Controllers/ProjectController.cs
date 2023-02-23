@@ -1,4 +1,4 @@
-using ChainImpactAPI.Services;
+using ChainImpactAPI.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChainImpactAPI.Controllers

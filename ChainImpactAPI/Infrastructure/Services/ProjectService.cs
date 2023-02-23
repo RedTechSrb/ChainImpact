@@ -1,7 +1,8 @@
-﻿using ChainImpactAPI.Application;
+﻿using ChainImpactAPI.Application.RepositoryInterfaces;
+using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
 
-namespace ChainImpactAPI.Services
+namespace ChainImpactAPI.Infrastructure.Services
 {
     public class ProjectService : IProjectService
     {
@@ -9,7 +10,7 @@ namespace ChainImpactAPI.Services
         private readonly IProjectRepository projectRepository;
 
         public ProjectService(
-            IConfiguration configuration, 
+            IConfiguration configuration,
             IProjectRepository projectRepository)
         {
             this.configuration = configuration;
@@ -21,7 +22,7 @@ namespace ChainImpactAPI.Services
             var projects = projectRepository.ListAllAsync().Result;
 
             var projectsDto = new List<ProjectDto>();
-            foreach ( var project in projects)
+            foreach (var project in projects)
             {
                 projectsDto.Add(new ProjectDto(project.Id, project.Name));
             }

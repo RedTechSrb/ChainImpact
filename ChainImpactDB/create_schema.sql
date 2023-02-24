@@ -26,7 +26,7 @@ CREATE TABLE Charity
 ( 
 	Id                   serial  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
-	Wallet               varchar(100)  NOT NULL ,
+	Wallet               varchar(100)  NULL ,
 	Website              varchar(100)  NULL ,
 	Facebook             varchar(100)  NULL ,
 	Discord              varchar(100)  NULL ,

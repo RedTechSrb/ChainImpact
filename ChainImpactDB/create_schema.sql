@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS Donation;
 
 DROP TABLE IF EXISTS Project;
 
-DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Impactor;
 
 DROP TABLE IF EXISTS Charity;
 
@@ -38,6 +38,25 @@ CREATE TABLE Donation
 	DonatorId            serial  NOT NULL ,
 	CONSTRAINT XPKDonation PRIMARY KEY (Id)
 );
+
+CREATE TABLE Impactor
+( 
+	Id                   serial  NOT NULL ,
+	Wallet               varchar(256)  NOT NULL ,
+	Name                 varchar(100)  NOT NULL ,
+	Description          varchar(4000)  NULL ,
+	Facebook             varchar(100)  NULL ,
+	Twitter              varchar(100)  NULL ,
+	Instagram            varchar(100)  NULL ,
+	Website              varchar(100)  NULL ,
+	Discord              varchar(100)  NULL ,
+	Role                 integer  NULL ,
+	Type                 integer  NULL ,
+	CONSTRAINT XPKUser PRIMARY KEY (Id)
+);
+
+ALTER TABLE Impactor
+	ADD CONSTRAINT XAK1User UNIQUE (Wallet);
 
 CREATE TABLE Project
 ( 
@@ -74,25 +93,6 @@ CREATE TABLE Type
 	CONSTRAINT XPKType PRIMARY KEY (Id)
 );
 
-CREATE TABLE User
-( 
-	Id                   serial  NOT NULL ,
-	Wallet               varchar(256)  NOT NULL ,
-	Name                 varchar(100)  NOT NULL ,
-	Description          varchar(4000)  NULL ,
-	Facebook             varchar(100)  NULL ,
-	Twitter              varchar(100)  NULL ,
-	Instagram            varchar(100)  NULL ,
-	Website              varchar(100)  NULL ,
-	Discord              varchar(100)  NULL ,
-	Role                 integer  NULL ,
-	Type                 integer  NULL ,
-	CONSTRAINT XPKUser PRIMARY KEY (Id)
-);
-
-ALTER TABLE User
-	ADD CONSTRAINT XAK1User UNIQUE (Wallet);
-
 
 ALTER TABLE Donation
 	ADD CONSTRAINT FK_Project_Donation FOREIGN KEY (ProjectId) REFERENCES Project(Id)
@@ -100,7 +100,7 @@ ALTER TABLE Donation
 		ON DELETE RESTRICT;
 
 ALTER TABLE Donation
-	ADD CONSTRAINT FK_User_Donation FOREIGN KEY (DonatorId) REFERENCES User(Id)
+	ADD CONSTRAINT FK_User_Donation FOREIGN KEY (DonatorId) REFERENCES Impactor(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
@@ -111,7 +111,7 @@ ALTER TABLE Project
 		ON DELETE RESTRICT;
 
 ALTER TABLE Project
-	ADD CONSTRAINT FK_User_Project FOREIGN KEY (ImpactorId) REFERENCES User(Id)
+	ADD CONSTRAINT FK_User_Project FOREIGN KEY (ImpactorId) REFERENCES Impactor(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
@@ -131,10 +131,10 @@ ALTER TABLE ProjectType
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
-COMMENT ON COLUMN User.Role IS 'What user can do.
+COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 0 - super admin user
 1 - simple user';
 
-COMMENT ON COLUMN User.Type IS 'User type:
+COMMENT ON COLUMN Impactor.Type IS 'User type:
 0 - company
 1 - private user';

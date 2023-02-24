@@ -5,12 +5,12 @@ DROP TABLE IF EXISTS Charity;
 
 CREATE TABLE Charity
 ( 
-	Id                   bigint  NOT NULL ,
+	Id                   serial  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
 	Wallet               varchar(100)  NOT NULL ,
 	Website              varchar(100)  NULL ,
 	Facebook             varchar(100)  NULL ,
-	Diskord              varchar(100)  NULL ,
+	Discord              varchar(100)  NULL ,
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(100)  NULL ,
@@ -23,8 +23,8 @@ ALTER TABLE Charity
 
 CREATE TABLE Project
 ( 
-	Id                   bigint  NOT NULL ,
-	CharityId            bigint  NOT NULL ,
+	Id                   serial  NOT NULL ,
+	CharityId            serial  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
 	Milestones           varchar(20)  NULL ,
@@ -32,7 +32,7 @@ CREATE TABLE Project
 	TotalDonated         decimal(10,3)  NOT NULL ,
 	Website              varchar(100)  NULL ,
 	Facebook             varchar(100)  NULL ,
-	Diskord              varchar(100)  NULL ,
+	Discord              varchar(100)  NULL ,
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(100)  NULL ,

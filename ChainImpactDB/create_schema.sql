@@ -1,17 +1,21 @@
 
 DROP TABLE IF EXISTS ProjectType;
 
-DROP TABLE IF EXISTS Type;
-
 DROP TABLE IF EXISTS Donation;
 
 DROP TABLE IF EXISTS Transaction;
 
 DROP TABLE IF EXISTS Project;
 
+DROP TABLE IF EXISTS Charity;
+
+DROP TABLE IF EXISTS NFTOwner;
+
 DROP TABLE IF EXISTS Impactor;
 
-DROP TABLE IF EXISTS Charity;
+DROP TABLE IF EXISTS NFTType;
+
+DROP TABLE IF EXISTS Type;
 
 CREATE TABLE Charity
 ( 
@@ -58,6 +62,24 @@ CREATE TABLE Impactor
 
 ALTER TABLE Impactor
 	ADD CONSTRAINT XAK1User UNIQUE (Wallet);
+
+CREATE TABLE NFTOwner
+( 
+	Id                   char(18)  NOT NULL ,
+	NftTypeId            serial  NOT NULL ,
+	ImpactorId           serial  NOT NULL ,
+	CONSTRAINT XPKNFTOwner PRIMARY KEY (Id)
+);
+
+CREATE TABLE NFTType
+( 
+	Id                   serial  NOT NULL ,
+	Tier                 integer  NULL ,
+	UserType             integer  NULL ,
+	ImageUrl             varchar(100)  NULL ,
+	CauseTypeId          serial  NOT NULL ,
+	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
+);
 
 CREATE TABLE Project
 ( 
@@ -122,6 +144,23 @@ ALTER TABLE Donation
 		ON DELETE RESTRICT;
 
 
+ALTER TABLE NFTOwner
+	ADD CONSTRAINT FK_NFTType_NFTOwner FOREIGN KEY (NftTypeId) REFERENCES NFTType(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
+ALTER TABLE NFTOwner
+	ADD CONSTRAINT FK_Impactor_NFTOwner FOREIGN KEY (ImpactorId) REFERENCES Impactor(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
+
+ALTER TABLE NFTType
+	ADD CONSTRAINT FK_Type_NFTType FOREIGN KEY (CauseTypeId) REFERENCES Type(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
+
 ALTER TABLE Project
 	ADD CONSTRAINT FK_Charity_Project FOREIGN KEY (CharityId) REFERENCES Charity(Id)
 		ON UPDATE RESTRICT
@@ -164,6 +203,22 @@ COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 1 - simple user';
 
 COMMENT ON COLUMN Impactor.Type IS 'User type:
+0 - company
+1 - private user';
+
+COMMENT ON TABLE NFTType IS 'There are fixed number of NFTTypes
+approximatelly 6 for all differen number of tiers for Tier
+size of Type (5) table for CauseTypeId
+2 for different impactor types for UserType
+
+There will be approximatelly 6 * 5 * 2 = 60 NFTTypes
+ ';
+
+COMMENT ON COLUMN NFTType.Tier IS 'Depends on amonut of donation
+0 - maximal tier
+...';
+
+COMMENT ON COLUMN NFTType.UserType IS 'Impactor type
 0 - company
 1 - private user';
 

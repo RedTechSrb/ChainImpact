@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import BiggestImpactors from "../components/BiggestImpactors";
 
 
 const useStyles = createStyles((theme) => ({
@@ -7,6 +8,7 @@ const useStyles = createStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
         minHeight: "400px",
         width: "100%",
     }
@@ -20,6 +22,8 @@ export default function Home() {
     return (
         <div className={classes.container}>
             <h2>Welcome to ChainImpact!</h2>
+            <br/>
+            <BiggestImpactors />
         </div>
     );
 }

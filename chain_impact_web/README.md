@@ -8,6 +8,7 @@ Then you should install the following packages:
 ```
 npm i react-router-dom
 npm install --save @types/react-router-dom
+npm i axios
 ```
 
 For adding Supabase execute the following command (probably won't be needed, will update):

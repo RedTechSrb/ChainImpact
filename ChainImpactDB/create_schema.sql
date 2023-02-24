@@ -19,7 +19,7 @@ CREATE TABLE CauseType
 ( 
 	Id                   serial  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
-	CONSTRAINT XPKType PRIMARY KEY (Id)
+	CONSTRAINT XPKCauseType PRIMARY KEY (Id)
 );
 
 CREATE TABLE Charity

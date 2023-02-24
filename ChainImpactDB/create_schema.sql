@@ -1,6 +1,4 @@
 
-DROP TABLE IF EXISTS ProjectType;
-
 DROP TABLE IF EXISTS Donation;
 
 DROP TABLE IF EXISTS Transaction;
@@ -15,7 +13,14 @@ DROP TABLE IF EXISTS Impactor;
 
 DROP TABLE IF EXISTS NFTType;
 
-DROP TABLE IF EXISTS Type;
+DROP TABLE IF EXISTS CauseType;
+
+CREATE TABLE CauseType
+( 
+	Id                   serial  NOT NULL ,
+	Name                 varchar(100)  NOT NULL ,
+	CONSTRAINT XPKType PRIMARY KEY (Id)
+);
 
 CREATE TABLE Charity
 ( 
@@ -95,16 +100,9 @@ CREATE TABLE Project
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(1000)  NULL ,
 	ImpactorId           serial  NOT NULL ,
+	PrimaryCauseTypeId   serial  NOT NULL ,
+	SecondaryCauseTypeId serial  NOT NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
-);
-
-CREATE TABLE ProjectType
-( 
-	Id                   char(18)  NOT NULL ,
-	PrimaryTypeId        serial  NOT NULL ,
-	SecondaryTypeId      serial  NOT NULL ,
-	ProjectId            serial  NOT NULL ,
-	CONSTRAINT XPKProjectType PRIMARY KEY (Id)
 );
 
 CREATE TABLE Transaction
@@ -122,13 +120,6 @@ CREATE TABLE Transaction
 
 ALTER TABLE Transaction
 	ADD CONSTRAINT XAK1Transaction UNIQUE (BlockchainAddress);
-
-CREATE TABLE Type
-( 
-	Id                   serial  NOT NULL ,
-	Name                 varchar(100)  NOT NULL ,
-	CONSTRAINT XPKType PRIMARY KEY (Id)
-);
 
 
 ALTER TABLE Donation
@@ -154,7 +145,7 @@ ALTER TABLE NFTOwner
 
 
 ALTER TABLE NFTType
-	ADD CONSTRAINT FK_Type_NFTType FOREIGN KEY (CauseTypeId) REFERENCES Type(Id)
+	ADD CONSTRAINT FK_Type_NFTType FOREIGN KEY (CauseTypeId) REFERENCES CauseType(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
@@ -169,19 +160,13 @@ ALTER TABLE Project
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
-
-ALTER TABLE ProjectType
-	ADD CONSTRAINT FK_Type_ProjectType_Primary FOREIGN KEY (PrimaryTypeId) REFERENCES Type(Id)
+ALTER TABLE Project
+	ADD CONSTRAINT FK_CauseType_Project_Primary FOREIGN KEY (PrimaryCauseTypeId) REFERENCES CauseType(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
-ALTER TABLE ProjectType
-	ADD CONSTRAINT FK_Type_ProjectType_Secondary FOREIGN KEY (SecondaryTypeId) REFERENCES Type(Id)
-		ON UPDATE RESTRICT
-		ON DELETE RESTRICT;
-
-ALTER TABLE ProjectType
-	ADD CONSTRAINT FK_Project_ProjectType FOREIGN KEY (ProjectId) REFERENCES Project(Id)
+ALTER TABLE Project
+	ADD CONSTRAINT FK_CauseType_Project_Secondary FOREIGN KEY (SecondaryCauseTypeId) REFERENCES CauseType(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 

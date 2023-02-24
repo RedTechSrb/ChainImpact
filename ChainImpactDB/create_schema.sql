@@ -27,13 +27,10 @@ CREATE TABLE Charity
 	Discord              varchar(100)  NULL ,
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
-	ImageUrl             varchar(100)  NULL ,
+	ImageUrl             varchar(1000)  NULL ,
 	Description          varchar(4000)  NULL ,
 	CONSTRAINT XPKCharity PRIMARY KEY (Id)
 );
-
-ALTER TABLE Charity
-	ADD CONSTRAINT XAK1Charity UNIQUE (Wallet);
 
 CREATE TABLE Donation
 ( 
@@ -76,7 +73,7 @@ CREATE TABLE NFTType
 	Id                   serial  NOT NULL ,
 	Tier                 integer  NULL ,
 	UserType             integer  NULL ,
-	ImageUrl             varchar(100)  NULL ,
+	ImageUrl             varchar(1000)  NULL ,
 	CauseTypeId          serial  NOT NULL ,
 	MinimalDonation      decimal(20,9)  NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
@@ -96,7 +93,7 @@ CREATE TABLE Project
 	Discord              varchar(100)  NULL ,
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
-	ImageUrl             varchar(100)  NULL ,
+	ImageUrl             varchar(1000)  NULL ,
 	ImpactorId           serial  NOT NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
 );

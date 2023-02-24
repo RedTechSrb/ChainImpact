@@ -41,8 +41,8 @@ CREATE TABLE Donation
 ( 
 	Id                   serial  NOT NULL ,
 	Amount               decimal(20,9)  NULL ,
-	ProjectId            serial  NOT NULL ,
-	DonatorId            serial  NOT NULL ,
+	ProjectId            bigint  NOT NULL ,
+	DonatorId            bigint  NOT NULL ,
 	CONSTRAINT XPKDonation PRIMARY KEY (Id)
 );
 
@@ -67,9 +67,9 @@ ALTER TABLE Impactor
 
 CREATE TABLE NFTOwner
 ( 
-	Id                   char(18)  NOT NULL ,
-	NftTypeId            serial  NOT NULL ,
-	ImpactorId           serial  NOT NULL ,
+	Id                   serial  NOT NULL ,
+	NftTypeId            bigint  NOT NULL ,
+	ImpactorId           bigint  NOT NULL ,
 	CONSTRAINT XPKNFTOwner PRIMARY KEY (Id)
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE NFTType
 	Tier                 integer  NULL ,
 	UserType             integer  NULL ,
 	ImageUrl             varchar(1000)  NULL ,
-	CauseTypeId          serial  NOT NULL ,
+	CauseTypeId          bigint  NOT NULL ,
 	MinimalDonation      decimal(20,9)  NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
 );
@@ -99,9 +99,9 @@ CREATE TABLE Project
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(1000)  NULL ,
-	ImpactorId           serial  NULL ,
-	PrimaryCauseTypeId   serial  NOT NULL ,
-	SecondaryCauseTypeId serial  NOT NULL ,
+	ImpactorId           bigint  NULL ,
+	PrimaryCauseTypeId   bigint  NOT NULL ,
+	SecondaryCauseTypeId bigint  NOT NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
 );
 
@@ -112,8 +112,8 @@ CREATE TABLE Transaction
 	Sender               varchar(256)  NOT NULL ,
 	Receiver             varchar(256)  NOT NULL ,
 	Amount               decimal(20,9)  NULL ,
-	ProjectId            serial  NOT NULL ,
-	DonatorId            serial  NOT NULL ,
+	ProjectId            bigint  NOT NULL ,
+	DonatorId            bigint  NOT NULL ,
 	Type                 integer  NULL ,
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );

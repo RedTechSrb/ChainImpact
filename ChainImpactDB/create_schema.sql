@@ -78,6 +78,7 @@ CREATE TABLE NFTType
 	UserType             integer  NULL ,
 	ImageUrl             varchar(100)  NULL ,
 	CauseTypeId          serial  NOT NULL ,
+	MinimalDonation      decimal(20,9)  NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
 );
 

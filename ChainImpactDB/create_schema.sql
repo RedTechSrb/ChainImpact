@@ -99,7 +99,7 @@ CREATE TABLE Project
 	Twitter              varchar(100)  NULL ,
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(1000)  NULL ,
-	ImpactorId           serial  NOT NULL ,
+	ImpactorId           serial  NULL ,
 	PrimaryCauseTypeId   serial  NOT NULL ,
 	SecondaryCauseTypeId serial  NOT NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
@@ -157,8 +157,8 @@ ALTER TABLE Project
 
 ALTER TABLE Project
 	ADD CONSTRAINT FK_User_Project FOREIGN KEY (ImpactorId) REFERENCES Impactor(Id)
-		ON UPDATE RESTRICT
-		ON DELETE RESTRICT;
+		ON UPDATE SET NULL
+		ON DELETE SET NULL;
 
 ALTER TABLE Project
 	ADD CONSTRAINT FK_CauseType_Project_Primary FOREIGN KEY (PrimaryCauseTypeId) REFERENCES CauseType(Id)

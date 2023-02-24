@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS Type;
 
 DROP TABLE IF EXISTS Donation;
 
+DROP TABLE IF EXISTS Transaction;
+
 DROP TABLE IF EXISTS Project;
 
 DROP TABLE IF EXISTS Impactor;
@@ -33,7 +35,6 @@ CREATE TABLE Donation
 ( 
 	Id                   serial  NOT NULL ,
 	Amount               decimal(20,9)  NULL ,
-	AccountId            varchar(256)  NULL ,
 	ProjectId            serial  NOT NULL ,
 	DonatorId            serial  NOT NULL ,
 	CONSTRAINT XPKDonation PRIMARY KEY (Id)
@@ -86,6 +87,22 @@ CREATE TABLE ProjectType
 	CONSTRAINT XPKProjectType PRIMARY KEY (Id)
 );
 
+CREATE TABLE Transaction
+( 
+	Id                   serial  NOT NULL ,
+	BlockchainAddress    varchar(256)  NOT NULL ,
+	Sender               varchar(256)  NOT NULL ,
+	Receiver             varchar(256)  NOT NULL ,
+	Amount               decimal(20,9)  NULL ,
+	ProjectId            serial  NOT NULL ,
+	DonatorId            serial  NOT NULL ,
+	Type                 integer  NULL ,
+	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
+);
+
+ALTER TABLE Transaction
+	ADD CONSTRAINT XAK1Transaction UNIQUE (BlockchainAddress);
+
 CREATE TABLE Type
 ( 
 	Id                   serial  NOT NULL ,
@@ -131,6 +148,17 @@ ALTER TABLE ProjectType
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
+
+ALTER TABLE Transaction
+	ADD CONSTRAINT FK_Project_Transaction FOREIGN KEY (ProjectId) REFERENCES Project(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
+ALTER TABLE Transaction
+	ADD CONSTRAINT FK_Impactor_Transaction FOREIGN KEY (DonatorId) REFERENCES Impactor(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
 COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 0 - super admin user
 1 - simple user';
@@ -138,3 +166,9 @@ COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 COMMENT ON COLUMN Impactor.Type IS 'User type:
 0 - company
 1 - private user';
+
+COMMENT ON COLUMN Transaction.Type IS 'Type of transaction (who are Sender and Receiver)
+0 - Donator pays directly to Charity (there will be 2 transactions, one between Donator and Charity and the other between Donator and ChainImpact)
+1 - Donator pays to ChainImpact
+2 - ChainImpact pays to OffRamp service
+3 - confirmation of payment from OffRamp service to Charity';

@@ -1,4 +1,5 @@
 import { Title, Text, Container, Button, Overlay, createStyles } from '@mantine/core';
+import { useEffect } from 'react';
 
 const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
@@ -94,11 +95,23 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+
 export default function Hero() {
   const { classes, cx } = useStyles();
 
+  const executeScroll = () => {
+    const element = document.getElementById('hero');
+    if (element) {
+      element.scrollIntoView();
+    }
+  };
+  
+  useEffect(() => {
+    executeScroll();
+  }, []);
+
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} id="hero">
       <Overlay color="#000" opacity={0.65} zIndex={1} />
 
       <div className={classes.inner}>

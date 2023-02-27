@@ -7,6 +7,7 @@ import {
   createStyles,
 } from "@mantine/core";
 import { useEffect } from "react";
+import { Link } from "react-scroll";
 
 const mainFont =
   "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
@@ -17,6 +18,7 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     paddingTop: 80,
     paddingBottom: 80,
+    height: "82vh",
     backgroundImage:
       "url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=980&q=80)",
     backgroundSize: "cover",
@@ -144,9 +146,10 @@ export default function Hero() {
             className={classes.control}
             variant="white"
             size="xl"
-            onClick={() => executeScroll("faq")}
           >
-            I want to change the world
+            <Link to="faq" spy={true} smooth={true} duration={2000}>
+              I want to change the world
+            </Link>
           </Button>
           <Button
             className={cx(classes.control, classes.secondaryControl)}

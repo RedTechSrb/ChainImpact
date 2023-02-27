@@ -57,8 +57,9 @@ CREATE TABLE Impactor
 	Instagram            varchar(100)  NULL ,
 	Website              varchar(100)  NULL ,
 	Discord              varchar(100)  NULL ,
-	Role                 integer  NULL ,
-	Type                 integer  NULL ,
+	Role                 integer  NOT NULL ,
+	Type                 integer  NOT NULL ,
+	ImageUrl             varchar(100)  NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 
@@ -76,11 +77,11 @@ CREATE TABLE NFTOwner
 CREATE TABLE NFTType
 ( 
 	Id                   serial  NOT NULL ,
-	Tier                 integer  NULL ,
-	UserType             integer  NULL ,
-	ImageUrl             varchar(1000)  NULL ,
+	Tier                 integer  NOT NULL ,
+	UserType             integer  NOT NULL ,
+	ImageUrl             varchar(1000)  NOT NULL ,
 	CauseTypeId          bigint  NOT NULL ,
-	MinimalDonation      decimal(20,9)  NULL ,
+	MinimalDonation      decimal(20,9)  NOT NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
 );
 

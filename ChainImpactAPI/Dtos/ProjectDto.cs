@@ -1,11 +1,13 @@
 ﻿using ChainImpactAPI.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChainImpactAPI.Dtos
 {
     public class ProjectDto
     {
-        public ProjectDto(int id, int charity, string name, string? description, string? milestones, double finantialgoal, double totaldonated, string? website, string? facebook, string? discord, string? twitter, string? instagram, string? imageurl)
+        public ProjectDto(int id, Charity charity, string name, string? description, string? milestones, double finantialgoal, double totaldonated, string? website, string? facebook, string? discord, string? twitter, string? instagram, string? imageurl, Impactor? impactor, CauseType primarycausetype, CauseType secondarycausetype)
         {
+            this.id = id;
             this.charity = charity;
             this.name = name;
             this.description = description;
@@ -18,10 +20,13 @@ namespace ChainImpactAPI.Dtos
             this.twitter = twitter;
             this.instagram = instagram;
             this.imageurl = imageurl;
+            this.impactor = impactor;
+            this.primarycausetype = primarycausetype;
+            this.secondarycausetype = secondarycausetype;
         }
 
         public int id { get; set; }
-        public int charity { get; set; }
+        public Charity charity { get; set; }
         public string name { get; set; }
         public string? description { get; set; }
         public string? milestones { get; set; }
@@ -33,5 +38,8 @@ namespace ChainImpactAPI.Dtos
         public string? twitter { get; set; }
         public string? instagram { get; set; }
         public string? imageurl { get; set; }
+        public Impactor? impactor { get; set; }
+        public CauseType primarycausetype { get; set; }
+        public CauseType secondarycausetype { get; set; }
     }
 }

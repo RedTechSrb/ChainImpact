@@ -14,7 +14,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             this.context = context;
         }
 
-        public async Task<List<T>> ListAllAsync()
+        public virtual async Task<List<T>> ListAllAsync()
         {
             return await context.Set<T>().ToListAsync();
         }

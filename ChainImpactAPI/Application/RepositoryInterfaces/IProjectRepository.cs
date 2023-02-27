@@ -4,5 +4,6 @@ namespace ChainImpactAPI.Application.RepositoryInterfaces
 {
     public interface IProjectRepository : IGenericRepository<Project>
     {
+
     }
 }

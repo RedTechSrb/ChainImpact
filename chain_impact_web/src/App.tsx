@@ -35,7 +35,7 @@ function App() {
       <MantineProvider theme={{colorScheme}}>
         <Header />
           <div style={{
-            minHeight: "650px", backgroundColor: colorScheme === 'dark' ? "black" : "white",
+            minHeight: "650px", backgroundColor: colorScheme === 'dark' ? "black" : "#e5e5e5",
             color: colorScheme === 'dark' ? "white" : "black"
             }}>
           <Routes >

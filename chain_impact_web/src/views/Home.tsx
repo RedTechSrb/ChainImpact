@@ -1,5 +1,6 @@
 import { createStyles } from "@mantine/core";
 import BiggestImpactors from "../components/BiggestImpactors";
+import FAQ from "../components/FAQ";
 
 
 const useStyles = createStyles((theme) => ({
@@ -20,10 +21,9 @@ export default function Home() {
     const { classes} = useStyles();
 
     return (
-        <div className={classes.container}>
-            <h2>Welcome to ChainImpact!</h2>
-            <br/>
+        <>
             <BiggestImpactors />
-        </div>
+            <FAQ />
+        </>
     );
 }

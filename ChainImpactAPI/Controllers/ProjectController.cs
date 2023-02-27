@@ -14,7 +14,7 @@ namespace ChainImpactAPI.Controllers
             this.projectService = projectService;
         }
 
-        [HttpGet(Name = "get")]
+        [HttpGet(Name = "project/getall")]
         public IActionResult Get()
         {
 

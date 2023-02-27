@@ -1,5 +1,6 @@
 import { createStyles } from "@mantine/core";
 import BiggestImpactors from "../components/BiggestImpactors";
+import FAQ from "../components/FAQ";
 import Hero from "../components/Hero";
 import TagLeaderboard from "../components/TagLeaderboard";
 
@@ -26,7 +27,7 @@ export default function Home() {
             <Hero/>
             <TagLeaderboard />
             <BiggestImpactors />
-
+            <FAQ />
             
             </>
     );

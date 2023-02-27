@@ -14,9 +14,8 @@ namespace ChainImpactAPI.Models
         public string? twitter { get; set; }
         public string? instagram { get; set; }
         public string? imageurl { get; set; }
-        // TODO: SET TO BE NOT NULL !!!
-        public int? role { get; set; }
-        public int? type { get; set; }
+        public int role { get; set; }
+        public int type { get; set; }
 
     }
 }

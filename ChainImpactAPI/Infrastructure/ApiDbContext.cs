@@ -8,8 +8,15 @@ namespace ChainImpactAPI.Infrastructure
 
         // Tables from database
         // Names has to be exact the same as in database
-        public virtual DbSet<Project> project { get; set; }
+        public virtual DbSet<CauseType> causetype { get; set; }
         public virtual DbSet<Charity> charity { get; set; }
+        public virtual DbSet<Donation> donation { get; set; }
+        public virtual DbSet<Impactor> impactor { get; set; }
+        public virtual DbSet<NFTOwner> nftowner { get; set; }
+        public virtual DbSet<NFTType> nfttype { get; set; }
+        public virtual DbSet<Project> project { get; set; }
+        public virtual DbSet<Transaction> transaction { get; set; }
+
 
 
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
@@ -21,11 +28,5 @@ namespace ChainImpactAPI.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<ChainImpactAPI.Models.CauseType> CauseType { get; set; }
-
-        public DbSet<ChainImpactAPI.Models.Donation> Donation { get; set; }
-
-
     }
 }

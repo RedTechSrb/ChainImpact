@@ -10,6 +10,9 @@ import {
   ActionIcon,
   useMantineTheme,
   Title,
+  SegmentedControl,
+  Center,
+  Flex,
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 
@@ -90,6 +93,27 @@ const useStyles = createStyles((theme) => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontWeight: 600,
   },
+
+  root: {
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
+    boxShadow: theme.shadows.md,
+    border: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[1]
+    }`,
+  },
+
+  active: {
+    backgroundImage: theme.fn.gradient({ from: "pink", to: "orange" }),
+  },
+
+  control: {
+    border: "0 !important",
+  },
+
+  labelActive: {
+    color: `${theme.white} !important`,
+  },
 }));
 
 export default function ProjectExplorer() {
@@ -132,6 +156,7 @@ export default function ProjectExplorer() {
         See which communities have the strongest social presence and which
         community members make it all happen!
       </Text>
+
       <TextInput
         icon={<IconSearch size={18} stroke={1.5} />}
         radius="xl"
@@ -153,6 +178,28 @@ export default function ProjectExplorer() {
         placeholder="Search questions"
         rightSectionWidth={42}
       />
+      <Flex
+        mih={50}
+        gap="sm"
+        justify="center"
+        align="center"
+        direction="row"
+        wrap="wrap"
+      >
+        <SegmentedControl
+          radius="xl"
+          size="md"
+          data={[
+            "General",
+            "Environment",
+            "Social",
+            "Disaster Relief",
+            "Education",
+          ]}
+          classNames={classes}
+        />
+      </Flex>
+
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         {cards}
       </SimpleGrid>

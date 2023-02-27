@@ -34,16 +34,12 @@ function App() {
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{colorScheme}}>
         <Header />
-          <div style={{
-            minHeight: "650px", backgroundColor: colorScheme === 'dark' ? "black" : "#e5e5e5",
-            color: colorScheme === 'dark' ? "white" : "black"
-            }}>
           <Routes >
               <Route path="/" element={<Home />} />
               <Route path="/posts" element={<About />} />
               <Route path="/*" element={<NotFound />} />
           </Routes>
-          </div>
+
         <Footer links={footerProps.links} />
       </MantineProvider>
     </ColorSchemeProvider>

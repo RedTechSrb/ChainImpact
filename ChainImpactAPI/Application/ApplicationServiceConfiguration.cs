@@ -8,7 +8,17 @@ namespace ChainImpactAPI.Application
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ICauseTypeService, CauseTypeService>()
+                    .AddScoped<ICharityService, CharityService>()
+                    .AddScoped<IDonationService, DonationService>()
+                    .AddScoped<IImpactorService, ImpactorService>()
+                    .AddScoped<INFTOwnerService, NFTOwnerService>()
+                    .AddScoped<INFTTypeService, NFTTypeService>()
+                    .AddScoped<IProjectService, ProjectService>()
+                    .AddScoped<ITransactionService, TransactionService>()
+                    ;
+
+            return services;
         }
 
     }

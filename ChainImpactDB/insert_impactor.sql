@@ -1,3 +1,9 @@
+-- ChainImpact
+
+INSERT INTO public.impactor(
+	id, wallet, name, description, facebook, twitter, instagram, website, discord, role, type)
+	VALUES (0, 'fhlefhhiefhefhiehifhie', 'ChainImpact', 'Blockchain', null, null, null, null, null, 1, 0);
+
 -- companies
 
 INSERT INTO public.impactor(

@@ -129,7 +129,7 @@ import ImpactorTable from './ImpactorTable';
     return (
       <Container size="xl" py="xl">
         <Title order={2} className={classes.title} align="center" mt="sm">
-            Find the biggest movers.
+            Find the biggest movers. yeah
         </Title>
   
         <Text color="dimmed" className={classes.description} align="center" mt="md">

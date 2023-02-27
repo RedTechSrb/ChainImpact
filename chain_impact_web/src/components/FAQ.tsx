@@ -1,6 +1,8 @@
 import { createStyles, Image, Accordion, Grid, Col, Container, Title, Text } from '@mantine/core';
 import image from '../res/images/faq_image.png';
 
+const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
+
 const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingTop: theme.spacing.xl * 2,
@@ -10,7 +12,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   componentTitle: {
-    fontFamily: 'Sans-serif',
+    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: "16px",
@@ -21,9 +23,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   componentHeader: {
-    fontFamily: 'Sans-serif',
+    fontFamily: mainFont,
     fontStyle: "normal",
-    fontWeight: 700,
+    fontWeight: 900,
     fontSize: "32px",
     lineHeight: "140%",
     marginTop: "15px",
@@ -33,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   desc: {
-    fontFamily: 'DM Sans',
+    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "18px",
@@ -44,7 +46,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   readMore: {
-    fontFamily: 'Sans-serif',
+    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "18px",
@@ -60,16 +62,17 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
+    
     marginTop: theme.spacing.md,
     marginBottom: theme.spacing.md,
     paddingLeft: theme.spacing.md,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    fontFamily: `Sans-serif`,
+    fontFamily: mainFont,
   },
 
   item: {
-    fontFamily: "Sans-serif",
-    fontSize: theme.fontSizes.sm,
+    fontFamily: mainFont,
+    fontSize: theme.fontSizes.md,
     color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
   },
 }));
@@ -87,7 +90,7 @@ export default function FAQ() {
         </Text>
         <Text className={classes.componentHeader}> 
         Distribute aid <span style={{color: "rgba(19, 173, 183, 1)"}}>easily</span>,
-                       <span style={{color: "rgba(19, 173, 183, 1)"}}>quickly</span>, and 
+                       <span style={{color: "rgba(19, 173, 183, 1)"}}> quickly</span>, and 
             <span style={{color: "rgba(19, 173, 183, 1)"}}> transparently with blockchain</span>
         </Text>
       </Container>

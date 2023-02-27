@@ -11,6 +11,8 @@ import {
   import { IconGauge, IconUser, IconCookie } from '@tabler/icons';
 import ImpactorTable from './ImpactorTable';
   
+const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
+
   const impactortabledata = [
     {
       "avatar": "https://images.unsplash.com/photo-1624298357597-fd92dfbec01d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
@@ -72,6 +74,7 @@ import ImpactorTable from './ImpactorTable';
   
   const useStyles = createStyles((theme) => ({
     title: {
+      fontFamily: mainFont,
       fontSize: 34,
       fontWeight: 900,
       [theme.fn.smallerThan('sm')]: {

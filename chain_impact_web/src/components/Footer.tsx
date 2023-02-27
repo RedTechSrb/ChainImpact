@@ -2,9 +2,12 @@ import { createStyles, Container, Group, Anchor, useMantineColorScheme, useManti
 import { IconStar } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 
+const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
+  
 const useStyles = createStyles((theme) => ({
   footer: {
     //marginTop: 120,
+    fontFamily: mainFont,
     borderTop: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
@@ -13,6 +16,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   inner: {
+    fontFamily: mainFont,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -27,6 +31,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   links: {
+    fontFamily: mainFont,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     [theme.fn.smallerThan('xs')]: {
       marginTop: theme.spacing.md,

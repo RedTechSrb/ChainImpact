@@ -30,14 +30,18 @@ import {
   } from '@tabler/icons';
 import LightDarkMode from './LightDarkMode';
 import { Link } from 'react-router-dom';
+
+const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
   
   const useStyles = createStyles((theme) => ({
     header: {
+      fontFamily: mainFont,
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
       margin: "0",
     },
 
     link: {
+      fontFamily: mainFont,
       display: 'flex',
       alignItems: 'center',
       height: '100%',
@@ -61,6 +65,7 @@ import { Link } from 'react-router-dom';
     },
   
     subLink: {
+      fontFamily: mainFont,
       width: '100%',
       padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
       borderRadius: theme.radius.md,
@@ -73,6 +78,7 @@ import { Link } from 'react-router-dom';
     },
   
     dropdownFooter: {
+      fontFamily: mainFont,
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4],
       margin: -theme.spacing.md,
       marginTop: theme.spacing.sm,

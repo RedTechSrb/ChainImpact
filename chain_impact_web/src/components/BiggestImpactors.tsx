@@ -69,9 +69,12 @@ import ImpactorTable from './ImpactorTable';
       icon: IconCookie,
     },
   ];
+
+  const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
   
   const useStyles = createStyles((theme) => ({
     title: {
+      fontFamily: mainFont,
       fontSize: 34,
       fontWeight: 900,
       [theme.fn.smallerThan('sm')]: {
@@ -80,6 +83,7 @@ import ImpactorTable from './ImpactorTable';
     },
   
     description: {
+      fontFamily: mainFont,
       maxWidth: 600,
       margin: 'auto',
   
@@ -96,12 +100,14 @@ import ImpactorTable from './ImpactorTable';
     },
   
     card: {
+      fontFamily: mainFont,
       border: `1px solid ${
         theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
       }`,
     },
   
     cardTitle: {
+      fontFamily: mainFont,
       '&::after': {
         content: '""',
         display: 'block',

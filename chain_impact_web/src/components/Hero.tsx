@@ -1,26 +1,34 @@
-import { Title, Text, Container, Button, Overlay, createStyles } from '@mantine/core';
+import {
+  Title,
+  Text,
+  Container,
+  Button,
+  Overlay,
+  createStyles,
+} from "@mantine/core";
 
-const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
+const mainFont =
+  "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     fontFamily: mainFont,
-    position: 'relative',
+    position: "relative",
     paddingTop: 80,
     paddingBottom: 80,
     backgroundImage:
-      'url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=980&q=80)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      "url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=980&q=80)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
 
-    '@media (max-width: 520px)': {
+    "@media (max-width: 520px)": {
       paddingTop: 80,
       paddingBottom: 50,
     },
   },
 
   inner: {
-    position: 'relative',
+    position: "relative",
     zIndex: 1,
   },
 
@@ -32,12 +40,12 @@ const useStyles = createStyles((theme) => ({
     paddingRight: theme.spacing.md,
     color: theme.white,
     marginBottom: theme.spacing.xs,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: mainFont,
 
-    '@media (max-width: 520px)': {
+    "@media (max-width: 520px)": {
       fontSize: 28,
-      textAlign: 'left',
+      textAlign: "left",
     },
   },
 
@@ -47,23 +55,23 @@ const useStyles = createStyles((theme) => ({
 
   description: {
     color: theme.colors.gray[0],
-    textAlign: 'center',
+    textAlign: "center",
 
-    '@media (max-width: 520px)': {
+    "@media (max-width: 520px)": {
       fontSize: theme.fontSizes.md,
-      textAlign: 'left',
+      textAlign: "left",
     },
   },
 
   controls: {
     marginTop: theme.spacing.xl * 1.0,
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
 
-    '@media (max-width: 520px)': {
-      flexDirection: 'column',
+    "@media (max-width: 520px)": {
+      flexDirection: "column",
     },
   },
 
@@ -72,12 +80,12 @@ const useStyles = createStyles((theme) => ({
     height: 42,
     fontSize: theme.fontSizes.md,
 
-    '&:not(:first-of-type)': {
+    "&:not(:first-of-type)": {
       marginLeft: theme.spacing.md,
     },
 
-    '@media (max-width: 520px)': {
-      '&:not(:first-of-type)': {
+    "@media (max-width: 520px)": {
+      "&:not(:first-of-type)": {
         marginTop: theme.spacing.md,
         marginLeft: 0,
       },
@@ -86,10 +94,10 @@ const useStyles = createStyles((theme) => ({
 
   secondaryControl: {
     color: theme.white,
-    backgroundColor: 'rgba(255, 255, 255, .4)',
+    backgroundColor: "rgba(255, 255, 255, .4)",
 
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, .45) !important',
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, .45) !important",
     },
   },
 }));
@@ -103,25 +111,31 @@ export default function Hero() {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Automated AI code reviews for{' '}
           <Text component="span" inherit className={classes.highlight}>
-            any stack
+            ESG
+          </Text>{" "}
+          powered by{" "}
+          <Text component="span" inherit className={classes.highlight}>
+            Blockchain
           </Text>
         </Title>
 
         <Container size={640}>
           <Text size="lg" className={classes.description}>
-            Build more reliable software with AI companion. AI is also trained to detect lazy
-            developers who do nothing and just complain on Twitter.
+            Be a part of real impact by investing into Environmental and Social
+            Governance that is 100% transparent
           </Text>
         </Container>
 
         <div className={classes.controls}>
-          <Button className={classes.control} variant="white" size="lg">
-            Get started
+          <Button className={classes.control} variant="white" size="xl">
+            I want to change the world
           </Button>
-          <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
-            Live demo
+          <Button
+            className={cx(classes.control, classes.secondaryControl)}
+            size="lg"
+          >
+            Watch video
           </Button>
         </div>
       </div>

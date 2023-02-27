@@ -109,8 +109,8 @@ CREATE TABLE Transaction
 ( 
 	Id                   serial  NOT NULL ,
 	BlockchainAddress    varchar(256)  NOT NULL ,
-	Sender               varchar(256)  NOT NULL ,
-	Receiver             varchar(256)  NOT NULL ,
+	Sender               varchar(256)  NULL ,
+	Receiver             varchar(256)  NULL ,
 	Amount               decimal(20,9)  NULL ,
 	ProjectId            bigint  NOT NULL ,
 	DonatorId            bigint  NOT NULL ,

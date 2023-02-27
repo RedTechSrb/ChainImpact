@@ -129,17 +129,17 @@ import ImpactorTable from './ImpactorTable';
     return (
       <Container size="xl" py="xl">
         <Title order={2} className={classes.title} align="center" mt="sm">
-          Biggest Impactors
+            Find the biggest movers.
         </Title>
   
         <Text color="dimmed" className={classes.description} align="center" mt="md">
-        See which communities have the strongest social presence and which community members make it all happen!
+        Compete for top spot. Be a part of the breakthrough in one of the most popular governances.
         </Text>
   
-        <SimpleGrid cols={2} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
+        <SimpleGrid cols={3} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
           <ImpactorTable data={impactortabledata}></ImpactorTable>
           <ImpactorTable data={impactortabledata}></ImpactorTable>
-          
+          <ImpactorTable data={impactortabledata}></ImpactorTable>
         </SimpleGrid>
       </Container>
     );

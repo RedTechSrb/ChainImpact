@@ -1,5 +1,7 @@
 import { createStyles } from "@mantine/core";
 import BiggestImpactors from "../components/BiggestImpactors";
+import Hero from "../components/Hero";
+import TagLeaderboard from "../components/TagLeaderboard";
 
 
 const useStyles = createStyles((theme) => ({
@@ -20,10 +22,12 @@ export default function Home() {
     const { classes} = useStyles();
 
     return (
-        <div className={classes.container}>
-            <h2>Welcome to ChainImpact!</h2>
-            <br/>
+            <>
+            <Hero/>
+            <TagLeaderboard />
             <BiggestImpactors />
-        </div>
+
+            
+            </>
     );
 }

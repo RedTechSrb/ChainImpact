@@ -1,7 +1,17 @@
-import { createStyles, Image, Accordion, Grid, Col, Container, Title, Text } from '@mantine/core';
-import image from '../res/images/faq_image.png';
+import {
+  createStyles,
+  Image,
+  Accordion,
+  Grid,
+  Col,
+  Container,
+  Title,
+  Text,
+} from "@mantine/core";
+import image from "../res/images/faq_image.png";
 
-const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
+const mainFont =
+  "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -62,36 +72,40 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    
     marginTop: theme.spacing.md,
     marginBottom: theme.spacing.md,
     paddingLeft: theme.spacing.md,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
     fontFamily: mainFont,
   },
 
   item: {
     fontFamily: mainFont,
     fontSize: theme.fontSizes.md,
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[7],
   },
 }));
 
 const placeholder =
-  'It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.';
+  "It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.";
 
 export default function FAQ() {
   const { classes } = useStyles();
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} id="faq">
       <Container size="lg">
-        <Text className={classes.componentTitle}> 
-            A WEB3 ESG PLATFORM
-        </Text>
-        <Text className={classes.componentHeader}> 
-        Distribute aid <span style={{color: "rgba(19, 173, 183, 1)"}}>easily</span>,
-                       <span style={{color: "rgba(19, 173, 183, 1)"}}> quickly</span>, and 
-            <span style={{color: "rgba(19, 173, 183, 1)"}}> transparently with blockchain</span>
+        <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
+        <Text className={classes.componentHeader}>
+          Distribute aid{" "}
+          <span style={{ color: "rgba(19, 173, 183, 1)" }}>easily</span>,
+          <span style={{ color: "rgba(19, 173, 183, 1)" }}> quickly</span>, and
+          <span style={{ color: "rgba(19, 173, 183, 1)" }}>
+            {" "}
+            transparently with blockchain
+          </span>
         </Text>
       </Container>
       <Container size="lg">
@@ -101,22 +115,25 @@ export default function FAQ() {
           </Col>
           <Col span={12} md={6}>
             <Text className={classes.desc}>
-            A corporate responsibility web3 platform that copy copy
-             copy copy copy copy POWERED BY SOLANA.
-              Copy copy copy Bullshit bulish WOW
-               mega super EXTRA YAY. LESSS GO
+              A corporate responsibility web3 platform that copy copy copy copy
+              copy copy POWERED BY SOLANA. Copy copy copy Bullshit bulish WOW
+              mega super EXTRA YAY. LESSS GO
             </Text>
-            <Text className={classes.readMore}>
-                Read more
-            </Text>
+            <Text className={classes.readMore}>Read more</Text>
 
             <Title order={2} align="left" className={classes.title}>
               Frequently Asked Questions
             </Title>
 
-            <Accordion chevronPosition="right" defaultValue="reset-password" variant="separated">
+            <Accordion
+              chevronPosition="right"
+              defaultValue="reset-password"
+              variant="separated"
+            >
               <Accordion.Item className={classes.item} value="reset-password">
-                <Accordion.Control>Is Chain Impact trustless?</Accordion.Control>
+                <Accordion.Control>
+                  Is Chain Impact trustless?
+                </Accordion.Control>
                 <Accordion.Panel>{placeholder}</Accordion.Panel>
               </Accordion.Item>
 
@@ -126,13 +143,15 @@ export default function FAQ() {
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="newsletter">
-                <Accordion.Control>Can Chain Impacts data be accessed by the public?</Accordion.Control>
+                <Accordion.Control>
+                  Can Chain Impacts data be accessed by the public?
+                </Accordion.Control>
                 <Accordion.Panel>{placeholder}</Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="credit-card">
                 <Accordion.Control>
-                Can Chain Impacts data be accessed by the public?
+                  Can Chain Impacts data be accessed by the public?
                 </Accordion.Control>
                 <Accordion.Panel>{placeholder}</Accordion.Panel>
               </Accordion.Item>

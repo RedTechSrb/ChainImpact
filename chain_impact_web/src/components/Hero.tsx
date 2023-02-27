@@ -1,5 +1,12 @@
-import { Title, Text, Container, Button, Overlay, createStyles } from '@mantine/core';
-import { useEffect } from 'react';
+import {
+  Title,
+  Text,
+  Container,
+  Button,
+  Overlay,
+  createStyles,
+} from "@mantine/core";
+import { useEffect } from "react";
 
 const mainFont =
   "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
@@ -96,19 +103,18 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
 export default function Hero() {
   const { classes, cx } = useStyles();
 
-  const executeScroll = () => {
-    const element = document.getElementById('hero');
+  const executeScroll = (data: string) => {
+    const element = document.getElementById(data);
     if (element) {
       element.scrollIntoView();
     }
   };
-  
+
   useEffect(() => {
-    executeScroll();
+    executeScroll("hero");
   }, []);
 
   return (
@@ -134,7 +140,12 @@ export default function Hero() {
         </Container>
 
         <div className={classes.controls}>
-          <Button className={classes.control} variant="white" size="xl">
+          <Button
+            className={classes.control}
+            variant="white"
+            size="xl"
+            onClick={() => executeScroll("faq")}
+          >
             I want to change the world
           </Button>
           <Button

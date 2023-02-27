@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const testimonialsData = [
+const testimonialsData =
   {
     supTitle: "Use cases",
     description:
@@ -47,8 +47,7 @@ const testimonialsData = [
         description: "Phanpy uses its long nose to shower itself",
       },
     ],
-  },
-];
+  };
 
 export default function Home() {
   const { classes } = useStyles();
@@ -60,7 +59,7 @@ export default function Home() {
       <BiggestImpactors />
       <ProjectExplorer />
       <FAQ />
-      <Testimonials supTitle={undefined} description={undefined} data={[]} />
+      <Testimonials supTitle={testimonialsData.supTitle} description={testimonialsData.description} data={testimonialsData.data} />
     </>
   );
 }

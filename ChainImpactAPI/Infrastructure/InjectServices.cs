@@ -8,7 +8,15 @@ namespace ChainImpactAPI.Infrastructure
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<ICauseTypeRepository, CauseTypeRepository>()
+                    .AddTransient<ICharityRepository, CharityRepository>()
+                    .AddTransient<IDonationRepository, DonationRepository>()
+                    .AddTransient<IImpactorRepository, ImpactorRepository>()
+                    .AddTransient<INFTOwnerRepository, NFTOwnerRepository>()
+                    .AddTransient<INFTTypeRepository, NFTTypeRepository>()
+                    .AddTransient<IProjectRepository, ProjectRepository>()
+                    .AddTransient<ITransactionRepository, TransactionRepository>()
+                    ;
 
             return services;
         }

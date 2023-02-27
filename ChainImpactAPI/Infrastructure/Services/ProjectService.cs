@@ -24,7 +24,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             var projectsDto = new List<ProjectDto>();
             foreach (var project in projects)
             {
-                projectsDto.Add(new ProjectDto(project.Id, project.Name));
+                projectsDto.Add(new ProjectDto(project.id, project.charityid, project.name, project.description, project.milestones, project.finantialgoal, project.totaldonated, project.website, project.facebook, project.discord, project.twitter, project.instagram, project.imageurl));
             }
 
             return projectsDto;

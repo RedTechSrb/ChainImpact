@@ -56,69 +56,69 @@ INSERT INTO public.nfttype(
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fi0.wp.com%2Fnftnewstoday.com%2Fwp-content%2Fuploads%2F2022%2F08%2Ftezos.jpg%3Fresize%3D800%252C450%26ssl%3D1&imgrefurl=https%3A%2F%2Fnftnewstoday.com%2F2022%2F08%2F15%2Feco-friendly-nfts-top-5-green-nfts%2F&tbnid=eLL8FJGdT4xbtM&vet=12ahUKEwiv3cKXxK79AhW-WKQEHRsLAZYQMyhVegUIARCNAQ..i&docid=-i1Fzynt7Px78M&w=800&h=450&q=ecological%20nfts&ved=2ahUKEwiv3cKXxK79AhW-WKQEHRsLAZYQMyhVegUIARCNAQ'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fi0.wp.com%2Fnftnewstoday.com%2Fwp-content%2Fuploads%2F2022%2F08%2Ftezos.jpg%3Fresize%3D800%252C450%26ssl%3D1&imgrefurl=https%3A%2F%2Fnftnewstoday.com%2F2022%2F08%2F15%2Feco-friendly-nfts-top-5-green-nfts%2F&tbnid=eLL8FJGdT4xbtM&vet=12ahUKEwiv3cKXxK79AhW-WKQEHRsLAZYQMyhVegUIARCNAQ..i&docid=-i1Fzynt7Px78M&w=800&h=450&q=ecological%20nfts&ved=2ahUKEwiv3cKXxK79AhW-WKQEHRsLAZYQMyhVegUIARCNAQ'
 			, 5, 100);
 
 -- tier: 1; usertype: company;
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.theecoexperts.co.uk%2Fwp-content%2Fuploads%2F2021%2F11%2FNFT-1.jpeg&imgrefurl=https%3A%2F%2Fwww.theecoexperts.co.uk%2Fblog%2Fenvironmental-impact-of-nfts&tbnid=yBoozw1Eq_BHYM&vet=10COEBEDMoywFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=7QCr59LwJ2eycM&w=1440&h=864&q=ecological%20nfts&ved=0COEBEDMoywFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
+	VALUES (1, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.theecoexperts.co.uk%2Fwp-content%2Fuploads%2F2021%2F11%2FNFT-1.jpeg&imgrefurl=https%3A%2F%2Fwww.theecoexperts.co.uk%2Fblog%2Fenvironmental-impact-of-nfts&tbnid=yBoozw1Eq_BHYM&vet=10COEBEDMoywFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=7QCr59LwJ2eycM&w=1440&h=864&q=ecological%20nfts&ved=0COEBEDMoywFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
 			, 1, 500);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fstatic.independent.co.uk%2F2021%2F04%2F21%2F14%2Fnft%2520climate.jpg%3Fwidth%3D1200%26height%3D1200&imgrefurl=https%3A%2F%2Fwww.independent.co.uk%2Fclimate-change%2Fsustainable-living%2Fnft-environment-climate-change-crypto-b1835220.html&tbnid=Kuj0jnxmT0XsRM&vet=10CBIQxiAoCWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=KMOhF3zgohlWLM&w=1200&h=1200&itg=1&q=ecological%20nfts&ved=0CBIQxiAoCWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
+	VALUES (1, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fstatic.independent.co.uk%2F2021%2F04%2F21%2F14%2Fnft%2520climate.jpg%3Fwidth%3D1200%26height%3D1200&imgrefurl=https%3A%2F%2Fwww.independent.co.uk%2Fclimate-change%2Fsustainable-living%2Fnft-environment-climate-change-crypto-b1835220.html&tbnid=Kuj0jnxmT0XsRM&vet=10CBIQxiAoCWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=KMOhF3zgohlWLM&w=1200&h=1200&itg=1&q=ecological%20nfts&ved=0CBIQxiAoCWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
 			, 2, 500);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fvisionarymarketing.com%2Fwp-content%2Fuploads%2F2022%2F02%2Fart-nfts-auction-2021-esther-barend.jpg.webp&imgrefurl=https%3A%2F%2Fvisionarymarketing.com%2Fen%2F2022%2F02%2Fart-auction-nfts%2F&tbnid=eZcS6Lz9u-dtZM&vet=10CAYQxiAoCmoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=vPmSi8nQGvn8WM&w=519&h=339&itg=1&q=ecological%20nfts&ved=0CAYQxiAoCmoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
+	VALUES (1, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fvisionarymarketing.com%2Fwp-content%2Fuploads%2F2022%2F02%2Fart-nfts-auction-2021-esther-barend.jpg.webp&imgrefurl=https%3A%2F%2Fvisionarymarketing.com%2Fen%2F2022%2F02%2Fart-auction-nfts%2F&tbnid=eZcS6Lz9u-dtZM&vet=10CAYQxiAoCmoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=vPmSi8nQGvn8WM&w=519&h=339&itg=1&q=ecological%20nfts&ved=0CAYQxiAoCmoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
 			, 3, 500);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fvoguesg.s3.ap-southeast-1.amazonaws.com%2Fwp-content%2Fuploads%2F2022%2F05%2F12165833%2FSeeing-Through-Mumu-The-Stan-Facebook.jpg&imgrefurl=https%3A%2F%2Fvogue.sg%2Fmetaverse-editor-tz-apac-clean-nfts%2F&tbnid=7j41zpsFwYaAcM&vet=10CBAQxiAoBGoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=pwx098uxx_resM&w=680&h=454&itg=1&q=ecological%20nfts&ved=0CBAQxiAoBGoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
+	VALUES (1, 0, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fvoguesg.s3.ap-southeast-1.amazonaws.com%2Fwp-content%2Fuploads%2F2022%2F05%2F12165833%2FSeeing-Through-Mumu-The-Stan-Facebook.jpg&imgrefurl=https%3A%2F%2Fvogue.sg%2Fmetaverse-editor-tz-apac-clean-nfts%2F&tbnid=7j41zpsFwYaAcM&vet=10CBAQxiAoBGoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE..i&docid=pwx098uxx_resM&w=680&h=454&itg=1&q=ecological%20nfts&ved=0CBAQxiAoBGoXChMIwO7ImMSu_QIVAAAAAB0AAAAAECE'
 			, 4, 500);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 0, 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.brianriverauncapher.com%2Farctic-bliss-nft&psig=AOvVaw2it-B767kCVN71YKD8tUo3&ust=1677340971634000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAX'
+	VALUES (1, 0, 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.brianriverauncapher.com%2Farctic-bliss-nft&psig=AOvVaw2it-B767kCVN71YKD8tUo3&ust=1677340971634000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAX'
 			, 5, 500);
 
 -- tier: 1; usertype: company;
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages-prod.dazeddigital.com%2F900%2Fazure%2Fdazed-prod%2F1300%2F4%2F1304758.jpg&imgrefurl=https%3A%2F%2Fwww.dazeddigital.com%2Fscience-tech%2Farticle%2F52210%2F1%2Fwhat-is-an-nft-digital-artists-explain-beeple-sucuk-bratwurst-aaron-jablonski&tbnid=QQfMTB6j0TtD0M&vet=10CK4BEDMotAFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=3Qhc42fAyV4udM&w=900&h=506&q=ecological%20nfts&ved=0CK4BEDMotAFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages-prod.dazeddigital.com%2F900%2Fazure%2Fdazed-prod%2F1300%2F4%2F1304758.jpg&imgrefurl=https%3A%2F%2Fwww.dazeddigital.com%2Fscience-tech%2Farticle%2F52210%2F1%2Fwhat-is-an-nft-digital-artists-explain-beeple-sucuk-bratwurst-aaron-jablonski&tbnid=QQfMTB6j0TtD0M&vet=10CK4BEDMotAFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=3Qhc42fAyV4udM&w=900&h=506&q=ecological%20nfts&ved=0CK4BEDMotAFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
 			, 1, 10);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.prmention.com%2Fblog%2Fwp-content%2Fuploads%2F2022%2F05%2Fthe-impact-of-NFTs-on-Digital-Marketing-scaled.webp&imgrefurl=https%3A%2F%2Fwww.prmention.com%2Fblog%2Fthe-impact-of-nfts-on-digital-marketing%2F&tbnid=bvntkJ_qdU9ozM&vet=10CKoBEDMosgFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=L2-gTw6t1SdVqM&w=2560&h=1829&q=ecological%20nfts&ved=0CKoBEDMosgFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.prmention.com%2Fblog%2Fwp-content%2Fuploads%2F2022%2F05%2Fthe-impact-of-NFTs-on-Digital-Marketing-scaled.webp&imgrefurl=https%3A%2F%2Fwww.prmention.com%2Fblog%2Fthe-impact-of-nfts-on-digital-marketing%2F&tbnid=bvntkJ_qdU9ozM&vet=10CKoBEDMosgFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU..i&docid=L2-gTw6t1SdVqM&w=2560&h=1829&q=ecological%20nfts&ved=0CKoBEDMosgFqFwoTCMDuyJjErv0CFQAAAAAdAAAAABAU'
 			, 2, 10);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.tbstat.com%2Fwp%2Fuploads%2F2022%2F04%2FBored-Ape-1538-1200x675.jpg&imgrefurl=https%3A%2F%2Fwww.theblock.co%2Fpost%2F140702%2Fbored-ape-holder-loses-nfts-worth-567000-to-a-scammer&tbnid=spyumPT-S6-iVM&vet=10CHwQMyifAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=uWtavcBUbdxPXM&w=1200&h=675&q=ecological%20nfts&ved=0CHwQMyifAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.tbstat.com%2Fwp%2Fuploads%2F2022%2F04%2FBored-Ape-1538-1200x675.jpg&imgrefurl=https%3A%2F%2Fwww.theblock.co%2Fpost%2F140702%2Fbored-ape-holder-loses-nfts-worth-567000-to-a-scammer&tbnid=spyumPT-S6-iVM&vet=10CHwQMyifAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=uWtavcBUbdxPXM&w=1200&h=675&q=ecological%20nfts&ved=0CHwQMyifAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
 			, 3, 10);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FFa1YqovWYAEa2K0%3Fformat%3Djpg%26name%3Dlarge&imgrefurl=https%3A%2F%2Ftwitter.com%2FEFT_project&tbnid=Xe58GE5AoyLNlM&vet=10CE8QMyiLAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=lQgMXXTjK2vH3M&w=1280&h=1280&q=ecological%20nfts&ved=0CE8QMyiLAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FFa1YqovWYAEa2K0%3Fformat%3Djpg%26name%3Dlarge&imgrefurl=https%3A%2F%2Ftwitter.com%2FEFT_project&tbnid=Xe58GE5AoyLNlM&vet=10CE8QMyiLAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=lQgMXXTjK2vH3M&w=1280&h=1280&q=ecological%20nfts&ved=0CE8QMyiLAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
 			, 4, 10);
 
 INSERT INTO public.nfttype(
 	tier, usertype, imageurl, 
 		causetypeid, minimaldonation)
-	VALUES (0, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fnftnow.com%2Fwp-content%2Fuploads%2F2022%2F03%2Fnfts-energy-and-the-environment-.png&imgrefurl=https%3A%2F%2Fnftnow.com%2Ffeatures%2Fnfts-and-the-environment-why-the-anger-is-unjustified%2F&tbnid=nWtR0do_DiQZoM&vet=10CE0QMyiKAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=0jiOG3lwBbch5M&w=1400&h=700&q=ecological%20nfts&ved=0CE0QMyiKAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
+	VALUES (1, 1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fnftnow.com%2Fwp-content%2Fuploads%2F2022%2F03%2Fnfts-energy-and-the-environment-.png&imgrefurl=https%3A%2F%2Fnftnow.com%2Ffeatures%2Fnfts-and-the-environment-why-the-anger-is-unjustified%2F&tbnid=nWtR0do_DiQZoM&vet=10CE0QMyiKAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ..i&docid=0jiOG3lwBbch5M&w=1400&h=700&q=ecological%20nfts&ved=0CE0QMyiKAWoXChMIwO7ImMSu_QIVAAAAAB0AAAAAEBQ'
 			, 5, 10);
 
 

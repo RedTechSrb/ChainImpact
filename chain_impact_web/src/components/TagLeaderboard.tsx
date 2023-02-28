@@ -140,7 +140,7 @@ export default function TagLeaderboard() {
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
-        Companies that make a real Impact
+        Top Companies that make a real Impact
       </Title>
 
       <Text

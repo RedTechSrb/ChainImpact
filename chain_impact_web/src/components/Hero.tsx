@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     fontWeight: 800,
-    fontSize: 40,
+    fontSize: 48,
     letterSpacing: -1,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
@@ -53,6 +53,7 @@ const useStyles = createStyles((theme) => ({
   description: {
     color: theme.colors.gray[0],
     textAlign: "center",
+    fontSize: 24,
 
     "@media (max-width: 520px)": {
       fontSize: theme.fontSizes.md,
@@ -75,8 +76,9 @@ const useStyles = createStyles((theme) => ({
   control: {
     height: 42,
     fontSize: theme.fontSizes.md,
-    backgroundColor: "#3b3d44",
-    color: "#BBFD00",
+    fontFamily: "Space Mono, monospace",
+    backgroundColor: "#black",
+    color: "#3b3d44", //"#BBFD00",
     "&:not(:first-of-type)": {
       marginLeft: theme.spacing.md,
     },
@@ -130,23 +132,23 @@ export default function Hero() {
 
         <Container size={640}>
           <Text size="lg" className={classes.description}>
-            Be a part of real impact by investing into Environmental and Social
-            Governance that is 100% transparent
+            Be a part of real impact by investing into Environmental, Social and
+            Governance that is 100% transparent.
           </Text>
         </Container>
 
         <div className={classes.controls}>
           <Button className={classes.control} variant="white" size="xl">
-            <Link to="faq" spy={true} smooth={true} duration={2000}>
-              Show me how to change the world
+            <Link to="faq" spy={true} smooth={true} duration={2500}>
+              Show me how to change the world!
             </Link>
           </Button>
-          <Button
+          {/* <Button
             className={cx(classes.control, classes.secondaryControl)}
             size="lg"
           >
             Watch video
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

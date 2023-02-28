@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   componentHeader: {
     fontStyle: "normal",
     fontWeight: 900,
-    fontSize: "32px",
+    fontSize: "40px",
     lineHeight: "140%",
     marginTop: "15px",
     marginBottom: "20px",
@@ -46,11 +46,29 @@ const useStyles = createStyles((theme) => ({
   desc: {
     fontStyle: "normal",
     fontWeight: 400,
+    fontSize: "24px",
+    lineHeight: "175%",
+    marginTop: "20px",
+
+    color: "white",
+  },
+  desc2: {
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontSize: "21px",
+    lineHeight: "175%",
+    marginTop: "20px",
+
+    color: "white",
+  },
+  desc3: {
+    fontStyle: "normal",
+    fontWeight: 400,
     fontSize: "18px",
     lineHeight: "175%",
     marginTop: "20px",
 
-    color: "#5C6574",
+    color: "white",
   },
 
   readMore: {
@@ -94,7 +112,7 @@ export default function FAQ() {
       <Container size="lg">
         <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
         <Text className={classes.componentHeader}>
-          Distribute aid <span className={classes.highlight}>easily</span>,
+          Make a real change <span className={classes.highlight}>easily</span>,
           <span className={classes.highlight}> quickly</span> and
           <span className={classes.highlight}> transparently </span>
           with blockchain
@@ -107,9 +125,36 @@ export default function FAQ() {
           </Col>
           <Col span={12} md={6}>
             <Text className={classes.desc}>
-              A corporate responsibility web3 platform that copy copy copy copy
-              copy copy POWERED BY SOLANA. Copy copy copy Bullshit bulish WOW
-              mega super EXTRA YAY. LESSS GO
+              <span className={classes.highlight}>
+                {" "}
+                Find new revenue streams
+              </span>{" "}
+              by investing into Environmental, Social, and Governance projects.
+            </Text>
+            <Text className={classes.desc2}>
+              With{" "}
+              <span
+                style={{
+                  marginLeft: "px",
+                  fontFamily: "Space Mono, monospace",
+                  color: "#BBFD00",
+                  fontWeight: 100,
+                }}
+              >
+                {" "}
+                chainimpact&#8482;
+              </span>
+              , companies become{" "}
+              <span className={classes.highlight}>Angel Impactors</span> on
+              projects that they believe in, while other community members and
+              companies help them reach their goal using crypto.
+            </Text>
+            <Text className={classes.desc3}>
+              Platform for{" "}
+              <span className={classes.highlight}>verifiable reporting</span>{" "}
+              and <span className={classes.highlight}>collaboration</span> on
+              projects that help the environment and social causes powered by
+              Solana.
             </Text>
             <Text className={classes.readMore}>Read more</Text>
 

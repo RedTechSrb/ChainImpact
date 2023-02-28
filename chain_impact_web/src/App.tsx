@@ -77,14 +77,25 @@ function App() {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+  useHotkeys([['mod+J', () => toggleColorScheme()]]);
+  // theme settings
+
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider theme={{ colorScheme }}>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider theme={{
+          globalStyles: (theme) => ({
+            'body': {
+              backgroundColor: colorScheme === 'dark' ? "yellow" : "white",
+              color: colorScheme === 'dark' ? "white" : "yellow",
+              
+            },
+          }),
+          colorScheme, 
+          fontFamilyMonospace: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+          }}
+          withCSSVariables withGlobalStyles withNormalizeCSS
+      >
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

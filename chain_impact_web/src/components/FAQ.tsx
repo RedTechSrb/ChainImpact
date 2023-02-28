@@ -10,8 +10,6 @@ import {
 } from "@mantine/core";
 import image from "../res/images/faq_image.png";
 
-const mainFont =
-  "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -22,7 +20,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   componentTitle: {
-    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: "16px",
@@ -33,7 +30,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   componentHeader: {
-    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 900,
     fontSize: "32px",
@@ -41,11 +37,10 @@ const useStyles = createStyles((theme) => ({
     marginTop: "15px",
     marginBottom: "20px",
 
-    color: "#0F111D",
+    //color: "#0F111D",
   },
 
   desc: {
-    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "18px",
@@ -56,7 +51,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   readMore: {
-    fontFamily: mainFont,
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "18px",
@@ -68,7 +62,7 @@ const useStyles = createStyles((theme) => ({
     textAlign: "center",
     textDecoration: "underline",
 
-    color: "#0F111D",
+    //color: "#0F111D",
   },
 
   title: {
@@ -76,11 +70,9 @@ const useStyles = createStyles((theme) => ({
     marginBottom: theme.spacing.md,
     paddingLeft: theme.spacing.md,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    fontFamily: mainFont,
   },
 
   item: {
-    fontFamily: mainFont,
     fontSize: theme.fontSizes.md,
     color:
       theme.colorScheme === "dark"

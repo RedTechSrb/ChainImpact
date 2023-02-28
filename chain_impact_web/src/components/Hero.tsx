@@ -10,12 +10,9 @@ import { useEffect } from "react";
 import { Link } from "react-scroll";
 import HeroImage from '../res/images/hero_image.png';
 
-const mainFont =
-  "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
-    fontFamily: mainFont,
     position: "relative",
     paddingTop: 80,
     paddingBottom: 80,
@@ -43,7 +40,6 @@ const useStyles = createStyles((theme) => ({
     color: theme.white,
     marginBottom: theme.spacing.xs,
     textAlign: "center",
-    fontFamily: mainFont,
 
     "@media (max-width: 520px)": {
       fontSize: 28,
@@ -78,7 +74,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   control: {
-    fontFamily: mainFont,
     height: 42,
     fontSize: theme.fontSizes.md,
 

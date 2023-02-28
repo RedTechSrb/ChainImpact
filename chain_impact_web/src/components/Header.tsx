@@ -31,17 +31,14 @@ import {
 import LightDarkMode from './LightDarkMode';
 import { Link } from 'react-router-dom';
 
-const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
   
   const useStyles = createStyles((theme) => ({
     header: {
-      fontFamily: mainFont,
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
       margin: "0",
     },
 
     link: {
-      fontFamily: mainFont,
       display: 'flex',
       alignItems: 'center',
       height: '100%',
@@ -65,7 +62,6 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
     },
   
     subLink: {
-      fontFamily: mainFont,
       width: '100%',
       padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
       borderRadius: theme.radius.md,
@@ -78,7 +74,6 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
     },
   
     dropdownFooter: {
-      fontFamily: mainFont,
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4],
       margin: -theme.spacing.md,
       marginTop: theme.spacing.sm,
@@ -134,11 +129,15 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
       description: 'Combusken battles with the intensely hot flames it spews',
     },
   ];
+
+
   
   export default function HeaderResponsive() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { classes, theme } = useStyles();
+
+
   
     const links = mockdata.map((item) => (
       <UnstyledButton className={classes.subLink} key={item.title}>
@@ -162,12 +161,13 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
       <Box>
         <Header height={60} px="md" className={classes.header}>
           <Group position="apart" sx={{ height: '100%' }}>
-            <div style={{display: "flex", alignItems: "center"}}>
-              <IconStar size={40} color={theme.colors.yellow[5]} style={{display: "inline"}} />
-              <Text style={{marginLeft: "15px", color: theme.colorScheme === 'dark' ? theme.white : theme.black,}} >ChainImpact</Text>
+
+            <Group sx={{ height: '100%', margin: "auto", width: "65%" }} spacing={0}>
+            <div style={{display: "flex", alignItems: "center", fontWeight: "700"}}>
+              <Text style={{marginLeft: "px", color: theme.colorScheme === 'dark' ? theme.white : "rgba(19, 173, 183, 1)",}} >ChainImpact</Text>
             </div>
 
-            <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
+            <Group className={classes.hiddenMobile} style={{marginLeft: "50px"}} sx={{ height: '100%' }} >
               <Link to="/" className={classes.link}>
                 Home
               </Link>
@@ -176,7 +176,7 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                        Features
+                        Charity
                       </Box>
                       <IconChevronDown size={16} color={theme.fn.primaryColor()} />
                     </Center>
@@ -217,11 +217,12 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
                 </HoverCard.Dropdown>
               </HoverCard>
               <a href="#" className={classes.link}>
-                Learn
+                Disaster
               </a>
               <a href="#" className={classes.link}>
-                Academy
+                Event
               </a>
+              </Group>
             </Group>
   
             <Group className={classes.hiddenMobile}>
@@ -229,8 +230,11 @@ const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,
               <Button>Sign up</Button>
               <LightDarkMode />
             </Group>
-  
-            <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
+            <Group position='center' className={classes.hiddenDesktop}>
+              <Burger opened={drawerOpened} onClick={toggleDrawer} />
+              <LightDarkMode />
+            </Group>
+            
           </Group>
         </Header>
   

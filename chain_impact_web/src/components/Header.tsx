@@ -1,35 +1,39 @@
 import {
-  createStyles,
-  Header,
-  HoverCard,
-  Group,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
-  Anchor,
-  Divider,
-  Center,
-  Box,
-  Burger,
-  Drawer,
-  Collapse,
-  ScrollArea,
-} from "@mantine/core";
-import { IconStar } from "@tabler/icons";
-import { useDisclosure } from "@mantine/hooks";
-import {
-  IconNotification,
-  IconCode,
-  IconBook,
-  IconChartPie3,
-  IconFingerprint,
-  IconCoin,
-  IconChevronDown,
-} from "@tabler/icons";
-import LightDarkMode from "./LightDarkMode";
-import { Link } from "react-router-dom";
+    createStyles,
+    Header,
+    HoverCard,
+    Group,
+    Button,
+    UnstyledButton,
+    Text,
+    SimpleGrid,
+    ThemeIcon,
+    Anchor,
+    Divider,
+    Center,
+    Box,
+    Burger,
+    Drawer,
+    Collapse,
+    ScrollArea,
+    ColorSchemeProvider,
+    useMantineColorScheme,
+  } from '@mantine/core';
+  import { IconStar } from '@tabler/icons';
+  import { useDisclosure } from '@mantine/hooks';
+  import {
+    IconNotification,
+    IconCode,
+    IconBook,
+    IconChartPie3,
+    IconFingerprint,
+    IconCoin,
+    IconChevronDown,
+  } from '@tabler/icons';
+import LightDarkMode from './LightDarkMode';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { PublicKey, Transaction } from "@solana/web3.js";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -106,6 +110,17 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
+
+  phantomButton: {
+    fontSize: "16px",
+    padding: "11px",
+    fontWeight: "bold",
+    borderRadius: "30px",
+    backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "dark",
+    color: theme.colorScheme === "light" ? "dark" : "black"
+  }
+
+
 }));
 
 const mockdata = [
@@ -141,30 +156,143 @@ const mockdata = [
   },
 ];
 
-export default function HeaderResponsive() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const { classes, theme } = useStyles();
+type DisplayEncoding = "utf8" | "hex";
+  type PhantomEvent = "disconnect" | "connect" | "accountChanged";
+  type PhantomRequestMethod =
+    | "connect"
+    | "disconnect"
+    | "signTransaction"
+    | "signAllTransactions"
+    | "signMessage";
+  
+  interface ConnectOpts {
+    onlyIfTrusted: boolean;
+  }
+  
+  interface PhantomProvider {
+    publicKey: PublicKey | null;
+    isConnected: boolean | null;
+    signTransaction: (transaction: Transaction) => Promise<Transaction>;
+    signAllTransactions: (transactions: Transaction[]) => Promise<Transaction[]>;
+    signMessage: (
+      message: Uint8Array | string,
+      display?: DisplayEncoding
+    ) => Promise<any>;
+    connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>;
+    disconnect: () => Promise<void>;
+    on: (event: PhantomEvent, handler: (args: any) => void) => void;
+    request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
+  }
+  
+  export default function HeaderResponsive({provider, setProvider, walletKey, setWalletKey}: any) {
+    const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+    const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    const { classes, theme } = useStyles();
 
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={22} color={theme.fn.primaryColor()} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" weight={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" color="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ));
+    const getProvider = (): PhantomProvider | undefined => {
+      if ("solana" in window) {
+        // @ts-ignore
+        const provider = window.solana as any;
+        if (provider.isPhantom) return provider as PhantomProvider;
+      }
+    };
+  
+    /**
+     * @description prompts user to connect wallet if it exists
+     */
+    const connectWallet = async () => {
+      // @ts-ignore
+      const { solana } = window;
+  
+      if (solana) {
+        try {
+          const response = await solana.connect();
+          console.log("wallet account ", response.publicKey.toString());
+          setWalletKey(response.publicKey.toString());
+        } catch (err) {
+          // { code: 4001, message: 'User rejected the request.' }
+        }
+      }
+    };
+  
+    /**
+     * @description disconnect Phantom wallet
+     */
+    const disconnectWallet = async () => {
+      // @ts-ignore
+      const { solana } = window;
+  
+      if (walletKey && solana) {
+        await (solana as PhantomProvider).disconnect();
+        setWalletKey(undefined);
+      }
+    };
+  
+    // detect phantom provider exists
+    useEffect(() => {
+      const provider = getProvider();
+  
+      if (provider) setProvider(provider);
+      else setProvider(undefined);
+    }, []);
 
+    function PhantomWrapper() {
+      const { classes } = useStyles();
+      return (
+        <>
+          {provider && !walletKey && (
+          <button
+            className={classes.phantomButton}
+            onClick={connectWallet}
+          >
+            Connect
+          </button>
+        )}
+
+        {provider && walletKey && (
+          <>
+
+            <button
+              className={classes.phantomButton}
+              onClick={disconnectWallet}
+            >
+              Disconnect
+            </button>
+          </>
+        )}
+
+        
+        {!provider && (
+          <>
+            <div>
+              No provider found. Install{" "}
+              <a href="https://phantom.app/">Phantom Browser extension</a>
+            </div>
+          </>
+          
+        )}
+        </>
+      );
+    }
+  
+    const links = mockdata.map((item) => (
+      <UnstyledButton className={classes.subLink} key={item.title}>
+        <Group noWrap align="flex-start">
+          <ThemeIcon size={34} variant="default" radius="md">
+            <item.icon size={22} color={theme.fn.primaryColor()} />
+          </ThemeIcon>
+          <div>
+            <Text size="sm" weight={500}>
+              {item.title}
+            </Text>
+            <Text size="xs" color="dimmed">
+              {item.description}
+            </Text>
+          </div>
+        </Group>
+      </UnstyledButton>
+    ));
+  
   return (
     <Box>
       <Header height={60} px="md" className={classes.header}>
@@ -260,65 +388,59 @@ export default function HeaderResponsive() {
                 Event
               </a>
             </Group>
+            </Group>
+  
+            <Group className={classes.hiddenMobile}>
+              {PhantomWrapper()}
+              <LightDarkMode />
+            </Group>
+            <Group position='center' className={classes.hiddenDesktop}>
+              <Burger opened={drawerOpened} onClick={toggleDrawer} />
+              <LightDarkMode />
+            </Group>
+            
           </Group>
-
-          <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
-            <LightDarkMode />
-          </Group>
-          <Group position="center" className={classes.hiddenDesktop}>
-            <Burger opened={drawerOpened} onClick={toggleDrawer} />
-            <LightDarkMode />
-          </Group>
-        </Group>
-      </Header>
-
-      <Drawer
-        opened={drawerOpened}
-        onClose={closeDrawer}
-        size="100%"
-        padding="md"
-        title="Navigation"
-        className={classes.hiddenDesktop}
-        zIndex={1000000}
-      >
-        <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.2"}
-          />
-
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Features
-              </Box>
-              <IconChevronDown size={16} color={theme.fn.primaryColor()} />
-            </Center>
-          </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
-          <a href="#" className={classes.link}>
-            Academy
-          </a>
-
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.2"}
-          />
-
-          <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
-          </Group>
-        </ScrollArea>
-      </Drawer>
-    </Box>
-  );
-}
+        </Header>
+  
+        <Drawer
+          opened={drawerOpened}
+          onClose={closeDrawer}
+          size="100%"
+          padding="md"
+          title="Navigation"
+          className={classes.hiddenDesktop}
+          zIndex={1000000}
+        >
+          <ScrollArea sx={{ height: 'calc(100vh - 60px)' }} mx="-md">
+            <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.2'} />
+  
+            <a href="#" className={classes.link}>
+              Home
+            </a>
+            <UnstyledButton className={classes.link} onClick={toggleLinks}>
+              <Center inline>
+                <Box component="span" mr={5}>
+                  Features
+                </Box>
+                <IconChevronDown size={16} color={theme.fn.primaryColor()} />
+              </Center>
+            </UnstyledButton>
+            <Collapse in={linksOpened}>{links}</Collapse>
+            <a href="#" className={classes.link}>
+              Learn
+            </a>
+            <a href="#" className={classes.link}>
+              Academy
+            </a>
+  
+            <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.2'} />
+  
+            <Group position="center" grow pb="xl" px="md" className={classes.hiddenDesktop}>
+              {PhantomWrapper()}
+            </Group>
+          </ScrollArea>
+        </Drawer>
+      </Box>
+    );
+  }
+  

@@ -12,6 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import About from "./views/About";
 import NotFound from "./views/NotFound";
 import Home from "./views/Home";
+import "./index.css";
 
 const footerPlaceholder = [
   {
@@ -70,31 +71,36 @@ const footerPlaceholder = [
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
-    defaultValue: "light",
+    defaultValue: "dark",
     getInitialValueInEffect: true,
   });
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  useHotkeys([['mod+J', () => toggleColorScheme()]]);
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
   // theme settings
 
-
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider theme={{
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{
           globalStyles: (theme) => ({
-            'body': {
-              backgroundColor: colorScheme === 'dark' ? "yellow" : "white",
-              color: colorScheme === 'dark' ? "white" : "yellow",
-              
+            body: {
+              backgroundColor: colorScheme === "dark" ? "dark" : "#BBFD00",
+              color: colorScheme === "dark" ? "#BBFD00" : "dark",
             },
           }),
-          colorScheme, 
-          fontFamilyMonospace: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
-          }}
-          withCSSVariables withGlobalStyles withNormalizeCSS
+          colorScheme,
+          fontFamilyMonospace:
+            "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
+        }}
+        withCSSVariables
+        withGlobalStyles
+        withNormalizeCSS
       >
         <Header />
         <Routes>

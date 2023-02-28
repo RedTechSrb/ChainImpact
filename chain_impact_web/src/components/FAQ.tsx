@@ -10,7 +10,6 @@ import {
 } from "@mantine/core";
 import image from "../res/images/faq_image.png";
 
-
 const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingTop: theme.spacing.xl * 2,
@@ -26,7 +25,11 @@ const useStyles = createStyles((theme) => ({
     lineHeight: "18px",
     letterSpacing: "0.05em",
 
-    color: "#5C6574",
+    color: theme.colorScheme,
+  },
+
+  highlight: {
+    color: theme.colorScheme === "dark" ? "#BBFD00" : theme.white,
   },
 
   componentHeader: {
@@ -36,7 +39,7 @@ const useStyles = createStyles((theme) => ({
     lineHeight: "140%",
     marginTop: "15px",
     marginBottom: "20px",
-
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
     //color: "#0F111D",
   },
 
@@ -91,13 +94,10 @@ export default function FAQ() {
       <Container size="lg">
         <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
         <Text className={classes.componentHeader}>
-          Distribute aid{" "}
-          <span style={{ color: "rgba(19, 173, 183, 1)" }}>easily</span>,
-          <span style={{ color: "rgba(19, 173, 183, 1)" }}> quickly</span>, and
-          <span style={{ color: "rgba(19, 173, 183, 1)" }}>
-            {" "}
-            transparently with blockchain
-          </span>
+          Distribute aid <span className={classes.highlight}>easily</span>,
+          <span className={classes.highlight}> quickly</span> and
+          <span className={classes.highlight}> transparently </span>
+          with blockchain
         </Text>
       </Container>
       <Container size="lg">

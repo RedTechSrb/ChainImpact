@@ -91,7 +91,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -140,16 +140,17 @@ export default function TagLeaderboard() {
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
-        Compete for top spot.
+        Companies that make a real Impact
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
       >
-        Be a part of the breakthrough in one of the most popular governances.
+        Compete for top spot in each part of ESG. <br></br> Show that your
+        company cares.
       </Text>
 
       <SimpleGrid

@@ -91,7 +91,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -144,7 +144,7 @@ export default function TagLeaderboard() {
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
@@ -160,7 +160,7 @@ export default function TagLeaderboard() {
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
         <div>
-          <Badge variant="filled" size="lg" color="dark">
+          <Badge variant="filled" size="lg" color="#BBFD00">
             Company ESG Leaders
           </Badge>
 

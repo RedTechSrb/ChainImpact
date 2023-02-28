@@ -8,8 +8,7 @@ import {
 } from "@mantine/core";
 import { useEffect } from "react";
 import { Link } from "react-scroll";
-import HeroImage from '../res/images/hero_image.png';
-
+import HeroImage from "../res/images/hero_image.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -48,7 +47,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   highlight: {
-    color: "rgba(19, 173, 183, 1)",
+    color: "#BBFD00",
   },
 
   description: {
@@ -76,7 +75,8 @@ const useStyles = createStyles((theme) => ({
   control: {
     height: 42,
     fontSize: theme.fontSizes.md,
-
+    backgroundColor: "#3b3d44",
+    color: "#BBFD00",
     "&:not(:first-of-type)": {
       marginLeft: theme.spacing.md,
     },
@@ -124,7 +124,7 @@ export default function Hero() {
           </Text>{" "}
           powered by{" "}
           <Text component="span" inherit className={classes.highlight}>
-            Blockchain
+            Solana Blockchain
           </Text>
         </Title>
 
@@ -136,13 +136,9 @@ export default function Hero() {
         </Container>
 
         <div className={classes.controls}>
-          <Button
-            className={classes.control}
-            variant="white"
-            size="xl"
-          >
+          <Button className={classes.control} variant="white" size="xl">
             <Link to="faq" spy={true} smooth={true} duration={2000}>
-              I want to change the world
+              Show me how to change the world
             </Link>
           </Button>
           <Button

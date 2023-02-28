@@ -80,7 +80,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -99,7 +99,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   active: {
-    backgroundImage: theme.fn.gradient({ from: "pink", to: "orange" }),
+    backgroundImage: theme.fn.gradient({ from: "black", to: "#BBFD00" }),
   },
 
   control: {
@@ -130,43 +130,37 @@ export default function ProjectExplorer() {
       <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
         {article.date}
       </Text>
-      <Text mt={5}>
-        {article.title}
-      </Text>
+      <Text mt={5}>{article.title}</Text>
     </Card>
   ));
 
   return (
     <Container py="xl" size="lg">
       <Title order={2} className={classes.herotitle} align="center" mt="sm">
-        Find the Biggest Impactors
+        Support what you believe in.
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
       >
-        See which communities have the strongest social presence and which
-        community members make it all happen!
+        Find a project to support, back other Impactors and make a real change.
       </Text>
 
       <TextInput
-        icon={<IconSearch size={18} stroke={1.5} />}
+        icon={<IconSearch size={18} stroke={1.5} color="#BBFD00" />}
         radius="xl"
         size="md"
+        mt="xl"
+        mb="md"
         rightSection={
-          <ActionIcon
-            size={32}
-            radius="xl"
-            color={theme.primaryColor}
-            variant="filled"
-          >
+          <ActionIcon size={32} radius="xl" color="#BBFD00">
             {theme.dir === "ltr" ? (
-              <IconArrowRight size={18} stroke={1.5} />
+              <IconArrowRight size={18} stroke={1.5} color="white" />
             ) : (
-              <IconArrowLeft size={18} stroke={1.5} />
+              <IconArrowLeft size={18} stroke={1.5} color="white" />
             )}
           </ActionIcon>
         }
@@ -175,11 +169,12 @@ export default function ProjectExplorer() {
       />
       <Flex
         mih={50}
-        gap="sm"
+        gap="lg"
         justify="center"
         align="center"
         direction="row"
         wrap="wrap"
+        mb="lg"
       >
         <SegmentedControl
           radius="xl"

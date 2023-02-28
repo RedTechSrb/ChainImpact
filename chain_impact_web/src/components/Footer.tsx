@@ -1,73 +1,181 @@
-import { createStyles, Container, Group, Anchor, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { IconStar } from '@tabler/icons';
-import { Link } from 'react-router-dom';
+import {
+  createStyles,
+  Text,
+  Container,
+  ActionIcon,
+  Group,
+  ThemeIcon,
+  Image,
+} from "@mantine/core";
+import {
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconBrandInstagram,
+} from "@tabler/icons";
 
-const mainFont = "BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
-  
 const useStyles = createStyles((theme) => ({
   footer: {
-    //marginTop: 120,
-    fontFamily: mainFont,
+    marginTop: 120,
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 2,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark : theme.colors.dark,
     borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
-    
   },
 
-  inner: {
-    fontFamily: mainFont,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: theme.spacing.xl,
-    paddingBottom: theme.spacing.xl,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
+  logo: {
+    maxWidth: 200,
 
-    [theme.fn.smallerThan('xs')]: {
-      flexDirection: 'column',
+    [theme.fn.smallerThan("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
     },
   },
 
-  links: {
-    fontFamily: mainFont,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    [theme.fn.smallerThan('xs')]: {
-      marginTop: theme.spacing.md,
+  description: {
+    marginTop: 5,
+
+    [theme.fn.smallerThan("sm")]: {
+      marginTop: theme.spacing.xs,
+      textAlign: "center",
+    },
+  },
+
+  inner: {
+    display: "flex",
+    justifyContent: "space-between",
+
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+  },
+
+  groups: {
+    display: "flex",
+    flexWrap: "wrap",
+
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  wrapper: {
+    width: 160,
+  },
+
+  link: {
+    display: "block",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[6],
+    fontSize: theme.fontSizes.sm,
+    paddingTop: 3,
+    paddingBottom: 3,
+
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+
+  title: {
+    fontSize: theme.fontSizes.lg,
+    fontWeight: 700,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    marginBottom: theme.spacing.xs / 2,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+  },
+
+  afterFooter: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: theme.spacing.xl,
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl,
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
+
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
+    },
+  },
+
+  social: {
+    [theme.fn.smallerThan("sm")]: {
+      marginTop: theme.spacing.xs,
     },
   },
 }));
 
-export interface FooterSimpleProps {
-  links: { link: string; label: string }[];
+interface FooterLinksProps {
+  data: {
+    title: string;
+    links: { label: string; link: string }[];
+  }[];
 }
 
-export default function FooterSimple({ links }: FooterSimpleProps) {
+export default function Footer({ data }: FooterLinksProps) {
+  const { classes } = useStyles();
 
-const { classes } = useStyles();
+  const groups = data.map((group) => {
+    const links = group.links.map((link, index) => (
+      <Text<"a">
+        key={index}
+        className={classes.link}
+        component="a"
+        href={link.link}
+        onClick={(event) => event.preventDefault()}
+      >
+        {link.label}
+      </Text>
+    ));
 
-  const theme = useMantineTheme();
-
-  const items = links.map((link) => (
-    <Container>
-        <Link
-        key={link.label}
-        to={link.link}
-        color={theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]}
-        style={{fontSize: "sm", textDecoration: "none", color: theme.colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.dark[5]}} 
-        >
-            {link.label}
-        </Link>
-    </Container>
-  ));
+    return (
+      <div className={classes.wrapper} key={group.title}>
+        <Text className={classes.title}>{group.title}</Text>
+        {links}
+      </div>
+    );
+  });
 
   return (
-    <div className={classes.footer}>
+    <footer className={classes.footer}>
       <Container className={classes.inner}>
-        <IconStar size={28} />
-        <Group className={classes.links}>{items}</Group>
+        <div className={classes.logo}>
+          <Image
+            radius="md"
+            src={require("../res/images/logo_green.jpeg")}
+            alt="Random unsplash image"
+          />
+          <Text size="xs" color="dimmed" className={classes.description}>
+            Stop Greenwashing by using Solana. ChainImpact
+          </Text>
+        </div>
+        <div className={classes.groups}>{groups}</div>
       </Container>
-    </div>
+      <Container className={classes.afterFooter}>
+        <Text color="dimmed" size="sm">
+          © 2023 RedTech & BitX All rights reserved.
+        </Text>
+
+        <Group spacing={0} className={classes.social} position="right" noWrap>
+          <ActionIcon size="lg">
+            <IconBrandTwitter size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandYoutube size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandInstagram size={18} stroke={1.5} />
+          </ActionIcon>
+        </Group>
+      </Container>
+    </footer>
   );
 }

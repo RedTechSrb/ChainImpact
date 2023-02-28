@@ -86,10 +86,6 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  title: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    fontWeight: 600,
-  },
 }));
 
 export default function ProjectExplorer() {
@@ -111,7 +107,7 @@ export default function ProjectExplorer() {
       <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
         {article.date}
       </Text>
-      <Text className={classes.title} mt={5}>
+      <Text mt={5}>
         {article.title}
       </Text>
     </Card>

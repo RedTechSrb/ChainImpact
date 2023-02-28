@@ -13,6 +13,7 @@ import About from "./views/About";
 import NotFound from "./views/NotFound";
 import Home from "./views/Home";
 import "./index.css";
+import { useEffect, useState } from "react";
 
 const footerPlaceholder = [
   {
@@ -68,6 +69,13 @@ const footerPlaceholder = [
   },
 ];
 
+
+declare global {
+  interface Window {
+      solana: any;
+  }
+}
+
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
@@ -80,6 +88,10 @@ function App() {
 
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
   // theme settings
+
+  
+  const [provider, setProvider] = useState<any>(undefined);
+  const [walletKey, setWalletKey] = useState<any>(undefined);
 
   return (
     <ColorSchemeProvider
@@ -102,7 +114,12 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Header />
+        <Header 
+          provider={provider}
+          setProvider={setProvider}
+          walletKey={walletKey}
+          setWalletKey={setWalletKey}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />

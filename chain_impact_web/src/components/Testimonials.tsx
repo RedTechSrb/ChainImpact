@@ -114,7 +114,7 @@ export default function Testimonials({
         cols={4}
         // spacing={50}
         //breakpoints={[{ maxWidth: 550, cols: 2, spacing: 40 }]}
-        style={{ marginTop: 60 }}
+        style={{ marginTop: 40 }}
         p="sm"
       >
         {items}

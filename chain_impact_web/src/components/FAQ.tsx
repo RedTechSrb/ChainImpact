@@ -7,7 +7,9 @@ import {
   Container,
   Title,
   Text,
+  Button,
 } from "@mantine/core";
+
 import image from "../res/images/faq_image.png";
 
 const useStyles = createStyles((theme) => ({
@@ -156,7 +158,10 @@ export default function FAQ() {
               projects that help the environment and social causes powered by
               Solana.
             </Text>
-            <Text className={classes.readMore}>Read more</Text>
+
+            <Button color="lime" radius="md" size="xl" compact mb="xl" mt="xl">
+              Find projects to support
+            </Button>
 
             <Title order={2} align="left" className={classes.title}>
               Frequently Asked Questions

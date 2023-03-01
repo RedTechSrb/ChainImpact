@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   componentHeader: {
     fontStyle: "normal",
     fontWeight: 900,
-    fontSize: "40px",
+    fontSize: "2.5rem",
     lineHeight: "140%",
     marginTop: "15px",
     marginBottom: "20px",

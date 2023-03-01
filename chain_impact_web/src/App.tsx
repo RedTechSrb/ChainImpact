@@ -69,10 +69,9 @@ const footerPlaceholder = [
   },
 ];
 
-
 declare global {
   interface Window {
-      solana: any;
+    solana: any;
   }
 }
 
@@ -89,7 +88,6 @@ function App() {
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
   // theme settings
 
-  
   const [provider, setProvider] = useState<any>(undefined);
   const [walletKey, setWalletKey] = useState<any>(undefined);
 
@@ -114,7 +112,7 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Header 
+        <Header
           provider={provider}
           setProvider={setProvider}
           walletKey={walletKey}

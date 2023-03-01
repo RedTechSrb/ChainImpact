@@ -45,6 +45,12 @@ const useStyles = createStyles((theme) => ({
     //color: "#0F111D",
   },
 
+  gradientSpan: {
+    background: "linear-gradient(to right, #9945FF, #14F195)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+  },
+
   desc: {
     fontStyle: "normal",
     fontWeight: 400,
@@ -117,7 +123,8 @@ export default function FAQ() {
           Make a real change <span className={classes.highlight}>easily</span>,
           <span className={classes.highlight}> quickly</span> and
           <span className={classes.highlight}> transparently </span>
-          with blockchain
+          and receive{" "}
+          <span className={classes.gradientSpan}> Proof of Impact NFT </span>
         </Text>
       </Container>
       <Container size="lg">
@@ -159,7 +166,15 @@ export default function FAQ() {
               Solana.
             </Text>
 
-            <Button color="lime" radius="md" size="xl" compact mb="xl" mt="xl">
+            <Button
+              color="lime"
+              radius="md"
+              size="xl"
+              compact
+              mb="xl"
+              mt="xl"
+              style={{ fontFamily: "Space Mono, monospace", fontWeight: 100 }}
+            >
               Find projects to support
             </Button>
 
@@ -174,28 +189,57 @@ export default function FAQ() {
             >
               <Accordion.Item className={classes.item} value="reset-password">
                 <Accordion.Control>
-                  Is Chain Impact trustless?
+                  How does it work? How can I make a difference today?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  You start by selecting a project that aligns with your values.
+                  We've partnered with a number of charity organizations to
+                  bring different ESG projects. Collaborate with the Angel
+                  Impactors to bring a project to it's goal by donating.
+                  Impactors will receive a Proof of Impact NFT.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="another-account">
                 <Accordion.Control>Why use Chain Impact?</Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  Investing in ESG projects not only helps create positive
+                  impact on society and the environment, but it can also lead to
+                  increased revenue opportunities and long-term sustainability
+                  for your business. Our platform allows you to easily track and
+                  showcase your ESG efforts, and connect with impact investors
+                  and customers who share your values. <br></br>
+                  Also it feels good to know you helped make a difference.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="newsletter">
-                <Accordion.Control>
-                  Can Chain Impacts data be accessed by the public?
-                </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Control>Who are Angel Impactors?</Accordion.Control>
+                <Accordion.Panel>
+                  Angel Impactors are companies that are first to support a
+                  certain charity project by making an initial donation to it.
+                  They help ensure that the project is carried out successfully
+                  by providing financial support. They are always showcased in
+                  the project page. This way companies can truly show their
+                  values.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="credit-card">
                 <Accordion.Control>
-                  Can Chain Impacts data be accessed by the public?
+                  How do I know my money is going to the right place?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  At Chain Impact, we use blockchain technology to provide
+                  transparency and accountability for every donation. Each
+                  donation is recorded on the blockchain, which means that it
+                  cannot be altered or tampered with. Additionally, we work with
+                  trusted and vetted charity organizations to ensure that your
+                  donations go to the right place and are used for their
+                  intended purpose. You can also track the progress of the
+                  projects you support and see how your donation is making an
+                  impact in real-time.
+                </Accordion.Panel>
               </Accordion.Item>
             </Accordion>
           </Col>

@@ -18,6 +18,7 @@ import {
     ScrollArea,
     ColorSchemeProvider,
     useMantineColorScheme,
+    Container,
   } from '@mantine/core';
   import { IconStar } from '@tabler/icons';
   import { useDisclosure } from '@mantine/hooks';
@@ -113,11 +114,14 @@ const useStyles = createStyles((theme) => ({
 
   phantomButton: {
     fontSize: "16px",
-    padding: "11px",
+    padding: "10px",
     fontWeight: "bold",
-    borderRadius: "30px",
-    backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "dark",
-    color: theme.colorScheme === "light" ? "dark" : "black"
+    borderRadius: "25px",
+    backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "black",
+    color: theme.colorScheme === "light" ? "dark" : "black",
+    ":hover": {
+      backgroundColor: theme.colorScheme === "dark" ? "rgb(97, 163, 0)" : "rgb(105, 105, 105)",
+    },
   }
 
 
@@ -241,35 +245,31 @@ type DisplayEncoding = "utf8" | "hex";
       return (
         <>
           {provider && !walletKey && (
-          <button
+          <Button
             className={classes.phantomButton}
             onClick={connectWallet}
           >
             Connect
-          </button>
+          </Button>
         )}
 
         {provider && walletKey && (
-          <>
-
-            <button
+            <Button
               className={classes.phantomButton}
               onClick={disconnectWallet}
             >
               Disconnect
-            </button>
-          </>
+            </Button>
         )}
 
         
         {!provider && (
           <>
-            <div>
+            <Text>
               No provider found. Install{" "}
-              <a href="https://phantom.app/">Phantom Browser extension</a>
-            </div>
+              <Anchor href="https://phantom.app/">Phantom Browser extension</Anchor>
+            </Text>
           </>
-          
         )}
         </>
       );

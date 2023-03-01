@@ -27,6 +27,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: "16px",
     lineHeight: "18px",
     letterSpacing: "0.05em",
+    marginTop: "50px",
 
     color: theme.colorScheme,
   },
@@ -126,6 +127,7 @@ export default function FAQ() {
 
   return (
     <div className={classes.wrapper} id="faq">
+      <div style={{marginTop: "30"}}></div>
       <Container size="lg">
         <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
         <Text className={classes.componentHeader}>

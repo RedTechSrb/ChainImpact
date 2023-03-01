@@ -273,10 +273,14 @@ type DisplayEncoding = "utf8" | "hex";
         
         {!provider && (
           <>
-            <Text>
-              No provider found. Install{" "}
-              <Anchor href="https://phantom.app/">Phantom Browser extension</Anchor>
-            </Text>
+            <Anchor href="https://phantom.app/">
+              <Button
+                className={classes.phantomButton}
+              >
+                Install Phantom
+              </Button>
+            </Anchor>
+            
           </>
         )}
         </>

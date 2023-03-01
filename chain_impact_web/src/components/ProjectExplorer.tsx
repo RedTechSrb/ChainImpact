@@ -13,8 +13,10 @@ import {
   SegmentedControl,
   Center,
   Flex,
+  Pagination,
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
+import { useState, useEffect } from "react";
 
 const mockdata = [
   {
@@ -36,19 +38,19 @@ const mockdata = [
     date: "September 9, 2022",
   },
   {
-    title: "Mountains at night: 12 best locations to enjoy the view",
+    title: "Mountainssss at night: 12 best locations to enjoy the view",
     image:
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
     date: "September 12, 2022",
   },
   {
-    title: "Hawaii beaches review: better than you think",
+    title: "Hawaii beachdddes review: better than you think",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
     date: "September 9, 2022",
   },
   {
-    title: "Mountains at night: 12 best locations to enjoy the view",
+    title: "Mountaddddins at night: 12 best locations to enjoy the view",
     image:
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
     date: "September 12, 2022",
@@ -114,8 +116,10 @@ const useStyles = createStyles((theme) => ({
 export default function ProjectExplorer() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-
-  const cards = mockdata.map((article) => (
+  const [activePage, setPage] = useState(1);
+  const [filteredData, setFilteredData] = useState(mockdata);
+  const [tag, setTag] = useState("General");
+  var cards = filteredData.map((article) => (
     <Card
       key={article.title}
       p="md"
@@ -134,13 +138,52 @@ export default function ProjectExplorer() {
     </Card>
   ));
 
+  useEffect(() => {
+    const startIndex = activePage === 1 ? 0 : 4 * (activePage - 1);
+    const endIndex = 4 * activePage;
+    setFilteredData(mockdata.slice(startIndex, endIndex));
+
+    cards = filteredData.map((article) => (
+      <Card
+        key={article.title}
+        p="md"
+        radius="md"
+        component="a"
+        href="#"
+        className={classes.card}
+      >
+        <AspectRatio ratio={1920 / 1080}>
+          <Image src={article.image} />
+        </AspectRatio>
+        <Text
+          color="dimmed"
+          size="xs"
+          transform="uppercase"
+          weight={700}
+          mt="md"
+        >
+          {article.date}
+        </Text>
+        <Text mt={5}>{article.title}</Text>
+      </Card>
+    ));
+
+    return () => {
+      // cleanup function here
+    };
+  }, [activePage, tag]);
+
   return (
     <Container py="xl" size="lg" id="project_explorer">
-      <Title order={2} className={classes.herotitle} align="center" mt="sm"
-        style={{marginTop: "70px"}}>
+      <Title
+        order={2}
+        className={classes.herotitle}
+        align="center"
+        mt="sm"
+        style={{ marginTop: "70px" }}
+      >
         Support what you believe in.
       </Title>
-
       <Text
         color="white"
         className={classes.description}
@@ -149,7 +192,6 @@ export default function ProjectExplorer() {
       >
         Find a project to support, back other Impactors and make a real change.
       </Text>
-
       <TextInput
         icon={<IconSearch size={18} stroke={1.5} color="#BBFD00" />}
         radius="xl"
@@ -188,12 +230,27 @@ export default function ProjectExplorer() {
             "Education",
           ]}
           classNames={classes}
+          value={tag}
+          onChange={setTag}
         />
       </Flex>
-
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         {cards}
       </SimpleGrid>
+      <Pagination
+        total={mockdata.length / 4 + 1}
+        color="lime"
+        mt="lg"
+        page={activePage}
+        // onChange={() => {
+        //   setPage();
+        //   console.log(activePage);
+        // }}
+        onChange={(page) => {
+          setPage(page);
+          console.log(page);
+        }} // this works
+      />
     </Container>
   );
 }

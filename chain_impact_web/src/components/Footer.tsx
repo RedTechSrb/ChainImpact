@@ -154,7 +154,7 @@ export default function Footer({ data }: FooterLinksProps) {
             alt="Random unsplash image"
           />
           <Text size="xs" color="dimmed" className={classes.description}>
-            Stop Greenwashing by using Solana. ChainImpact
+            Stop Greenwashing by using Solana.
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>

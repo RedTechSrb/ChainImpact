@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
 const testimonialsData = {
   supTitle: "They already trust investing into ESG",
   description:
-    "We are proud to have the support of the world's biggest companies",
+    "Web2 companies are so reputable because of their long history of giving back.   Show them how we can do the same in Web3.",
   data: [
     {
       image: "google.png",

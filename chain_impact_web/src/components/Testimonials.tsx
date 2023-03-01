@@ -50,7 +50,8 @@ const useStyles = createStyles((theme) => ({
 
   description: {
     textAlign: "center",
-    marginTop: theme.spacing.xs,
+    marginTop: theme.spacing.md,
+    fontSize: theme.fontSizes.lg,
   },
 
   highlight: {
@@ -97,15 +98,13 @@ export default function Testimonials({
 
   return (
     <Container size="lg" className={classes.wrapper}>
-      <Text className={classes.supTitle}>{supTitle}</Text>
-
       <Title className={classes.title} order={2}>
         <span className={classes.highlight}> Have your web3 company </span>{" "}
         among the greats.
       </Title>
 
       <Container size={660} p={0}>
-        <Text color="dimmed" className={classes.description}>
+        <Text color="white" className={classes.description}>
           {description}
         </Text>
       </Container>

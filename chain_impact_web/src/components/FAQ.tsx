@@ -168,11 +168,11 @@ export default function FAQ() {
               Solana.
             </Text>
 
-            <Button color="lime" radius="md" size="xl" compact mb="xl" mt="xl">
-              <Link to="project_explorer" spy={true} smooth={true} duration={2500}>
+            <Link to="project_explorer" spy={true} smooth={true} duration={2500}>
+              <Button color="lime" radius="md" size="xl" compact mb="xl" mt="xl">
                 Find projects to support
-              </Link>
-            </Button>
+              </Button>
+            </Link>
 
             <Title order={2} align="left" className={classes.title}>
               Frequently Asked Questions

@@ -127,11 +127,11 @@ export default function Hero() {
         </Container>
 
         <div className={classes.controls}>
+        <Link to="faq" spy={true} smooth={true} duration={2500}>
           <Button className={classes.control} variant="white" size="xl">
-            <Link to="faq" spy={true} smooth={true} duration={2500}>
-              Show me how to change the world!
-            </Link>
+            Show me how to change the world!
           </Button>
+        </Link>
           {/* <Button
             className={cx(classes.control, classes.secondaryControl)}
             size="lg"

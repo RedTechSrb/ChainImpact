@@ -91,7 +91,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -144,7 +144,7 @@ export default function TagLeaderboard() {
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
@@ -159,21 +159,17 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <div>
-          <Badge variant="filled" size="lg" color="dark">
-            Company ESG Leaders
-          </Badge>
+        <ImpactorTable
+          data={impactortabledata}
+          title={"Company ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
 
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
-        </div>
-
-        <div>
-          <Badge variant="filled" size="lg" color="lime">
-            Community ESG Leaders
-          </Badge>
-
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
-        </div>
+        <ImpactorTable
+          data={impactortabledata}
+          title={" Community ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

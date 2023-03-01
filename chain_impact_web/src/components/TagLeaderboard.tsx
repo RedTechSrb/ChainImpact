@@ -9,6 +9,7 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { useGetImpactors } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [
@@ -120,22 +121,18 @@ const useStyles = createStyles((theme) => ({
 
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
-  const features = mockdata.map((feature) => (
-    <Card
-      key={feature.title}
-      shadow="md"
-      radius="md"
-      className={classes.card}
-      p="xl"
-    >
-      <feature.icon size={50} stroke={2} color={theme.fn.primaryColor()} />
-      <Text size="lg" weight={500} className={classes.cardTitle} mt="md">
-        {feature.title}
-      </Text>
-      <Text size="sm" color="dimmed" mt="sm">
-        {feature.description}
-      </Text>
-    </Card>
+
+  const impactors = useGetImpactors();
+  console.log(impactors);
+
+  const impactorData = impactors.map((impactor) => (
+    {
+      avatar: impactor.imageurl ? impactor.imageurl : "https://avatars.githubusercontent.com/u/1309537?v=4",
+      name: impactor.name,
+      job: "",
+      email: impactor.wallet,
+      role: "Company"
+    }
   ));
   return (
     <Container size="xl" py="xl">
@@ -159,9 +156,9 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
+        <ImpactorTable data={impactorData} title={"Leaderboard 1"} ></ImpactorTable>
+        <ImpactorTable data={impactorData} title={"Leaderboard 2"} ></ImpactorTable>
+        <ImpactorTable data={impactorData} title={"Leaderboard 3"} ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

@@ -6,9 +6,11 @@ import {
   Text,
   Select,
   ScrollArea,
+  Title,
 } from "@mantine/core";
 
 interface UsersTableProps {
+  title: string,
   data: {
     avatar: string;
     name: string;
@@ -20,7 +22,7 @@ interface UsersTableProps {
 
 const rolesData = ["Manager", "Collaborator", "Contractor"];
 
-export default function ImpactorTable({ data }: UsersTableProps) {
+export default function ImpactorTable({ data, title }: UsersTableProps) {
   const rows = data.map((item) => (
     <tr key={item.name}>
       <td>
@@ -36,36 +38,28 @@ export default function ImpactorTable({ data }: UsersTableProps) {
           </div>
         </Group>
       </td>
-
       <td>
-        <Select data={rolesData} defaultValue={item.role} variant="unstyled" />
-      </td>
-      <td>{Math.floor(Math.random() * 6 + 5)} days ago</td>
-      <td>
-        {Math.random() > 0.5 ? (
-          <Badge fullWidth>Active</Badge>
-        ) : (
-          <Badge color="gray" fullWidth>
-            Disabled
-          </Badge>
-        )}
+        {1250}
       </td>
     </tr>
   ));
 
   return (
-    <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
-        <thead>
-          <tr>
-            <th>Employee</th>
-            <th>Role</th>
-            <th>Last active</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    </ScrollArea>
+    <div>
+    <Title order={4} style={{textAlign: "center"}}>
+          {title}
+        </Title>
+      <ScrollArea>
+        <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
+    </div>
   );
 }

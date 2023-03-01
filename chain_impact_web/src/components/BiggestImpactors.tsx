@@ -164,7 +164,7 @@ export default function TagLeaderboard() {
             Company ESG Leaders
           </Badge>
 
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
+          <ImpactorTable data={impactortabledata} title={""}></ImpactorTable>
         </div>
 
         <div>
@@ -172,7 +172,7 @@ export default function TagLeaderboard() {
             Community ESG Leaders
           </Badge>
 
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
+          <ImpactorTable data={impactortabledata} title={""}></ImpactorTable>
         </div>
       </SimpleGrid>
     </Container>

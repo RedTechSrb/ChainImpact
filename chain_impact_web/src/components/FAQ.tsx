@@ -9,6 +9,7 @@ import {
   Text,
   Button,
 } from "@mantine/core";
+import { Link } from "react-scroll";
 
 import image from "../res/images/faq_image.png";
 
@@ -115,6 +116,14 @@ const placeholder =
 
 export default function FAQ() {
   const { classes } = useStyles();
+
+  const executeScroll = (data: string) => {
+    const element = document.getElementById(data);
+    if (element) {
+      element.scrollIntoView();
+    }
+  };
+
   return (
     <div className={classes.wrapper} id="faq">
       <Container size="lg">
@@ -166,6 +175,9 @@ export default function FAQ() {
               Solana.
             </Text>
 
+            <Link to="project_explorer" spy={true} smooth={true} duration={2500}>
+
+            
             <Button
               color="lime"
               radius="md"
@@ -177,7 +189,7 @@ export default function FAQ() {
             >
               Find projects to support
             </Button>
-
+			</Link>
             <Title order={2} align="left" className={classes.title}>
               Frequently Asked Questions
             </Title>

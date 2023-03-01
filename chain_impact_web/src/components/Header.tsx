@@ -18,6 +18,7 @@ import {
     ScrollArea,
     ColorSchemeProvider,
     useMantineColorScheme,
+    Container,
   } from '@mantine/core';
   import { IconStar } from '@tabler/icons';
   import { useDisclosure } from '@mantine/hooks';
@@ -41,7 +42,11 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.dark[6]
         : theme.colors.gray[2],
-    margin: "0",
+    margin: 0,
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    zIndex: 100,
   },
 
   link: {
@@ -113,12 +118,19 @@ const useStyles = createStyles((theme) => ({
 
   phantomButton: {
     fontSize: "16px",
-    padding: "11px",
+    padding: "10px",
     fontWeight: "bold",
-    borderRadius: "30px",
-    backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "dark",
-    color: theme.colorScheme === "light" ? "dark" : "black"
-  }
+    borderRadius: "25px",
+    backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "black",
+    color: theme.colorScheme === "light" ? "dark" : "black",
+    ":hover": {
+      backgroundColor: theme.colorScheme === "dark" ? "rgb(97, 163, 0)" : "rgb(105, 105, 105)",
+    },
+  },
+
+  hidden: {
+    display: "none",
+  },
 
 
 }));
@@ -241,35 +253,31 @@ type DisplayEncoding = "utf8" | "hex";
       return (
         <>
           {provider && !walletKey && (
-          <button
+          <Button
             className={classes.phantomButton}
             onClick={connectWallet}
           >
             Connect
-          </button>
+          </Button>
         )}
 
         {provider && walletKey && (
-          <>
-
-            <button
+            <Button
               className={classes.phantomButton}
               onClick={disconnectWallet}
             >
               Disconnect
-            </button>
-          </>
+            </Button>
         )}
 
         
         {!provider && (
           <>
-            <div>
+            <Text>
               No provider found. Install{" "}
-              <a href="https://phantom.app/">Phantom Browser extension</a>
-            </div>
+              <Anchor href="https://phantom.app/">Phantom Browser extension</Anchor>
+            </Text>
           </>
-          
         )}
         </>
       );
@@ -295,10 +303,10 @@ type DisplayEncoding = "utf8" | "hex";
   
   return (
     <Box>
-      <Header height={60} px="md" className={classes.header}>
+      <Header height={60} px="md" className={classes.header} id="header">
         <Group position="apart" sx={{ height: "100%" }}>
           <Group
-            sx={{ height: "100%", margin: "auto", width: "65%" }}
+            sx={{ height: "100%", margin: "auto", width: "75%" }}
             spacing={0}
           >
             <div
@@ -392,11 +400,15 @@ type DisplayEncoding = "utf8" | "hex";
   
             <Group className={classes.hiddenMobile}>
               {PhantomWrapper()}
-              <LightDarkMode />
+              <div className={classes.hidden}>
+                <LightDarkMode />
+              </div>
             </Group>
             <Group position='center' className={classes.hiddenDesktop}>
               <Burger opened={drawerOpened} onClick={toggleDrawer} />
-              <LightDarkMode />
+              <div className={classes.hidden}>
+                <LightDarkMode />
+              </div>
             </Group>
             
           </Group>

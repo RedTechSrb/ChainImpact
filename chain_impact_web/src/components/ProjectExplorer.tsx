@@ -135,7 +135,7 @@ export default function ProjectExplorer() {
   ));
 
   return (
-    <Container py="xl" size="lg">
+    <Container py="xl" size="lg" id="project_explorer">
       <Title order={2} className={classes.herotitle} align="center" mt="sm">
         Support what you believe in.
       </Title>

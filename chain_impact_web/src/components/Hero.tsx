@@ -104,17 +104,6 @@ const useStyles = createStyles((theme) => ({
 export default function Hero() {
   const { classes, cx } = useStyles();
 
-  const executeScroll = (data: string) => {
-    const element = document.getElementById(data);
-    if (element) {
-      element.scrollIntoView();
-    }
-  };
-
-  useEffect(() => {
-    executeScroll("hero");
-  }, []);
-
   return (
     <div className={classes.wrapper} id="hero">
       <Overlay color="#000" opacity={0.65} zIndex={1} />

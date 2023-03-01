@@ -125,15 +125,15 @@ export default function TagLeaderboard() {
   const impactors = useGetImpactors();
   console.log(impactors);
 
-  const impactorData = impactors.map((impactor) => (
-    {
-      avatar: impactor.imageurl ? impactor.imageurl : "https://avatars.githubusercontent.com/u/1309537?v=4",
-      name: impactor.name,
-      job: "",
-      email: impactor.wallet,
-      role: "Company"
-    }
-  ));
+  const impactorData = impactors.map((impactor) => ({
+    avatar: impactor.imageurl
+      ? impactor.imageurl
+      : "https://avatars.githubusercontent.com/u/1309537?v=4",
+    name: impactor.name,
+    job: "",
+    email: impactor.wallet,
+    role: "Company",
+  }));
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
@@ -156,9 +156,21 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <ImpactorTable data={impactorData} title={"Leaderboard 1"} ></ImpactorTable>
-        <ImpactorTable data={impactorData} title={"Leaderboard 2"} ></ImpactorTable>
-        <ImpactorTable data={impactorData} title={"Leaderboard 3"} ></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"Environmental"}
+          titlecolor={"#BBFD00"}
+        ></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"General"}
+          titlecolor="fddf00"
+        ></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"Social"}
+          titlecolor="red"
+        ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

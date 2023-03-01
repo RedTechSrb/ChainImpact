@@ -159,21 +159,17 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <div>
-          <Badge variant="filled" size="lg" color="#BBFD00">
-            Company ESG Leaders
-          </Badge>
+        <ImpactorTable
+          data={impactortabledata}
+          title={"Company ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
 
-          <ImpactorTable data={impactortabledata} title={""}></ImpactorTable>
-        </div>
-
-        <div>
-          <Badge variant="filled" size="lg" color="lime">
-            Community ESG Leaders
-          </Badge>
-
-          <ImpactorTable data={impactortabledata} title={""}></ImpactorTable>
-        </div>
+        <ImpactorTable
+          data={impactortabledata}
+          title={" Community ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

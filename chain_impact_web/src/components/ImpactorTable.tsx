@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 
 interface UsersTableProps {
-  title: string,
+  title: string;
   data: {
     avatar: string;
     name: string;
@@ -18,11 +18,16 @@ interface UsersTableProps {
     email: string;
     role: string;
   }[];
+  titlecolor: string;
 }
 
 const rolesData = ["Manager", "Collaborator", "Contractor"];
 
-export default function ImpactorTable({ data, title }: UsersTableProps) {
+export default function ImpactorTable({
+  data,
+  title,
+  titlecolor,
+}: UsersTableProps) {
   const rows = data.map((item) => (
     <tr key={item.name}>
       <td>
@@ -38,17 +43,15 @@ export default function ImpactorTable({ data, title }: UsersTableProps) {
           </div>
         </Group>
       </td>
-      <td>
-        {1250}
-      </td>
+      <td>{1250}</td>
     </tr>
   ));
 
   return (
     <div>
-    <Title order={4} style={{textAlign: "center"}}>
-          {title}
-        </Title>
+      <Badge style={{ textAlign: "center", color: titlecolor }} size="lg">
+        {title}
+      </Badge>
       <ScrollArea>
         <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
           <thead>

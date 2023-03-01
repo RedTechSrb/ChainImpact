@@ -17,43 +17,71 @@ import {
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
+import Project from "./Project";
 
 const mockdata = [
   {
-    title: "Top 10 places to visit in Norway this summer",
-    image:
-      "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "August 18, 2022",
+    image: "https://picsum.photos/id/1000/400/300",
+    title: "Project One",
+
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod velit at bibendum feugiat. Nulla sollicitudin tellus sed turpis dapibus, ut efficitur elit lacinia. Mauris vel mi eget est volutpat commodo.",
+    primarytag: "Education",
+    secondarytag: "STEM",
+    angelimapctor: {
+      name: "John Doe",
+      image: "https://picsum.photos/id/1015/200/200",
+      address: "1234 Main St, New York, NY 10001",
+    },
+    charity: {
+      name: "Bob Johnson",
+      image: "https://picsum.photos/id/1018/200/200",
+      address: "12345 Main St, New York, NY 10001",
+    },
+    totaldonated: 15000,
+    goal: 20000,
   },
   {
-    title: "Best forests to visit in North America",
-    image:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "August 27, 2022",
+    image: "https://picsum.photos/id/1001/400/300",
+    title: "Project Two",
+
+    description:
+      "Vivamus at ex nec felis tristique venenatis eu vitae lectus. Proin sed lorem id mi ultricies feugiat. Nam vitae lectus eget sapien facilisis luctus. Morbi sed justo ut mauris fermentum fringilla nec sit amet nisl. ",
+    primarytag: "Health",
+    secondarytag: "Cancer Research",
+    angelimapctor: {
+      name: "Jane Smith",
+      image: "https://picsum.photos/id/1016/200/200",
+      address: "12345 Main St, New York, NY 10001",
+    },
+    charity: {
+      name: "Bob Johnson",
+      image: "https://picsum.photos/id/1018/200/200",
+      address: "12345 Main St, New York, NY 10001",
+    },
+    totaldonated: 8000,
+    goal: 10000,
   },
   {
-    title: "Hawaii beaches review: better than you think",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "September 9, 2022",
-  },
-  {
-    title: "Mountainssss at night: 12 best locations to enjoy the view",
-    image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "September 12, 2022",
-  },
-  {
-    title: "Hawaii beachdddes review: better than you think",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "September 9, 2022",
-  },
-  {
-    title: "Mountaddddins at night: 12 best locations to enjoy the view",
-    image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
-    date: "September 12, 2022",
+    image: "https://picsum.photos/id/1002/400/300",
+    title: "Project Three",
+
+    description:
+      "Praesent ultricies augue sed turpis congue, id suscipit est malesuada. Duis sit amet enim eget arcu commodo tincidunt eu eget augue. In hac habitasse platea dictumst. Nam in turpis id felis facilisis aliquet. ",
+    primarytag: "Environment",
+    secondarytag: "Sustainability",
+    angelimapctor: {
+      name: "Bob Johnson",
+      image: "https://picsum.photos/id/1018/200/200",
+      address: "12345 Main St, New York, NY 10001",
+    },
+    charity: {
+      name: "Bob Johnson",
+      image: "https://picsum.photos/id/1018/200/200",
+      address: "12345 Main St, New York, NY 10001",
+    },
+    totaldonated: 12000,
+    goal: 15000,
   },
 ];
 
@@ -119,23 +147,34 @@ export default function ProjectExplorer() {
   const [activePage, setPage] = useState(1);
   const [filteredData, setFilteredData] = useState(mockdata);
   const [tag, setTag] = useState("General");
-  var cards = filteredData.map((article) => (
-    <Card
-      key={article.title}
-      p="md"
-      radius="md"
-      component="a"
-      href="#"
-      className={classes.card}
-    >
-      <AspectRatio ratio={1920 / 1080}>
-        <Image src={article.image} />
-      </AspectRatio>
-      <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
-        {article.date}
-      </Text>
-      <Text mt={5}>{article.title}</Text>
-    </Card>
+  var projects = filteredData.map((article) => (
+    <Project
+      title={article.title}
+      image={article.image}
+      angelimapctor={article.angelimapctor}
+      description={article.description}
+      primarytag={article.primarytag}
+      secondarytag={article.secondarytag}
+      totaldonated={article.totaldonated}
+      goal={article.goal}
+      charity={article.charity}
+    ></Project>
+    // <Card
+    //   key={article.title}
+    //   p="md"
+    //   radius="md"
+    //   component="a"
+    //   href="#"
+    //   className={classes.card}
+    // >
+    //   <AspectRatio ratio={1920 / 1080}>
+    //     <Image src={article.image} />
+    //   </AspectRatio>
+    //   <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
+    //     {article.date}
+    //   </Text>
+    //   <Text mt={5}>{article.title}</Text>
+    // </Card>
   ));
 
   useEffect(() => {
@@ -143,29 +182,18 @@ export default function ProjectExplorer() {
     const endIndex = 4 * activePage;
     setFilteredData(mockdata.slice(startIndex, endIndex));
 
-    cards = filteredData.map((article) => (
-      <Card
-        key={article.title}
-        p="md"
-        radius="md"
-        component="a"
-        href="#"
-        className={classes.card}
-      >
-        <AspectRatio ratio={1920 / 1080}>
-          <Image src={article.image} />
-        </AspectRatio>
-        <Text
-          color="dimmed"
-          size="xs"
-          transform="uppercase"
-          weight={700}
-          mt="md"
-        >
-          {article.date}
-        </Text>
-        <Text mt={5}>{article.title}</Text>
-      </Card>
+    projects = filteredData.map((article) => (
+      <Project
+        title={article.title}
+        image={article.image}
+        angelimapctor={article.angelimapctor}
+        description={article.description}
+        primarytag={article.primarytag}
+        secondarytag={article.secondarytag}
+        totaldonated={article.totaldonated}
+        goal={article.goal}
+        charity={article.charity}
+      ></Project>
     ));
 
     return () => {
@@ -235,7 +263,7 @@ export default function ProjectExplorer() {
         />
       </Flex>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        {cards}
+        {projects}
       </SimpleGrid>
       <Pagination
         total={mockdata.length / 4 + 1}

@@ -9,7 +9,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public ProjectRepository(ApiDbContext context) : base(context)
         {
         }
-
+/*
         override
         public async Task<List<Project>> ListAllAsync()
         {
@@ -19,6 +19,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                                         .Include(p => p.secondarycausetype)
                                         .ToListAsync();
         }
-
+*/
     }
 }

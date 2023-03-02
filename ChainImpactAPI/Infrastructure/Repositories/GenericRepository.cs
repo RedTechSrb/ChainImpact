@@ -2,6 +2,7 @@
 using ChainImpactAPI.Infrastructure;
 using ChainImpactAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ChainImpactAPI.Infrastructure.Repositories
 {
@@ -14,9 +15,16 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             this.context = context;
         }
 
-        public virtual async Task<List<T>> ListAllAsync()
+        public virtual async Task<List<T>> ListAllAsync(params Expression<Func<T, object>>[] includes)
         {
-            return await context.Set<T>().ToListAsync();
+            var query = context.Set<T>().AsNoTracking();
+            foreach (var inc in includes)
+            {
+                query = query.Include(inc);
+            }
+
+            return await query.ToListAsync();
         }
+
     }
 }

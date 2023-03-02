@@ -5,7 +5,7 @@ namespace ChainImpactAPI.Dtos
 {
     public class ProjectDto
     {
-        public ProjectDto(int id, Charity charity, string name, string? description, string? milestones, double finantialgoal, double totaldonated, string? website, string? facebook, string? discord, string? twitter, string? instagram, string? imageurl, Impactor? impactor, CauseType primarycausetype, CauseType secondarycausetype)
+        public ProjectDto(int? id, Charity charity, string name, string? description, string? milestones, double finantialgoal, double totaldonated, string? website, string? facebook, string? discord, string? twitter, string? instagram, string? imageurl, Impactor? impactor, CauseType primarycausetype, CauseType secondarycausetype)
         {
             this.id = id;
             this.charity = charity;
@@ -25,7 +25,7 @@ namespace ChainImpactAPI.Dtos
             this.secondarycausetype = secondarycausetype;
         }
 
-        public int id { get; set; }
+        public int? id { get; set; }
         public Charity charity { get; set; }
         public string name { get; set; }
         public string? description { get; set; }

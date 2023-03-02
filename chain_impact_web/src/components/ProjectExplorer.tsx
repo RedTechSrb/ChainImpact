@@ -288,7 +288,7 @@ export default function ProjectExplorer() {
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
   const dbMockData = useGetAllProjects();
-  const [filteredData, setFilteredData] = useState(/*mockdata*/dbMockData);
+  const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
   const [searchQuery, setSearch] = useState("");
   const [tag, setTag] = useState("general");
   var projects = filteredData.map((article) => (
@@ -317,14 +317,14 @@ export default function ProjectExplorer() {
     const endIndex = 4 * activePage;
 
     const filterProjects = (tag: string, searchQuery: string) => {
-      return /*mockdata*/dbMockData.filter((project) => {
+      return /*mockdata*/ dbMockData.filter((project) => {
         const { primarycausetype, secondarycausetype, name, description } =
           project;
 
         if (
-          tag === "general" ||
-          secondarycausetype.name === tag ||
-          primarycausetype.name === tag
+          tag.toLowerCase() === "general" ||
+          secondarycausetype.name === tag.toLowerCase() ||
+          primarycausetype.name === tag.toLowerCase()
         ) {
           if (!searchQuery) {
             return true;
@@ -426,12 +426,12 @@ export default function ProjectExplorer() {
           radius="xl"
           size="md"
           data={[
-            "general",
-            "environment",
-            "social",
-            "disaster relief",
-            "education",
-            "ecosystem",
+            "General",
+            "Environment",
+            "Social",
+            "Disaster Relief",
+            "Education",
+            "Ecosystem",
           ]}
           classNames={classes}
           value={tag}
@@ -442,7 +442,7 @@ export default function ProjectExplorer() {
         {projects}
       </SimpleGrid>
       <Pagination
-        total={Math.ceil(/*mockdata*/dbMockData.length / 4)}
+        total={Math.ceil(/*mockdata*/ dbMockData.length / 4)}
         color="lime"
         mt="lg"
         page={activePage}

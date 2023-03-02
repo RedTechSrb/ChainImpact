@@ -21,6 +21,12 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
 
+  gradientSpan: {
+    background: "linear-gradient(to right, #9945FF, #14F195)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+  },
+
   section: {
     borderBottom: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
@@ -123,11 +129,24 @@ export default function ProjectComponent({
         />
       </Card.Section>
 
-      <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }} color="lime">
-          Donate
-        </Button>
-      </Group>
+      {totaldonated !== 0 ? (
+        <Group mt="xs">
+          <Button radius="md" style={{ flex: 1 }} color="lime">
+            Donate
+          </Button>
+        </Group>
+      ) : (
+        <Group mt="xs">
+          <Text size="lg" weight={500} mt="lg">
+            This project is looking for ${financialgoal} in funding! <br></br>{" "}
+            Showcase your values and donate.
+          </Text>
+
+          <Button radius="md" style={{ flex: 1 }} color="pink">
+            Become Angel Investor
+          </Button>
+        </Group>
+      )}
     </Card>
   );
 }

@@ -59,6 +59,7 @@ CREATE TABLE Impactor
 	Discord              varchar(100)  NULL ,
 	Role                 integer  NULL ,
 	Type                 integer  NULL ,
+	ImageUrl             varchar(10000)  NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 

@@ -81,6 +81,8 @@ CREATE TABLE NFTType
 	ImageUrl             varchar(1000)  NULL ,
 	CauseTypeId          bigint  NOT NULL ,
 	MinimalDonation      decimal(20,9)  NULL ,
+	Symbol               varchar(100)  NULL ,
+	Description          varchar(4000)  NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
 );
 
@@ -204,6 +206,8 @@ COMMENT ON COLUMN NFTType.Tier IS 'Depends on amonut of donation
 COMMENT ON COLUMN NFTType.UserType IS 'Impactor type
 0 - company
 1 - private user';
+
+COMMENT ON COLUMN NFTType.MinimalDonation IS 'Depends on (tier, usertype) tuple';
 
 COMMENT ON COLUMN Transaction.Type IS 'Type of transaction (who are Sender and Receiver)
 0 - Donator pays directly to Charity (there will be 2 transactions, one between Donator and Charity and the other between Donator and ChainImpact)

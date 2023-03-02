@@ -3,6 +3,7 @@ import BiggestImpactors from "../components/BiggestImpactors";
 import FAQ from "../components/FAQ";
 import Hero from "../components/Hero";
 import ProjectExplorer from "../components/ProjectExplorer";
+import Stats from "../components/Stats";
 import TagLeaderboard from "../components/TagLeaderboard";
 import Testimonials from "../components/Testimonials";
 
@@ -16,6 +17,26 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
   },
 }));
+
+const statsdata = {
+  data: [
+    {
+      title: "Total donated",
+      value: "$134,456",
+      diff: 20,
+    },
+    {
+      title: "Projects funded",
+      value: "40",
+      diff: 13,
+    },
+    {
+      title: "Companies involved",
+      value: "60",
+      diff: 18,
+    },
+  ],
+};
 
 const testimonialsData = {
   supTitle: "They already trust investing into ESG",
@@ -56,6 +77,7 @@ export default function Home() {
         description={testimonialsData.description}
         data={testimonialsData.data}
       />
+      <Stats data={statsdata.data}></Stats>
     </>
   );
 }

@@ -2,6 +2,7 @@
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Infrastructure.Repositories;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -26,6 +27,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             foreach (var impactor in impactors)
             {
                 impactorDtoList.Add(new ImpactorDto(
+                            impactor.id,
                             impactor.wallet,
                             impactor.name,
                             impactor.description,
@@ -42,6 +44,27 @@ namespace ChainImpactAPI.Infrastructure.Services
             }
 
             return impactorDtoList;
+        }
+
+        public Impactor SaveImpactor(ImpactorDto impactorDto)
+        {
+            var impactor = impactorRepository.Update(new Impactor
+            {
+                id = impactorDto.id,
+                wallet = impactorDto.wallet,
+                name= impactorDto.name,
+                description= impactorDto.description,
+                discord= impactorDto.discord,
+                facebook= impactorDto.facebook,  
+                twitter= impactorDto.twitter,
+                instagram= impactorDto.instagram,
+                imageurl= impactorDto.imageurl,
+                website= impactorDto.website,
+                type= impactorDto.type.Value,
+                role= (int)UserType.User
+            });
+
+            return impactor;
         }
     }
 }

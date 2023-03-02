@@ -30,5 +30,35 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         {
             return await context.Set<T>().ToListAsync();
         }
+
+
+
+        public T Update(T entity)
+        {
+
+            var existingItem = context.Set<T>().Find(entity.id);
+
+
+            if (existingItem != null)
+            {
+                context.Entry(existingItem).CurrentValues.SetValues(entity);
+                context.Entry(existingItem).State = EntityState.Modified;
+            }
+            else
+            {
+                context.Set<T>().Add(entity);
+                context.Entry(entity).State = EntityState.Added;
+            }
+
+            context.SaveChanges();
+            return entity;
+
+        }
+
+        public T Delete(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

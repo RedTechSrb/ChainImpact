@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
+using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,15 @@ namespace ChainImpactAPI.Controllers
 
             return Ok(impactorDtoList);
         }
+
+        [HttpPost("save")]
+        public IActionResult SaveImpactor(ImpactorDto impactorDto)
+        {
+
+            var impactorSavedImpactor = impactorService.SaveImpactor(impactorDto);
+
+            return Ok(impactorSavedImpactor);
+        }
+
     }
 }

@@ -123,7 +123,7 @@ const useStyles = createStyles((theme) => ({
 
 const environmentalFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 1,
   dto: {
     projectType: "environment"
   }
@@ -131,7 +131,7 @@ const environmentalFilter: ImpactorTypeFilter = {
 
 const socialFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 1,
   dto: {
     projectType: "social"
   }
@@ -154,9 +154,9 @@ export default function TagLeaderboard() {
     return impactorData;
   }
 
-  const impactorsEnvironmental = useGetImpactorsWithDonations(environmentalFilter);
-  const impactorsSocial = useGetImpactorsWithDonations(socialFilter);
-  const impactorsGeneral = useGetImpactorsWithDonations({});
+  const impactorsEnvironmental = useGetImpactorsWithDonations(environmentalFilter, false);
+  const impactorsSocial = useGetImpactorsWithDonations(socialFilter, false);
+  const impactorsGeneral = useGetImpactorsWithDonations({}, false);
 
   const impactorsEnv = arangeImpactorData(impactorsEnvironmental);
   const impactorsSoc = arangeImpactorData(impactorsSocial);
@@ -188,16 +188,22 @@ export default function TagLeaderboard() {
           data={impactorsEnv}
           title={"Environmental"}
           titlecolor={"#BBFD00"}
+          type={"environment"}
+          isPrivate={false}
         ></ImpactorTable>
         <ImpactorTable
           data={impactorsGen}
           title={"General"}
           titlecolor="fddf00"
+          type={"general"}
+          isPrivate={false}
         ></ImpactorTable>
         <ImpactorTable
           data={impactorsSoc}
           title={"Social"}
           titlecolor="#fddf00"
+          type={"social"}
+          isPrivate={false}
         ></ImpactorTable>
       </SimpleGrid>
     </Container>

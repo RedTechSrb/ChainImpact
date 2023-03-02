@@ -1,5 +1,8 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Application.ServiceInterfaces;
+using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.NFT;
+using ChainImpactAPI.Infrastructure.Repositories;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -16,5 +19,26 @@ namespace ChainImpactAPI.Infrastructure.Services
             this.nFTTypeRepository = nFTTypeRepository;
         }
 
+        public List<NFTResponseDto> GetNFTList()
+        {
+
+            var nfts = nFTTypeRepository.ListAllAsync().Result;
+
+            var nftDtoList = new List<NFTResponseDto>();
+            foreach (var nft in nfts)
+            {
+                nftDtoList.Add(new NFTResponseDto
+                {
+                    description = nft.description,
+                    external_url = "https://chainimpact.surge.sh/",
+                    image = nft.imageurl,
+                    name = nft.causetype.name + " #" + nft.tier,
+                    symbol = nft.symbol,
+                });
+            }
+
+            return nftDtoList;
+
+        }
     }
 }

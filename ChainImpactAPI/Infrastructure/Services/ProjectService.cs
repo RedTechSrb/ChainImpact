@@ -30,7 +30,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                         project.name,
                         project.description,
                         project.milestones,
-                        project.finantialgoal,
+                        project.financialgoal,
                         project.totaldonated,
                         project.website,
                         project.facebook,

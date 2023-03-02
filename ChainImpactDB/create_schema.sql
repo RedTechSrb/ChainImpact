@@ -57,9 +57,9 @@ CREATE TABLE Impactor
 	Instagram            varchar(100)  NULL ,
 	Website              varchar(100)  NULL ,
 	Discord              varchar(100)  NULL ,
-	Role                 integer  NOT NULL ,
-	Type                 integer  NOT NULL ,
-	ImageUrl             varchar(100)  NULL ,
+	Role                 integer  NULL ,
+	Type                 integer  NULL ,
+	ImageUrl             varchar(10000)  NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 
@@ -77,22 +77,24 @@ CREATE TABLE NFTOwner
 CREATE TABLE NFTType
 ( 
 	Id                   serial  NOT NULL ,
-	Tier                 integer  NOT NULL ,
-	UserType             integer  NOT NULL ,
-	ImageUrl             varchar(1000)  NOT NULL ,
+	Tier                 integer  NULL ,
+	UserType             integer  NULL ,
+	ImageUrl             varchar(1000)  NULL ,
 	CauseTypeId          bigint  NOT NULL ,
-	MinimalDonation      decimal(20,9)  NOT NULL ,
+	MinimalDonation      decimal(20,9)  NULL ,
+	Symbol               varchar(100)  NULL ,
+	Description          varchar(4000)  NULL ,
 	CONSTRAINT XPKNFTType PRIMARY KEY (Id)
 );
 
 CREATE TABLE Project
 ( 
 	Id                   serial  NOT NULL ,
-	CharityId            serial  NOT NULL ,
+	CharityId            bigint  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
 	Milestones           varchar(20)  NULL ,
-	FinantialGoal        decimal(20,9)  NOT NULL ,
+	FinancialGoal        decimal(20,9)  NOT NULL ,
 	TotalDonated         decimal(20,9)  NOT NULL ,
 	Website              varchar(100)  NULL ,
 	Facebook             varchar(100)  NULL ,
@@ -110,8 +112,8 @@ CREATE TABLE Transaction
 ( 
 	Id                   serial  NOT NULL ,
 	BlockchainAddress    varchar(256)  NOT NULL ,
-	Sender               varchar(256)  NULL ,
-	Receiver             varchar(256)  NULL ,
+	Sender               varchar(256)  NOT NULL ,
+	Receiver             varchar(256)  NOT NULL ,
 	Amount               decimal(20,9)  NULL ,
 	ProjectId            bigint  NOT NULL ,
 	DonatorId            bigint  NOT NULL ,
@@ -205,6 +207,8 @@ COMMENT ON COLUMN NFTType.Tier IS 'Depends on amonut of donation
 COMMENT ON COLUMN NFTType.UserType IS 'Impactor type
 0 - company
 1 - private user';
+
+COMMENT ON COLUMN NFTType.MinimalDonation IS 'Depends on (tier, usertype) tuple';
 
 COMMENT ON COLUMN Transaction.Type IS 'Type of transaction (who are Sender and Receiver)
 0 - Donator pays directly to Charity (there will be 2 transactions, one between Donator and Charity and the other between Donator and ChainImpact)

@@ -1,13 +1,12 @@
-export interface Impactor {
-    wallet: string,
+import { BaseEntity } from "./BaseEntity";
+
+export interface Charity extends BaseEntity {
     name: string,
-    description: string | null,
+    wallet: string | null,
     website: string | null,
     facebook: string | null,
     discord: string | null,
     twitter: string | null,
-    instagram: string | null,
     imageurl: string | null,
-    role: number,
-    type: number,
+    description: string | null,
 }

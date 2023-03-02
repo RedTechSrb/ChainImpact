@@ -9,7 +9,9 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
-import { useGetImpactors } from "../repositories/ImpactorRepository";
+import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
+import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
+import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [
@@ -119,21 +121,47 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const environmentalFilter: ImpactorTypeFilter = {
+  pageNumber: 1,
+  pageSize: 5,
+  dto: {
+    projectType: "environment"
+  }
+}
+
+const socialFilter: ImpactorTypeFilter = {
+  pageNumber: 1,
+  pageSize: 5,
+  dto: {
+    projectType: "social"
+  }
+}
+
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
 
-  const impactors = useGetImpactors();
-  console.log(impactors);
+  function arangeImpactorData(data: ImpactorsWithDonations[]) {
+    const impactorData = data.map((impactor) => ({
+      avatar: impactor.imageurl
+        ? impactor.imageurl
+        : "https://avatars.githubusercontent.com/u/1309537?v=4",
+      name: impactor.name,
+      job: "",
+      email: impactor.wallet,
+      role: "Company",
+      amount: impactor.totalDonations
+    }));
+    return impactorData;
+  }
 
-  const impactorData = impactors.map((impactor) => ({
-    avatar: impactor.imageurl
-      ? impactor.imageurl
-      : "https://avatars.githubusercontent.com/u/1309537?v=4",
-    name: impactor.name,
-    job: "",
-    email: impactor.wallet,
-    role: "Company",
-  }));
+  const impactorsEnvironmental = useGetImpactorsWithDonations(environmentalFilter);
+  const impactorsSocial = useGetImpactorsWithDonations(socialFilter);
+  const impactorsGeneral = useGetImpactorsWithDonations({});
+
+  const impactorsEnv = arangeImpactorData(impactorsEnvironmental);
+  const impactorsSoc = arangeImpactorData(impactorsSocial);
+  const impactorsGen = arangeImpactorData(impactorsGeneral);
+  
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
@@ -157,17 +185,17 @@ export default function TagLeaderboard() {
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
         <ImpactorTable
-          data={impactorData}
+          data={impactorsEnv}
           title={"Environmental"}
           titlecolor={"#BBFD00"}
         ></ImpactorTable>
         <ImpactorTable
-          data={impactorData}
+          data={impactorsGen}
           title={"General"}
           titlecolor="fddf00"
         ></ImpactorTable>
         <ImpactorTable
-          data={impactorData}
+          data={impactorsSoc}
           title={"Social"}
           titlecolor="#fddf00"
         ></ImpactorTable>

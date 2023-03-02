@@ -169,7 +169,7 @@ export default function TagLeaderboard() {
         <ImpactorTable
           data={impactorData}
           title={"Social"}
-          titlecolor="red"
+          titlecolor="#fddf00"
         ></ImpactorTable>
       </SimpleGrid>
     </Container>

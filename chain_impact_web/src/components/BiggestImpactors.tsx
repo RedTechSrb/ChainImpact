@@ -168,7 +168,7 @@ export default function TagLeaderboard() {
         <ImpactorTable
           data={impactortabledata}
           title={" Community ESG Leaders"}
-          titlecolor=""
+          titlecolor="#BBFD00"
         ></ImpactorTable>
       </SimpleGrid>
     </Container>

@@ -8,7 +8,10 @@ INSERT INTO public.causetype(name)
 	VALUES ('health');	
 	
 INSERT INTO public.causetype(name)
-	VALUES ('ekosystem');
+	VALUES ('ecosystem');
 	
 INSERT INTO public.causetype(name)
 	VALUES ('education');
+
+INSERT INTO public.causetype(name)
+	VALUES ('disaster relief');

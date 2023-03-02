@@ -37,17 +37,26 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             if (donationSearchDto.projectType != null)
             {
-                donations = donations.Where(d => d.project.primarycausetype.name == donationSearchDto.projectType);
+                if(donationSearchDto.projectType == "environment")
+                {
+                    donations = donations.Where(d => d.project.primarycausetype.name == "environment" || d.project.primarycausetype.name == "health" || d.project.primarycausetype.name == "disaster relief");
+                }
+                else if (donationSearchDto.projectType == "social")
+                {
+                    donations = donations.Where(d => d.project.primarycausetype.name == "social" || d.project.primarycausetype.name == "ekosystem" || d.project.primarycausetype.name == "education");
+                }
             }
 
             List<ImpactorsWithDonationsResponseDto> donationsGroupedByImpactors = await donations.GroupBy(d => new {
-                                                                                                    d.donator.id, d.donator.name, d.donator.wallet, d.donator.type             
+                                                                                                    d.donator.id, d.donator.name, d.donator.wallet, d.donator.type, d.donator.imageurl
                                                                                          }).Select(gpb => new ImpactorsWithDonationsResponseDto {
                                                                                             name = gpb.Key.name,
                                                                                             wallet = gpb.Key.wallet,
                                                                                             userType = gpb.Key.type,
+                                                                                            imageUrl = gpb.Key.imageurl,
                                                                                             totalDonations = gpb.Sum(d => d.amount)
-                                                                                         }).ToListAsync();
+                                                                                         }).OrderByDescending(iwd => iwd.totalDonations)
+                                                                                         .ToListAsync();
 
             return donationsGroupedByImpactors;
         }

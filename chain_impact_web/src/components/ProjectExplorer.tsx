@@ -17,9 +17,10 @@ import {
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
+import { useGetAllProjects } from "../repositories/ProjectRepository";
 import ProjectComponent from "./ProjectComponent";
 
-const mockdata = [
+/*const mockdata = [
   {
     id: 4,
     charity: {
@@ -224,7 +225,7 @@ const mockdata = [
       name: "Social",
     },
   },
-];
+];*/
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -286,15 +287,16 @@ export default function ProjectExplorer() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
-  const [filteredData, setFilteredData] = useState(mockdata);
+  const dbMockData = useGetAllProjects();
+  const [filteredData, setFilteredData] = useState(/*mockdata*/dbMockData);
   const [searchQuery, setSearch] = useState("");
-  const [tag, setTag] = useState("General");
+  const [tag, setTag] = useState("general");
   var projects = filteredData.map((article) => (
     <ProjectComponent
       name={article.name}
       description={article.description}
       imageurl={article.imageurl}
-      financialGoal={article.financialGoal}
+      financialgoal={article.financialgoal}
       totaldonated={article.totaldonated}
       primarycausetype={article.primarycausetype}
       secondarycausetype={article.secondarycausetype}
@@ -315,12 +317,12 @@ export default function ProjectExplorer() {
     const endIndex = 4 * activePage;
 
     const filterProjects = (tag: string, searchQuery: string) => {
-      return mockdata.filter((project) => {
+      return /*mockdata*/dbMockData.filter((project) => {
         const { primarycausetype, secondarycausetype, name, description } =
           project;
 
         if (
-          tag === "General" ||
+          tag === "general" ||
           secondarycausetype.name === tag ||
           primarycausetype.name === tag
         ) {
@@ -351,7 +353,7 @@ export default function ProjectExplorer() {
         name={article.name}
         description={article.description}
         imageurl={article.imageurl}
-        financialGoal={article.financialGoal}
+        financialgoal={article.financialgoal}
         totaldonated={article.totaldonated}
         primarycausetype={article.primarycausetype}
         secondarycausetype={article.secondarycausetype}
@@ -370,7 +372,7 @@ export default function ProjectExplorer() {
     return () => {
       // cleanup function here
     };
-  }, [activePage, tag, searchQuery]);
+  }, [activePage, tag, searchQuery, dbMockData]);
 
   return (
     <Container py="xl" size="lg" id="project_explorer">
@@ -424,12 +426,12 @@ export default function ProjectExplorer() {
           radius="xl"
           size="md"
           data={[
-            "General",
-            "Environment",
-            "Social",
-            "Disaster Relief",
-            "Education",
-            "Ecosystem",
+            "general",
+            "environment",
+            "social",
+            "disaster relief",
+            "education",
+            "ecosystem",
           ]}
           classNames={classes}
           value={tag}
@@ -440,7 +442,7 @@ export default function ProjectExplorer() {
         {projects}
       </SimpleGrid>
       <Pagination
-        total={Math.ceil(mockdata.length / 4)}
+        total={Math.ceil(/*mockdata*/dbMockData.length / 4)}
         color="lime"
         mt="lg"
         page={activePage}

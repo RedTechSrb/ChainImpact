@@ -49,7 +49,7 @@ export default function ProjectComponent({
   secondarycausetype,
   angelimpactor,
   totaldonated,
-  financialGoal,
+  financialgoal,
   charity,
 }: Project) {
   const { classes, theme } = useStyles();
@@ -112,11 +112,11 @@ export default function ProjectComponent({
         </SimpleGrid>
 
         <Text size="lg" weight={500} mt="lg">
-          Project Goal ${totaldonated} / ${financialGoal}
+          Project Goal ${totaldonated} / ${financialgoal}
         </Text>
         <Progress
-          value={((totaldonated * 1.0) / financialGoal) * 100}
-          label={((totaldonated * 1.0) / financialGoal) * 100 + "%"}
+          value={((totaldonated * 1.0) / financialgoal) * 100}
+          label={((totaldonated * 1.0) / financialgoal) * 100 + "%"}
           mt="sm"
           size="xl"
           radius="xl"

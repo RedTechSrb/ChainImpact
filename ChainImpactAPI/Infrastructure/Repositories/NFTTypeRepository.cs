@@ -8,5 +8,12 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public NFTTypeRepository(ApiDbContext context) : base(context)
         {
         }
+
+        override
+        public async Task<List<NFTType>> ListAllAsync()
+        {
+            return await base.ListAllAsync(nft => nft.causetype);
+        }
+
     }
 }

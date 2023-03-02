@@ -19,7 +19,7 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         public List<ProjectDto> GetProjects()
         {
-            var projects = projectRepository.ListAllAsync(p => p.charity, p => p.impactor, p => p.primarycausetype, p => p.secondarycausetype).Result;
+            var projects = projectRepository.ListAllAsync().Result;
 
             var projectDtoList = new List<ProjectDto>();
             foreach (var project in projects)

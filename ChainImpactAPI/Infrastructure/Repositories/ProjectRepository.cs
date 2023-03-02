@@ -1,6 +1,7 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ChainImpactAPI.Infrastructure.Repositories
 {
@@ -9,16 +10,12 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public ProjectRepository(ApiDbContext context) : base(context)
         {
         }
-/*
+
         override
         public async Task<List<Project>> ListAllAsync()
         {
-            return await context.project.Include(p => p.charity)
-                                        .Include(p => p.impactor)
-                                        .Include(p => p.primarycausetype)
-                                        .Include(p => p.secondarycausetype)
-                                        .ToListAsync();
+            return await base.ListAllAsync(p => p.charity, p => p.impactor, p => p.primarycausetype, p => p.secondarycausetype);
         }
-*/
+
     }
 }

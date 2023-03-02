@@ -15,7 +15,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             this.context = context;
         }
 
-        public virtual async Task<List<T>> ListAllAsync(params Expression<Func<T, object>>[] includes)
+        public async Task<List<T>> ListAllAsync(params Expression<Func<T, object>>[] includes)
         {
             var query = context.Set<T>().AsNoTracking();
             foreach (var inc in includes)
@@ -26,5 +26,9 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        public virtual async Task<List<T>> ListAllAsync()
+        {
+            return await context.Set<T>().ToListAsync();
+        }
     }
 }

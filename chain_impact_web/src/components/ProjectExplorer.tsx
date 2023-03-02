@@ -17,71 +17,212 @@ import {
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
-import Project from "./Project";
+import ProjectComponent from "./ProjectComponent";
 
 const mockdata = [
   {
-    image: "https://picsum.photos/id/1000/400/300",
-    title: "Project One",
-
+    id: 4,
+    charity: {
+      id: 4,
+      name: "The Ocean Cleanup",
+      wallet: "0x222222",
+      website: "https://www.theoceancleanup.com/",
+      facebook: "social media",
+      discord: "social media",
+      twitter: "social media",
+      instagram: "social media",
+      imageurl: "https://picsum.photos/id/1025/200/200",
+      description:
+        "The Ocean Cleanup develops advanced technologies to rid the world's oceans of plastic. We aim to remove 90% of the floating plastic with our systems that are fueled by the natural ocean currents.",
+    },
+    name: "Plastic Free Seas",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod velit at bibendum feugiat. Nulla sollicitudin tellus sed turpis dapibus, ut efficitur elit lacinia. Mauris vel mi eget est volutpat commodo.",
-    primarytag: "Education",
-    secondarytag: "STEM",
-    angelimapctor: {
+      "This project aims to clean up the oceans and prevent further pollution from plastic waste.",
+    milestones:
+      "1. Develop new plastic cleanup technology, 2. Deploy cleanup systems in ocean hotspots, 3. Remove millions of tons of plastic from the ocean.",
+    financialGoal: 1000000,
+    totaldonated: 250000,
+    website: "https://example.com/",
+    facebook: "social media",
+    discord: "social media",
+    twitter: "social media",
+    instagram: "social media",
+    imageurl: "https://picsum.photos/id/1025/200/200",
+    angelimpactor: {
+      wallet: "0x333333",
       name: "John Doe",
-      image: "https://picsum.photos/id/1015/200/200",
-      address: "1234 Main St, New York, NY 10001",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      website: "https://example.com",
+      facebook: "social media",
+      discord: null,
+      twitter: null,
+      instagram: "social media",
+      imageurl: "https://picsum.photos/id/1005/400/300",
+      role: 1,
+      type: 2,
     },
-    charity: {
-      name: "Bob Johnson",
-      image: "https://picsum.photos/id/1018/200/200",
-      address: "12345 Main St, New York, NY 10001",
+    primarycausetype: {
+      id: 2,
+      name: "Environment",
     },
-    totaldonated: 15000,
-    goal: 20000,
+    secondarycausetype: {
+      id: 5,
+      name: "Ecosystem",
+    },
   },
-  {
-    image: "https://picsum.photos/id/1001/400/300",
-    title: "Project Two",
 
+  {
+    id: 5,
+    charity: {
+      id: 5,
+      name: "Doctors Without Borders",
+      wallet: "0x222222",
+      website: "https://www.doctorswithoutborders.org/",
+      facebook: "social media",
+      discord: "social media",
+      twitter: "social media",
+      instagram: "social media",
+      imageurl: "https://picsum.photos/id/1000/400/300",
+      description:
+        "Doctors Without Borders provides emergency medical assistance to people affected by conflict, epidemics, disasters, or exclusion from healthcare.",
+    },
+    name: "Emergency Medical Assistance",
     description:
-      "Vivamus at ex nec felis tristique venenatis eu vitae lectus. Proin sed lorem id mi ultricies feugiat. Nam vitae lectus eget sapien facilisis luctus. Morbi sed justo ut mauris fermentum fringilla nec sit amet nisl. ",
-    primarytag: "Health",
-    secondarytag: "Cancer Research",
-    angelimapctor: {
+      "This project aims to provide emergency medical assistance to people affected by conflict, epidemics, disasters, or exclusion from healthcare.",
+    milestones:
+      "1. Deploy emergency medical teams to crisis areas, 2. Treat patients and provide necessary medical supplies, 3. Save lives and alleviate suffering.",
+    financialGoal: 5000000,
+    totaldonated: 1200000,
+    website: "https://example.com/",
+    facebook: "social media",
+    discord: "social media",
+    twitter: "social media",
+    instagram: "social media",
+    imageurl: "https://picsum.photos/id/1000/400/300",
+    angelimpactor: {
+      wallet: "0x444444",
       name: "Jane Smith",
-      image: "https://picsum.photos/id/1016/200/200",
-      address: "12345 Main St, New York, NY 10001",
+      description: null,
+      website: null,
+      facebook: "social media",
+      discord: "social media",
+      twitter: null,
+      instagram: null,
+      imageurl: "https://picsum.photos/id/1028/200/200",
+      role: 2,
+      type: 1,
     },
-    charity: {
-      name: "Bob Johnson",
-      image: "https://picsum.photos/id/1018/200/200",
-      address: "12345 Main St, New York, NY 10001",
+
+    primarycausetype: {
+      id: 3,
+      name: "Disaster Relief",
     },
-    totaldonated: 8000,
-    goal: 10000,
+    secondarycausetype: {
+      id: 1,
+      name: "Social",
+    },
   },
   {
-    image: "https://picsum.photos/id/1002/400/300",
-    title: "Project Three",
-
-    description:
-      "Praesent ultricies augue sed turpis congue, id suscipit est malesuada. Duis sit amet enim eget arcu commodo tincidunt eu eget augue. In hac habitasse platea dictumst. Nam in turpis id felis facilisis aliquet. ",
-    primarytag: "Environment",
-    secondarytag: "Sustainability",
-    angelimapctor: {
-      name: "Bob Johnson",
-      image: "https://picsum.photos/id/1018/200/200",
-      address: "12345 Main St, New York, NY 10001",
-    },
+    id: 6,
     charity: {
-      name: "Bob Johnson",
-      image: "https://picsum.photos/id/1018/200/200",
-      address: "12345 Main St, New York, NY 10001",
+      id: 5,
+      name: "Doctors Without Borders",
+      wallet: "0x222222",
+      website: "https://www.doctorswithoutborders.org/",
+      facebook: "social media",
+      discord: "social media",
+      twitter: "social media",
+      instagram: "social media",
+      imageurl: "https://picsum.photos/id/1000/400/200",
+      description:
+        "Doctors Without Borders provides emergency medical assistance to people affected by conflict, epidemics, disasters, or exclusion from healthcare.",
     },
-    totaldonated: 12000,
-    goal: 15000,
+    name: "Solana Education",
+    description:
+      "This project aims to educate people about the benefits of Solana and how to use it.",
+    milestones:
+      "1. Deploy emergency medical teams to crisis areas, 2. Treat patients and provide necessary medical supplies, 3. Save lives and alleviate suffering.",
+    financialGoal: 5000000,
+    totaldonated: 1200000,
+    website: "https://example.com/",
+    facebook: "social media",
+    discord: "social media",
+    twitter: "social media",
+    instagram: "social media",
+    imageurl: "https://picsum.photos/id/237/500/600",
+    angelimpactor: {
+      wallet: "0x444444",
+      name: "Jane Smith",
+      description: null,
+      website: null,
+      facebook: "social media",
+      discord: "social media",
+      twitter: null,
+      instagram: null,
+      imageurl: "https://picsum.photos/id/1028/200/200",
+      role: 2,
+      type: 1,
+    },
+
+    primarycausetype: {
+      id: 3,
+      name: "Education",
+    },
+    secondarycausetype: {
+      id: 1,
+      name: "Social",
+    },
+  },
+  {
+    id: 6,
+    charity: {
+      id: 5,
+      name: "Turkey DAO",
+      wallet: "0x222222",
+      website: "https://www.doctorswithoutborders.org/",
+      facebook: "social media",
+      discord: "social media",
+      twitter: "social media",
+      instagram: "social media",
+      imageurl: "https://picsum.photos/id/1000/400/300",
+      description:
+        "Doctors Without Borders provides emergency medical assistance to people affected by conflict, epidemics, disasters, or exclusion from healthcare.",
+    },
+    name: "Turkey Emergency Relief",
+    description:
+      "This project aims to provide asistance to people affected by the recent earthquake in Turkey.",
+    milestones:
+      "1. Deploy emergency medical teams to crisis areas, 2. Treat patients and provide necessary medical supplies, 3. Save lives and alleviate suffering.",
+    financialGoal: 100000,
+    totaldonated: 50000,
+    website: "https://example.com/",
+    facebook: "social media",
+    discord: "social media",
+    twitter: "social media",
+    instagram: "social media",
+    imageurl: "https://picsum.photos/id/500/400/300",
+    angelimpactor: {
+      wallet: "0x444444",
+      name: "Jane Smith",
+      description: null,
+      website: null,
+      facebook: "social media",
+      discord: "social media",
+      twitter: null,
+      instagram: null,
+      imageurl: "https://picsum.photos/id/1028/200/200",
+      role: 2,
+      type: 1,
+    },
+
+    primarycausetype: {
+      id: 3,
+      name: "Disaster Relief",
+    },
+    secondarycausetype: {
+      id: 1,
+      name: "Social",
+    },
   },
 ];
 
@@ -146,60 +287,90 @@ export default function ProjectExplorer() {
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
   const [filteredData, setFilteredData] = useState(mockdata);
+  const [searchQuery, setSearch] = useState("");
   const [tag, setTag] = useState("General");
   var projects = filteredData.map((article) => (
-    <Project
-      title={article.title}
-      image={article.image}
-      angelimapctor={article.angelimapctor}
+    <ProjectComponent
+      name={article.name}
       description={article.description}
-      primarytag={article.primarytag}
-      secondarytag={article.secondarytag}
+      imageurl={article.imageurl}
+      financialGoal={article.financialGoal}
       totaldonated={article.totaldonated}
-      goal={article.goal}
+      primarycausetype={article.primarycausetype}
+      secondarycausetype={article.secondarycausetype}
       charity={article.charity}
-    ></Project>
-    // <Card
-    //   key={article.title}
-    //   p="md"
-    //   radius="md"
-    //   component="a"
-    //   href="#"
-    //   className={classes.card}
-    // >
-    //   <AspectRatio ratio={1920 / 1080}>
-    //     <Image src={article.image} />
-    //   </AspectRatio>
-    //   <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
-    //     {article.date}
-    //   </Text>
-    //   <Text mt={5}>{article.title}</Text>
-    // </Card>
+      id={article.id}
+      milestones={null}
+      website={null}
+      facebook={null}
+      discord={null}
+      twitter={null}
+      instagram={null}
+      angelimpactor={article.angelimpactor}
+    ></ProjectComponent>
   ));
 
   useEffect(() => {
     const startIndex = activePage === 1 ? 0 : 4 * (activePage - 1);
     const endIndex = 4 * activePage;
-    setFilteredData(mockdata.slice(startIndex, endIndex));
+
+    const filterProjects = (tag: string, searchQuery: string) => {
+      return mockdata.filter((project) => {
+        const { primarycausetype, secondarycausetype, name, description } =
+          project;
+
+        if (
+          tag === "General" ||
+          secondarycausetype.name === tag ||
+          primarycausetype.name === tag
+        ) {
+          if (!searchQuery) {
+            return true;
+          }
+
+          const lowerCaseQuery = searchQuery.toLowerCase();
+          const lowerCaseName = name.toLowerCase();
+          const lowerCaseDescription = description?.toLowerCase() ?? "";
+
+          return (
+            lowerCaseName.includes(lowerCaseQuery) ||
+            lowerCaseDescription.includes(lowerCaseQuery)
+          );
+        }
+
+        return false;
+      });
+    };
+
+    setFilteredData(
+      filterProjects(tag, searchQuery).slice(startIndex, endIndex)
+    );
 
     projects = filteredData.map((article) => (
-      <Project
-        title={article.title}
-        image={article.image}
-        angelimapctor={article.angelimapctor}
+      <ProjectComponent
+        name={article.name}
         description={article.description}
-        primarytag={article.primarytag}
-        secondarytag={article.secondarytag}
+        imageurl={article.imageurl}
+        financialGoal={article.financialGoal}
         totaldonated={article.totaldonated}
-        goal={article.goal}
+        primarycausetype={article.primarycausetype}
+        secondarycausetype={article.secondarycausetype}
         charity={article.charity}
-      ></Project>
+        id={article.id}
+        milestones={null}
+        website={null}
+        facebook={null}
+        discord={null}
+        twitter={null}
+        instagram={null}
+        angelimpactor={article.angelimpactor}
+      ></ProjectComponent>
     ));
 
     return () => {
       // cleanup function here
     };
-  }, [activePage, tag]);
+  }, [activePage, tag, searchQuery]);
 
   return (
     <Container py="xl" size="lg" id="project_explorer">
@@ -237,6 +408,8 @@ export default function ProjectExplorer() {
         }
         placeholder="Search questions"
         rightSectionWidth={42}
+        value={searchQuery}
+        onChange={(event) => setSearch(event.currentTarget.value)}
       />
       <Flex
         mih={50}
@@ -256,7 +429,7 @@ export default function ProjectExplorer() {
             "Social",
             "Disaster Relief",
             "Education",
-            "Ecosystem"
+            "Ecosystem",
           ]}
           classNames={classes}
           value={tag}
@@ -267,7 +440,7 @@ export default function ProjectExplorer() {
         {projects}
       </SimpleGrid>
       <Pagination
-        total={mockdata.length / 4 + 1}
+        total={Math.ceil(mockdata.length / 4)}
         color="lime"
         mt="lg"
         page={activePage}

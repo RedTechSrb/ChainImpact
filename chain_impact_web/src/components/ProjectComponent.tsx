@@ -13,6 +13,7 @@ import {
   Container,
   SimpleGrid,
 } from "@mantine/core";
+import { Project } from "../models/Project";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -40,57 +41,33 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface AngelImpactorProps {
-  image: string;
-  name: string;
-  address: string;
-}
-
-interface CharityProps {
-  image: string;
-  name: string;
-  address: string;
-}
-
-interface ProjectProps {
-  image: string;
-  title: string;
-  description: string;
-  primarytag: string;
-  secondarytag: string;
-  angelimapctor: AngelImpactorProps;
-  charity: CharityProps;
-  totaldonated: number;
-  goal: number;
-}
-
-export default function Project({
-  image,
-  title,
+export default function ProjectComponent({
+  imageurl,
+  name,
   description,
-  primarytag,
-  secondarytag,
-  angelimapctor,
+  primarycausetype,
+  secondarycausetype,
+  angelimpactor,
   totaldonated,
-  goal,
+  financialGoal,
   charity,
-}: ProjectProps) {
+}: Project) {
   const { classes, theme } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
-        <Image src={image} alt={title} height={180} />
+        <Image src={imageurl} alt={name} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
         <Group position="apart">
           <Text size="lg" weight={500}>
-            {title}
+            {name}
           </Text>
           <Group position="right">
-            <Badge size="sm">{primarytag}</Badge>
-            <Badge size="sm">{secondarytag}</Badge>
+            <Badge size="sm">{primarycausetype.name}</Badge>
+            <Badge size="sm">{secondarycausetype.name}</Badge>
           </Group>
         </Group>
         <Text size="sm" mt="xs">
@@ -107,20 +84,20 @@ export default function Project({
             Charity
           </Text>
           <Group>
-            <Avatar src={angelimapctor.image} radius="xl" />
+            <Avatar src={angelimpactor?.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
-                {angelimapctor.name}
+                {angelimpactor?.name}
               </Text>
 
               <Text color="dimmed" size="xs">
-                {angelimapctor.address}
+                {angelimpactor?.wallet}
               </Text>
             </div>
           </Group>
           <Group>
-            <Avatar src={charity.image} radius="xl" />
+            <Avatar src={charity.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
@@ -128,18 +105,18 @@ export default function Project({
               </Text>
 
               <Text color="dimmed" size="xs">
-                {charity.address}
+                {charity.wallet}
               </Text>
             </div>
           </Group>
         </SimpleGrid>
 
         <Text size="lg" weight={500} mt="lg">
-          Project Goal ${totaldonated} / ${goal}
+          Project Goal ${totaldonated} / ${financialGoal}
         </Text>
         <Progress
-          value={((totaldonated * 1.0) / goal) * 100}
-          label={((totaldonated * 1.0) / goal) * 100 + "%"}
+          value={((totaldonated * 1.0) / financialGoal) * 100}
+          label={((totaldonated * 1.0) / financialGoal) * 100 + "%"}
           mt="sm"
           size="xl"
           radius="xl"

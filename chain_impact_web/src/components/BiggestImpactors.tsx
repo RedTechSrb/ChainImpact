@@ -80,7 +80,7 @@ const useStyles = createStyles((theme) => ({
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
 
-  const impactors = useGetImpactorsWithDonations();
+  const impactors = useGetImpactorsWithDonations({});
 
   const impactortabledata = impactors.map((impactor) => ({
     avatar: impactor.imageurl

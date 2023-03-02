@@ -12,3 +12,6 @@ INSERT INTO public.causetype(name)
 	
 INSERT INTO public.causetype(name)
 	VALUES ('education');
+
+INSERT INTO public.causetype(name)
+	VALUES ('disaster relief');

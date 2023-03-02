@@ -9,6 +9,7 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [
@@ -91,7 +92,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -120,36 +121,33 @@ const useStyles = createStyles((theme) => ({
 
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
-  const features = mockdata.map((feature) => (
-    <Card
-      key={feature.title}
-      shadow="md"
-      radius="md"
-      className={classes.card}
-      p="xl"
-    >
-      <feature.icon size={50} stroke={2} color={theme.fn.primaryColor()} />
-      <Text size="lg" weight={500} className={classes.cardTitle} mt="md">
-        {feature.title}
-      </Text>
-      <Text size="sm" color="dimmed" mt="sm">
-        {feature.description}
-      </Text>
-    </Card>
-  ));
+
+  const impactors = useGetImpactorsWithDonations();
+
+  const impactorData = impactors.map((impactor) => ({
+    avatar: impactor.imageurl
+      ? impactor.imageurl
+      : "https://avatars.githubusercontent.com/u/1309537?v=4",
+    name: impactor.name,
+    job: "",
+    email: impactor.wallet,
+    role: "Company",
+    amount: impactor.totalDonations
+  }));
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
-        Compete for top spot.
+        Top Companies that make a real Impact
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
       >
-        Be a part of the breakthrough in one of the most popular governances.
+        Compete for top spot in each part of ESG. <br></br> Show that your
+        company cares.
       </Text>
 
       <SimpleGrid
@@ -158,9 +156,21 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
-        <ImpactorTable data={impactortabledata}></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"Environmental"}
+          titlecolor={"#BBFD00"}
+        ></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"General"}
+          titlecolor="fddf00"
+        ></ImpactorTable>
+        <ImpactorTable
+          data={impactorData}
+          title={"Social"}
+          titlecolor="red"
+        ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

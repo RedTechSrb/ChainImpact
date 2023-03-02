@@ -1,12 +1,34 @@
-import { Avatar, Badge, Table, Group, Text, Select, ScrollArea } from '@mantine/core';
+import {
+  Avatar,
+  Badge,
+  Table,
+  Group,
+  Text,
+  Select,
+  ScrollArea,
+  Title,
+} from "@mantine/core";
 
 interface UsersTableProps {
-  data: { avatar: string; name: string; job: string; email: string; role: string }[];
+  title: string;
+  data: {
+    avatar: string;
+    name: string;
+    job: string;
+    email: string;
+    role: string;
+    amount: number;
+  }[];
+  titlecolor: string;
 }
 
-const rolesData = ['Manager', 'Collaborator', 'Contractor'];
+const rolesData = ["Manager", "Collaborator", "Contractor"];
 
-export default function ImpactorTable({ data }: UsersTableProps) {
+export default function ImpactorTable({
+  data,
+  title,
+  titlecolor,
+}: UsersTableProps) {
   const rows = data.map((item) => (
     <tr key={item.name}>
       <td>
@@ -22,36 +44,26 @@ export default function ImpactorTable({ data }: UsersTableProps) {
           </div>
         </Group>
       </td>
-
-      <td>
-        <Select data={rolesData} defaultValue={item.role} variant="unstyled" />
-      </td>
-      <td>{Math.floor(Math.random() * 6 + 5)} days ago</td>
-      <td>
-        {Math.random() > 0.5 ? (
-          <Badge fullWidth>Active</Badge>
-        ) : (
-          <Badge color="gray" fullWidth>
-            Disabled
-          </Badge>
-        )}
-      </td>
+      <td>{item.amount}</td>
     </tr>
   ));
 
   return (
-    <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
-        <thead>
-          <tr>
-            <th>Employee</th>
-            <th>Role</th>
-            <th>Last active</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    </ScrollArea>
+    <div>
+      <Badge style={{ textAlign: "center", color: titlecolor }} size="lg">
+        {title}
+      </Badge>
+      <ScrollArea>
+        <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
+    </div>
   );
 }

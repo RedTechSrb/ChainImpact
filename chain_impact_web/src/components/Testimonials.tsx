@@ -8,6 +8,8 @@ import {
   createStyles,
 } from "@mantine/core";
 
+import googleImage from "../res/images/faq_image.png";
+
 const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingTop: 80,
@@ -16,6 +18,8 @@ const useStyles = createStyles((theme) => ({
 
   item: {
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   itemIcon: {
@@ -41,22 +45,16 @@ const useStyles = createStyles((theme) => ({
     lineHeight: 1,
     textAlign: "center",
     marginTop: theme.spacing.xl,
+    fontSize: "2.5rem",
   },
 
   description: {
     textAlign: "center",
-    marginTop: theme.spacing.xs,
+    marginTop: theme.spacing.md,
+    fontSize: theme.fontSizes.lg,
   },
 
   highlight: {
-    backgroundColor: theme.fn.variant({
-      variant: "light",
-      color: theme.primaryColor,
-    }).background,
-    padding: 5,
-    paddingTop: 0,
-    borderRadius: theme.radius.sm,
-    display: "inline-block",
     color: theme.colorScheme === "dark" ? theme.white : "inherit",
   },
 }));
@@ -64,7 +62,6 @@ const useStyles = createStyles((theme) => ({
 interface FeatureImage {
   image: string;
   title: React.ReactNode;
-  description: React.ReactNode;
 }
 
 interface FeaturesImagesProps {
@@ -85,41 +82,39 @@ export default function Testimonials({
       <ThemeIcon
         variant="light"
         className={classes.itemIcon}
-        size={60}
+        size={150}
         radius="md"
       >
-        <Image src={"../res/images"} />
+        <Image src={require("../res/images/" + item.image)} />
       </ThemeIcon>
 
-      <div>
+      {/* <div>
         <Text weight={700} size="lg" className={classes.itemTitle}>
           {item.title}
         </Text>
-        <Text color="dimmed">{item.description}</Text>
-      </div>
+      </div> */}
     </div>
   ));
 
   return (
-    <Container size={700} className={classes.wrapper}>
-      <Text className={classes.supTitle}>{supTitle}</Text>
-
+    <Container size="lg" className={classes.wrapper}>
       <Title className={classes.title} order={2}>
-        PharmLand is <span className={classes.highlight}>not</span> just for
-        pharmacists
+        <span className={classes.highlight}> Have your web3 company </span>{" "}
+        among the greats.
       </Title>
 
       <Container size={660} p={0}>
-        <Text color="dimmed" className={classes.description}>
+        <Text color="white" className={classes.description}>
           {description}
         </Text>
       </Container>
 
       <SimpleGrid
-        cols={2}
-        spacing={50}
-        breakpoints={[{ maxWidth: 550, cols: 1, spacing: 40 }]}
-        style={{ marginTop: 30 }}
+        cols={4}
+        // spacing={50}
+        //breakpoints={[{ maxWidth: 550, cols: 2, spacing: 40 }]}
+        style={{ marginTop: 40 }}
+        p="sm"
       >
         {items}
       </SimpleGrid>

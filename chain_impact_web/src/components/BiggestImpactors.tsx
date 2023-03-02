@@ -9,50 +9,9 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
-const impactortabledata = [
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1624298357597-fd92dfbec01d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
-    name: "Robert Wolfkisser",
-    job: "Engineer",
-    email: "rob_wolf@gmail.com",
-    role: "Collaborator",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
-    name: "Jill Jailbreaker",
-    job: "Engineer",
-    email: "jj@breaker.com",
-    role: "Collaborator",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1632922267756-9b71242b1592?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
-    name: "Henry Silkeater",
-    job: "Designer",
-    email: "henry@silkeater.io",
-    role: "Contractor",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
-    name: "Bill Horsefighter",
-    job: "Designer",
-    email: "bhorsefighter@gmail.com",
-    role: "Contractor",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1630841539293-bd20634c5d72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80",
-    name: "Jeremy Footviewer",
-    job: "Manager",
-    email: "jeremy@foot.dev",
-    role: "Manager",
-  },
-];
 
 const mockdata = [
   {
@@ -91,7 +50,7 @@ const useStyles = createStyles((theme) => ({
     "&::after": {
       content: '""',
       display: "block",
-      backgroundColor: theme.fn.primaryColor(),
+      backgroundColor: "#BBFD00",
       width: 45,
       height: 2,
       marginTop: theme.spacing.sm,
@@ -120,6 +79,20 @@ const useStyles = createStyles((theme) => ({
 
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
+
+  const impactors = useGetImpactorsWithDonations();
+
+  const impactortabledata = impactors.map((impactor) => ({
+    avatar: impactor.imageurl
+      ? impactor.imageurl
+      : "https://avatars.githubusercontent.com/u/1309537?v=4",
+    name: impactor.name,
+    job: "",
+    email: impactor.wallet,
+    role: "Company",
+    amount: impactor.totalDonations
+  }));
+
   const features = mockdata.map((feature) => (
     <Card
       key={feature.title}
@@ -144,7 +117,7 @@ export default function TagLeaderboard() {
       </Title>
 
       <Text
-        color="dimmed"
+        color="white"
         className={classes.description}
         align="center"
         mt="md"
@@ -159,21 +132,17 @@ export default function TagLeaderboard() {
         mt={50}
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
-        <div>
-          <Badge variant="filled" size="lg" color="dark">
-            Company ESG Leaders
-          </Badge>
+        <ImpactorTable
+          data={impactortabledata}
+          title={"Company ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
 
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
-        </div>
-
-        <div>
-          <Badge variant="filled" size="lg" color="lime">
-            Community ESG Leaders
-          </Badge>
-
-          <ImpactorTable data={impactortabledata}></ImpactorTable>
-        </div>
+        <ImpactorTable
+          data={impactortabledata}
+          title={" Community ESG Leaders"}
+          titlecolor=""
+        ></ImpactorTable>
       </SimpleGrid>
     </Container>
   );

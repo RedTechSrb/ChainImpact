@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { Impactor } from "../models/Impactor";
-import { ImpactorData } from "./impactorDb";
 
 const url = "http://167.99.246.54/"
 
@@ -22,12 +22,12 @@ export function useGetAllImpactors(){
 }
 
 
-export function useGetImpactorsWithDonations(){
+export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}){
 
     const [impactors, setImpactors] = useState<ImpactorsWithDonations[]>([]);
 
     useEffect( () => {
-        axios.post(url+"Donation/ImpactorsWithDonations", {})
+        axios.post(url+"Donation/ImpactorsWithDonations", filter)
         .then(response => {
             const impactorData = response.data as ImpactorsWithDonations[];
             setImpactors(impactorData)

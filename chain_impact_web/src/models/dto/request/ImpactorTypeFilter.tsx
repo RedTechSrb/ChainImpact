@@ -1,6 +1,6 @@
 export interface ImpactorTypeFilter {
-    pageNumber: number,
-    pageSize: number,
+    pageNumber: number | null,
+    pageSize: number | null,
     dto: {
         projectType: string
     }

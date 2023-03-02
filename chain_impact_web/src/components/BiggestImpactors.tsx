@@ -9,6 +9,7 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
@@ -80,18 +81,25 @@ const useStyles = createStyles((theme) => ({
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
 
-  const impactors = useGetImpactorsWithDonations({});
+  function arangeImpactorData(data: ImpactorsWithDonations[]) {
+    const impactorData = data.map((impactor) => ({
+      avatar: impactor.imageurl
+        ? impactor.imageurl
+        : "https://avatars.githubusercontent.com/u/1309537?v=4",
+      name: impactor.name,
+      job: "",
+      email: impactor.wallet,
+      role: "Company",
+      amount: impactor.totalDonations
+    }));
+    return impactorData;
+  }
 
-  const impactortabledata = impactors.map((impactor) => ({
-    avatar: impactor.imageurl
-      ? impactor.imageurl
-      : "https://avatars.githubusercontent.com/u/1309537?v=4",
-    name: impactor.name,
-    job: "",
-    email: impactor.wallet,
-    role: "Company",
-    amount: impactor.totalDonations
-  }));
+  const companyImpactors = useGetImpactorsWithDonations({}, false);
+  const privateUserImpactors = useGetImpactorsWithDonations({}, true);
+
+  const comImpactors = arangeImpactorData(companyImpactors);
+  const privImpactors = arangeImpactorData(privateUserImpactors);
 
   const features = mockdata.map((feature) => (
     <Card
@@ -133,15 +141,19 @@ export default function TagLeaderboard() {
         breakpoints={[{ maxWidth: "md", cols: 1 }]}
       >
         <ImpactorTable
-          data={impactortabledata}
+          data={comImpactors}
           title={"Company ESG Leaders"}
           titlecolor=""
+          type={"general"}
+          isPrivate={false}
         ></ImpactorTable>
 
         <ImpactorTable
-          data={impactortabledata}
+          data={privImpactors}
           title={" Community ESG Leaders"}
           titlecolor=""
+          type={"general"}
+          isPrivate={true}
         ></ImpactorTable>
       </SimpleGrid>
     </Container>

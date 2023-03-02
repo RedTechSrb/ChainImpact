@@ -19,5 +19,5 @@ export function useGetImpactors(){
 
     //return impactors.slice(0, 5);
 
-    return ImpactorData.slice(0, 5);
+    return ImpactorData.slice(0, 5) as Impactor[];
 }

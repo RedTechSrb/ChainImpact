@@ -41,11 +41,12 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             }
 
             List<ImpactorsWithDonationsResponseDto> donationsGroupedByImpactors = await donations.GroupBy(d => new {
-                                                                                                    d.donator.id, d.donator.name, d.donator.wallet, d.donator.type             
+                                                                                                    d.donator.id, d.donator.name, d.donator.wallet, d.donator.type, d.donator.imageurl
                                                                                          }).Select(gpb => new ImpactorsWithDonationsResponseDto {
                                                                                             name = gpb.Key.name,
                                                                                             wallet = gpb.Key.wallet,
                                                                                             userType = gpb.Key.type,
+                                                                                            imageUrl = gpb.Key.imageurl,
                                                                                             totalDonations = gpb.Sum(d => d.amount)
                                                                                          }).OrderByDescending(iwd => iwd.totalDonations)
                                                                                          .ToListAsync();

@@ -16,7 +16,7 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, projectid, donatorid, type)
-	VALUES ('gfbjsdbjdbjdf', null, null, null, (select id from project where name like 'Turkish help'), (select id from impactor where name like 'RedTech'), 3);
+	VALUES ('gfbjsdbjdbjdf', 'OffRamp', 'United Nations', null, (select id from project where name like 'Turkish help'), (select id from impactor where name like 'RedTech'), 3);
 
 -- D2
 INSERT INTO public.donation(
@@ -33,7 +33,7 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, projectid, donatorid, type)
-	VALUES ('aaaaaaaaadiofvndifvodehgfoeh', null, null, null, (select id from project where name like 'Turkish help'), (select id from impactor where name like 'Decenter'), 3);
+	VALUES ('aaaaaaaaadiofvndifvodehgfoeh', 'OffRamp', 'United Nations', null, (select id from project where name like 'Turkish help'), (select id from impactor where name like 'Decenter'), 3);
 	
 -- D3
 
@@ -51,7 +51,7 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, projectid, donatorid, type)
-	VALUES ('aaabbbbbbbbbbbbbadiofvndifvodehgfoeh', null, null, null, (select id from project where name like 'Siria help'), (select id from impactor where name like 'RedTech'), 3);
+	VALUES ('aaabbbbbbbbbbbbbadiofvndifvodehgfoeh', 'OffRamp', 'United Nations' , null, (select id from project where name like 'Siria help'), (select id from impactor where name like 'RedTech'), 3);
 	
 -- D4
 
@@ -69,7 +69,7 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, projectid, donatorid, type)
-	VALUES ('hfgjhuiorhgi', null, null, null, (select id from project where name like 'Earthquake general help'), (select id from impactor where name like 'RedTech'), 3);
+	VALUES ('hfgjhuiorhgi', 'OffRamp', 'United Nations', null, (select id from project where name like 'Earthquake general help'), (select id from impactor where name like 'RedTech'), 3);
 	
 -- No off-ramp
 -- D5	

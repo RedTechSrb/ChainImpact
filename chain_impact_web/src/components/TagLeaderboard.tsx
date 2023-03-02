@@ -9,7 +9,7 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
-import { useGetImpactors } from "../repositories/ImpactorRepository";
+import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [
@@ -122,8 +122,7 @@ const useStyles = createStyles((theme) => ({
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
 
-  const impactors = useGetImpactors();
-  console.log(impactors);
+  const impactors = useGetImpactorsWithDonations();
 
   const impactorData = impactors.map((impactor) => ({
     avatar: impactor.imageurl
@@ -133,6 +132,7 @@ export default function TagLeaderboard() {
     job: "",
     email: impactor.wallet,
     role: "Company",
+    amount: impactor.totalDonations
   }));
   return (
     <Container size="xl" py="xl">

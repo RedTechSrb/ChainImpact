@@ -17,6 +17,7 @@ interface UsersTableProps {
     job: string;
     email: string;
     role: string;
+    amount: number;
   }[];
   titlecolor: string;
 }
@@ -43,7 +44,7 @@ export default function ImpactorTable({
           </div>
         </Group>
       </td>
-      <td>{1250}</td>
+      <td>{item.amount}</td>
     </tr>
   ));
 

@@ -47,7 +47,8 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                                                                                             wallet = gpb.Key.wallet,
                                                                                             userType = gpb.Key.type,
                                                                                             totalDonations = gpb.Sum(d => d.amount)
-                                                                                         }).ToListAsync();
+                                                                                         }).OrderByDescending(iwd => iwd.totalDonations)
+                                                                                         .ToListAsync();
 
             return donationsGroupedByImpactors;
         }

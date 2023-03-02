@@ -246,7 +246,7 @@ type DisplayEncoding = "utf8" | "hex";
   
       if (provider) setProvider(provider);
       else setProvider(undefined);
-    }, []);
+    }, [provider, walletKey]);
 
     function PhantomWrapper() {
       const { classes } = useStyles();

@@ -8,7 +8,7 @@ export interface Project {
   name: string;
   description: string | null;
   milestones: string | null;
-  financialGoal: number;
+  financialgoal: number;
   totaldonated: number;
   website: string | null;
   facebook: string | null;

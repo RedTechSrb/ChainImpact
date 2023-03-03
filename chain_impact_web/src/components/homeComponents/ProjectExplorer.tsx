@@ -281,6 +281,8 @@ const useStyles = createStyles((theme) => ({
   labelActive: {
     color: `${theme.white} !important`,
   },
+
+  
 }));
 
 export default function ProjectExplorer() {
@@ -448,7 +450,8 @@ export default function ProjectExplorer() {
           onChange={(tag) => { setResetPage(true); setTag(tag)}}
         />
       </Flex>
-      <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        style={{minHeight: "600px"}}>
         {projects}
       </SimpleGrid>
       <Pagination

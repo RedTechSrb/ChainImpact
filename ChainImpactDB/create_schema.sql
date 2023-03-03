@@ -93,7 +93,7 @@ CREATE TABLE Project
 	CharityId            bigint  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
-	Milestones           varchar(20)  NULL ,
+	Milestones           varchar(2000)  NULL ,
 	FinancialGoal        decimal(20,9)  NOT NULL ,
 	TotalDonated         decimal(20,9)  NOT NULL ,
 	Website              varchar(100)  NULL ,

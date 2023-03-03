@@ -22,7 +22,7 @@ export function useGetAllImpactors(){
 }
 
 
-export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}){
+export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, privateUser: boolean){
 
     const [impactors, setImpactors] = useState<ImpactorsWithDonations[]>([]);
 
@@ -30,7 +30,20 @@ export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}){
         axios.post(url+"Donation/ImpactorsWithDonations", filter)
         .then(response => {
             const impactorData = response.data as ImpactorsWithDonations[];
-            setImpactors(impactorData)
+            let privateUserImpactorData = [];
+            let companyImpactorData = [];
+
+            for(let i=0; i<impactorData.length; i++) {
+                if (impactorData[i].userType === 1)
+                    privateUserImpactorData.push(impactorData[i])
+                else
+                    companyImpactorData.push(impactorData[i])
+            }
+
+            if (privateUser)
+                setImpactors(privateUserImpactorData)
+            else
+                setImpactors(companyImpactorData)
         })
     },[]);
 

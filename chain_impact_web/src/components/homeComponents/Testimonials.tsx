@@ -85,7 +85,7 @@ export default function Testimonials({
         size={150}
         radius="md"
       >
-        <Image src={require("../res/images/" + item.image)} />
+        <Image src={require("../../res/images/" + item.image)} />
       </ThemeIcon>
 
       {/* <div>

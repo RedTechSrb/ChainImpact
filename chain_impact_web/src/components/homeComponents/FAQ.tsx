@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-scroll";
 
-import image from "../res/images/faq_image.png";
+import image from "../../res/images/faq_image.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -127,7 +127,7 @@ export default function FAQ() {
 
   return (
     <div className={classes.wrapper} id="faq">
-      <div style={{marginTop: "30"}}></div>
+      <div style={{ marginTop: "30" }}></div>
       <Container size="lg">
         <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
         <Text className={classes.componentHeader}>
@@ -170,28 +170,34 @@ export default function FAQ() {
               companies help them reach their goal using crypto.
             </Text>
             <Text className={classes.desc3}>
-              Platform for{" "}
+              Join the revolution for a world you would like for your kids.
+              Collaborate with companies and communities working together
+              towards a better future.
+              {/* excuses. Platform for{" "}
               <span className={classes.highlight}>verifiable reporting</span>{" "}
               and <span className={classes.highlight}>collaboration</span> on
               projects that help the environment and social causes powered by
-              Solana.
+              Solana. */}
             </Text>
 
-            <Link to="project_explorer" spy={true} smooth={true} duration={2500}>
-
-            
-            <Button
-              color="lime"
-              radius="md"
-              size="xl"
-              compact
-              mb="xl"
-              mt="xl"
-              style={{ fontFamily: "Space Mono, monospace", fontWeight: 100 }}
+            <Link
+              to="project_explorer"
+              spy={true}
+              smooth={true}
+              duration={2500}
             >
-              Find projects to support
-            </Button>
-			</Link>
+              <Button
+                color="lime"
+                radius="md"
+                size="xl"
+                compact
+                mb="xl"
+                mt="xl"
+                style={{ fontFamily: "Space Mono, monospace", fontWeight: 100 }}
+              >
+                Find projects to support
+              </Button>
+            </Link>
             <Title order={2} align="left" className={classes.title}>
               Frequently Asked Questions
             </Title>

@@ -9,9 +9,9 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
-import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
-import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
-import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
+import { ImpactorTypeFilter } from "../../models/dto/request/ImpactorTypeFilter";
+import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
+import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [
@@ -85,6 +85,10 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("sm")]: {
       fontSize: 24,
     },
+
+    "@media (max-width: 1440px)": {
+      fontSize: 30,
+    },
   },
 
   description: {
@@ -123,19 +127,19 @@ const useStyles = createStyles((theme) => ({
 
 const environmentalFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 1,
   dto: {
-    projectType: "environment"
-  }
-}
+    projectType: "environment",
+  },
+};
 
 const socialFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 1,
   dto: {
-    projectType: "social"
-  }
-}
+    projectType: "social",
+  },
+};
 
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
@@ -149,19 +153,22 @@ export default function TagLeaderboard() {
       job: "",
       email: impactor.wallet,
       role: "Company",
-      amount: impactor.totalDonations
+      amount: impactor.totalDonations,
     }));
     return impactorData;
   }
 
-  const impactorsEnvironmental = useGetImpactorsWithDonations(environmentalFilter);
-  const impactorsSocial = useGetImpactorsWithDonations(socialFilter);
-  const impactorsGeneral = useGetImpactorsWithDonations({});
+  const impactorsEnvironmental = useGetImpactorsWithDonations(
+    environmentalFilter,
+    false
+  );
+  const impactorsSocial = useGetImpactorsWithDonations(socialFilter, false);
+  const impactorsGeneral = useGetImpactorsWithDonations({}, false);
 
   const impactorsEnv = arangeImpactorData(impactorsEnvironmental);
   const impactorsSoc = arangeImpactorData(impactorsSocial);
   const impactorsGen = arangeImpactorData(impactorsGeneral);
-  
+
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
@@ -188,16 +195,22 @@ export default function TagLeaderboard() {
           data={impactorsEnv}
           title={"Environmental"}
           titlecolor={"#BBFD00"}
+          type={"environment"}
+          isPrivate={false}
         ></ImpactorTable>
         <ImpactorTable
           data={impactorsGen}
           title={"General"}
           titlecolor="fddf00"
+          type={"general"}
+          isPrivate={false}
         ></ImpactorTable>
         <ImpactorTable
           data={impactorsSoc}
           title={"Social"}
-          titlecolor="red"
+          titlecolor="#fddf00"
+          type={"social"}
+          isPrivate={false}
         ></ImpactorTable>
       </SimpleGrid>
     </Container>

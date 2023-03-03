@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-scroll";
 
-import image from "../res/images/faq_image.png";
+import image from "../../res/images/faq_image.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -170,9 +170,9 @@ export default function FAQ() {
               companies help them reach their goal using crypto.
             </Text>
             <Text className={classes.desc3}>
-              Join the revolution for a better world. Collaborate with companies
-              and communities to create real impact. <br></br>100% transparency,
-              0% excuses.
+              Join the revolution for a world you would like for your kids.
+              Collaborate with companies and communities working together
+              towards a better future.
               {/* excuses. Platform for{" "}
               <span className={classes.highlight}>verifiable reporting</span>{" "}
               and <span className={classes.highlight}>collaboration</span> on

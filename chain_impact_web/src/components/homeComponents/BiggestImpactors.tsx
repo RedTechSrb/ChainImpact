@@ -9,8 +9,8 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
-import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
-import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
+import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
+import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const mockdata = [

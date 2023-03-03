@@ -1,11 +1,11 @@
 import { createStyles } from "@mantine/core";
-import BiggestImpactors from "../components/BiggestImpactors";
-import FAQ from "../components/FAQ";
-import Hero from "../components/Hero";
-import ProjectExplorer from "../components/ProjectExplorer";
-import Stats from "../components/Stats";
-import TagLeaderboard from "../components/TagLeaderboard";
-import Testimonials from "../components/Testimonials";
+import BiggestImpactors from "../components/homeComponents/BiggestImpactors";
+import FAQ from "../components/homeComponents/FAQ";
+import Hero from "../components/homeComponents/Hero";
+import ProjectExplorer from "../components/homeComponents/ProjectExplorer";
+import Stats from "../components/homeComponents/Stats";
+import TagLeaderboard from "../components/homeComponents/TagLeaderboard";
+import Testimonials from "../components/homeComponents/Testimonials";
 
 const useStyles = createStyles((theme) => ({
   container: {

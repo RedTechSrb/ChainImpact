@@ -11,9 +11,9 @@ import {
   Modal,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
-import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
-import { useGetAllProjects } from "../repositories/ProjectRepository";
+import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
+import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
+import { useGetAllProjects } from "../../repositories/ProjectRepository";
 
 interface UsersTableProps {
   title: string;

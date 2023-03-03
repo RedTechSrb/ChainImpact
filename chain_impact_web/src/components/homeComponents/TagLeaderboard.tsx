@@ -9,9 +9,9 @@ import {
   Container,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
-import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
-import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
-import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
+import { ImpactorTypeFilter } from "../../models/dto/request/ImpactorTypeFilter";
+import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
+import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
 const impactortabledata = [

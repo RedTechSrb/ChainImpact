@@ -10,7 +10,7 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
 import { Link } from "react-scroll";
-import HeroImage from "../res/images/hero_image.png";
+import HeroImage from "../../res/images/hero_image.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -137,9 +137,10 @@ export default function Hero() {
 
         <Container size={640}>
           <Text size="lg" className={classes.description}>
-            Platform where companies collaborate with the community to donate
-            towards a common goal of creating a positive impact that is 100%
-            transparent.
+            Platform where companies collaborate with the community and donate.{" "}
+            <br></br>
+            Move towards a common goal of creating a positive impact. <br></br>
+            100% transparency, 0% excuses.
             {/* impact on the environment and society. Be a part of real impact by
             investing into Environmental, Social and Governance that is 100%
             transparent. */}

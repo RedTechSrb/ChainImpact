@@ -105,6 +105,7 @@ CREATE TABLE Project
 	ImpactorId           bigint  NULL ,
 	PrimaryCauseTypeId   bigint  NOT NULL ,
 	SecondaryCauseTypeId bigint  NOT NULL ,
+	Wallet               varchar(256)  NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
 );
 

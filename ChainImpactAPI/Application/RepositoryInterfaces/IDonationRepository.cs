@@ -7,7 +7,7 @@ namespace ChainImpactAPI.Application.RepositoryInterfaces
 {
     public interface IDonationRepository : IGenericRepository<Donation>
     {
-        Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations);
+//        Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations);
         Task<List<ImpactorsWithDonationsResponseDto>> SearchDonationsGroupedByImpactorsAsync(DonationSearchDto donationSearchDto);
 
     }

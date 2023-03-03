@@ -20,7 +20,7 @@ import {
   useMantineColorScheme,
   Container,
 } from "@mantine/core";
-import { IconStar } from "@tabler/icons";
+import { IconStar, IconWallet } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconNotification,
@@ -117,10 +117,10 @@ const useStyles = createStyles((theme) => ({
   },
 
   phantomButton: {
-    fontSize: "16px",
+    fontSize: "lg",
     padding: "10px",
     fontWeight: "bold",
-    borderRadius: "25px",
+
     backgroundColor: theme.colorScheme === "dark" ? "#BBFD00" : "black",
     color: theme.colorScheme === "light" ? "dark" : "black",
     ":hover": {
@@ -258,14 +258,18 @@ export default function HeaderResponsive({
     return (
       <>
         {provider && !walletKey && (
-          <Button className={classes.phantomButton} onClick={connectWallet}>
-            Connect
+          <Button
+            className={classes.phantomButton}
+            onClick={connectWallet}
+            leftIcon={<IconWallet></IconWallet>}
+          >
+            Connect wallet
           </Button>
         )}
 
         {provider && walletKey && (
           <Button className={classes.phantomButton} onClick={disconnectWallet}>
-            Disconnect
+            Disconnect wallet
           </Button>
         )}
 

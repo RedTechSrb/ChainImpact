@@ -6,7 +6,7 @@ namespace ChainImpactAPI.Models
     public class BaseEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? id { get; set; }
+        public int id { get; set; }
 
     }
 }

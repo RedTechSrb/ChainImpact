@@ -48,7 +48,8 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         public Impactor SaveImpactor(ImpactorDto impactorDto)
         {
-            var impactor = impactorRepository.Update(new Impactor
+            return null;
+/*            var impactor = impactorRepository.Update(new Impactor
             {
                 id = impactorDto.id,
                 wallet = impactorDto.wallet,
@@ -64,7 +65,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                 role= (int)UserType.User
             });
 
-            return impactor;
+            return impactor;*/
         }
     }
 }

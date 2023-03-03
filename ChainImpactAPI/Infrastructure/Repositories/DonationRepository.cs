@@ -12,7 +12,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public DonationRepository(ApiDbContext context) : base(context)
         {
         }
-
+        /*
         public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations)
         {
             var donations = context.donation.Include(d => d.donator)
@@ -28,6 +28,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             return await donations.ToListAsync();
         }
+        */
 
         public async Task<List<ImpactorsWithDonationsResponseDto>> SearchDonationsGroupedByImpactorsAsync(DonationSearchDto donationSearchDto)
         {

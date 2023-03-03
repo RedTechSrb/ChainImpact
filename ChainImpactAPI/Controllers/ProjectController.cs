@@ -1,4 +1,5 @@
 using ChainImpactAPI.Application.ServiceInterfaces;
+using ChainImpactAPI.Dtos.SearchDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChainImpactAPI.Controllers
@@ -22,6 +23,15 @@ namespace ChainImpactAPI.Controllers
 
             return Ok(projectDtoList);
         }
+
+        /*[HttpPost("search")]
+        public IActionResult SearchProjects(ProjectSearchDto projectSearchDto)
+        {
+
+            var projectDtoList = projectService.SearchProjects(projectSearchDto);
+
+            return Ok(projectDtoList);
+        }*/
 
 
     }

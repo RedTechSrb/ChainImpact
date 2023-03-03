@@ -44,17 +44,13 @@ INSERT INTO public.impactor(
 	wallet, name, description, facebook, twitter, instagram, website, discord, imageurl, role, type)
 	VALUES ('aaaaaaaaaaaaaaaaaaaaaa', 'georg redtech', 'manager', null, null, null, null, null, null, 1, 1);
 
-
--- 10
+INSERT INTO public.impactor(
+	wallet, name, description, facebook, twitter, instagram, website, discord, imageurl, role, type)
+	VALUES ('0x444444', 'kosmoni', 'kosmoni hehe', null, null, null, null, null, null, 1, 1);
 
 INSERT INTO public.impactor(
 	wallet, name, description, facebook, twitter, instagram, website, discord, imageurl, role, type)
 	VALUES ('0x333333', 'John Doe', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'social media', 'social media', 'social media', 'https://example.com', 'social media', 'https://picsum.photos/id/1005/400/300', 1, 1);
 
---11
-
-INSERT INTO public.impactor(
-	wallet, name, description, facebook, twitter, instagram, website, discord, imageurl, role, type)
-	VALUES ('0x444444', 'Jane Smith', null, 'social media', null, null, null, 'social media', 'https://picsum.photos/id/1028/200/200', 1, 1);
 
 

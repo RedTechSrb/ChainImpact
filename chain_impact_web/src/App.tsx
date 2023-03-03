@@ -13,6 +13,8 @@ import About from "./views/About";
 import NotFound from "./views/NotFound";
 import Home from "./views/Home";
 import "./index.css";
+import { useEffect, useRef, useState } from "react";
+import Charities from "./views/Charities";
 import { useEffect, useState } from "react";
 import ProjectOverview from "./views/ProjectOverview";
 
@@ -77,6 +79,7 @@ declare global {
 }
 
 function App() {
+
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
     defaultValue: "dark",
@@ -92,6 +95,10 @@ function App() {
   const [provider, setProvider] = useState<any>(undefined);
   const [walletKey, setWalletKey] = useState<any>(undefined);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0});
+  }, []);
+  
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -123,6 +130,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />
           <Route path="/project" element={<ProjectOverview />} />
+          <Route path="/charities" element={<Charities />}/>
+          <Route path="/*" element={<NotFound />} />
         </Routes>
 
         <Footer data={footerPlaceholder} />

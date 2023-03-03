@@ -348,7 +348,9 @@ export default function HeaderResponsive({
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
+                      <Link to="/charities" className={classes.link}>
                         Charities
+                      </Link>
                       </Box>
                       {/*<IconChevronDown
                         size={16}

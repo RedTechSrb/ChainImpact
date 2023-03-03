@@ -289,6 +289,8 @@ export default function ProjectExplorer() {
   const [activePage, setPage] = useState(1);
   const dbMockData = useGetAllProjects();
   const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
+  const [filteredDataNum, setFilteredDataNum] = useState(dbMockData.length);
+  const [resetPage, setResetPage] = useState(false);
   const [searchQuery, setSearch] = useState("");
   const [tag, setTag] = useState("General");
   var projects = filteredData.map((article) => (
@@ -317,7 +319,7 @@ export default function ProjectExplorer() {
     const endIndex = 4 * activePage;
 
     const filterProjects = (tag: string, searchQuery: string) => {
-      return /*mockdata*/ dbMockData.filter((project) => {
+      const dbFiltered = /*mockdata*/ dbMockData.filter((project) => {
         const { primarycausetype, secondarycausetype, name, description } =
           project;
 
@@ -342,6 +344,9 @@ export default function ProjectExplorer() {
 
         return false;
       });
+
+      setFilteredDataNum(Math.ceil(dbFiltered.length / 4))
+      return dbFiltered;
     };
 
     setFilteredData(
@@ -369,6 +374,11 @@ export default function ProjectExplorer() {
       ></ProjectComponent>
     ));
 
+    if (resetPage) {
+      setPage(1)
+      setResetPage(false)
+    }
+    
     return () => {
       // cleanup function here
     };
@@ -435,14 +445,14 @@ export default function ProjectExplorer() {
           ]}
           classNames={classes}
           value={tag}
-          onChange={setTag}
+          onChange={(tag) => { setResetPage(true); setTag(tag)}}
         />
       </Flex>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         {projects}
       </SimpleGrid>
       <Pagination
-        total={Math.ceil(/*mockdata*/ dbMockData.length / 4)}
+        total={filteredDataNum}
         color="lime"
         mt="lg"
         page={activePage}

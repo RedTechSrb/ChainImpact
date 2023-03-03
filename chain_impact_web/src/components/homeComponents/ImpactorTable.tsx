@@ -112,7 +112,7 @@ export default function ImpactorTable({
           <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
             <thead>
               <tr>
-                <th>Company</th>
+                <th>{isPrivate ? "Impactor" : "Company" }</th>
                 <th>Amount</th>
               </tr>
             </thead>
@@ -133,7 +133,7 @@ export default function ImpactorTable({
         <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
           <thead>
             <tr>
-              <th>Company</th>
+              <th>{isPrivate ? "Impactor" : "Company" }</th>
               <th>Amount</th>
             </tr>
           </thead>

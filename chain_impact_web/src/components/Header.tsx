@@ -347,17 +347,17 @@ export default function HeaderResponsive({
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                        Charity
+                        Charities
                       </Box>
-                      <IconChevronDown
+                      {/*<IconChevronDown
                         size={16}
                         color={theme.fn.primaryColor()}
-                      />
+                        />*/}
                     </Center>
                   </a>
                 </HoverCard.Target>
 
-                <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
+                {/*<HoverCard.Dropdown sx={{ overflow: "hidden" }}>
                   <Group position="apart" px="md">
                     <Text weight={500}>Features</Text>
                     <Anchor href="#" size="xs">
@@ -388,13 +388,13 @@ export default function HeaderResponsive({
                       <Button variant="default">Get started</Button>
                     </Group>
                   </div>
-                </HoverCard.Dropdown>
+                </HoverCard.Dropdown>*/}
               </HoverCard>
               <a href="#" className={classes.link}>
-                Disaster
+                Whitepaper
               </a>
               <a href="#" className={classes.link}>
-                Event
+                I'm confused
               </a>
             </Group>
           </Group>

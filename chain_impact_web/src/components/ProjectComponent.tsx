@@ -93,7 +93,7 @@ export default function ProjectComponent({
             <Avatar src={angelimpactor?.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
-              totaldonated !== 0 ? (
+              {totaldonated !== 0 ? (
               <Text size="sm" weight={500}>
                 {angelimpactor?.name}
               </Text>
@@ -101,7 +101,7 @@ export default function ProjectComponent({
               <Text size="sm" weight={500}>
                 Your company name and logo can be here too!
               </Text>
-              )
+              )}
               <Text color="dimmed" size="xs">
                 {angelimpactor?.wallet}
               </Text>

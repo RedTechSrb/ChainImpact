@@ -290,7 +290,7 @@ export default function ProjectExplorer() {
   const dbMockData = useGetAllProjects();
   const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
   const [searchQuery, setSearch] = useState("");
-  const [tag, setTag] = useState("general");
+  const [tag, setTag] = useState("General");
   var projects = filteredData.map((article) => (
     <ProjectComponent
       name={article.name}

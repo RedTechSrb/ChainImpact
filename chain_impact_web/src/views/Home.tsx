@@ -7,17 +7,6 @@ import Stats from "../components/homeComponents/Stats";
 import TagLeaderboard from "../components/homeComponents/TagLeaderboard";
 import Testimonials from "../components/homeComponents/Testimonials";
 
-const useStyles = createStyles((theme) => ({
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    minHeight: "400px",
-    width: "100%",
-  },
-}));
-
 const statsdata = {
   data: [
     {
@@ -63,8 +52,6 @@ const testimonialsData = {
 };
 
 export default function Home() {
-  const { classes } = useStyles();
-
   return (
     <>
       <Hero />

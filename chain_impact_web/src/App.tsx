@@ -14,6 +14,7 @@ import NotFound from "./views/NotFound";
 import Home from "./views/Home";
 import "./index.css";
 import { useEffect, useState } from "react";
+import ProjectOverview from "./views/ProjectOverview";
 
 const footerPlaceholder = [
   {
@@ -121,7 +122,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/project" element={<ProjectOverview />} />
         </Routes>
 
         <Footer data={footerPlaceholder} />

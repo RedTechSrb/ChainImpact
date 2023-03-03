@@ -27,19 +27,17 @@ interface UsersTableProps {
   }[];
   titlecolor: string;
   type: string;
-  isPrivate: boolean
+  isPrivate: boolean;
 }
 
 const rolesData = ["Manager", "Collaborator", "Contractor"];
 
 const useStyles = createStyles((theme) => ({
-
   badge: {
-    textAlign: "center", 
+    textAlign: "center",
     color: "titlecolor",
     cursor: "pointer",
   },
-  
 }));
 
 export default function ImpactorTable({
@@ -47,12 +45,11 @@ export default function ImpactorTable({
   title,
   titlecolor,
   type,
-  isPrivate
+  isPrivate,
 }: UsersTableProps) {
-
   function arangeData(data: any, arangeFromAPI: boolean) {
     let impactorData = data;
-    if (arangeFromAPI){
+    if (arangeFromAPI) {
       impactorData = data.map((impactor: any) => ({
         avatar: impactor.imageurl
           ? impactor.imageurl
@@ -61,28 +58,28 @@ export default function ImpactorTable({
         job: "",
         email: impactor.wallet,
         role: "Company",
-        amount: impactor.totalDonations
+        amount: impactor.totalDonations,
       }));
     }
 
     const rows = impactorData.map((item: any) => (
-    <tr key={item.name}>
-      <td>
-        <Group spacing="sm">
-          <Avatar size={40} src={item.avatar} radius={40} />
-          <div>
-            <Text size="sm" weight={500}>
-              {item.name}
-            </Text>
-            <Text size="xs" color="dimmed">
-              {item.email}
-            </Text>
-          </div>
-        </Group>
-      </td>
-      <td>{item.amount}</td>
-    </tr>
-  ));
+      <tr key={item.name}>
+        <td>
+          <Group spacing="sm">
+            <Avatar size={40} src={item.avatar} radius={40} />
+            <div>
+              <Text size="sm" weight={500}>
+                {item.name}
+              </Text>
+              <Text size="xs" color="dimmed">
+                {item.email}
+              </Text>
+            </div>
+          </Group>
+        </td>
+        <td>{item.amount}</td>
+      </tr>
+    ));
 
     return rows;
   }
@@ -92,10 +89,11 @@ export default function ImpactorTable({
       pageNumber: null,
       pageSize: null,
       dto: {
-        projectType: type
-      }
-    }, isPrivate
-  )
+        projectType: type,
+      },
+    },
+    isPrivate
+  );
 
   const { classes } = useStyles();
   const [opened, { open, close }] = useDisclosure(false);
@@ -105,25 +103,30 @@ export default function ImpactorTable({
 
   return (
     <div>
-
-      <Modal opened={opened} onClose={close} title=
-        {"Top Impactors in " + type.toUpperCase() + " category"}
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={"Top Impactors in " + type.toUpperCase() + " category"}
       >
-      <ScrollArea>
-        <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>{rowsModal}</tbody>
-        </Table>
-      </ScrollArea>
+        <ScrollArea>
+          <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>{rowsModal}</tbody>
+          </Table>
+        </ScrollArea>
       </Modal>
 
-      <Badge className={classes.badge} style={{color: titlecolor}} size="lg"
-       onClick={open} >
+      <Badge
+        className={classes.badge}
+        style={{ color: titlecolor }}
+        size="lg"
+        onClick={open}
+      >
         {title}
       </Badge>
       <ScrollArea>

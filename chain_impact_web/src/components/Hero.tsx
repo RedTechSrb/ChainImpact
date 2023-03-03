@@ -5,7 +5,9 @@ import {
   Button,
   Overlay,
   createStyles,
+  useMantineTheme,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
 import { Link } from "react-scroll";
 import HeroImage from "../res/images/hero_image.png";
@@ -19,9 +21,9 @@ const useStyles = createStyles((theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
 
-    "@media (max-width: 520px)": {
+    "@media (max-width: 1440px)": {
       paddingTop: 80,
-      paddingBottom: 50,
+      paddingBottom: 30,
     },
   },
 
@@ -33,6 +35,11 @@ const useStyles = createStyles((theme) => ({
   title: {
     fontWeight: 800,
     fontSize: 48,
+
+    "@media (max-width: 1440px)": {
+      fontSize: 36,
+    },
+
     letterSpacing: -1,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
@@ -54,6 +61,10 @@ const useStyles = createStyles((theme) => ({
     color: theme.colors.gray[0],
     textAlign: "center",
     fontSize: 24,
+
+    "@media (max-width: 1440px)": {
+      fontSize: 18,
+    },
 
     "@media (max-width: 520px)": {
       fontSize: theme.fontSizes.md,
@@ -83,6 +94,10 @@ const useStyles = createStyles((theme) => ({
       marginLeft: theme.spacing.md,
     },
 
+    "@media (max-width: 1440px)": {
+      fontSize: theme.fontSizes.sm,
+    },
+
     "@media (max-width: 520px)": {
       "&:not(:first-of-type)": {
         marginTop: theme.spacing.md,
@@ -103,6 +118,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function Hero() {
   const { classes, cx } = useStyles();
+  const isSmallerThanMd = useMediaQuery("(max-width: 767px)");
 
   return (
     <div className={classes.wrapper} id="hero">
@@ -121,17 +137,21 @@ export default function Hero() {
 
         <Container size={640}>
           <Text size="lg" className={classes.description}>
-            Be a part of real impact by investing into Environmental, Social and
-            Governance that is 100% transparent.
+            Platform where companies collaborate with the community to donate
+            towards a common goal of creating a positive impact that is 100%
+            transparent.
+            {/* impact on the environment and society. Be a part of real impact by
+            investing into Environmental, Social and Governance that is 100%
+            transparent. */}
           </Text>
         </Container>
 
         <div className={classes.controls}>
-        <Link to="faq" spy={true} smooth={true} duration={2500}>
-          <Button className={classes.control} variant="white" size="xl">
-            Show me how to change the world!
-          </Button>
-        </Link>
+          <Link to="faq" spy={true} smooth={true} duration={2500}>
+            <Button className={classes.control} variant="white" size="xl">
+              Show me how to change the world!
+            </Button>
+          </Link>
           {/* <Button
             className={cx(classes.control, classes.secondaryControl)}
             size="lg"

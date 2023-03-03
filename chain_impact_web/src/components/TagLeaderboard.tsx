@@ -85,6 +85,10 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("sm")]: {
       fontSize: 24,
     },
+
+    "@media (max-width: 1440px)": {
+      fontSize: 30,
+    },
   },
 
   description: {
@@ -125,17 +129,17 @@ const environmentalFilter: ImpactorTypeFilter = {
   pageNumber: 1,
   pageSize: 1,
   dto: {
-    projectType: "environment"
-  }
-}
+    projectType: "environment",
+  },
+};
 
 const socialFilter: ImpactorTypeFilter = {
   pageNumber: 1,
   pageSize: 1,
   dto: {
-    projectType: "social"
-  }
-}
+    projectType: "social",
+  },
+};
 
 export default function TagLeaderboard() {
   const { classes, theme } = useStyles();
@@ -149,19 +153,22 @@ export default function TagLeaderboard() {
       job: "",
       email: impactor.wallet,
       role: "Company",
-      amount: impactor.totalDonations
+      amount: impactor.totalDonations,
     }));
     return impactorData;
   }
 
-  const impactorsEnvironmental = useGetImpactorsWithDonations(environmentalFilter, false);
+  const impactorsEnvironmental = useGetImpactorsWithDonations(
+    environmentalFilter,
+    false
+  );
   const impactorsSocial = useGetImpactorsWithDonations(socialFilter, false);
   const impactorsGeneral = useGetImpactorsWithDonations({}, false);
 
   const impactorsEnv = arangeImpactorData(impactorsEnvironmental);
   const impactorsSoc = arangeImpactorData(impactorsSocial);
   const impactorsGen = arangeImpactorData(impactorsGeneral);
-  
+
   return (
     <Container size="xl" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">

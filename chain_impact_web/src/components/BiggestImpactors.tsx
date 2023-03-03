@@ -13,7 +13,6 @@ import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDona
 import { useGetImpactorsWithDonations } from "../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
 
-
 const mockdata = [
   {
     title: "Extreme performance",
@@ -40,7 +39,11 @@ const useStyles = createStyles((theme) => ({
     fontSize: 34,
     fontWeight: 900,
     [theme.fn.smallerThan("sm")]: {
-      fontSize: 24,
+      fontSize: 10,
+    },
+
+    "@media (max-width: 1440px)": {
+      fontSize: 30,
     },
   },
 
@@ -90,7 +93,7 @@ export default function TagLeaderboard() {
       job: "",
       email: impactor.wallet,
       role: "Company",
-      amount: impactor.totalDonations
+      amount: impactor.totalDonations,
     }));
     return impactorData;
   }

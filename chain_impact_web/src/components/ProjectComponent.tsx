@@ -93,10 +93,15 @@ export default function ProjectComponent({
             <Avatar src={angelimpactor?.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
+              totaldonated !== 0 ? (
               <Text size="sm" weight={500}>
                 {angelimpactor?.name}
               </Text>
-
+              ): (
+              <Text size="sm" weight={500}>
+                Your company name and logo can be here too!
+              </Text>
+              )
               <Text color="dimmed" size="xs">
                 {angelimpactor?.wallet}
               </Text>
@@ -138,8 +143,8 @@ export default function ProjectComponent({
       ) : (
         <Group mt="xs">
           <Text size="lg" weight={500} mt="lg">
-            This project is looking for ${financialgoal} in funding! <br></br>{" "}
-            Showcase your values and donate.
+            Be the first company to donate and become an Angel Impactor.
+            Showcase your company values by making a project your own.
           </Text>
 
           <Button radius="md" style={{ flex: 1 }} color="pink">

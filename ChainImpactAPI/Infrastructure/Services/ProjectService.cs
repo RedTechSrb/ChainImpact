@@ -70,7 +70,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        )
+                        ),
+                        project.wallet
                     ));
             }
 
@@ -129,7 +130,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        )
+                        ),
+                        project.wallet
                     ));
             }
 

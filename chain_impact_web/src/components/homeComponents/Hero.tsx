@@ -19,10 +19,10 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     paddingTop: 80,
     paddingBottom: 80,
-    backgroundImage: `url(${HeroImage})`,
+    //backgroundImage: `url(${HeroImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-
+    background: "rgba(255, 255, 255, .3)",
     "@media (max-width: 1440px)": {
       paddingTop: 80,
       paddingBottom: 30,
@@ -58,6 +58,19 @@ const useStyles = createStyles((theme) => ({
 
   highlight: {
     color: "#BBFD00",
+  },
+
+  description: {
+    color: theme.colors.gray[0],
+    textAlign: "center",
+    fontSize: 24,
+    "@media (max-width: 1440px)": {
+      fontSize: 18,
+    },
+    "@media (max-width: 520px)": {
+      fontSize: theme.fontSizes.md,
+      textAlign: "left",
+    },
   },
 
   flexbox: {
@@ -176,7 +189,7 @@ export default function Hero() {
           </Text>
         </Title>
 
-        <Flex className={classes.flexbox}>
+        {/* <Flex className={classes.flexbox}>
           <Text className={classes.gridCol} >
             Platform where companies collaborate with the community and donate.
           </Text>
@@ -186,16 +199,13 @@ export default function Hero() {
           <Text className={classes.gridCol} >
             100% transparency, 0% excuses.
           </Text>
-        </Flex>
-            {/*<Text size="lg" className={classes.description}>
-            Platform where companies collaborate with the community and donate.{" "}
-            <br></br>
-            Move towards a common goal of creating a positive impact. <br></br>
-            100% transparency, 0% excuses.
-            {/* impact on the environment and society. Be a part of real impact by
-            investing into Environmental, Social and Governance that is 100%
-            transparent.
-          </Text>*/}
+        </Flex> */}
+        <Text size="lg" className={classes.description}>
+          Platform where companies collaborate with the community and donate.{" "}
+          <br></br>
+          Move towards a common goal of creating a positive impact. <br></br>
+          100% transparency, 0% excuses.
+        </Text>
 
         <div className={classes.controls}>
           <Link to="faq" spy={true} smooth={true} duration={2500}>
@@ -203,12 +213,6 @@ export default function Hero() {
               Show me how to change the world!
             </Button>
           </Link>
-          {/* <Button
-            className={cx(classes.control, classes.secondaryControl)}
-            size="lg"
-          >
-            Watch video
-          </Button> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,14 @@
-import { Avatar, Text, Button, Paper } from "@mantine/core";
+import {
+  Avatar,
+  Text,
+  Button,
+  Paper,
+  SimpleGrid,
+  Container,
+  Grid,
+} from "@mantine/core";
+import NftShowcaseCarousel from "./NftShowcaseCarousel";
+import RecentImpactors from "./RecentImpactors";
 
 interface UserInfoActionProps {
   imageurl: string;
@@ -15,22 +25,38 @@ export default function AngelImpactor({
     <Paper
       radius="md"
       withBorder
-      p="lg"
+      p="md"
       sx={(theme) => ({
         backgroundColor:
           theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
       })}
     >
-      <Avatar src={imageurl} size={120} radius={120} mx="auto" />
-      <Text ta="center" fz="lg" weight={500} mt="md">
-        {name}
-      </Text>
-      <Text ta="center" c="dimmed" fz="sm">
-        wallet
-      </Text>
+      <Grid>
+        <Grid.Col span={4}>
+          <Avatar src={imageurl} size={140} radius={20} mx="auto" />
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <div>
+            <Text ta="left" fz="lg" weight={500}>
+              {name}
+            </Text>
+            <Text ta="left" c="dimmed" fz="sm">
+              Total donated: $1500
+            </Text>
+            <Text ta="left" c="dimmed" fz="sm">
+              Projects involved in: 7
+            </Text>
+            <Text ta="left" c="dimmed" fz="sm">
+              Proof of Impact NFT's: 3
+            </Text>
+
+            <NftShowcaseCarousel></NftShowcaseCarousel>
+          </div>
+        </Grid.Col>
+      </Grid>
 
       <Button variant="default" fullWidth mt="md">
-        Send message
+        Other projects they supported
       </Button>
     </Paper>
   );

@@ -75,23 +75,13 @@ export default function DonationSidebar() {
 
       <Group position="apart" mt="md">
         <div>
-          <Text fw={500}>Tesla Model S</Text>
+          <Text fw={500}>Turkey DAO project</Text>
           <Text fz="xs" c="dimmed">
             Free recharge at any station
           </Text>
         </div>
         <Badge variant="outline">25% off</Badge>
       </Group>
-
-      <Card.Section className={classes.section} mt="md">
-        <Text fz="sm" c="dimmed" className={classes.label}>
-          Basic configuration
-        </Text>
-
-        <Group spacing={8} mb={-8}>
-          {features}
-        </Group>
-      </Card.Section>
 
       <Card.Section className={classes.section}>
         <Group spacing={30}>
@@ -105,7 +95,7 @@ export default function DonationSidebar() {
           </div>
 
           <Button radius="xl" style={{ flex: 1 }}>
-            Rent now
+            Donate
           </Button>
         </Group>
       </Card.Section>

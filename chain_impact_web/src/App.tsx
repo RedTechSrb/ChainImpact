@@ -58,7 +58,7 @@ const footerPlaceholder = [
       },
       {
         label: "Follow on Twitter",
-        link: "#",
+        link: "#https://twitter.com/ChainImpactSOL",
       },
       {
         label: "Email newsletter",

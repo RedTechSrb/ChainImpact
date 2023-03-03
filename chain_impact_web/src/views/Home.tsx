@@ -2,6 +2,7 @@ import { createStyles } from "@mantine/core";
 import BiggestImpactors from "../components/homeComponents/BiggestImpactors";
 import FAQ from "../components/homeComponents/FAQ";
 import Hero from "../components/homeComponents/Hero";
+import { Hero2 } from "../components/homeComponents/Hero2";
 import ProjectExplorer from "../components/homeComponents/ProjectExplorer";
 import Stats from "../components/homeComponents/Stats";
 import TagLeaderboard from "../components/homeComponents/TagLeaderboard";
@@ -54,7 +55,7 @@ const testimonialsData = {
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Hero2 />
       <TagLeaderboard />
       <BiggestImpactors />
       <ProjectExplorer />

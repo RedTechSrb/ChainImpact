@@ -121,26 +121,22 @@ export default function ProjectOverview() {
               </div>
             </Group> */}
             <SimpleGrid cols={2} verticalSpacing="sm">
-              <Group>
-                <Title size="xl" weight={500} color="white" mt="sm">
-                  Description
-                </Title>
-                <Text size="md" color="white">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  aliquet, nisl nec aliquam aliquam, nunc nisl aliquam nisl, nec
-                </Text>
-              </Group>
+              <Text size={24} weight={500} color="white" mt="sm">
+                Description
+              </Text>
+              <Text size={24} weight={500} color="white" mt="sm">
+                Angel Impactor who brought this project to life.
+              </Text>
+              <Text size="md" color="white">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                aliquet, nisl nec aliquam aliquam, nunc nisl aliquam nisl, nec
+              </Text>
 
-              <Container>
-                <Title size="lg" weight={500} color="white" mt="sm">
-                  Angel Impactor who brought this project to life.
-                </Title>
-                <AngelImpactor
-                  imageurl={angelimpactor.imageurl}
-                  name={angelimpactor.name}
-                  wallet={angelimpactor.wallet}
-                ></AngelImpactor>
-              </Container>
+              <AngelImpactor
+                imageurl={angelimpactor.imageurl}
+                name={angelimpactor.name}
+                wallet={angelimpactor.wallet}
+              ></AngelImpactor>
             </SimpleGrid>
             <Text size="xl" weight={500} mb="xl">
               Recent Donators

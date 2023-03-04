@@ -18,7 +18,7 @@ import {
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
 import { useGetAllProjects } from "../../repositories/ProjectRepository";
-import ProjectComponent from "../ProjectComponent";
+import CharityComponent from "./CharityComponent";
 
 /*const mockdata = [
   {
@@ -281,11 +281,9 @@ const useStyles = createStyles((theme) => ({
   labelActive: {
     color: `${theme.white} !important`,
   },
-
-  
 }));
 
-export default function ProjectExplorer() {
+export default function CharityExplorer() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
@@ -296,7 +294,7 @@ export default function ProjectExplorer() {
   const [searchQuery, setSearch] = useState("");
   const [tag, setTag] = useState("General");
   var projects = filteredData.map((article) => (
-    <ProjectComponent
+    <CharityComponent
       name={article.name}
       description={article.description}
       imageurl={article.imageurl}
@@ -313,7 +311,7 @@ export default function ProjectExplorer() {
       twitter={null}
       instagram={null}
       angelimpactor={article.angelimpactor}
-    ></ProjectComponent>
+    ></CharityComponent>
   ));
 
   useEffect(() => {
@@ -356,7 +354,7 @@ export default function ProjectExplorer() {
     );
 
     projects = filteredData.map((article) => (
-      <ProjectComponent
+      <CharityComponent
         name={article.name}
         description={article.description}
         imageurl={article.imageurl}
@@ -373,7 +371,7 @@ export default function ProjectExplorer() {
         twitter={null}
         instagram={null}
         angelimpactor={article.angelimpactor}
-      ></ProjectComponent>
+      ></CharityComponent>
     ));
 
     if (resetPage) {
@@ -395,7 +393,7 @@ export default function ProjectExplorer() {
         mt="sm"
         style={{ marginTop: "70px" }}
       >
-        Support what you believe in.
+        Discover the Charities on Our Platform
       </Title>
       <Text
         color="white"
@@ -403,7 +401,7 @@ export default function ProjectExplorer() {
         align="center"
         mt="md"
       >
-        Find a project to support, back other Impactors and make a real change.
+        Support Incredible Causes with These Charities on Our Platform
       </Text>
       <TextInput
         icon={<IconSearch size={18} stroke={1.5} color="#BBFD00" />}
@@ -451,7 +449,7 @@ export default function ProjectExplorer() {
         />
       </Flex>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        style={{minHeight: "600px"}}>
+        style={{minHeight: "250px"}}>
         {projects}
       </SimpleGrid>
       <Pagination

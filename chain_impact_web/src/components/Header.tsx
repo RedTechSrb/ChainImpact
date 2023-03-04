@@ -42,11 +42,12 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.dark[6]
         : theme.colors.gray[2],
-    margin: 0,
-    position: "fixed",
-    top: 0,
+
+    //margin: 0,
+    //position: "fixed",
+    //top: 0,
     width: "100%",
-    zIndex: 100,
+    //zIndex: 100,
   },
 
   link: {
@@ -347,7 +348,9 @@ export default function HeaderResponsive({
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
+                      <Link to="/charities" className={classes.link}>
                         Charities
+                      </Link>
                       </Box>
                       {/*<IconChevronDown
                         size={16}

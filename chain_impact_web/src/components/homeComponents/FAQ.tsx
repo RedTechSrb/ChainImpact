@@ -39,7 +39,7 @@ const useStyles = createStyles((theme) => ({
   componentHeader: {
     fontStyle: "normal",
     fontWeight: 900,
-    fontSize: "2.5rem",
+    fontSize: "2.2rem",
     lineHeight: "140%",
     marginTop: "15px",
     marginBottom: "20px",
@@ -99,7 +99,7 @@ const useStyles = createStyles((theme) => ({
   title: {
     marginTop: theme.spacing.md,
     marginBottom: theme.spacing.md,
-    paddingLeft: theme.spacing.md,
+
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
   },
 
@@ -131,7 +131,8 @@ export default function FAQ() {
       <Container size="lg">
         <Text className={classes.componentTitle}>A WEB3 ESG PLATFORM</Text>
         <Text className={classes.componentHeader}>
-          Make a real change <span className={classes.highlight}>easily</span>,
+          Donate to make a real change{" "}
+          <span className={classes.highlight}>easily</span>,
           <span className={classes.highlight}> quickly</span> and
           <span className={classes.highlight}> transparently </span>
           and receive{" "}

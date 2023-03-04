@@ -8,6 +8,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     public interface INFTTypeService
     {
         List<NFTResponseDto> GetNFTList();
-        List<NFTResponseDto> GetNFTsData(GenericDto<NFTTypeSearchDto>? nftTypeSearchDto);
+        List<NFTResponseDto> GetNFTsData(GenericDto<NFTRequestDto>? nftDto);
     }
 }

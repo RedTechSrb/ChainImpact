@@ -1,5 +1,6 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.NFT;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -28,11 +29,11 @@ namespace ChainImpactAPI.Controllers
         }
 
 
-        [HttpPost("search")]
-        public IActionResult SearchNFTTypes(GenericDto<NFTTypeSearchDto>? nftTypeSearchDto)
+        [HttpPost("NFTsData")]
+        public IActionResult SearchNFTTypes(GenericDto<NFTRequestDto>? nftDto)
         {
 
-            var projectDtoList = NFTTypeService.GetNFTsData(nftTypeSearchDto);
+            var projectDtoList = NFTTypeService.GetNFTsData(nftDto);
 
             return Ok(projectDtoList);
         }

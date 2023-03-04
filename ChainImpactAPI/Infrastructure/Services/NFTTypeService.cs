@@ -45,17 +45,21 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         }
 
-        public List<NFTResponseDto> GetNFTsData(GenericDto<NFTTypeSearchDto>? nftTypeSearchDto)
+        public List<NFTResponseDto> GetNFTsData(GenericDto<NFTRequestDto>? nftRequestDto)
         {
-            if (nftTypeSearchDto != null)
+
+            NFTTypeSearchDto nftDto = new NFTTypeSearchDto();
+            if (nftRequestDto != null && nftRequestDto.Dto != null)
             {
-                if (nftTypeSearchDto.Dto != null && nftTypeSearchDto.Dto.causetype != null)
+                if (nftRequestDto.Dto.causetype != null)
                 {
-                    nftTypeSearchDto.Dto.causetype = causeTypeService.SearchCauseTypes(new GenericDto<CauseTypeDto>(null, null, nftTypeSearchDto.Dto.causetype)).FirstOrDefault();
+                    nftDto.causetype = causeTypeService.SearchCauseTypes(new GenericDto<CauseTypeDto>(null, null, new CauseTypeDto(null, nftRequestDto.Dto.causetype))).FirstOrDefault();
                 }
+                nftDto.tier = nftRequestDto.Dto.tier;
+                nftDto.usertype = nftRequestDto.Dto.usertype;
             }
 
-            var nfts = nFTTypeRepository.SearchAsync(nftTypeSearchDto).Result;
+            var nfts = nFTTypeRepository.SearchAsync(new GenericDto<NFTTypeSearchDto>(nftRequestDto?.PageNumber, nftRequestDto?.PageSize, nftDto)).Result;
 
             var nftDtoList = new List<NFTResponseDto>();
             foreach (var nft in nfts)

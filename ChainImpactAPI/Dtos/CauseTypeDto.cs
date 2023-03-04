@@ -2,6 +2,10 @@
 {
     public class CauseTypeDto
     {
+        public CauseTypeDto()
+        {
+        }
+
         public CauseTypeDto(
             int? id, 
             string? name)

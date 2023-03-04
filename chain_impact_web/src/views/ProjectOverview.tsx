@@ -18,10 +18,13 @@ import {
   IconBrandInstagram,
   IconBrandTwitter,
 } from "@tabler/icons";
+import { useEffect } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Impactor from "../components/Impactor";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
+import { useGetSpecificProject } from "../repositories/ProjectRepository";
 
 const PRIMARY_COL_HEIGHT = "32rem";
 
@@ -46,11 +49,17 @@ export default function ProjectOverview() {
   const theme = useMantineTheme();
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
 
+  let  { id } = useParams();
+  const projectSearch = { "dto": { "id": Number(id) } };
+  const projectData = useGetSpecificProject(projectSearch);
+
+
   const angelimpactor = {
     imageurl: "https://picsum.photos/id/1/200",
     name: "John Doe",
     wallet: "0x1234567890abcdef",
   };
+
 
   const { classes } = useStyles();
   return (
@@ -66,7 +75,7 @@ export default function ProjectOverview() {
             />
             <SimpleGrid cols={2} verticalSpacing="sm">
               <Group>
-                <Title>Turkey DAO</Title>
+                <Title>{projectData?.name}</Title>
               </Group>
               <Group
                 spacing={0}
@@ -128,8 +137,7 @@ export default function ProjectOverview() {
                 Angel Impactor who brought this project to life.
               </Text>
               <Text size="md" color="white">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                aliquet, nisl nec aliquam aliquam, nunc nisl aliquam nisl, nec
+                {projectData?.description}
               </Text>
 
               <AngelImpactor

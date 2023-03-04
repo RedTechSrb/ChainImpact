@@ -14,6 +14,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 import { Project } from "../../models/Project";
+import { Charity } from "../../models/Charity";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -47,17 +48,16 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectComponent({
+export default function CharityComponent({
   imageurl,
   name,
   description,
-  primarycausetype,
-  secondarycausetype,
-  angelimpactor,
-  totaldonated,
-  financialgoal,
-  charity,
-}: Project) {
+  wallet,
+  website,
+  facebook,
+  twitter,
+  discord
+}: Charity) {
   const { classes, theme } = useStyles();
 
   return (
@@ -72,8 +72,7 @@ export default function ProjectComponent({
             {name}
           </Text>
           <Group position="right">
-            <Badge size="sm">{primarycausetype.name}</Badge>
-            <Badge size="sm">{secondarycausetype.name}</Badge>
+            <Badge size="sm">{wallet}</Badge>
           </Group>
         </Group>
         <Text size="sm" mt="xs" style={{minHeight: "45px"}} >

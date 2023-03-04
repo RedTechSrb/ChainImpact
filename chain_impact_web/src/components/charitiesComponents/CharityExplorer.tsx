@@ -17,7 +17,7 @@ import {
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
-import { useGetAllProjects } from "../../repositories/ProjectRepository";
+import { useGetAllCharities } from "../../repositories/CharityRepository";
 import CharityComponent from "./CharityComponent";
 
 /*const mockdata = [
@@ -287,30 +287,21 @@ export default function CharityExplorer() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
-  const dbMockData = useGetAllProjects();
+  const dbMockData = useGetAllCharities();
   const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
   const [filteredDataNum, setFilteredDataNum] = useState(dbMockData.length);
-  const [resetPage, setResetPage] = useState(false);
   const [searchQuery, setSearch] = useState("");
-  const [tag, setTag] = useState("General");
-  var projects = filteredData.map((article) => (
+  var charities = filteredData.map((article) => (
     <CharityComponent
       name={article.name}
       description={article.description}
       imageurl={article.imageurl}
-      financialgoal={article.financialgoal}
-      totaldonated={article.totaldonated}
-      primarycausetype={article.primarycausetype}
-      secondarycausetype={article.secondarycausetype}
-      charity={article.charity}
       id={article.id}
-      milestones={null}
-      website={null}
-      facebook={null}
-      discord={null}
-      twitter={null}
-      instagram={null}
-      angelimpactor={article.angelimpactor}
+      wallet={article.wallet}
+      website={article.website}
+      facebook={article.facebook}
+      discord={article.discord}
+      twitter={article.twitter}
     ></CharityComponent>
   ));
 
@@ -318,16 +309,12 @@ export default function CharityExplorer() {
     const startIndex = activePage === 1 ? 0 : 4 * (activePage - 1);
     const endIndex = 4 * activePage;
 
-    const filterProjects = (tag: string, searchQuery: string) => {
+    const filterCharities = (searchQuery: string) => {
       const dbFiltered = /*mockdata*/ dbMockData.filter((project) => {
-        const { primarycausetype, secondarycausetype, name, description } =
+        const { name, description } =
           project;
 
-        if (
-          tag.toLowerCase() === "general" ||
-          secondarycausetype.name === tag.toLowerCase() ||
-          primarycausetype.name === tag.toLowerCase()
-        ) {
+        {
           if (!searchQuery) {
             return true;
           }
@@ -350,39 +337,27 @@ export default function CharityExplorer() {
     };
 
     setFilteredData(
-      filterProjects(tag, searchQuery).slice(startIndex, endIndex)
+      filterCharities(searchQuery).slice(startIndex, endIndex)
     );
 
-    projects = filteredData.map((article) => (
+    charities = filteredData.map((article) => (
       <CharityComponent
         name={article.name}
         description={article.description}
         imageurl={article.imageurl}
-        financialgoal={article.financialgoal}
-        totaldonated={article.totaldonated}
-        primarycausetype={article.primarycausetype}
-        secondarycausetype={article.secondarycausetype}
-        charity={article.charity}
         id={article.id}
-        milestones={null}
-        website={null}
-        facebook={null}
-        discord={null}
-        twitter={null}
-        instagram={null}
-        angelimpactor={article.angelimpactor}
+        wallet={article.wallet}
+        website={article.website}
+        facebook={article.facebook}
+        discord={article.discord}
+        twitter={article.twitter}
       ></CharityComponent>
     ));
-
-    if (resetPage) {
-      setPage(1)
-      setResetPage(false)
-    }
     
     return () => {
       // cleanup function here
     };
-  }, [activePage, tag, searchQuery, dbMockData]);
+  }, [activePage, searchQuery, dbMockData]);
 
   return (
     <Container py="xl" size="lg" id="project_explorer">
@@ -432,25 +407,11 @@ export default function CharityExplorer() {
         wrap="wrap"
         mb="lg"
       >
-        <SegmentedControl
-          radius="xl"
-          size="md"
-          data={[
-            "General",
-            "Environment",
-            "Social",
-            "Disaster Relief",
-            "Education",
-            "Ecosystem",
-          ]}
-          classNames={classes}
-          value={tag}
-          onChange={(tag) => { setResetPage(true); setTag(tag)}}
-        />
+        
       </Flex>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        style={{minHeight: "250px"}}>
-        {projects}
+        style={{minHeight: "450px"}}>
+        {charities}
       </SimpleGrid>
       <Pagination
         total={filteredDataNum}

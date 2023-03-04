@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChainImpactAPI.Dtos.SearchDtos;
+using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Infrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
+using ChainImpactAPI.Application.ServiceInterfaces;
 
 namespace ChainImpactAPI.Controllers
 {
@@ -7,6 +11,24 @@ namespace ChainImpactAPI.Controllers
     [Route("[controller]")]
     public class CharityController : ControllerBase
     {
+
+        private readonly ICharityService charityService;
+
+        public CharityController(ICharityService charityService)
+        {
+            this.charityService = charityService;
+        }
+
+
+        [HttpPost("search")]
+        public IActionResult SearchCHarities(GenericDto<CharitySearchDto>? charitySearchDto)
+        {
+
+            var charityDtoList = charityService.SearchCharities(charitySearchDto);
+
+            return Ok(charityDtoList);
+        }
+
 
     }
 }

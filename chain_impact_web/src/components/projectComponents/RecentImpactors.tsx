@@ -7,6 +7,11 @@ import {
   Title,
   Button,
   useMantineTheme,
+  Image,
+  Group,
+  Card,
+  Container,
+  Center,
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
@@ -14,12 +19,22 @@ const useStyles = createStyles((theme) => ({
     height: "375px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    //justifyContent: "space-between",
     alignItems: "flex-start",
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
 
+  imageSection: {
+    padding: theme.spacing.md,
+    display: "flex",
+    maxHeight: "150px",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottom: `${"1px"} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+  },
   title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontWeight: 900,
@@ -31,58 +46,37 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.xs,
   },
 
+  image: {
+    maxHeight: "120px",
+    maxWidth: "120px",
+  },
   category: {
     color: theme.white,
-    opacity: 0.7,
+
+    opacity: 1,
     fontWeight: 700,
     textTransform: "uppercase",
   },
+
+  section: {
+    padding: theme.spacing.md,
+    borderTop: `${"1px"} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+    marginTop: theme.spacing.md,
+  },
 }));
-
-interface CardProps {
-  image: string;
-  title: string;
-  category: string;
-}
-
-function Card({ image, title, category }: CardProps) {
-  const { classes } = useStyles();
-
-  return (
-    <Paper
-      shadow="md"
-      p="xl"
-      radius="md"
-      sx={{
-        backgroundImage: `url(${image})`,
-        flexDirection: "column",
-      }}
-      className={classes.card}
-    >
-      <div>
-        <Text className={classes.category} size="xs">
-          {category}
-        </Text>
-      </div>
-      <div>
-        <Title order={3} className={classes.title}>
-          {title}
-        </Title>
-      </div>
-    </Paper>
-  );
-}
 
 const data = [
   {
     image:
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://www.arweave.net/L2xx_TKhUOImmE3YF9q8aqO23KYTFO8FILERCdSeMwc?ext=PNG",
     title: "Best forests to visit in North America",
     category: "nature",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://www.arweave.net/L2xx_TKhUOImmE3YF9q8aqO23KYTFO8FILERCdSeMwc?ext=PNG",
     title: "Hawaii beaches review: better than you think",
     category: "beach",
   },
@@ -115,9 +109,46 @@ const data = [
 export default function RecentImpactors() {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const { classes } = useStyles();
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
-      <Card {...item} />
+      <Card withBorder radius="md" className={classes.card}>
+        <Card.Section className={classes.imageSection}>
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/600px-Tesla_logo.png?20210117060557"
+            alt="Tesla Model S"
+            className={classes.image}
+          />
+        </Card.Section>
+
+        <Group position="apart" mt="md">
+          <div>
+            <Text fw={500}>Tesla</Text>
+            <Text fz="xs" c="dimmed">
+              Free recharge at any station
+            </Text>
+          </div>
+        </Group>
+
+        <Card.Section className={classes.section}>
+          <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
+            $12000
+          </Text>
+          <Text
+            fz="sm"
+            c="dimmed"
+            fw={500}
+            sx={{ lineHeight: 1, marginTop: "0px", paddingTop: "0px" }}
+          >
+            Donated
+          </Text>
+          <Center>
+            <Button radius="xl" style={{ flex: 1, marginTop: 25 }}>
+              Impact trace
+            </Button>
+          </Center>
+        </Card.Section>
+      </Card>
     </Carousel.Slide>
   ));
 
@@ -128,6 +159,14 @@ export default function RecentImpactors() {
       slideGap="xl"
       align="start"
       slidesToScroll={mobile ? 1 : 3}
+      styles={{
+        control: {
+          "&[data-inactive]": {
+            opacity: 0,
+            cursor: "default",
+          },
+        },
+      }}
     >
       {slides}
     </Carousel>

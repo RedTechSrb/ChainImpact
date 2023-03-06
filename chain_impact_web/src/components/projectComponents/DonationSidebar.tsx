@@ -50,6 +50,11 @@ const useStyles = createStyles((theme) => ({
     }`,
   },
 
+  image: {
+    maxHeight: "240px",
+    maxWidth: "320px",
+  },
+
   icon: {
     marginRight: "5px",
     color:
@@ -78,7 +83,11 @@ export default function DonationSidebar({ project }: DonationSidebarProps) {
   return (
     <Card withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
-        <Image src="https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
+        <Image
+          src="https://media.istockphoto.com/id/174062115/photo/homeless-people.jpg?s=612x612&w=is&k=20&c=9fbaYUH1LNfNUsPopf1lwKjtSDwdYLb2lENKvZCVPWA="
+          alt="Tesla Model S"
+          className={classes.image}
+        />
       </Card.Section>
 
       <Text size={"xl"} weight={500} mt="lg" color={"#BBFD00"}>

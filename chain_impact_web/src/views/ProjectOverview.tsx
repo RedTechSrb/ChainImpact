@@ -102,12 +102,12 @@ export default function ProjectOverview() {
         ) : projectData ? (
           <Grid className={classes.container}>
             <Grid.Col span={9}>
-              <Image
-                src="https://picsum.photos/id/1/200"
+              {/* <Image
+                src="https://media.istockphoto.com/id/506664332/photo/business-with-csr-practice.jpg?s=1024x1024&w=is&k=20&c=qKTzGl0Wec-oxJ_sU-eTcPDzooTSqIyHIh3rmIeUNcI="
                 alt="alt"
                 height={180}
                 mb="md"
-              />
+              /> */}
               <SimpleGrid cols={2} verticalSpacing="sm">
                 <Group>
                   <Title>{projectData?.name}</Title>

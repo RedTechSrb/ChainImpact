@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { Impactor } from "../models/Impactor";
@@ -50,4 +51,20 @@ export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, pr
     return impactors.slice(0, 5);
 
     //return ImpactorData.slice(0, 5) as Impactor[];
+}
+
+
+export function useCreateNewImpactor(newImpactor: CreateNewImpactor){
+
+    const [impactor, setImpactor] = useState<Impactor>();
+
+    useEffect( () => {
+        axios.post(url+"Impactor/Save", newImpactor)
+        .then(response => {
+            const impactorData = response.data as Impactor;
+            setImpactor(impactorData)
+        })
+    },[]);
+
+    return impactor;
 }

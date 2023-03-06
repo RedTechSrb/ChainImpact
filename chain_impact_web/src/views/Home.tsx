@@ -2,21 +2,11 @@ import { createStyles } from "@mantine/core";
 import BiggestImpactors from "../components/homeComponents/BiggestImpactors";
 import FAQ from "../components/homeComponents/FAQ";
 import Hero from "../components/homeComponents/Hero";
+import { Hero2 } from "../components/homeComponents/Hero2";
 import ProjectExplorer from "../components/homeComponents/ProjectExplorer";
 import Stats from "../components/homeComponents/Stats";
 import TagLeaderboard from "../components/homeComponents/TagLeaderboard";
 import Testimonials from "../components/homeComponents/Testimonials";
-
-const useStyles = createStyles((theme) => ({
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    minHeight: "400px",
-    width: "100%",
-  },
-}));
 
 const statsdata = {
   data: [
@@ -63,11 +53,9 @@ const testimonialsData = {
 };
 
 export default function Home() {
-  const { classes } = useStyles();
-
   return (
     <>
-      <Hero />
+      <Hero2 />
       <TagLeaderboard />
       <BiggestImpactors />
       <ProjectExplorer />

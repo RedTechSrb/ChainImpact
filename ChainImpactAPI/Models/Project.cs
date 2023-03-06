@@ -9,6 +9,7 @@ namespace ChainImpactAPI.Models
         public int charityid { get; set; }
         public Charity charity{ get; set; }
         public string name { get; set; }
+        public string? wallet { get; set; }
         public string? description { get; set; }
         public string? milestones { get; set; }
         public double financialgoal { get; set; }

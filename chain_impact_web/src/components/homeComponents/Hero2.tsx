@@ -1,0 +1,158 @@
+import {
+  createStyles,
+  Image,
+  Container,
+  Title,
+  Button,
+  Group,
+  Text,
+  List,
+  ThemeIcon,
+} from "@mantine/core";
+import { IconCheck } from "@tabler/icons";
+import { Link } from "react-scroll";
+
+import image from "../../res/images/heroSave.png";
+
+const useStyles = createStyles((theme) => ({
+  inner: {
+    display: "flex",
+    justifyContent: "space-between",
+    paddingTop: `calc(${theme.spacing.xl} * 4)`,
+    paddingBottom: `calc(${theme.spacing.xl} * 4)`,
+  },
+
+  content: {
+    maxWidth: 650,
+    marginRight: `calc(${theme.spacing.xl} * 3)`,
+
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: "100%",
+      marginRight: 0,
+    },
+  },
+
+  description: {
+    color: theme.colors.gray[0],
+    textAlign: "left",
+
+    fontSize: 24,
+    "@media (max-width: 1440px)": {
+      fontSize: 18,
+    },
+    "@media (max-width: 520px)": {
+      fontSize: theme.fontSizes.md,
+      textAlign: "left",
+    },
+  },
+
+  title: {
+    fontWeight: 800,
+    fontSize: 48,
+
+    "@media (max-width: 1440px)": {
+      fontSize: 36,
+    },
+
+    letterSpacing: -1,
+
+    paddingRight: theme.spacing.md,
+    color: theme.white,
+    marginBottom: theme.spacing.xs,
+    textAlign: "left",
+
+    "@media (max-width: 520px)": {
+      fontSize: 28,
+      textAlign: "left",
+    },
+  },
+
+  control: {
+    height: 42,
+    fontSize: theme.fontSizes.md,
+    //fontFamily: "Space Mono, monospace",
+    backgroundColor: "#black",
+    color: "#3b3d44", //"#BBFD00",
+    "&:not(:first-of-type)": {
+      marginLeft: theme.spacing.md,
+    },
+
+    "@media (max-width: 1440px)": {
+      fontSize: theme.fontSizes.sm,
+    },
+
+    "@media (max-width: 520px)": {
+      "&:not(:first-of-type)": {
+        marginTop: theme.spacing.md,
+        marginLeft: 0,
+      },
+    },
+    [theme.fn.smallerThan("xs")]: {
+      flex: 1,
+    },
+  },
+  highlight: {
+    color: "#BBFD00",
+  },
+  highlightsolana: {
+    background: "linear-gradient(to right, #9945FF, #14F195)",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+  },
+  herocomponent: {
+    marginTop: "40px",
+  },
+  image: {
+    flex: 1,
+
+    [theme.fn.smallerThan("md")]: {
+      display: "none",
+    },
+  },
+}));
+
+export function Hero2() {
+  const { classes } = useStyles();
+  return (
+    <div>
+      <Container size="lg" className={classes.herocomponent}>
+        <div className={classes.inner}>
+          <div className={classes.content}>
+            <Title className={classes.title}>
+              <Text component="span" inherit className={classes.highlight}>
+                ESG
+              </Text>{" "}
+              powered by{" "}
+              <Text
+                component="span"
+                inherit
+                className={classes.highlightsolana}
+              >
+                Solana Blockchain
+              </Text>
+            </Title>
+            <Text size="lg" className={classes.description}>
+              A platform where companies collaborate with the community and
+              donate to move towards a common goal <br></br> of creating a
+              positive impact. <br></br>
+            </Text>
+            <Text size="lg" mt="xs">
+              100% transparency, 0% excuses.
+            </Text>
+
+            <Group mt={30}>
+              <div className={classes.control}>
+                <Link to="faq" spy={true} smooth={true} duration={2500}>
+                  <Button className={classes.control} variant="white" size="xl">
+                    Show me how to change the world!
+                  </Button>
+                </Link>
+              </div>
+            </Group>
+          </div>
+          <Image src={image} className={classes.image} />
+        </div>
+      </Container>
+    </div>
+  );
+}

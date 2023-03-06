@@ -21,7 +21,8 @@ namespace ChainImpactAPI.Dtos
             string? imageurl, 
             ImpactorDto? angelimpactor, 
             CauseTypeDto? primarycausetype, 
-            CauseTypeDto? secondarycausetype)
+            CauseTypeDto? secondarycausetype,
+            string? wallet)
         {
             this.id = id;
             this.charity = charity;
@@ -39,10 +40,12 @@ namespace ChainImpactAPI.Dtos
             this.angelimpactor = angelimpactor;
             this.primarycausetype = primarycausetype;
             this.secondarycausetype = secondarycausetype;
+            this.wallet = wallet;
         }
 
         public int? id { get; set; }
         public CharityDto? charity { get; set; }
+        public string? wallet { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
         public string? milestones { get; set; }

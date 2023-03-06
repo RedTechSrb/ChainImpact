@@ -30,13 +30,13 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CharityDto(
                             project.charity.id,
                             project.charity.name,
-                            project.charity.description,
+                            project.charity.wallet,
+                            project.charity.website,
+                            project.charity.facebook,
                             project.charity.discord,
-                            project.charity.facebook, 
-                            project.charity.imageurl, 
-                            project.charity.twitter,   
-                            project.charity.wallet, 
-                            project.charity.website
+                            project.charity.twitter,
+                            project.charity.imageurl,
+                            project.charity.description
                         ),
                         project.name,
                         project.description,
@@ -70,7 +70,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        )
+                        ),
+                        project.wallet
                     ));
             }
 
@@ -89,13 +90,13 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CharityDto(
                             project.charity.id,
                             project.charity.name,
-                            project.charity.description,
-                            project.charity.discord,
-                            project.charity.facebook,
-                            project.charity.imageurl,
-                            project.charity.twitter,
                             project.charity.wallet,
-                            project.charity.website
+                            project.charity.website,
+                            project.charity.facebook,
+                            project.charity.discord,
+                            project.charity.twitter,
+                            project.charity.imageurl,
+                            project.charity.description
                         ),
                         project.name,
                         project.description,
@@ -129,7 +130,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        )
+                        ),
+                        project.wallet
                     ));
             }
 

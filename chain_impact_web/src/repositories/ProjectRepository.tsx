@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ProjectSearch } from "../models/dto/request/ProjectSearch";
 import { Project } from "../models/Project";
 
 const url = "http://167.99.246.54/"
@@ -19,4 +20,19 @@ export function useGetAllProjects(){
     return projects;
 
     //return ImpactorData.slice(0, 5) as Impactor[];
+}
+
+export function useGetSpecificProject(searchDto: ProjectSearch){
+
+    const [project, setProject] = useState<Project>();
+
+    useEffect( () => {
+        axios.post(url+"Project/Search", searchDto)
+        .then(response => {
+            const projectData = response.data as Project[];
+            setProject(projectData[0])
+        })
+    },[]);
+
+    return project;
 }

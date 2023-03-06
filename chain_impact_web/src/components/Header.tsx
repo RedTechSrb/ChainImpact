@@ -41,6 +41,7 @@ import { createNewImpactor, getSpecificImpactor } from "../repositories/Impactor
 import axios from "axios";
 import { Impactor } from "../models/Impactor";
 import { useGetSpecificProject } from "../repositories/ProjectRepository";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -245,11 +246,11 @@ export default function HeaderResponsive({
         // put wallet in cookie for next 365 days
         cookies.set("wallet", response.publicKey.toString(), {expires: new Date(Date.now()+31536000000)})
         // if there is already impactor with this wallet, continue
-        let impactor;
-        if (impactor = getSpecificImpactor({wallet: response.publicKey.toString()})){
-          console.log(impactor)
-          return;
-        }
+        let impactor = getSpecificImpactor(new ImpactorWalletSearch(null, null, response.publicKey.toString()));
+        if (await impactor){
+            setWalletKey(response.publicKey.toString());
+          }
+        
         // if not, create new impactor with this wallet
         newUser = {
           wallet: response.publicKey.toString(),

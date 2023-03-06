@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { Impactor } from "../models/Impactor";
@@ -19,6 +20,18 @@ export function useGetAllImpactors(){
     },[]);
 
     return impactors;
+}
+
+export function getSpecificImpactor({wallet1}: any){
+
+    let impactor;
+
+    axios.post(url+"Impactor/Search", {wallet: wallet1})
+    .then(response => {
+        const impactorData = response.data as Impactor;
+        impactor = impactorData
+    })
+    return impactor
 }
 
 
@@ -47,7 +60,17 @@ export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, pr
         })
     },[]);
 
-    return impactors.slice(0, 5);
+    return impactors;
 
     //return ImpactorData.slice(0, 5) as Impactor[];
+}
+
+
+export function createNewImpactor(newImpactor: CreateNewImpactor){
+
+    axios.post(url+"Impactor/Save", newImpactor)
+    .then(response => {
+        const impactorData = response.data as Impactor;
+        return impactorData
+    })
 }

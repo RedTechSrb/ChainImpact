@@ -5,6 +5,6 @@ namespace ChainImpactAPI.Application.RepositoryInterfaces
 {
     public interface IImpactorRepository : IGenericRepository<Impactor>
     {
-        Task<List<Impactor>> SearchAsync(GenericDto<ImpactorDto> genericDto);
+        Task<List<Impactor>> SearchAsync(GenericDto<ImpactorDto>? genericDto);
     }
 }

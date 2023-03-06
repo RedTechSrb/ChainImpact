@@ -94,7 +94,10 @@ const useStyles = createStyles((theme) => ({
   description: {
     maxWidth: 600,
     margin: "auto",
-
+    marginTop: theme.spacing.md,
+    "@media (max-width: 1440px)": {
+      marginTop: 0,
+    },
     "&::after": {
       content: '""',
       display: "block",
@@ -175,12 +178,7 @@ export default function TagLeaderboard() {
         Top Companies that make a real Impact
       </Title>
 
-      <Text
-        color="white"
-        className={classes.description}
-        align="center"
-        mt="md"
-      >
+      <Text color="white" className={classes.description} align="center">
         Compete for top spot in each part of ESG. <br></br> Show that your
         company cares.
       </Text>

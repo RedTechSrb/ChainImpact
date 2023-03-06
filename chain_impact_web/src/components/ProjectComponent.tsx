@@ -12,6 +12,7 @@ import {
   Progress,
   Container,
   SimpleGrid,
+  Spoiler,
 } from "@mantine/core";
 import { Project } from "../models/Project";
 
@@ -77,7 +78,13 @@ export default function ProjectComponent({
           </Group>
         </Group>
         <Text size="sm" mt="xs">
-          {description}
+          <Spoiler
+            showLabel="Read more"
+            hideLabel="Read less"
+            maxHeight={3 * theme.fontSizes.sm} // Change the value as per your requirement
+          >
+            {description}
+          </Spoiler>
         </Text>
       </Card.Section>
 
@@ -94,13 +101,13 @@ export default function ProjectComponent({
 
             <div style={{ flex: 1 }}>
               {totaldonated !== 0 ? (
-              <Text size="sm" weight={500}>
-                {angelimpactor?.name}
-              </Text>
-              ): (
-              <Text size="sm" weight={500}>
-                Your company name and logo can be here too!
-              </Text>
+                <Text size="sm" weight={500}>
+                  {angelimpactor?.name}
+                </Text>
+              ) : (
+                <Text size="sm" weight={500}>
+                  Your company name and logo can be here too!
+                </Text>
               )}
               <Text color="dimmed" size="xs">
                 {angelimpactor?.wallet}

@@ -16,6 +16,7 @@ export interface Project {
   twitter: string | null;
   instagram: string | null;
   imageurl: string | null;
+  totalbackers: number;
   angelimpactor: Impactor | null;
   primarycausetype: CauseType;
   secondarycausetype: CauseType;

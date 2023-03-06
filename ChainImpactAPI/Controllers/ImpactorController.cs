@@ -1,6 +1,6 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
-using ChainImpactAPI.Dtos.ImpactorWithWallet;
+using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,11 +26,11 @@ namespace ChainImpactAPI.Controllers
             return Ok(impactorDtoList);
         }
 
-        [HttpPost("ImpactorWithWallet")]
-        public IActionResult GetImpactorWithWallet(ImpactorWithWalletRequestDto impactorWithWalletRequestDto)
+        [HttpPost("search")]
+        public IActionResult GetImpactorWithWallet(GenericDto<ImpactorDto>? impactorSearchDto)
         {
 
-            var impactorSavedImpactor = impactorService.GetImpactorWithWallet(impactorWithWalletRequestDto);
+            var impactorSavedImpactor = impactorService.SearchImpactors(impactorSearchDto);
 
             return Ok(impactorSavedImpactor);
         }

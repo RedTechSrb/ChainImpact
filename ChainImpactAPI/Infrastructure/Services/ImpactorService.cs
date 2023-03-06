@@ -1,7 +1,6 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
-using ChainImpactAPI.Dtos.ImpactorWithWallet;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
 
@@ -71,16 +70,14 @@ namespace ChainImpactAPI.Infrastructure.Services
             return impactorRepository.Save(impactor);
         }
 
-        public ImpactorDto? GetImpactorWithWallet(ImpactorWithWalletRequestDto impactorWithWalletRequestDto)
+        public List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto)
         {
-            var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorWithWalletRequestDto.wallet })).Result.FirstOrDefault();
+            var impactors = impactorRepository.SearchAsync(impactorSearchDto).Result;
 
-            if(impactor == null)
+            var impactorDtoList = new List<ImpactorDto>();
+            foreach (var impactor in impactors)
             {
-                return null;
-            }
-
-            var impactorDto = new ImpactorDto(
+                impactorDtoList.Add(new ImpactorDto(
                             impactor.id,
                             impactor.wallet,
                             impactor.name,
@@ -93,10 +90,11 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.imageurl,
                             impactor.role,
                             impactor.type
-                        );
+                        )
+                );
+            }
 
-            return impactorDto;
-
+            return impactorDtoList;
         }
 
     }

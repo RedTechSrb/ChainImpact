@@ -1,5 +1,4 @@
 ﻿using ChainImpactAPI.Dtos;
-using ChainImpactAPI.Dtos.ImpactorWithWallet;
 using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
@@ -8,6 +7,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     {
         List<ImpactorDto> GetImpactors();
         Impactor SaveImpactor(ImpactorDto impactorDto);
-        ImpactorDto? GetImpactorWithWallet(ImpactorWithWalletRequestDto impactorWithWalletRequestDto);
+        List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto);
     }
 }

@@ -2,6 +2,16 @@
 {
     public class GenericDto<T> where T : class
     {
+        public GenericDto()
+        {
+
+        }
+
+        public GenericDto(T dto)
+        {
+            this.Dto = dto;
+        }
+
         public GenericDto(int? pageNumber, int? pageSize, T? dto)
         {
             PageNumber = pageNumber;

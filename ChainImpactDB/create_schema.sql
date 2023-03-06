@@ -50,7 +50,7 @@ CREATE TABLE Impactor
 ( 
 	Id                   serial  NOT NULL ,
 	Wallet               varchar(256)  NOT NULL ,
-	Name                 varchar(100)  NOT NULL ,
+	Name                 varchar(100)  NULL ,
 	Description          varchar(4000)  NULL ,
 	Facebook             varchar(100)  NULL ,
 	Twitter              varchar(100)  NULL ,

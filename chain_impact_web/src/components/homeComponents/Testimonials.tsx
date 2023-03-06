@@ -14,6 +14,9 @@ const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingTop: 80,
     paddingBottom: 50,
+    "@media (max-width: 520px)": {
+      display: "none",
+    },
   },
 
   item: {

@@ -5,6 +5,20 @@ namespace ChainImpactAPI.Models
 {
     public class Impactor : BaseEntity
     {
+        public Impactor(string wallet, int type)
+        {
+            this.wallet = wallet;
+            this.role = 1;
+            this.type = type;
+        }
+
+        public Impactor(string wallet, int role, int type)
+        {
+            this.wallet = wallet;
+            this.role = role;
+            this.type = type;
+        }
+
         public string wallet { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }

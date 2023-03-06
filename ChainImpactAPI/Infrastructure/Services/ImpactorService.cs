@@ -48,24 +48,26 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         public Impactor SaveImpactor(ImpactorDto impactorDto)
         {
-            return null;
-/*            var impactor = impactorRepository.Update(new Impactor
-            {
-                id = impactorDto.id,
-                wallet = impactorDto.wallet,
-                name= impactorDto.name,
-                description= impactorDto.description,
-                discord= impactorDto.discord,
-                facebook= impactorDto.facebook,  
-                twitter= impactorDto.twitter,
-                instagram= impactorDto.instagram,
-                imageurl= impactorDto.imageurl,
-                website= impactorDto.website,
-                type= impactorDto.type.Value,
-                role= (int)UserType.User
-            });
 
-            return impactor;*/
+            var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorDto.wallet })).Result.FirstOrDefault();
+            if (impactor == null)
+            {
+                impactor= new Impactor(impactorDto.wallet, impactorDto.type.Value);
+            } else
+            {
+                impactor.name = impactorDto.name != null ? impactorDto.name : impactor.name;
+                impactor.description = impactorDto.description != null ? impactorDto.description : impactor.description;
+                impactor.website = impactorDto.website != null ? impactorDto.website : impactor.website;
+                impactor.facebook = impactorDto.facebook != null ? impactorDto.facebook : impactor.facebook;
+                impactor.discord = impactorDto.discord != null ? impactorDto.discord : impactor.discord;
+                impactor.twitter = impactorDto.twitter != null ? impactorDto.twitter : impactor.twitter;
+                impactor.instagram = impactorDto.instagram != null ? impactorDto.instagram : impactor.instagram;
+                impactor.imageurl = impactorDto.imageurl != null ? impactorDto.imageurl : impactor.imageurl;
+                impactor.type = impactorDto.type != null ? impactorDto.type.Value : impactor.type;
+                impactor.role = impactorDto.role != null ? impactorDto.role.Value : impactor.role;  
+            }
+
+            return impactorRepository.Save(impactor);
         }
     }
 }

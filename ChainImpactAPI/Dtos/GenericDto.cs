@@ -2,6 +2,11 @@
 {
     public class GenericDto<T> where T : class
     {
+        public GenericDto()
+        {
+
+        }
+
         public GenericDto(T dto)
         {
             this.Dto = dto;

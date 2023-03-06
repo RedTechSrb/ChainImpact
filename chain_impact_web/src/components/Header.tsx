@@ -19,6 +19,7 @@ import {
   ColorSchemeProvider,
   useMantineColorScheme,
   Container,
+  Loader,
 } from "@mantine/core";
 import { IconStar, IconWallet } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
@@ -33,8 +34,13 @@ import {
 } from "@tabler/icons";
 import LightDarkMode from "./LightDarkMode";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PublicKey, Transaction } from "@solana/web3.js";
+import Cookies from 'universal-cookie';
+import { createNewImpactor, getSpecificImpactor } from "../repositories/ImpactorRepository";
+import axios from "axios";
+import { Impactor } from "../models/Impactor";
+import { useGetSpecificProject } from "../repositories/ProjectRepository";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -205,7 +211,9 @@ export default function HeaderResponsive({
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { classes, theme } = useStyles();
+  const cookies = new Cookies();
 
   const getProvider = (): PhantomProvider | undefined => {
     if ("solana" in window) {
@@ -222,14 +230,49 @@ export default function HeaderResponsive({
     // @ts-ignore
     const { solana } = window;
 
+    // check if there is cookie containing a wallet
+    let cookieWallet;
+    let newUser;
+    if (cookieWallet = cookies.get("wallet")){
+      setWalletKey(cookieWallet);
+      return;
+    }
+
     if (solana) {
       try {
         const response = await solana.connect();
-        console.log("wallet account ", response.publicKey.toString());
+
+        // put wallet in cookie for next 365 days
+        cookies.set("wallet", response.publicKey.toString(), {expires: new Date(Date.now()+31536000000)})
+        // if there is already impactor with this wallet, continue
+        let impactor;
+        if (impactor = getSpecificImpactor({wallet: response.publicKey.toString()})){
+          console.log(impactor)
+          return;
+        }
+        // if not, create new impactor with this wallet
+        newUser = {
+          wallet: response.publicKey.toString(),
+          type: 1,
+          name: null,
+          description: null,
+          website: null,
+          facebook: null,
+          discord: null,
+          twitter: null,
+          instagram: null,
+          imageurl: null,
+          role: null
+        }
+
         setWalletKey(response.publicKey.toString());
+        createNewImpactor(newUser);
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
       }
+    }
+    else{
+      return;
     }
   };
 
@@ -243,22 +286,43 @@ export default function HeaderResponsive({
     if (walletKey && solana) {
       await (solana as PhantomProvider).disconnect();
       setWalletKey(undefined);
+      cookies.remove("wallet");
     }
   };
 
   // detect phantom provider exists
   useEffect(() => {
-    const provider = getProvider();
+    
+    const timeoutId = setTimeout(() => {
+      const provider = getProvider();
+      if (provider) setProvider(provider);
+      else setProvider(undefined);
+      setIsLoading(false);
+    }, 2000);
 
-    if (provider) setProvider(provider);
-    else setProvider(undefined);
+    let cookieWallet;
+    if (cookieWallet = cookies.get("wallet")){
+      setWalletKey(cookieWallet);
+    }
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [provider, walletKey]);
 
   function PhantomWrapper() {
     const { classes } = useStyles();
     return (
       <>
-        {provider && !walletKey && (
+        { isLoading && 
+          <Button
+            className={classes.phantomButton}
+          >
+            Loading
+            <Loader variant="dots" style={{marginLeft: "15px"}} />
+          </Button>
+        }
+
+        { !isLoading && provider && !walletKey && (
           <Button
             className={classes.phantomButton}
             onClick={connectWallet}
@@ -268,13 +332,13 @@ export default function HeaderResponsive({
           </Button>
         )}
 
-        {provider && walletKey && (
+        { !isLoading && provider && walletKey && (
           <Button className={classes.phantomButton} onClick={disconnectWallet}>
             Disconnect wallet
           </Button>
         )}
 
-        {!provider && (
+        { !isLoading && !provider && (
           <>
             <Anchor href="https://phantom.app/">
               <Button className={classes.phantomButton}>Install Phantom</Button>

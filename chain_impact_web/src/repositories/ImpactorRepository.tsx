@@ -22,6 +22,18 @@ export function useGetAllImpactors(){
     return impactors;
 }
 
+export function getSpecificImpactor({wallet1}: any){
+
+    let impactor;
+
+    axios.post(url+"Impactor/Search", {wallet: wallet1})
+    .then(response => {
+        const impactorData = response.data as Impactor;
+        impactor = impactorData
+    })
+    return impactor
+}
+
 
 export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, privateUser: boolean){
 
@@ -48,23 +60,17 @@ export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, pr
         })
     },[]);
 
-    return impactors.slice(0, 5);
+    return impactors;
 
     //return ImpactorData.slice(0, 5) as Impactor[];
 }
 
 
-export function useCreateNewImpactor(newImpactor: CreateNewImpactor){
+export function createNewImpactor(newImpactor: CreateNewImpactor){
 
-    const [impactor, setImpactor] = useState<Impactor>();
-
-    useEffect( () => {
-        axios.post(url+"Impactor/Save", newImpactor)
-        .then(response => {
-            const impactorData = response.data as Impactor;
-            setImpactor(impactorData)
-        })
-    },[]);
-
-    return impactor;
+    axios.post(url+"Impactor/Save", newImpactor)
+    .then(response => {
+        const impactorData = response.data as Impactor;
+        return impactorData
+    })
 }

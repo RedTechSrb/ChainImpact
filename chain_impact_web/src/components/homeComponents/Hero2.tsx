@@ -75,6 +75,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.md,
     //fontFamily: "Space Mono, monospace",
     backgroundColor: "#black",
+    marginTop: "10px",
     color: "#3b3d44", //"#BBFD00",
     "&:not(:first-of-type)": {
       marginLeft: theme.spacing.md,

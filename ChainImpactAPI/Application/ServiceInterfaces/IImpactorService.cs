@@ -7,5 +7,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     {
         List<ImpactorDto> GetImpactors();
         Impactor SaveImpactor(ImpactorDto impactorDto);
+        List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto);
     }
 }

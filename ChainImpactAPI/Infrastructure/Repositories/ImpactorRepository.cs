@@ -11,7 +11,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         {
         }
 
-        public async Task<List<Impactor>> SearchAsync(GenericDto<ImpactorDto> impactorSearchDto)
+        public async Task<List<Impactor>> SearchAsync(GenericDto<ImpactorDto>? impactorSearchDto)
         {
             var impactors = await base.ListAllAsync();
 

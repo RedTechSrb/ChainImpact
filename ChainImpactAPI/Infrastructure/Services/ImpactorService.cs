@@ -69,5 +69,33 @@ namespace ChainImpactAPI.Infrastructure.Services
 
             return impactorRepository.Save(impactor);
         }
+
+        public List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto)
+        {
+            var impactors = impactorRepository.SearchAsync(impactorSearchDto).Result;
+
+            var impactorDtoList = new List<ImpactorDto>();
+            foreach (var impactor in impactors)
+            {
+                impactorDtoList.Add(new ImpactorDto(
+                            impactor.id,
+                            impactor.wallet,
+                            impactor.name,
+                            impactor.description,
+                            impactor.website,
+                            impactor.facebook,
+                            impactor.discord,
+                            impactor.twitter,
+                            impactor.instagram,
+                            impactor.imageurl,
+                            impactor.role,
+                            impactor.type
+                        )
+                );
+            }
+
+            return impactorDtoList;
+        }
+
     }
 }

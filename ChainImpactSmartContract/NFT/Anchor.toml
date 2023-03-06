@@ -1,0 +1,14 @@
+[features]
+seeds = false
+[programs.devnet]
+minting = "8mKbQKVmhMM3PosgNgHfUwTT3jjAg4eE9KNk1Zh8um7q"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "/home/uking/my_imported_key.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

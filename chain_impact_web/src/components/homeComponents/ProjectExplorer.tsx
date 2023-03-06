@@ -281,8 +281,6 @@ const useStyles = createStyles((theme) => ({
   labelActive: {
     color: `${theme.white} !important`,
   },
-
-  
 }));
 
 export default function ProjectExplorer() {
@@ -296,24 +294,7 @@ export default function ProjectExplorer() {
   const [searchQuery, setSearch] = useState("");
   const [tag, setTag] = useState("General");
   var projects = filteredData.map((article) => (
-    <ProjectComponent
-      name={article.name}
-      description={article.description}
-      imageurl={article.imageurl}
-      financialgoal={article.financialgoal}
-      totaldonated={article.totaldonated}
-      primarycausetype={article.primarycausetype}
-      secondarycausetype={article.secondarycausetype}
-      charity={article.charity}
-      id={article.id}
-      milestones={null}
-      website={null}
-      facebook={null}
-      discord={null}
-      twitter={null}
-      instagram={null}
-      angelimpactor={article.angelimpactor}
-    ></ProjectComponent>
+    <ProjectComponent project={article}></ProjectComponent>
   ));
 
   useEffect(() => {
@@ -347,7 +328,7 @@ export default function ProjectExplorer() {
         return false;
       });
 
-      setFilteredDataNum(Math.ceil(dbFiltered.length / 4))
+      setFilteredDataNum(Math.ceil(dbFiltered.length / 4));
       return dbFiltered;
     };
 
@@ -356,31 +337,14 @@ export default function ProjectExplorer() {
     );
 
     projects = filteredData.map((article) => (
-      <ProjectComponent
-        name={article.name}
-        description={article.description}
-        imageurl={article.imageurl}
-        financialgoal={article.financialgoal}
-        totaldonated={article.totaldonated}
-        primarycausetype={article.primarycausetype}
-        secondarycausetype={article.secondarycausetype}
-        charity={article.charity}
-        id={article.id}
-        milestones={null}
-        website={null}
-        facebook={null}
-        discord={null}
-        twitter={null}
-        instagram={null}
-        angelimpactor={article.angelimpactor}
-      ></ProjectComponent>
+      <ProjectComponent project={article}></ProjectComponent>
     ));
 
     if (resetPage) {
-      setPage(1)
-      setResetPage(false)
+      setPage(1);
+      setResetPage(false);
     }
-    
+
     return () => {
       // cleanup function here
     };
@@ -447,11 +411,17 @@ export default function ProjectExplorer() {
           ]}
           classNames={classes}
           value={tag}
-          onChange={(tag) => { setResetPage(true); setTag(tag)}}
+          onChange={(tag) => {
+            setResetPage(true);
+            setTag(tag);
+          }}
         />
       </Flex>
-      <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        style={{minHeight: "600px"}}>
+      <SimpleGrid
+        cols={2}
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        style={{ minHeight: "600px" }}
+      >
         {projects}
       </SimpleGrid>
       <Pagination

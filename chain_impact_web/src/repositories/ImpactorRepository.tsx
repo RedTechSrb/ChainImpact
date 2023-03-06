@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { Impactor } from "../models/Impactor";
 
@@ -22,14 +23,14 @@ export function useGetAllImpactors(){
     return impactors;
 }
 
-export function getSpecificImpactor({wallet1}: any){
+export async function getSpecificImpactor(filter: ImpactorWalletSearch){
 
-    let impactor;
+    let impactor: Impactor | null = null;
 
-    axios.post(url+"Impactor/Search", {wallet: wallet1})
+    await axios.post(url+"Impactor/Search", filter)
     .then(response => {
-        const impactorData = response.data as Impactor;
-        impactor = impactorData
+        const impactorData = response.data as Impactor[];
+        impactor = impactorData[0]
     })
     return impactor
 }

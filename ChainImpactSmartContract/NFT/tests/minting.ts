@@ -150,5 +150,3 @@ mintAndSendNFT(
   //"DD7ZY42PWbD3AENijxoGJvNR8pc5vss4CiBBGjBN2iYR", 
   "https://raw.githubusercontent.com/urosm561/MintAndSendNFTMetadata/main/randommetadata.json"
 );
-
-Neka promena

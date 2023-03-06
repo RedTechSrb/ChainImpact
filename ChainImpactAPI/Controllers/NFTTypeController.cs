@@ -40,18 +40,17 @@ namespace ChainImpactAPI.Controllers
             gzip.Close();
             return ms.ToArray();
         }
-        private string GenerateETag(byte[] bytes)
+
+        private string ComputeETag(byte[] bytes)
         {
             using var sha1 = SHA1.Create();
             var hash = sha1.ComputeHash(bytes);
-            var eTag = new StringBuilder();
-            eTag.Append("W/\"");
+            var sb = new StringBuilder();
             foreach (var b in hash)
             {
-                eTag.Append(b.ToString("x2"));
+                sb.Append(b.ToString("x2"));
             }
-            eTag.Append("\"");
-            return eTag.ToString();
+            return $"W/\"{sb.ToString()}\"";
         }
 
 
@@ -65,28 +64,24 @@ namespace ChainImpactAPI.Controllers
             var responseBytes = Encoding.UTF8.GetBytes(jsonData);
 
             // Compress the response using GZipStream
-            var compressedBytes = Compress(responseBytes);
+            //            var compressedBytes = Compress(responseBytes);
 
-            // Calculate ETag based on the compressed response
-            var eTag = GenerateETag(compressedBytes);
+            // Compute the ETag
+            //            var eTag = ComputeETag(compressedBytes);
 
-            // If the request has a matching ETag, return a 304 Not Modified response
-            if (Request.Headers.ContainsKey("If-None-Match") && Request.Headers["If-None-Match"] == eTag)
-            {
-                return new StatusCodeResult(304);
-            }
+            Response.ContentType = "application/json";
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            Response.Headers.Add("Cache-Control", "max-age=3600");
+            Response.Headers.Add("Expires", "Sat, 16 Mar 2023 23:59:59 GMT");
+            Response.Headers.Add("Pragma", "no-cache");
+            Response.Headers.Add("Server", "nginx/1.14.0 (Ubuntu)");
+            Response.Headers.Add("X-Content-Type-Options", "nosniff");
+            Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+            Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+            Response.Headers.Add("Referrer-Policy", "no-referrer-when-downgrade");
+            Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 
-
-            Response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-            Response.Headers.Add("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; sandbox");
-
-            // Set the Content-Encoding header to gzip
-            Response.Headers.Add("Content-Encoding", "gzip");
-
-            // Set the ETag header
-            Response.Headers.Add("ETag", eTag);
-
-            return new FileContentResult(compressedBytes, "text/plain; charset=utf-8");
+            return new FileContentResult(responseBytes, "application/json");
 
         }
 

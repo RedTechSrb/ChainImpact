@@ -4,6 +4,11 @@ namespace ChainImpactAPI.Dtos
 {
     public class ImpactorDto
     {
+        public ImpactorDto() 
+        { 
+
+        }
+
         public ImpactorDto(
             int? id, 
             string? wallet, 

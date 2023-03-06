@@ -12,8 +12,14 @@ import {
   Progress,
   Container,
   SimpleGrid,
+  Spoiler,
 } from "@mantine/core";
 import { Project } from "../models/Project";
+import { ProgressProject } from "./ProgressProject";
+
+type ProjectComponentProps = {
+  project: Project;
+};
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -47,37 +53,33 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectComponent({
-  imageurl,
-  name,
-  description,
-  primarycausetype,
-  secondarycausetype,
-  angelimpactor,
-  totaldonated,
-  financialgoal,
-  charity,
-}: Project) {
+export default function ProjectComponent({ project }: ProjectComponentProps) {
   const { classes, theme } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
-        <Image src={imageurl} alt={name} height={180} />
+        <Image src={project.imageurl} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
         <Group position="apart">
           <Text size="lg" weight={500}>
-            {name}
+            {project.name}
           </Text>
           <Group position="right">
-            <Badge size="sm">{primarycausetype.name}</Badge>
-            <Badge size="sm">{secondarycausetype.name}</Badge>
+            <Badge size="sm">{project.primarycausetype.name}</Badge>
+            <Badge size="sm">{project.secondarycausetype.name}</Badge>
           </Group>
         </Group>
         <Text size="sm" mt="xs">
-          {description}
+          <Spoiler
+            showLabel="Read more"
+            hideLabel="Read less"
+            maxHeight={3 * theme.fontSizes.sm} // Change the value as per your requirement
+          >
+            {project.description}
+          </Spoiler>
         </Text>
       </Card.Section>
 
@@ -90,39 +92,39 @@ export default function ProjectComponent({
             Charity
           </Text>
           <Group>
-            <Avatar src={angelimpactor?.imageurl} radius="xl" />
+            <Avatar src={project.angelimpactor?.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
-              {totaldonated !== 0 ? (
-              <Text size="sm" weight={500}>
-                {angelimpactor?.name}
-              </Text>
-              ): (
-              <Text size="sm" weight={500}>
-                Your company name and logo can be here too!
-              </Text>
+              {project.totaldonated !== 0 ? (
+                <Text size="sm" weight={500}>
+                  {project.angelimpactor?.name}
+                </Text>
+              ) : (
+                <Text size="sm" weight={500}>
+                  Your company name and logo can be here too!
+                </Text>
               )}
               <Text color="dimmed" size="xs">
-                {angelimpactor?.wallet}
+                {project.angelimpactor?.wallet}
               </Text>
             </div>
           </Group>
           <Group>
-            <Avatar src={charity.imageurl} radius="xl" />
+            <Avatar src={project.charity.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
-                {charity.name}
+                {project.charity.name}
               </Text>
 
               <Text color="dimmed" size="xs">
-                {charity.wallet}
+                {project.charity.wallet}
               </Text>
             </div>
           </Group>
         </SimpleGrid>
 
-        <Text size="lg" weight={500} mt="lg">
+        {/* <Text size="lg" weight={500} mt="lg">
           Project Goal ${totaldonated} / ${financialgoal}
         </Text>
         <Progress
@@ -131,10 +133,16 @@ export default function ProjectComponent({
           mt="sm"
           size="xl"
           radius="xl"
-        />
+        /> */}
+
+        <ProgressProject
+          projectData={project}
+          mtVal={""}
+          mbVal={""}
+        ></ProgressProject>
       </Card.Section>
 
-      {totaldonated !== 0 ? (
+      {project.totaldonated !== 0 ? (
         <Group mt="xs">
           <Button radius="md" style={{ flex: 1 }} color="lime">
             Donate

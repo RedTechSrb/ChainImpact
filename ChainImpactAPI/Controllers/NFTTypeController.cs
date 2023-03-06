@@ -28,14 +28,23 @@ namespace ChainImpactAPI.Controllers
             return Ok(nftDtolist);
         }
 
+        [HttpGet("getNFTsData")]
+        public IActionResult Get([FromQuery] int tier, [FromQuery] int userType, [FromQuery] string causeType)
+        {
+
+            var nftDtolist = NFTTypeService.GetNFTsData(new GenericDto<NFTRequestDto>(null, null, new NFTRequestDto { tier = tier, usertype = userType, causetype = causeType})).FirstOrDefault();
+
+            return Ok(nftDtolist);
+        }
+
 
         [HttpPost("NFTsData")]
         public IActionResult SearchNFTTypes(GenericDto<NFTRequestDto>? nftDto)
         {
 
-            var projectDtoList = NFTTypeService.GetNFTsData(nftDto);
+            var nftDtolist = NFTTypeService.GetNFTsData(nftDto);
 
-            return Ok(projectDtoList);
+            return Ok(nftDtolist);
         }
 
     }

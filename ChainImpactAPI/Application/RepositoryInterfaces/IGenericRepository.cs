@@ -10,5 +10,6 @@ namespace ChainImpactAPI.Application.RepositoryInterfaces
 
         T Update(T entity);
         T Delete(T entity);
+        T Save(T entity);
     }
 }

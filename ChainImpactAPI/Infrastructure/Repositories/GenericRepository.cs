@@ -60,5 +60,21 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        public T Save(T entity)
+        {
+            if (entity.id != 0)
+            {
+                context.Entry(entity).CurrentValues.SetValues(entity);
+                context.Entry(entity).State = EntityState.Modified;
+            }
+            else
+            {
+                context.Set<T>().Add(entity);
+                context.Entry(entity).State = EntityState.Added;
+            }
+
+            context.SaveChanges();
+            return entity;
+        }
     }
 }

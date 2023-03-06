@@ -7,8 +7,16 @@ import {
   createStyles,
   Center,
   Button,
+  Progress,
+  TextInput,
 } from "@mantine/core";
 import { Icon123 } from "@tabler/icons";
+import { Project } from "../../models/Project";
+import { ProgressProject } from "../ProgressProject";
+
+type DonationSidebarProps = {
+  project: Project;
+};
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -58,7 +66,7 @@ const mockdata = [
   { label: "Electric" },
 ];
 
-export default function DonationSidebar() {
+export default function DonationSidebar({ project }: DonationSidebarProps) {
   const { classes } = useStyles();
   const features = mockdata.map((feature) => (
     <Center key={feature.label}>
@@ -73,31 +81,26 @@ export default function DonationSidebar() {
         <Image src="https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
       </Card.Section>
 
-      <Group position="apart" mt="md">
-        <div>
-          <Text fw={500}>Turkey DAO project</Text>
-          <Text fz="xs" c="dimmed">
-            Free recharge at any station
-          </Text>
-        </div>
-        <Badge variant="outline">25% off</Badge>
-      </Group>
+      <Text size={"xl"} weight={500} mt="lg" color={"#BBFD00"}>
+        {project.name}
+      </Text>
+      <ProgressProject
+        projectData={project}
+        mtVal={"lg"}
+        mbVal={"0"}
+      ></ProgressProject>
 
       <Card.Section className={classes.section}>
-        <Group spacing={30}>
-          <div>
-            <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
-              $168.00
-            </Text>
-            <Text fz="sm" c="dimmed" fw={500} sx={{ lineHeight: 1 }} mt={3}>
-              per day
-            </Text>
-          </div>
-
-          <Button radius="xl" style={{ flex: 1 }}>
-            Donate
-          </Button>
-        </Group>
+        <TextInput
+          placeholder="Amount in USDC"
+          label="Amount"
+          //error="Wallet not connected, please press connect wallet"
+          radius="lg"
+          withAsterisk
+        />
+        <Button radius="xl" style={{ flex: 1 }} mt="xl">
+          Donate
+        </Button>
       </Card.Section>
     </Card>
   );

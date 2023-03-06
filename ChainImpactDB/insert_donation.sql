@@ -109,7 +109,7 @@ INSERT INTO public.transaction(
 		3);
 
 
--- Anka Relief DAO
+-- Support To Life
 --D4
 INSERT INTO public.donation(
 	amount, projectid, donatorid)

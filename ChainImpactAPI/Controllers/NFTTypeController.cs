@@ -4,6 +4,8 @@ using ChainImpactAPI.Dtos.NFT;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ChainImpactAPI.Controllers
 {
@@ -32,9 +34,15 @@ namespace ChainImpactAPI.Controllers
         public IActionResult Get([FromQuery] int tier, [FromQuery] int userType, [FromQuery] string causeType)
         {
 
-            var nftDtolist = NFTTypeService.GetNFTsData(new GenericDto<NFTRequestDto>(null, null, new NFTRequestDto { tier = tier, usertype = userType, causetype = causeType})).FirstOrDefault();
+            var data = NFTTypeService.GetNFTsData(new GenericDto<NFTRequestDto>(null, null, new NFTRequestDto { tier = tier, usertype = userType, causetype = causeType })).FirstOrDefault();
+            var jsonData = JsonConvert.SerializeObject(data);
+            var responseBytes = Encoding.UTF8.GetBytes(jsonData);
 
-            return Ok(nftDtolist);
+            Response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+            Response.Headers.Add("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; sandbox");
+
+            return new FileContentResult(responseBytes, "text/plain; charset=utf-8");
+
         }
 
 

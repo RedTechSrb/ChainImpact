@@ -25,6 +25,15 @@ namespace ChainImpactAPI.Controllers
             return Ok(impactorDtoList);
         }
 
+        [HttpPost("ImpactorWithWallet")]
+        public IActionResult SearchImpactor(ImpactorDto impactorDto)
+        {
+
+            var impactorSavedImpactor = impactorService.SaveImpactor(impactorDto);
+
+            return Ok(impactorSavedImpactor);
+        }
+
         [HttpPost("save")]
         public IActionResult SaveImpactor(ImpactorDto impactorDto)
         {

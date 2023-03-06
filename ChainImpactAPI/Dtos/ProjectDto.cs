@@ -60,5 +60,6 @@ namespace ChainImpactAPI.Dtos
         public ImpactorDto? angelimpactor { get; set; }
         public CauseTypeDto? primarycausetype { get; set; }
         public CauseTypeDto? secondarycausetype { get; set; }
+        public int? totalBackers { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.ImpactorWithWallet;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,10 +27,10 @@ namespace ChainImpactAPI.Controllers
         }
 
         [HttpPost("ImpactorWithWallet")]
-        public IActionResult SearchImpactor(ImpactorDto impactorDto)
+        public IActionResult GetImpactorWithWallet(ImpactorWithWalletRequestDto impactorWithWalletRequestDto)
         {
 
-            var impactorSavedImpactor = impactorService.SaveImpactor(impactorDto);
+            var impactorSavedImpactor = impactorService.GetImpactorWithWallet(impactorWithWalletRequestDto);
 
             return Ok(impactorSavedImpactor);
         }

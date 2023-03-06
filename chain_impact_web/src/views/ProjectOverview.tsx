@@ -47,6 +47,9 @@ const useStyles = createStyles((theme) => ({
       marginTop: theme.spacing.md,
     },
   },
+  grid: {
+    maxHeight: "60vh",
+  },
   loadingContainer: {
     display: "flex",
     flexDirection: "column",
@@ -62,7 +65,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function ProjectOverview() {
   const theme = useMantineTheme();
-  const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
+
   const [isLoading, setIsLoading] = useState(true);
   const [isTimeout, setIsTimeout] = useState(false);
   let { id } = useParams();
@@ -142,67 +145,32 @@ export default function ProjectOverview() {
                 </Group>
               </SimpleGrid>
 
-              <Grid>
-                <Grid.Col span={4}>
-                  <ProgressProject
-                    projectData={projectData}
-                    mtVal={""}
-                    mbVal={""}
-                  ></ProgressProject>
-                </Grid.Col>
-                <Grid.Col span={8}></Grid.Col>
-              </Grid>
-
-              {/* <Text size="xl" weight={500} mt="lg">
-                Currently donated: ${projectData.totaldonated}
+              <Text size={24} weight={500} color="white" mt="sm">
+                Description:
               </Text>
-              <Text size="sm" weight={100} color="white">
-                Out of US$ {projectData.financialgoal} goal
+              <Text size="md" color="white" mb="xl">
+                {projectData?.description}
               </Text>
-              <Progress
-                value={
-                  ((projectData.totaldonated * 1.0) /
-                    projectData.financialgoal) *
-                  100
-                }
-                label={
-                  ((projectData.totaldonated * 1.0) /
-                    projectData.financialgoal) *
-                    100 +
-                  "%"
-                }
-                mt="sm"
-                size="xl"
-                radius="xl"
-                mb="sm"
-              /> */}
 
-              {/* <Group position="right">
-                <Text size="xl" weight={500}>
-                  Angel Impactor
-                </Text>
-                <Avatar src={angelimpactor?.imageurl} radius="xl" />
-
-                <div style={{ flex: 1 }}>
-                  <Text size="sm" weight={500}>
-                    {angelimpactor?.name}
-                  </Text>
-
-                  <Text color="dimmed" size="xs">
-                    {angelimpactor?.wallet}
-                  </Text>
-                </div>
-              </Group> */}
-              <SimpleGrid cols={2} verticalSpacing="sm">
+              <SimpleGrid
+                cols={2}
+                verticalSpacing="sm"
+                mb="xl"
+                className={classes.grid}
+              >
                 <Text size={24} weight={500} color="white" mt="sm">
-                  Description
+                  Recent Impactors:
                 </Text>
                 <Text size={24} weight={500} color="white" mt="sm">
                   Angel Impactor who brought this project to life.
                 </Text>
-                <Text size="md" color="white">
-                  {projectData?.description}
-                </Text>
+
+                {/* <ProgressProject
+                  projectData={projectData}
+                  mtVal={"0"}
+                  mbVal={"0"}
+                ></ProgressProject> */}
+                <RecentImpactors></RecentImpactors>
 
                 <AngelImpactor
                   imageurl={angelimpactor.imageurl}
@@ -210,10 +178,10 @@ export default function ProjectOverview() {
                   wallet={angelimpactor.wallet}
                 ></AngelImpactor>
               </SimpleGrid>
-              <Text size="xl" weight={500} mb="xl">
+              {/* <Text size="xl" weight={500} mb="xl">
                 Recent Donators
               </Text>
-              <RecentImpactors></RecentImpactors>
+              <RecentImpactors></RecentImpactors> */}
 
               <Text size="xl" weight={500} mb="xl">
                 Biggest donators

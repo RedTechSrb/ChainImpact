@@ -40,6 +40,9 @@ export function ProgressProject({
         size="xl"
         radius="xl"
       />
+      <Text size="xl" weight={500} color={"#BBFD00"} mt="xs">
+        Total backers: {projectData.totalbackers}
+      </Text>
     </Card>
   );
 }

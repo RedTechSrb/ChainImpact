@@ -6,6 +6,7 @@ import {
   SimpleGrid,
   Container,
   Grid,
+  createStyles,
 } from "@mantine/core";
 import NftShowcaseCarousel from "./NftShowcaseCarousel";
 import RecentImpactors from "./RecentImpactors";
@@ -16,11 +17,19 @@ interface UserInfoActionProps {
   wallet: string;
 }
 
+const useStyles = createStyles((theme) => ({
+  angelimpactor: {
+    fontSize: "1.5rem",
+  },
+}));
+
 export default function AngelImpactor({
   imageurl,
   name,
   wallet,
 }: UserInfoActionProps) {
+  const { classes } = useStyles();
+
   return (
     <Paper
       radius="md"
@@ -37,22 +46,21 @@ export default function AngelImpactor({
         </Grid.Col>
         <Grid.Col span={8}>
           <div>
-            <Text ta="left" fz="lg" weight={500}>
+            <Text ta="left" weight={500} className={classes.angelimpactor}>
               {name}
             </Text>
-            <Text ta="left" c="dimmed" fz="sm">
+            <Text ta="left" c="dimmed" fz="xl">
               Total donated: $1500
             </Text>
-            <Text ta="left" c="dimmed" fz="sm">
+            <Text ta="left" c="dimmed" fz="lg">
               Projects involved in: 7
             </Text>
-            <Text ta="left" c="dimmed" fz="sm">
+            <Text ta="left" c="dimmed" fz="lg">
               Proof of Impact NFT's: 3
             </Text>
-
-            <NftShowcaseCarousel></NftShowcaseCarousel>
           </div>
         </Grid.Col>
+        <NftShowcaseCarousel></NftShowcaseCarousel>
       </Grid>
 
       <Button variant="default" fullWidth mt="md">

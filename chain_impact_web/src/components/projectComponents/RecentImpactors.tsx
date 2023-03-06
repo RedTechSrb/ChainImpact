@@ -11,7 +11,7 @@ import {
 
 const useStyles = createStyles((theme) => ({
   card: {
-    height: "440px",
+    height: "375px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -25,6 +25,8 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 900,
     color: theme.white,
     lineHeight: 1.2,
+    display: "flex",
+    justifyContent: "flex-end",
     fontSize: "1rem",
     marginTop: theme.spacing.xs,
   },
@@ -51,20 +53,22 @@ function Card({ image, title, category }: CardProps) {
       shadow="md"
       p="xl"
       radius="md"
-      sx={{ backgroundImage: `url(${image})` }}
+      sx={{
+        backgroundImage: `url(${image})`,
+        flexDirection: "column",
+      }}
       className={classes.card}
     >
       <div>
         <Text className={classes.category} size="xs">
           {category}
         </Text>
+      </div>
+      <div>
         <Title order={3} className={classes.title}>
           {title}
         </Title>
       </div>
-      <Button variant="white" color="dark">
-        Read article
-      </Button>
     </Paper>
   );
 }

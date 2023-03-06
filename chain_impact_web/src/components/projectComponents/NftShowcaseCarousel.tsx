@@ -7,12 +7,16 @@ import {
   Title,
   Button,
   useMantineTheme,
+  Grid,
+  SimpleGrid,
+  Container,
+  Center,
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   card: {
-    height: "60px",
+    height: "150px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -128,18 +132,22 @@ export default function NftShowcaseCarousel() {
   ));
 
   return (
-    <Carousel
-      slideSize="33.3333%"
-      breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
-      slideGap="xs"
-      align="start"
-      slidesToScroll={mobile ? 1 : 3}
-      classNames={classes}
-      nextControlIcon={<IconArrowRight size={8} />}
-      previousControlIcon={<IconArrowLeft size={8} />}
-      mt="5px"
-    >
-      {slides}
-    </Carousel>
+    <Center>
+      <Container>
+        <Carousel
+          slideSize="33.3333%"
+          breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
+          slideGap="xs"
+          align="start"
+          slidesToScroll={mobile ? 1 : 3}
+          classNames={classes}
+          nextControlIcon={<IconArrowRight size={16} />}
+          previousControlIcon={<IconArrowLeft size={16} />}
+          mt="5px"
+        >
+          {slides}
+        </Carousel>
+      </Container>
+    </Center>
   );
 }

@@ -91,13 +91,13 @@ export default function DonationSidebar({ project }: DonationSidebarProps) {
       ></ProgressProject>
 
       <Card.Section className={classes.section}>
-        <TextInput
+        {/* <TextInput
           placeholder="Amount in USDC"
           label="Amount"
           //error="Wallet not connected, please press connect wallet"
           radius="lg"
           withAsterisk
-        />
+        /> */}
         <Button radius="xl" style={{ flex: 1 }} mt="xl">
           Donate
         </Button>

@@ -93,7 +93,7 @@ function mintAndSendNFT (
         // );
     
         // console.log("Account: ", res);
-        // console.log("NFT address: ", mintKey.publicKey.toString());
+        console.log("NFT address: ", mintKey.publicKey.toString());
         // console.log("Our wallet: ", wallet.publicKey.toString());
     
         const metadataAddress = await getMetadata(mintKey.publicKey);
@@ -101,6 +101,7 @@ function mintAndSendNFT (
     
         // console.log("Metadata address: ", metadataAddress.toBase58());
         // console.log("Master edition address: ", masterEdition.toBase58());
+        console.log("MDU: ", metadata_uri);
     
         const tx = await program.methods.mintNft(
           wallet.publicKey,
@@ -126,7 +127,26 @@ function mintAndSendNFT (
     });
   }
 
+// function mintAndSendNFT_v2 (
+//   user_public_key: string, 
+//   tier: number,
+//   user_type: number,
+//   cause_type: string,
+//   ): void {
+//     const metadata_uri: string = "http://167.99.246.54/NFTType/getNFTsData?tier=".concat(tier.toString(), "&userType=", user_type.toString(), "&causeType=", cause_type);
+//     mintAndSendNFT(user_public_key, metadata_uri);
+//     //console.log(metadata_uri);
+// }
+
+// mintAndSendNFT_v2(
+//   "qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT", 
+//   1, 
+//   1, 
+//   "general"
+// );
+
 mintAndSendNFT(
-  "qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT", 
-  "https://raw.githubusercontent.com/urosm561/MintAndSendNFT/main/metadatashort.txt"
+  "qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT",
+  //"DD7ZY42PWbD3AENijxoGJvNR8pc5vss4CiBBGjBN2iYR", 
+  "https://raw.githubusercontent.com/urosm561/MintAndSendNFTMetadata/main/randommetadata.json"
 );

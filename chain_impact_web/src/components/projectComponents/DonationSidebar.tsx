@@ -65,24 +65,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mockdata = [
-  { label: "4 passengers" },
-  { label: "100 km/h in 4 seconds" },
-  { label: "Automatic gearbox" },
-  { label: "Electric" },
-];
 
 export default function DonationSidebar({
   project,
   sidebarTop,
 }: DonationSidebarProps) {
   const { classes } = useStyles();
-  const features = mockdata.map((feature) => (
-    <Center key={feature.label}>
-      <Icon123 size="1.05rem" className={classes.icon} stroke={1.5} />
-      <Text size="xs">{feature.label}</Text>
-    </Center>
-  ));
+ 
 
   return (
     <Card

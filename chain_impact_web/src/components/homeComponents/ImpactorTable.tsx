@@ -11,6 +11,7 @@ import {
   Modal,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { Link } from "react-router-dom";
 import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
 import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import { useGetAllProjects } from "../../repositories/ProjectRepository";
@@ -65,17 +66,19 @@ export default function ImpactorTable({
     const rows = impactorData.map((item: any) => (
       <tr key={item.name}>
         <td>
-          <Group spacing="sm">
-            <Avatar size={40} src={item.avatar} radius={40} />
-            <div>
-              <Text size="sm" weight={500}>
-                {item.name}
-              </Text>
-              <Text size="xs" color="dimmed">
-                {item.email}
-              </Text>
-            </div>
-          </Group>
+          <Link to={`/company/${item.id}`}>
+            <Group spacing="sm">
+              <Avatar size={40} src={item.avatar} radius={40} />
+              <div>
+                <Text size="sm" weight={500}>
+                  {item.name}
+                </Text>
+                <Text size="xs" color="dimmed">
+                  {item.email}
+                </Text>
+              </div>
+            </Group>
+          </Link>
         </td>
         <td>{item.amount}</td>
       </tr>
@@ -112,7 +115,7 @@ export default function ImpactorTable({
           <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
             <thead>
               <tr>
-                <th>{isPrivate ? "Impactor" : "Company" }</th>
+                <th>{isPrivate ? "Impactor" : "Company"}</th>
                 <th>Amount</th>
               </tr>
             </thead>
@@ -133,7 +136,7 @@ export default function ImpactorTable({
         <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
           <thead>
             <tr>
-              <th>{isPrivate ? "Impactor" : "Company" }</th>
+              <th>{isPrivate ? "Impactor" : "Company"}</th>
               <th>Amount</th>
             </tr>
           </thead>

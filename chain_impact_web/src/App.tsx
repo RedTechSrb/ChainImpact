@@ -1,21 +1,20 @@
-import "./App.css";
 import {
   ColorScheme,
   ColorSchemeProvider,
-  Container,
   MantineProvider,
 } from "@mantine/core";
-import Header from "./components/Header";
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
-import Footer from "./components/Footer";
+import { useLocalStorage } from "@mantine/hooks";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import About from "./views/About";
-import NotFound from "./views/NotFound";
-import Home from "./views/Home";
+import "./App.css";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import "./index.css";
-import { useEffect, useRef, useState } from "react";
+import About from "./views/About";
 import Charities from "./views/Charities";
-
+import CompanyOverview from "./views/CompanyOverview";
+import Home from "./views/Home";
+import NotFound from "./views/NotFound";
 import ProjectOverview from "./views/ProjectOverview";
 
 const footerPlaceholder = [
@@ -128,6 +127,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />
+          <Route path="/company" element={<CompanyOverview />} />
           <Route path="/project/:id" element={<ProjectOverview />} />
           <Route path="/charities" element={<Charities />} />
           <Route path="/*" element={<NotFound />} />

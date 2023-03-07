@@ -1,18 +1,14 @@
 import {
-  Avatar,
+  ActionIcon,
   Container,
   createStyles,
   Grid,
   Group,
-  SimpleGrid,
-  Skeleton,
-  Title,
-  Text,
-  useMantineTheme,
-  Image,
-  ActionIcon,
-  Progress,
   Loader,
+  SimpleGrid,
+  Text,
+  Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import {
@@ -21,9 +17,7 @@ import {
   IconBrandTwitter,
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import Impactor from "../components/Impactor";
-import { ProgressProject } from "../components/ProgressProject";
+import { useParams } from "react-router-dom";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";

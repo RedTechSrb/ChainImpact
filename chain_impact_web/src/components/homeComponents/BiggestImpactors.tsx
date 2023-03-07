@@ -1,14 +1,12 @@
 import {
-  createStyles,
-  Badge,
-  Group,
-  Title,
-  Text,
   Card,
-  SimpleGrid,
   Container,
+  createStyles,
+  SimpleGrid,
+  Text,
+  Title,
 } from "@mantine/core";
-import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { IconCookie, IconGauge, IconUser } from "@tabler/icons";
 import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
 import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";

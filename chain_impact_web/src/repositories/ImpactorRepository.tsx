@@ -6,72 +6,64 @@ import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { Impactor } from "../models/Impactor";
 
-const url = "http://167.99.246.54/"
+const url = "http://167.99.246.54/";
 
-export function useGetAllImpactors(){
+export function useGetAllImpactors() {
+  const [impactors, setImpactors] = useState<Impactor[]>([]);
 
-    const [impactors, setImpactors] = useState<Impactor[]>([]);
+  useEffect(() => {
+    axios.get(url + "Impactor").then((response) => {
+      const impactorData = response.data as Impactor[];
+      setImpactors(impactorData);
+    });
+  }, []);
 
-    useEffect( () => {
-        axios.get(url+"Impactor")
-        .then(response => {
-            const impactorData = response.data as Impactor[];
-            setImpactors(impactorData)
-        })
-    },[]);
-
-    return impactors;
+  return impactors;
 }
 
-export async function getSpecificImpactor(filter: ImpactorWalletSearch){
+export async function getSpecificImpactor(filter: ImpactorWalletSearch) {
+  let impactor: Impactor | null = null;
 
-    let impactor: Impactor | null = null;
-
-    await axios.post(url+"Impactor/Search", filter)
-    .then(response => {
-        const impactorData = response.data as Impactor[];
-        impactor = impactorData[0]
-    })
-    return impactor
+  await axios.post(url + "Impactor/Search", filter).then((response) => {
+    const impactorData = response.data as Impactor[];
+    impactor = impactorData[0];
+  });
+  return impactor;
 }
 
+export function useGetImpactorsWithDonations(
+  filter: ImpactorTypeFilter | {},
+  privateUser: boolean
+) {
+  const [impactors, setImpactors] = useState<ImpactorsWithDonations[]>([]);
 
-export function useGetImpactorsWithDonations(filter: ImpactorTypeFilter | {}, privateUser: boolean){
+  useEffect(() => {
+    axios
+      .post(url + "Donation/ImpactorsWithDonations", filter)
+      .then((response) => {
+        const impactorData = response.data as ImpactorsWithDonations[];
+        let privateUserImpactorData = [];
+        let companyImpactorData = [];
 
-    const [impactors, setImpactors] = useState<ImpactorsWithDonations[]>([]);
+        for (let i = 0; i < impactorData.length; i++) {
+          if (impactorData[i].userType === 1)
+            privateUserImpactorData.push(impactorData[i]);
+          else companyImpactorData.push(impactorData[i]);
+        }
 
-    useEffect( () => {
-        axios.post(url+"Donation/ImpactorsWithDonations", filter)
-        .then(response => {
-            const impactorData = response.data as ImpactorsWithDonations[];
-            let privateUserImpactorData = [];
-            let companyImpactorData = [];
+        if (privateUser) setImpactors(privateUserImpactorData);
+        else setImpactors(companyImpactorData);
+      });
+  }, []);
 
-            for(let i=0; i<impactorData.length; i++) {
-                if (impactorData[i].userType === 1)
-                    privateUserImpactorData.push(impactorData[i])
-                else
-                    companyImpactorData.push(impactorData[i])
-            }
+  return impactors;
 
-            if (privateUser)
-                setImpactors(privateUserImpactorData)
-            else
-                setImpactors(companyImpactorData)
-        })
-    },[]);
-
-    return impactors;
-
-    //return ImpactorData.slice(0, 5) as Impactor[];
+  //return ImpactorData.slice(0, 5) as Impactor[];
 }
 
-
-export function createNewImpactor(newImpactor: CreateNewImpactor){
-
-    axios.post(url+"Impactor/Save", newImpactor)
-    .then(response => {
-        const impactorData = response.data as Impactor;
-        return impactorData
-    })
+export function createNewImpactor(newImpactor: CreateNewImpactor) {
+  axios.post(url + "Impactor/Save", newImpactor).then((response) => {
+    const impactorData = response.data as Impactor;
+    return impactorData;
+  });
 }

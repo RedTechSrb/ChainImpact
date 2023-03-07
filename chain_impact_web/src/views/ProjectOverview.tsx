@@ -59,10 +59,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function ProjectOverview() {
-  const theme = useMantineTheme();
-
   const [isLoading, setIsLoading] = useState(true);
-  const [isTimeout, setIsTimeout] = useState(false);
+  const [sidebarTop, setSidebarTop] = useState(0);
+
   const mobile = useMediaQuery(`(max-width: 900px)`);
   let { id } = useParams();
   const projectSearch = { dto: { id: Number(id) } };
@@ -88,6 +87,15 @@ export default function ProjectOverview() {
 
   const { classes } = useStyles();
   const laptop = useMediaQuery(`(max-width: 1440px)`);
+  useEffect(() => {
+    function handleScroll() {
+      setSidebarTop(window.scrollY);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <>
       <Container size={1750}>
@@ -193,7 +201,10 @@ export default function ProjectOverview() {
             </Grid.Col>
 
             <Grid.Col span={mobile ? 12 : 3}>
-              <DonationSidebar project={projectData}></DonationSidebar>
+              <DonationSidebar
+                project={projectData}
+                sidebarTop={sidebarTop}
+              ></DonationSidebar>
             </Grid.Col>
           </Grid>
         ) : (

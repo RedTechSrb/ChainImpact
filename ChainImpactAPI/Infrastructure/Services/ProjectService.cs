@@ -2,6 +2,7 @@
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.SearchDtos;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -139,7 +140,6 @@ namespace ChainImpactAPI.Infrastructure.Services
 
             return projectDtoList;
         }
-
 
     }
 }

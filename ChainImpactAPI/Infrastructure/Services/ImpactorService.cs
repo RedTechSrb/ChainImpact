@@ -1,8 +1,13 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.ImpactorsWithDonations;
+using ChainImpactAPI.Dtos.ImpactorsWithProjects;
+using ChainImpactAPI.Dtos.NFT;
+using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
+using System.Collections.Generic;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -10,13 +15,16 @@ namespace ChainImpactAPI.Infrastructure.Services
     {
         private readonly IConfiguration configuration;
         private readonly IImpactorRepository impactorRepository;
+        private readonly IDonationService donationService;
 
         public ImpactorService(
             IConfiguration configuration,
-            IImpactorRepository impactorRepository)
+            IImpactorRepository impactorRepository,
+            IDonationService donationService)
         {
             this.configuration = configuration;
             this.impactorRepository = impactorRepository;
+            this.donationService = donationService;
         }
 
         public List<ImpactorDto> GetImpactors()
@@ -95,6 +103,51 @@ namespace ChainImpactAPI.Infrastructure.Services
             }
 
             return impactorDtoList;
+        }
+
+        public List<ImpactorsWithProjectsResponseDto> GetImpactorsWithProjects(GenericDto<ImpactorDto>? impactorsWithDonationsRequestDto)
+        {
+            var impactors = impactorRepository.SearchAsync(impactorsWithDonationsRequestDto).Result;
+
+            var impactorsWithProjectsDtoList = new List<ImpactorsWithProjectsResponseDto>();
+            foreach (var impactor in impactors)
+            {
+                var impactorDto = new ImpactorDto(
+                            impactor.id,
+                            impactor.wallet,
+                            impactor.name,
+                            impactor.description,
+                            impactor.website,
+                            impactor.facebook,
+                            impactor.discord,
+                            impactor.twitter,
+                            impactor.instagram,
+                            impactor.imageurl,
+                            impactor.role,
+                            impactor.type
+                        );
+
+                var donations = donationService.SearchDonations(new GenericDto<DonationDto>(new DonationDto { donator = impactorDto }));
+
+                var donatedProjects = donations.GroupBy(d => new {
+                                                d.project,
+                                            }).Select(gpb => new DonatedProjectDto
+                                            (
+                                                gpb.Key.project,
+                                                gpb.Sum(d => d.amount.Value)
+                                            )).OrderByDescending(iwp => iwp.totalDonation).ToList();
+
+                impactorsWithProjectsDtoList.Add(
+                    new ImpactorsWithProjectsResponseDto
+                    (
+                        impactorDto,
+                        donatedProjects
+                    ));
+            }
+
+
+            return impactorsWithProjectsDtoList;
+
         }
 
     }

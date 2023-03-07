@@ -71,7 +71,10 @@ export default function AngelImpactor({
             </Text>
           </div>
         </Grid.Col>
-        <NftShowcaseCarousel></NftShowcaseCarousel>
+
+        <Grid.Col span={12}>
+          <NftShowcaseCarousel></NftShowcaseCarousel>
+        </Grid.Col>
       </Grid>
 
       <Button variant="default" fullWidth mt="md">

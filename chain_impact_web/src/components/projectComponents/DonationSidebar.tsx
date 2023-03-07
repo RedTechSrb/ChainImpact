@@ -9,8 +9,11 @@ import {
   Button,
   Progress,
   TextInput,
+  Modal,
+  NumberInput,
 } from "@mantine/core";
 import { Icon123 } from "@tabler/icons";
+import { useState } from "react";
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
 
@@ -65,13 +68,21 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
 export default function DonationSidebar({
   project,
   sidebarTop,
 }: DonationSidebarProps) {
   const { classes } = useStyles();
- 
+  const [open, setOpen] = useState(false);
+  const [donationAmount, setDonationAmount] = useState<number | "">(0);
+
+  const handleDonateClick = () => {
+    setOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card
@@ -105,9 +116,77 @@ export default function DonationSidebar({
           radius="lg"
           withAsterisk
         /> */}
-        <Button radius="sm" style={{ flex: 1, width: "100%" }} mt="xl">
+        <Button
+          radius="sm"
+          style={{ flex: 1, width: "100%" }}
+          mt="xl"
+          onClick={handleDonateClick}
+        >
           Donate
         </Button>
+
+        <Modal
+          opened={open}
+          onClose={handleModalClose}
+          title={`Help ${project.name} reach it's goal!`}
+          size="auto"
+        >
+          <NumberInput
+            defaultValue={18}
+            placeholder="Help this project reach it's goal"
+            description="Earn Proof of Impact"
+            value={donationAmount}
+            onChange={setDonationAmount}
+          />
+          <Card
+            withBorder
+            radius="md"
+            sx={(theme) => ({
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[7]
+                  : theme.white,
+            })}
+          >
+            <Text size="xl" weight={500} color={"#BBFD00"}>
+              Currently donated: ${project.totaldonated}
+            </Text>
+            <Text size="sm" weight={100} color="white" mb="xs">
+              Out of $USDC {project.financialgoal} goal
+            </Text>
+            <Progress
+              sections={[
+                {
+                  value:
+                    ((project.totaldonated * 1.0) / project.financialgoal) *
+                    100,
+
+                  label:
+                    ((project.totaldonated * 1.0) / project.financialgoal) *
+                      100 +
+                    "%",
+                  color: "#68b5e8",
+                },
+                {
+                  value:
+                    ((project.totaldonated * 1.0) / project.financialgoal) *
+                    100,
+
+                  label:
+                    ((project.totaldonated * 1.0) / project.financialgoal) *
+                      100 +
+                    "%",
+                  color: "#8468e8",
+                },
+              ]}
+              size="xl"
+              radius="xl"
+            />
+            <Text size="xl" weight={500} color={"#BBFD00"} mt="xs">
+              Total backers: {project.totalbackers}
+            </Text>
+          </Card>
+        </Modal>
       </Card.Section>
     </Card>
   );

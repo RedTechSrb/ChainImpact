@@ -36,8 +36,11 @@ import LightDarkMode from "./LightDarkMode";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PublicKey, Transaction } from "@solana/web3.js";
-import Cookies from 'universal-cookie';
-import { createNewImpactor, getSpecificImpactor } from "../repositories/ImpactorRepository";
+import Cookies from "universal-cookie";
+import {
+  createNewImpactor,
+  getSpecificImpactor,
+} from "../repositories/ImpactorRepository";
 import axios from "axios";
 import { Impactor } from "../models/Impactor";
 import { useGetSpecificProject } from "../repositories/ProjectRepository";
@@ -234,7 +237,7 @@ export default function HeaderResponsive({
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
-    if (cookieWallet = cookies.get("wallet")){
+    if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
       return;
     }
@@ -244,13 +247,17 @@ export default function HeaderResponsive({
         const response = await solana.connect();
 
         // put wallet in cookie for next 365 days
-        cookies.set("wallet", response.publicKey.toString(), {expires: new Date(Date.now()+31536000000)})
+        cookies.set("wallet", response.publicKey.toString(), {
+          expires: new Date(Date.now() + 31536000000),
+        });
         // if there is already impactor with this wallet, continue
-        let impactor = getSpecificImpactor(new ImpactorWalletSearch(null, null, response.publicKey.toString()));
-        if (await impactor){
-            setWalletKey(response.publicKey.toString());
-          }
-        
+        let impactor = getSpecificImpactor(
+          new ImpactorWalletSearch(null, null, response.publicKey.toString())
+        );
+        if (await impactor) {
+          setWalletKey(response.publicKey.toString());
+        }
+
         // if not, create new impactor with this wallet
         newUser = {
           wallet: response.publicKey.toString(),
@@ -263,16 +270,15 @@ export default function HeaderResponsive({
           twitter: null,
           instagram: null,
           imageurl: null,
-          role: null
-        }
+          role: null,
+        };
 
         setWalletKey(response.publicKey.toString());
         createNewImpactor(newUser);
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
       }
-    }
-    else{
+    } else {
       return;
     }
   };
@@ -293,7 +299,6 @@ export default function HeaderResponsive({
 
   // detect phantom provider exists
   useEffect(() => {
-    
     const timeoutId = setTimeout(() => {
       const provider = getProvider();
       if (provider) setProvider(provider);
@@ -302,7 +307,7 @@ export default function HeaderResponsive({
     }, 2000);
 
     let cookieWallet;
-    if (cookieWallet = cookies.get("wallet")){
+    if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
     }
     return () => {
@@ -314,16 +319,14 @@ export default function HeaderResponsive({
     const { classes } = useStyles();
     return (
       <>
-        { isLoading && 
-          <Button
-            className={classes.phantomButton}
-          >
+        {isLoading && (
+          <Button className={classes.phantomButton}>
             Loading
-            <Loader variant="dots" style={{marginLeft: "15px"}} />
+            <Loader variant="dots" style={{ marginLeft: "15px" }} />
           </Button>
-        }
+        )}
 
-        { !isLoading && provider && !walletKey && (
+        {!isLoading && provider && !walletKey && (
           <Button
             className={classes.phantomButton}
             onClick={connectWallet}
@@ -333,13 +336,13 @@ export default function HeaderResponsive({
           </Button>
         )}
 
-        { !isLoading && provider && walletKey && (
+        {!isLoading && provider && walletKey && (
           <Button className={classes.phantomButton} onClick={disconnectWallet}>
             Disconnect wallet
           </Button>
         )}
 
-        { !isLoading && !provider && (
+        {!isLoading && !provider && (
           <>
             <Anchor href="https://phantom.app/">
               <Button className={classes.phantomButton}>Install Phantom</Button>
@@ -383,15 +386,18 @@ export default function HeaderResponsive({
                 fontWeight: "100",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: "px",
-                  fontFamily: "Space Mono, monospace",
-                  fontSize: "2rem",
-                }}
-              >
-                chainimpact<span style={{ fontSize: "2rem" }}>&#8482;</span>
-              </Text>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Text
+                  style={{
+                    marginLeft: "px",
+                    fontFamily: "Space Mono, monospace",
+                    fontSize: "2rem",
+                    color: "#BBFD00",
+                  }}
+                >
+                  chainimpact<span style={{ fontSize: "2rem" }}>&#8482;</span>
+                </Text>
+              </Link>
             </div>
 
             <Group
@@ -413,9 +419,9 @@ export default function HeaderResponsive({
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                      <Link to="/charities" className={classes.link}>
-                        Charities
-                      </Link>
+                        <Link to="/charities" className={classes.link}>
+                          Charities
+                        </Link>
                       </Box>
                       {/*<IconChevronDown
                         size={16}
@@ -463,6 +469,9 @@ export default function HeaderResponsive({
               </a>
               <a href="#" className={classes.link}>
                 I'm confused
+              </a>
+              <a href="#" className={classes.link}>
+                What is ESG?
               </a>
             </Group>
           </Group>

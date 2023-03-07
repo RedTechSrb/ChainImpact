@@ -41,6 +41,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     textTransform: "uppercase",
   },
 
+  containercss: {
+    maxWidth: "100%",
+  },
+
   controls: {
     ref: getRef("controls"),
     transition: "opacity 150ms ease",
@@ -70,7 +74,12 @@ function Card({ image, title, category }: CardProps) {
       shadow="md"
       p="xs"
       radius="md"
-      sx={{ backgroundImage: `url(${image})`, flexDirection: "column" }}
+      sx={{
+        backgroundImage: `url(${image})`,
+        flexDirection: "column",
+        flexBasis: "33.3333%",
+        flexShrink: 0,
+      }}
       className={classes.card}
     >
       <div>
@@ -133,7 +142,7 @@ export default function NftShowcaseCarousel() {
 
   return (
     <Center>
-      <Container>
+      <SimpleGrid cols={1}>
         <Carousel
           slideSize="33.3333%"
           breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
@@ -143,11 +152,11 @@ export default function NftShowcaseCarousel() {
           classNames={classes}
           nextControlIcon={<IconArrowRight size={16} />}
           previousControlIcon={<IconArrowLeft size={16} />}
-          mt="5px"
+          p="5px"
         >
           {slides}
         </Carousel>
-      </Container>
+      </SimpleGrid>
     </Center>
   );
 }

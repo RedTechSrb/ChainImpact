@@ -12,6 +12,7 @@ import {
   Card,
   Container,
   Center,
+  SimpleGrid,
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
@@ -109,6 +110,7 @@ const data = [
 export default function RecentImpactors() {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const laptop = useMediaQuery(`(max-width: 1440px)`);
   const { classes } = useStyles();
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
@@ -153,22 +155,26 @@ export default function RecentImpactors() {
   ));
 
   return (
-    <Carousel
-      slideSize="33.3333%"
-      breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
-      slideGap="xl"
-      align="start"
-      slidesToScroll={mobile ? 1 : 3}
-      styles={{
-        control: {
-          "&[data-inactive]": {
-            opacity: 0,
-            cursor: "default",
-          },
-        },
-      }}
-    >
-      {slides}
-    </Carousel>
+    <Center>
+      <SimpleGrid cols={1}>
+        <Carousel
+          slideSize={laptop ? "50%" : "33.3333%"}
+          breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
+          slideGap="xl"
+          align="start"
+          slidesToScroll={laptop ? 2 : 3}
+          styles={{
+            control: {
+              "&[data-inactive]": {
+                opacity: 0,
+                cursor: "default",
+              },
+            },
+          }}
+        >
+          {slides}
+        </Carousel>
+      </SimpleGrid>
+    </Center>
   );
 }

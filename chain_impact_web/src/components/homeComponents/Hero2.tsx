@@ -9,8 +9,10 @@ import {
   List,
   ThemeIcon,
 } from "@mantine/core";
+import { useHover } from "@mantine/hooks";
 import { IconCheck } from "@tabler/icons";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
 
 import image from "../../res/images/heroSave.png";
 
@@ -51,11 +53,7 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     fontWeight: 800,
-    fontSize: 48,
-
-    "@media (max-width: 1440px)": {
-      fontSize: 36,
-    },
+    fontSize: 42,
 
     letterSpacing: -1,
 
@@ -118,15 +116,27 @@ const useStyles = createStyles((theme) => ({
 
 export function Hero2() {
   const { classes } = useStyles();
+  const { hovered, ref } = useHover();
   return (
     <div>
       <Container size="lg" className={classes.herocomponent}>
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
-              <Text component="span" inherit className={classes.highlight}>
-                ESG
-              </Text>{" "}
+              <RouterLink to="/project/1" style={{ textDecoration: "none" }}>
+                <Text
+                  component="span"
+                  inherit
+                  className={classes.highlight}
+                  ref={ref}
+                  style={{
+                    fontSize: hovered ? 84 : 42,
+                    transition: "font-size 0.2s ease-in-out",
+                  }}
+                >
+                  ESG
+                </Text>
+              </RouterLink>{" "}
               powered by{" "}
               <Text
                 component="span"
@@ -151,11 +161,11 @@ export function Hero2() {
 
             <Group>
               <div className={classes.control}>
-                <Link to="faq" spy={true} smooth={true} duration={2500}>
+                <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
                   <Button className={classes.control} variant="white" size="xl">
                     Show me how to change the world!
                   </Button>
-                </Link>
+                </ScrollLink>
               </div>
             </Group>
           </div>

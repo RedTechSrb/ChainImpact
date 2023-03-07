@@ -14,8 +14,8 @@ import {
   SimpleGrid,
   Spoiler,
 } from "@mantine/core";
-import { Project } from "../models/Project";
-import { ProgressProject } from "./ProgressProject";
+import { Project } from "../../models/Project";
+import { ProgressProject } from "../ProgressProject";
 
 type ProjectComponentProps = {
   project: Project;
@@ -144,7 +144,13 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
 
       {project.totaldonated !== 0 ? (
         <Group mt="xs">
-          <Button radius="md" style={{ flex: 1 }} color="lime">
+          <Button
+            radius="md"
+            style={{ flex: 1 }}
+            color="lime"
+            component="a"
+            href={`/project/${project.id}`}
+          >
             Donate
           </Button>
         </Group>

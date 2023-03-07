@@ -7,27 +7,33 @@ import {
   Container,
   Grid,
   createStyles,
+  Image,
 } from "@mantine/core";
+import { Impactor } from "../../models/Impactor";
 import NftShowcaseCarousel from "./NftShowcaseCarousel";
 import RecentImpactors from "./RecentImpactors";
 
-interface UserInfoActionProps {
-  imageurl: string;
-  name: string;
-  wallet: string;
+interface AngelImpactorProps {
+  impactor: Impactor | null;
+  totalbacked: number;
+  totaldonated: number;
 }
 
 const useStyles = createStyles((theme) => ({
   angelimpactor: {
     fontSize: "1.5rem",
   },
+  image: {
+    maxHeight: "120px",
+    maxWidth: "120px",
+  },
 }));
 
 export default function AngelImpactor({
-  imageurl,
-  name,
-  wallet,
-}: UserInfoActionProps) {
+  impactor,
+  totalbacked,
+  totaldonated,
+}: AngelImpactorProps) {
   const { classes } = useStyles();
 
   return (
@@ -42,18 +48,23 @@ export default function AngelImpactor({
     >
       <Grid>
         <Grid.Col span={4}>
-          <Avatar src={imageurl} size={140} radius={20} mx="auto" />
+          <Image
+            src="https://picsum.photos/id/1/200" //{impactor?.imageurl}
+            radius={20}
+            mx="auto"
+            className={classes.image}
+          />
         </Grid.Col>
         <Grid.Col span={8}>
           <div>
             <Text ta="left" weight={500} className={classes.angelimpactor}>
-              {name}
+              {impactor?.name}
             </Text>
             <Text ta="left" c="dimmed" fz="xl">
-              Total donated: $1500
+              Total donated: {totaldonated}
             </Text>
             <Text ta="left" c="dimmed" fz="lg">
-              Projects involved in: 7
+              Projects involved in: {totalbacked}
             </Text>
             <Text ta="left" c="dimmed" fz="lg">
               Proof of Impact NFT's: 3

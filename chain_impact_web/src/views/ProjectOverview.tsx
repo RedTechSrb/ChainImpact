@@ -14,6 +14,7 @@ import {
   Progress,
   Loader,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import {
   IconBrandDiscord,
   IconBrandInstagram,
@@ -68,6 +69,7 @@ export default function ProjectOverview() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isTimeout, setIsTimeout] = useState(false);
+  const mobile = useMediaQuery(`(max-width: 900px)`);
   let { id } = useParams();
   const projectSearch = { dto: { id: Number(id) } };
   const projectData: Project | undefined = useGetSpecificProject(projectSearch);
@@ -91,6 +93,7 @@ export default function ProjectOverview() {
   };
 
   const { classes } = useStyles();
+  const laptop = useMediaQuery(`(max-width: 1440px)`);
   return (
     <>
       <Container size={1750}>
@@ -101,7 +104,7 @@ export default function ProjectOverview() {
           </Container>
         ) : projectData ? (
           <Grid className={classes.container}>
-            <Grid.Col span={9}>
+            <Grid.Col span={mobile ? 12 : 9}>
               {/* <Image
                 src="https://media.istockphoto.com/id/506664332/photo/business-with-csr-practice.jpg?s=1024x1024&w=is&k=20&c=qKTzGl0Wec-oxJ_sU-eTcPDzooTSqIyHIh3rmIeUNcI="
                 alt="alt"
@@ -158,30 +161,31 @@ export default function ProjectOverview() {
                 mb="xl"
                 className={classes.grid}
               >
-                <Text size={24} weight={500} color="white" mt="sm">
+                <Text
+                  size={laptop ? 20 : 24}
+                  weight={500}
+                  color="white"
+                  mt="sm"
+                >
                   Recent Impactors:
                 </Text>
-                <Text size={24} weight={500} color="white" mt="sm">
+                <Text
+                  size={laptop ? 20 : 24}
+                  weight={500}
+                  color="white"
+                  mt="sm"
+                >
                   Angel Impactor who brought this project to life.
                 </Text>
 
-                {/* <ProgressProject
-                  projectData={projectData}
-                  mtVal={"0"}
-                  mbVal={"0"}
-                ></ProgressProject> */}
                 <RecentImpactors></RecentImpactors>
 
                 <AngelImpactor
-                  imageurl={angelimpactor.imageurl}
-                  name={angelimpactor.name}
-                  wallet={angelimpactor.wallet}
+                  impactor={projectData.angelimpactor}
+                  totalbacked={0}
+                  totaldonated={0}
                 ></AngelImpactor>
               </SimpleGrid>
-              {/* <Text size="xl" weight={500} mb="xl">
-                Recent Donators
-              </Text>
-              <RecentImpactors></RecentImpactors> */}
 
               <Text size="xl" weight={500} mb="xl">
                 Biggest donators
@@ -194,7 +198,7 @@ export default function ProjectOverview() {
               <RecentImpactors></RecentImpactors>
             </Grid.Col>
 
-            <Grid.Col span={3}>
+            <Grid.Col span={mobile ? 12 : 3}>
               <DonationSidebar project={projectData}></DonationSidebar>
             </Grid.Col>
           </Grid>

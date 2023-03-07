@@ -18,7 +18,7 @@ import {
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
 import { useGetAllProjects } from "../../repositories/ProjectRepository";
-import ProjectComponent from "../ProjectComponent";
+import ProjectComponent from "./ProjectComponent";
 
 /*const mockdata = [
   {

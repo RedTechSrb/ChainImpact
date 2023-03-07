@@ -11,11 +11,14 @@ import {
   TextInput,
   Modal,
   NumberInput,
+  Grid,
+  Title,
 } from "@mantine/core";
-import { Icon123 } from "@tabler/icons";
+import { Icon123, IconHeart } from "@tabler/icons";
 import { useState } from "react";
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
+import { NftStats } from "./NftStats";
 
 type DonationSidebarProps = {
   project: Project;
@@ -74,7 +77,7 @@ export default function DonationSidebar({
 }: DonationSidebarProps) {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
-  const [donationAmount, setDonationAmount] = useState<number | "">(0);
+  const [donationAmount, setDonationAmount] = useState<number>(0);
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -82,6 +85,23 @@ export default function DonationSidebar({
 
   const handleModalClose = () => {
     setOpen(false);
+  };
+
+  const dataNft = {
+    data: [
+      {
+        label: "Page views",
+        stats: "456,578",
+        progress: 65,
+        color: "teal",
+      },
+      {
+        label: "New users",
+        stats: "2,550",
+        progress: 72,
+        color: "blue",
+      },
+    ],
   };
 
   return (
@@ -99,7 +119,7 @@ export default function DonationSidebar({
         />
       </Card.Section>
 
-      <Text size={"xl"} weight={500} mt="lg" color={"#BBFD00"}>
+      <Text size={"xl"} weight={500} mt="0" color={"#BBFD00"}>
         {project.name}
       </Text>
       <ProgressProject
@@ -119,73 +139,142 @@ export default function DonationSidebar({
         <Button
           radius="sm"
           style={{ flex: 1, width: "100%" }}
-          mt="xl"
+          mt="sm"
           onClick={handleDonateClick}
+          size="lg"
         >
-          Donate
+          Become an Impactor
         </Button>
 
-        <Modal
-          opened={open}
-          onClose={handleModalClose}
-          title={`Help ${project.name} reach it's goal!`}
-          size="auto"
-        >
-          <NumberInput
-            defaultValue={18}
-            placeholder="Help this project reach it's goal"
-            description="Earn Proof of Impact"
-            value={donationAmount}
-            onChange={setDonationAmount}
-          />
-          <Card
-            withBorder
-            radius="md"
-            sx={(theme) => ({
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[7]
-                  : theme.white,
-            })}
-          >
-            <Text size="xl" weight={500} color={"#BBFD00"}>
-              Currently donated: ${project.totaldonated}
-            </Text>
-            <Text size="sm" weight={100} color="white" mb="xs">
-              Out of $USDC {project.financialgoal} goal
-            </Text>
-            <Progress
-              sections={[
-                {
-                  value:
-                    ((project.totaldonated * 1.0) / project.financialgoal) *
-                    100,
+        <Modal opened={open} onClose={handleModalClose} size="800px">
+          <Grid>
+            <Grid.Col>
+              <Title>Help {project.name} reach it's goal!</Title>
+              <Title size="lg" fw={200}>
+                Become an Impactor today.
+              </Title>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <NumberInput
+                value={donationAmount}
+                label="Amount in USDC"
+                placeholder="Help this project reach it's goal"
+                description="Earn Proof of Impact NFT for donating"
+                onChange={(value: number) => setDonationAmount(value)}
+                size="lg"
+              />
+            </Grid.Col>
+            <Grid.Col></Grid.Col>
+            <Grid.Col span={6}>
+              <Card
+                withBorder
+                radius="md"
+                sx={(theme) => ({
+                  backgroundColor:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.dark[7]
+                      : theme.white,
+                })}
+              >
+                {donationAmount === 0 || undefined ? (
+                  <Text size="xl" weight={500} color={"#BBFD00"}>
+                    Currently donated: ${project.totaldonated}
+                  </Text>
+                ) : (
+                  <Text size="xl" weight={500} color={"#BBFD00"}>
+                    Currently donated: ${project.totaldonated} +{" "}
+                    <span
+                      style={{ color: donationAmount ? "#8468e8" : "#BBFD00" }}
+                    >
+                      ${donationAmount} you donated!
+                    </span>
+                  </Text>
+                )}
 
-                  label:
-                    ((project.totaldonated * 1.0) / project.financialgoal) *
-                      100 +
-                    "%",
-                  color: "#68b5e8",
-                },
-                {
-                  value:
-                    ((project.totaldonated * 1.0) / project.financialgoal) *
-                    100,
+                <Text size="sm" weight={100} color="white" mb="xs">
+                  Out of $USDC {project.financialgoal} goal
+                </Text>
+                <Progress
+                  sections={[
+                    {
+                      value:
+                        ((project.totaldonated * 1.0) / project.financialgoal) *
+                        100,
 
-                  label:
-                    ((project.totaldonated * 1.0) / project.financialgoal) *
-                      100 +
-                    "%",
-                  color: "#8468e8",
-                },
-              ]}
-              size="xl"
-              radius="xl"
-            />
-            <Text size="xl" weight={500} color={"#BBFD00"} mt="xs">
-              Total backers: {project.totalbackers}
-            </Text>
-          </Card>
+                      label:
+                        ((project.totaldonated * 1.0) / project.financialgoal) *
+                          100 +
+                        "%",
+                      color: "#68b5e8",
+                    },
+                    {
+                      value:
+                        donationAmount == 0
+                          ? 50
+                          : (donationAmount / project.financialgoal) * 100 < 20
+                          ? 20
+                          : (donationAmount / project.financialgoal) * 100,
+
+                      label:
+                        donationAmount == 0
+                          ? "You can help!"
+                          : (donationAmount / project.financialgoal) * 100 +
+                            "%",
+
+                      color: "#8468e8",
+                    },
+                  ]}
+                  size="xl"
+                  radius="xl"
+                />
+                <Text size="xl" weight={500} color={"#BBFD00"} mt="xs">
+                  Total backers: {project.totalbackers}
+                </Text>
+
+                {((project.totaldonated * 1.0) / project.financialgoal) * 100 +
+                  (donationAmount / project.financialgoal) * 100 >=
+                100 ? (
+                  <Text size={42} weight={500} color={"#8468e8"} mt="xs">
+                    Goal reached!
+                  </Text>
+                ) : (
+                  <Text size="xl" weight={500} color={"#BBFD00"}></Text>
+                )}
+              </Card>
+            </Grid.Col>
+
+            <Grid.Col
+              span={6}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "40px",
+              }}
+            >
+              <Button
+                leftIcon={<IconHeart size="2rem" />}
+                style={{
+                  fontSize: "2rem",
+                }}
+                color="lime"
+                radius="md"
+                size="xl"
+              >
+                Donate
+              </Button>
+            </Grid.Col>
+
+            <Grid.Col>
+              <Text size="lg" mb="md">
+                See how much you need to become an Impactor:
+              </Text>
+              <NftStats
+                data={dataNft.data}
+                progress={donationAmount}
+              ></NftStats>
+            </Grid.Col>
+          </Grid>
         </Modal>
       </Card.Section>
     </Card>

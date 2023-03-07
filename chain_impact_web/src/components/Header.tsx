@@ -78,6 +78,12 @@ const useStyles = createStyles((theme) => ({
       width: "100%",
     },
 
+    "@media (max-width: 1200px)": {
+      fontsize: theme.fontSizes.md,
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+
     ...theme.fn.hover({
       backgroundColor:
         theme.colorScheme === "dark"

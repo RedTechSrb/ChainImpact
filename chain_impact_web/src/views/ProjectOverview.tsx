@@ -123,29 +123,29 @@ export default function ProjectOverview() {
                   position="right"
                   noWrap
                 >
-                  <Text size="md" weight={500} color="white">
+                  <Text size={18} weight={500} color="white" mr="sm">
                     Connect on socials
                   </Text>
                   <ActionIcon
-                    size="lg"
+                    size="xl"
                     component="a"
                     href={projectData?.twitter ?? undefined}
                   >
-                    <IconBrandTwitter size="1.05rem" stroke={1.5} />
+                    <IconBrandTwitter size="1.5rem" stroke={1.5} />
                   </ActionIcon>
                   <ActionIcon
-                    size="lg"
+                    size="xl"
                     component="a"
                     href={projectData?.discord ?? undefined}
                   >
-                    <IconBrandDiscord size="1.05rem" stroke={1.5} />
+                    <IconBrandDiscord size="1.5rem" stroke={1.5} />
                   </ActionIcon>
                   <ActionIcon
-                    size="lg"
+                    size="xl"
                     component="a"
                     href={projectData?.instagram ?? undefined}
                   >
-                    <IconBrandInstagram size="1.05rem" stroke={1.5} />
+                    <IconBrandInstagram size="1.5rem" stroke={1.5} />
                   </ActionIcon>
                 </Group>
               </SimpleGrid>

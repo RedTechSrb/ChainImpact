@@ -33,8 +33,8 @@ const PRIMARY_COL_HEIGHT = "32rem";
 
 const useStyles = createStyles((theme) => ({
   container: {
-    marginLeft: "5rem",
-    marginRight: "5rem",
+    marginLeft: "3rem",
+    marginRight: "2rem",
     marginTop: "2.5rem",
     [theme.breakpoints.sm]: {
       marginLeft: "2.5rem",
@@ -127,7 +127,6 @@ export default function CompanyOverview() {
                     impactor={companyData}
                     totalbacked={0}
                     totaldonated={0}
-                    
                   ></CompanyData>
               </Grid.Col>
 

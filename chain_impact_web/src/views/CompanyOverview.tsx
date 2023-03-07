@@ -4,6 +4,7 @@ import {
   createStyles,
   Grid,
   Group,
+  Image,
   Loader,
   SimpleGrid,
   Text,
@@ -18,6 +19,7 @@ import {
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CompanyData from "../components/companyComponents/CompanyData";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
@@ -99,70 +101,93 @@ export default function CompanyOverview() {
             <Loader variant="dots" />
           </Container>
         ) : companyData ? (
-          <Grid className={classes.container}>
-            {/* <Image
-                  src="https://media.istockphoto.com/id/506664332/photo/business-with-csr-practice.jpg?s=1024x1024&w=is&k=20&c=qKTzGl0Wec-oxJ_sU-eTcPDzooTSqIyHIh3rmIeUNcI="
-                  alt="alt"
-                  height={180}
-                  mb="md"
-                /> */}
-            <SimpleGrid cols={2} verticalSpacing="sm">
-              <Group>
-                <Title>{companyData?.name}</Title>
-              </Group>
-              <Group
-                spacing={0}
-                className={classes.links}
-                position="right"
-                noWrap
-              >
-                <Text size="md" weight={500} color="white">
-                  Connect on socials
+          <>
+            <Grid className={classes.container}>
+              {/* <Grid.Col span={4}>
+                <SimpleGrid verticalSpacing="lg">
+                  <Group style={{margin: "auto"}}>
+                    <Image maw={200} radius="md" src={"https://picsum.photos/id/1/200"}/>
+                  </Group>
+                  <Group style={{margin: "auto"}}>
+                    <Title>{companyData?.name}</Title>
+                  </Group>
+                </SimpleGrid>
+              </Grid.Col>
+
+              <Grid.Col span={6}>
+                <Text size={24} weight={500} color="white" mt="sm">
+                  Description:
                 </Text>
-                <ActionIcon
-                  size="lg"
-                  component="a"
-                  href={companyData?.twitter ?? undefined}
-                >
-                  <IconBrandTwitter size="1.05rem" stroke={1.5} />
-                </ActionIcon>
-                <ActionIcon
-                  size="lg"
-                  component="a"
-                  href={companyData?.discord ?? undefined}
-                >
-                  <IconBrandDiscord size="1.05rem" stroke={1.5} />
-                </ActionIcon>
-                <ActionIcon
-                  size="lg"
-                  component="a"
-                  href={companyData?.instagram ?? undefined}
-                >
-                  <IconBrandInstagram size="1.05rem" stroke={1.5} />
-                </ActionIcon>
-              </Group>
-            </SimpleGrid>
+                <Text size="md" color="white" mb="xl">
+                  {companyData?.description}
+                </Text>
+              </Grid.Col> */}
+              <Grid.Col span={10}>
+                <CompanyData
+                    impactor={companyData}
+                    totalbacked={0}
+                    totaldonated={0}
+                    
+                  ></CompanyData>
+              </Grid.Col>
 
-            <Text size={24} weight={500} color="white" mt="sm">
-              Description:
-            </Text>
-            <Text size="md" color="white" mb="xl">
-              {companyData?.description}
-            </Text>
+              <Grid.Col span={2}>
+              <Group
+                  spacing={0}
+                  className={classes.links}
+                  position="right"
+              
+                >
+                  <SimpleGrid>
+                    <Text size="md" weight={500} color="white">
+                      Connect on socials
+                    </Text>
 
-            <SimpleGrid
-              cols={1}
-              verticalSpacing="sm"
-              mb="xl"
-              className={classes.grid}
-            >
-              <AngelImpactor
-                impactor={companyData}
-                totalbacked={0}
-                totaldonated={0}
-              ></AngelImpactor>
-            </SimpleGrid>
-          </Grid>
+                    <ActionIcon style={{margin: "auto"}}
+                      size="xl"
+                      component="a"
+                      href={companyData?.twitter ?? undefined}
+                    >
+                      <IconBrandTwitter size="2rem" stroke={1.5}/>
+                    </ActionIcon>
+                  
+                    <ActionIcon style={{margin: "auto"}}
+                      size="xl"
+                      component="a"
+                      href={companyData?.discord ?? undefined}
+                    >
+                      <IconBrandDiscord size="2rem" stroke={1.5} />
+                    </ActionIcon>
+                    
+                    <ActionIcon style={{margin: "auto"}}
+                      size="xl"
+                      component="a"
+                      href={companyData?.instagram ?? undefined}
+                    >
+                      <IconBrandInstagram size="2rem" stroke={1.5} />
+                    </ActionIcon>
+                  </SimpleGrid>
+                  
+                </Group>
+              </Grid.Col>
+
+              {/* <SimpleGrid
+                cols={1}
+                verticalSpacing="sm"
+                mb="xl"
+                className={classes.grid}
+              >
+                { <AngelImpactor
+                  impactor={companyData}
+                  totalbacked={0}
+                  totaldonated={0}
+                ></AngelImpactor> }
+              </SimpleGrid> */}
+            </Grid>
+            <Grid>
+
+            </Grid>
+          </>
         ) : (
           <NotFound />
         )}

@@ -13,6 +13,8 @@ import {
   import { Impactor } from "../../models/Impactor";
   import NftShowcaseCarousel from "../projectComponents/NftShowcaseCarousel";
   import RecentImpactors from "../projectComponents/RecentImpactors";
+import ProofOfImpacts from "./ProofOfImpacts";
+import SupportedProjects from "./SupportedProjects";
   
   interface CompanyDataProps {
     impactor: Impactor | null;
@@ -53,10 +55,11 @@ import {
               radius={10}
               mx="auto"
               className={classes.image}
+              style={{marginLeft: "0"}}
               pl={0}
             />
           </Grid.Col>
-          <Grid.Col span={9}>
+          <Grid.Col span={9} >
             <div>
               <Text ta="left" weight={500} className={classes.angelimpactor}>
                 {impactor?.name}
@@ -77,10 +80,17 @@ import {
           <Grid.Col span={12}>
             <Divider my="xs" label="Proof of Impacts" labelPosition="center" />
           </Grid.Col>
-          <NftShowcaseCarousel></NftShowcaseCarousel>
+          
+          <Grid.Col span={12} style={{width: "100%"}}>
+            <ProofOfImpacts />
+          </Grid.Col>
 
           <Grid.Col span={12}>
             <Divider my="xs" label="Supported projects" labelPosition="center" />
+          </Grid.Col>
+
+          <Grid.Col span={12}>
+            <SupportedProjects></SupportedProjects>
           </Grid.Col>
         </Grid>
   

@@ -92,6 +92,7 @@ import SupportedProjects from "./SupportedProjects";
           <Grid.Col span={12}>
             <SupportedProjects></SupportedProjects>
           </Grid.Col>
+
         </Grid>
   
       </Paper>

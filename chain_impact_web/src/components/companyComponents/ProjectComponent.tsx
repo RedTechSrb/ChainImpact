@@ -15,7 +15,7 @@ import {
   Spoiler,
 } from "@mantine/core";
 import { Project } from "../../models/Project";
-import { ProgressProject } from "../ProgressProject";
+import { ProjectProgress } from "./ProjectProgress";
 
 type ProjectComponentProps = {
   project: Project;
@@ -23,6 +23,7 @@ type ProjectComponentProps = {
 
 const useStyles = createStyles((theme) => ({
   card: {
+    width: "100%",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -67,10 +68,6 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
           <Text size="lg" weight={500}>
             {project.name}
           </Text>
-          <Group position="right">
-            <Badge size="sm">{project.primarycausetype.name}</Badge>
-            <Badge size="sm">{project.secondarycausetype.name}</Badge>
-          </Group>
         </Group>
       </Card.Section>
 
@@ -105,11 +102,11 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
           radius="xl"
         /> */}
 
-        <ProgressProject
+        <ProjectProgress
           projectData={project}
           mtVal={""}
           mbVal={""}
-        ></ProgressProject>
+        ></ProjectProgress>
       </Card.Section>
 
         <Group mt="xs">

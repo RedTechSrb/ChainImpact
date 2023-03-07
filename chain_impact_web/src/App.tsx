@@ -127,7 +127,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />
-          <Route path="/company" element={<CompanyOverview />} />
+          <Route path="/company/:wallet" element={<CompanyOverview />} />
           <Route path="/project/:id" element={<ProjectOverview />} />
           <Route path="/charities" element={<Charities />} />
           <Route path="/*" element={<NotFound />} />

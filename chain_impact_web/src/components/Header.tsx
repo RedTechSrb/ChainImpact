@@ -256,6 +256,7 @@ export default function HeaderResponsive({
         );
         if (await impactor) {
           setWalletKey(response.publicKey.toString());
+          return;
         }
 
         // if not, create new impactor with this wallet

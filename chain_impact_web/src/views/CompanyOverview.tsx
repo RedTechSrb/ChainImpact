@@ -20,14 +20,13 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CompanyData from "../components/companyComponents/CompanyData";
-import AngelImpactor from "../components/projectComponents/AngelImpactor";
-import DonationSidebar from "../components/projectComponents/DonationSidebar";
-import RecentImpactors from "../components/projectComponents/RecentImpactors";
+import SupportedProjects from "../components/companyComponents/SupportedProjects";
 import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
-import { useGetAllImpactors } from "../repositories/ImpactorRepository";
+import { getSpecificImpactor, useGetAllImpactors } from "../repositories/ImpactorRepository";
 import { useGetSpecificProject } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
+import {ImpactorWalletSearch} from '../models/dto/request/ImpactorWalletSearch';
 
 const PRIMARY_COL_HEIGHT = "32rem";
 
@@ -65,15 +64,30 @@ const useStyles = createStyles((theme) => ({
 export default function CompanyOverview() {
   const theme = useMantineTheme();
 
+  const { wallet }: any = useParams();
+  const [impactor, setImpactor] = useState<Impactor>();
+  let impactorData: Promise<any>;
+
   const [isLoading, setIsLoading] = useState(true);
 
   const mobile = useMediaQuery(`(max-width: 900px)`);
   let { id } = useParams();
   //const projectSearch = { dto: { id: Number(id) } };
-  const companyData: Impactor | undefined = useGetAllImpactors()[0];
+
+  function setImpactorData() {
+    impactorData = getSpecificImpactor(
+        new ImpactorWalletSearch(null, null, wallet)
+      )
+    impactorData.then(data => {
+      setImpactor(data);
+      setIsLoading(false)
+    })
+  }
 
   useEffect(() => {
-    if (companyData) setIsLoading(false);
+    setImpactorData()
+    let header = document.getElementById("header");
+    header?.scrollIntoView();
 
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
@@ -82,7 +96,7 @@ export default function CompanyOverview() {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isLoading, companyData]);
+  }, [isLoading]);
 
   const angelimpactor = {
     imageurl: "https://picsum.photos/id/1/200",
@@ -100,7 +114,7 @@ export default function CompanyOverview() {
             <Text className={classes.loadingBar}>Loading project data</Text>
             <Loader variant="dots" />
           </Container>
-        ) : companyData ? (
+        ) : impactor ? (
           <>
             <Grid className={classes.container}>
               {/* <Grid.Col span={4}>
@@ -124,7 +138,7 @@ export default function CompanyOverview() {
               </Grid.Col> */}
               <Grid.Col span={10}>
                 <CompanyData
-                    impactor={companyData}
+                    impactor={impactor}
                     totalbacked={0}
                     totaldonated={0}
                   ></CompanyData>
@@ -145,7 +159,7 @@ export default function CompanyOverview() {
                     <ActionIcon style={{margin: "auto"}}
                       size="xl"
                       component="a"
-                      href={companyData?.twitter ?? undefined}
+                      href={impactor?.twitter ?? undefined}
                     >
                       <IconBrandTwitter size="2rem" stroke={1.5}/>
                     </ActionIcon>
@@ -153,7 +167,7 @@ export default function CompanyOverview() {
                     <ActionIcon style={{margin: "auto"}}
                       size="xl"
                       component="a"
-                      href={companyData?.discord ?? undefined}
+                      href={impactor?.discord ?? undefined}
                     >
                       <IconBrandDiscord size="2rem" stroke={1.5} />
                     </ActionIcon>
@@ -161,7 +175,7 @@ export default function CompanyOverview() {
                     <ActionIcon style={{margin: "auto"}}
                       size="xl"
                       component="a"
-                      href={companyData?.instagram ?? undefined}
+                      href={impactor?.instagram ?? undefined}
                     >
                       <IconBrandInstagram size="2rem" stroke={1.5} />
                     </ActionIcon>

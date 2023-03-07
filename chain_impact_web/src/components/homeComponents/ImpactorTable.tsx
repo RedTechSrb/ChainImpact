@@ -66,7 +66,7 @@ export default function ImpactorTable({
     const rows = impactorData.map((item: any) => (
       <tr key={item.name}>
         <td>
-          <Link to={`/company/${item.id}`}>
+          <Link to={`/company/${item.email}`}>
             <Group spacing="sm">
               <Avatar size={40} src={item.avatar} radius={40} />
               <div>

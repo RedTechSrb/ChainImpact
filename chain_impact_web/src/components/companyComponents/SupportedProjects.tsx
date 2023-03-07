@@ -14,6 +14,7 @@ import {
   Center,
   Flex,
   Pagination,
+  Grid,
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
@@ -290,13 +291,15 @@ export default function ProjectExplorer() {
   const dbMockData = useGetAllProjects();
   const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
 
-  var projects = filteredData.map((article) => (
-    <ProjectComponent project={article}></ProjectComponent>
+  var projects = filteredData.map((article, index) => (
+    <Grid.Col span={4} style={{marginLeft: 0}}>
+        <ProjectComponent project={article}></ProjectComponent>
+    </Grid.Col>
   ));
 
   useEffect(() => {
-    const startIndex = activePage === 1 ? 0 : 4 * (activePage - 1);
-    const endIndex = 4 * activePage;
+    const startIndex = activePage === 1 ? 0 : 3 * (activePage - 1);
+    const endIndex = 3 * activePage;
 
 
     setFilteredData(
@@ -306,17 +309,15 @@ export default function ProjectExplorer() {
   }, [activePage, dbMockData]);
 
   return (
-    <Container py="xl" size="lg" id="project_explorer">
+    <Container size="xl" id="project_explorer" style={{width: "100%"}}>
       
-      <SimpleGrid
-        cols={2}
-        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        style={{ minHeight: "600px" }}
+      <Grid
+        style={{ minHeight: "600px", margin: "auto" }}
       >
         {projects}
-      </SimpleGrid>
-      <Pagination
-        total={Math.ceil(dbMockData.length/4)}
+      </Grid>
+      <Pagination style={{marginTop: "-15px"}}
+        total={Math.ceil(dbMockData.length/3)}
         color="lime"
         mt="lg"
         page={activePage}

@@ -212,14 +212,14 @@ INSERT INTO public.transaction(
 --D7
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (1000, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'RedTech'));
+	VALUES (500, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'RedTech'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguasdivuiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 1000, 
+	VALUES ('bguasdivusaiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 500, 
 		(select id from project where name like 'Education for All (EFA)'), 
 		(select id from impactor where name like 'RedTech'), 
 		1);
@@ -229,7 +229,42 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('fuwwwwwssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 20, 
+	VALUES ('fuwwwwaawssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 10, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		2);
+
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('eefdfdsdfdfdfdfdfdfdf', 'OffRamp', 'UNESCO', null, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		3);
+
+-- D8
+INSERT INTO public.donation(
+	amount, projectid, donatorid)
+	VALUES (500, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'RedTech'));
+	
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('bguasdivdduiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 500, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		1);
+
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('fuwwwwwssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 10, 
 		(select id from project where name like 'Education for All (EFA)'), 
 		(select id from impactor where name like 'RedTech'), 
 		2);
@@ -243,5 +278,3 @@ INSERT INTO public.transaction(
 		(select id from project where name like 'Education for All (EFA)'), 
 		(select id from impactor where name like 'RedTech'), 
 		3);
-
-

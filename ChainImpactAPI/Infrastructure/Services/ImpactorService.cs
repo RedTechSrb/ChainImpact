@@ -16,15 +16,18 @@ namespace ChainImpactAPI.Infrastructure.Services
         private readonly IConfiguration configuration;
         private readonly IImpactorRepository impactorRepository;
         private readonly IDonationService donationService;
+        private readonly IProjectService projectService;
 
         public ImpactorService(
             IConfiguration configuration,
             IImpactorRepository impactorRepository,
-            IDonationService donationService)
+            IDonationService donationService,
+            IProjectService projectService)
         {
             this.configuration = configuration;
             this.impactorRepository = impactorRepository;
             this.donationService = donationService;
+            this.projectService = projectService;
         }
 
         public List<ImpactorDto> GetImpactors()
@@ -130,10 +133,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                 var donations = donationService.SearchDonations(new GenericDto<DonationDto>(new DonationDto { donator = impactorDto }));
 
                 var donatedProjects = donations.GroupBy(d => new {
-                                                d.project,
+                                                d.project.id,
                                             }).Select(gpb => new DonatedProjectDto
                                             (
-                                                gpb.Key.project,
+                                                projectService.SearchProjects(new GenericDto<ProjectSearchDto>(null, null, new ProjectSearchDto { id = gpb.Key.id })).FirstOrDefault(),
                                                 gpb.Sum(d => d.amount.Value)
                                             )).OrderByDescending(iwp => iwp.totalDonation).ToList();
 

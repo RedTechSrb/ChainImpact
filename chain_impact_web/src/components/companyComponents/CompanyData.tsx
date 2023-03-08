@@ -36,6 +36,7 @@ interface CompanyDataProps {
 const useStyles = createStyles((theme) => ({
   angelimpactor: {
     fontSize: "2.2rem",
+    color: "white",
   },
   image: {
     maxHeight: "140px",
@@ -94,11 +95,8 @@ export default function CompanyData({
               <Text ta="left" c="dimmed" fz="lg">
                 Proof of Impact NFT's: 5
               </Text>
-              <Text ta="left" c="dimmed" fz="sm">
-                Address:{" "}
-                {impactor?.wallet.slice(0, 6) +
-                  "..." +
-                  impactor?.wallet.slice(-6)}
+              <Text ta="left" fz="sm">
+                Address: {impactor.wallet}
               </Text>
             </Container>
           </Flex>

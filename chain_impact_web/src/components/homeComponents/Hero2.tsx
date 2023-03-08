@@ -167,6 +167,11 @@ export function Hero2() {
                   </Button>
                 </ScrollLink>
               </div>
+              <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
+                <Button className={classes.control} size="xl">
+                  I want to donate!
+                </Button>
+              </ScrollLink>
             </Group>
           </div>
           <Image src={image} className={classes.image} />

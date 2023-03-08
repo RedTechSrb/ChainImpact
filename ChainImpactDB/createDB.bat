@@ -13,3 +13,4 @@ psql -U postgres -d chainimpact -f insert_project.sql
 
 psql -U postgres -d chainimpact -f insert_donation.sql
 
+psql -U postgres -d chainimpact -f insert_nftowner.sql

@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.ImpactorsWithProjects;
 using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
@@ -6,6 +7,7 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     public interface IImpactorService
     {
         List<ImpactorDto> GetImpactors();
+        List<ImpactorsWithProjectsResponseDto> GetImpactorsWithProjects(GenericDto<ImpactorDto>? impactorsWithDonationsRequestDto);
         Impactor SaveImpactor(ImpactorDto impactorDto);
         List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto);
     }

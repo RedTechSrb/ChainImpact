@@ -1,5 +1,6 @@
 ﻿using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.SearchDtos;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
 {

@@ -22,7 +22,7 @@ INSERT INTO public.project(
 
 
 
-
+-- UNESCO
 
 INSERT INTO public.project(
 	charityid, name, 
@@ -40,39 +40,12 @@ INSERT INTO public.project(
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
 		10000000.0, 2540002.0, 256,
 		null, null, null, null, null, 
-		"https://assets.weforum.org/article/image/large_QzWxty3lUv2ITHZBG5TEyu0QTafPdnTFu1Nwq8f3M7A.jpg",
+		'https://assets.weforum.org/article/image/large_QzWxty3lUv2ITHZBG5TEyu0QTafPdnTFu1Nwq8f3M7A.jpg',
 		(select id from impactor where name like 'SolanaU'),
 		(select id from causetype where name like 'education'), (select id from causetype where name like 'social'));
 
 
-
-
-INSERT INTO public.project(
-	charityid, name, 
-	wallet,
-	description, 
-	milestones, 
-	financialgoal, totaldonated, totalbackers,
-	website, facebook, discord, twitter, instagram,
-	imageurl, 
-	impactorid, 
-	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'Novak Djokovic Foundation'), 'Cancer Treatment for Children - St. Jude Children''s Research Hospital ', 
-		null,
-		'Turn todays patients into tomorrows survivors.When you donate to St. Jude, youre joining thousands of other supporters in giving to a cause that making extraordinary impacts in the lives of kids everywhere.',
-		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		100000.0, 70000.0, 1,
-		null, null, null, null, null, 
-		'https://www.stjude.org/content/sites/www/en_US/home/promotion/hello/charitable-gifts-for-kids/jcr:content/par-2/cnt_row_copy_copy_co/par-1/cnt_column_109669490/par-1/cnt_image.img.1200.high.jpg/1673634254523.jpg',
-		(select id from impactor where name like 'UniqueVCS'),
-		(select id from causetype where name like 'health'), (select id from causetype where name like 'education'));
-
-
-
--- UNESCO
-
-
-
+-- -- NOT DONATED
 INSERT INTO public.project(
 	charityid, name, 
 	wallet,
@@ -92,6 +65,33 @@ INSERT INTO public.project(
 		'https://cdn.pixabay.com/photo/2014/04/17/23/26/environmental-protection-326923_1280.jpg',
 		null,
 		(select id from causetype where name like 'environment'), (select id from causetype where name like 'education'));
+
+
+
+-- Novak Djokovic Foundation
+
+INSERT INTO public.project(
+	charityid, name, 
+	wallet,
+	description, 
+	milestones, 
+	financialgoal, totaldonated, totalbackers,
+	website, facebook, discord, twitter, instagram,
+	imageurl, 
+	impactorid, 
+	primarycausetypeid, secondarycausetypeid)
+	VALUES ((select id from charity where name like 'Novak Djokovic Foundation'), 'Cancer Treatment for Children - St. Jude Children''s Research Hospital', 
+		null,
+		'Turn todays patients into tomorrows survivors.When you donate to St. Jude, youre joining thousands of other supporters in giving to a cause that making extraordinary impacts in the lives of kids everywhere.',
+		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
+		100000.0, 70000.0, 1,
+		null, null, null, null, null, 
+		'https://www.stjude.org/content/sites/www/en_US/home/promotion/hello/charitable-gifts-for-kids/jcr:content/par-2/cnt_row_copy_copy_co/par-1/cnt_column_109669490/par-1/cnt_image.img.1200.high.jpg/1673634254523.jpg',
+		(select id from impactor where name like 'UniqueVCS'),
+		(select id from causetype where name like 'health'), (select id from causetype where name like 'education'));
+
+
+
 
 -- INSERT INTO public.project(
 -- 	charityid, name, 

@@ -6,6 +6,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     public interface IDonationService
     {
         List<ImpactorsWithDonationsResponseDto> GetImpactorsWithDonations(GenericDto<ImpactorsWithDonationsRequestDto>? impactorsWithDonationsDto);
-
+        List<DonationDto> SearchDonations(GenericDto<DonationDto>? donationDto);
     }
 }

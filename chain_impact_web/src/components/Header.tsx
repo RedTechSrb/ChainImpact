@@ -1,50 +1,43 @@
 import {
-  createStyles,
-  Header,
-  HoverCard,
-  Group,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
   Anchor,
-  Divider,
-  Center,
   Box,
   Burger,
-  Drawer,
+  Button,
+  Center,
   Collapse,
-  ScrollArea,
-  ColorSchemeProvider,
-  useMantineColorScheme,
-  Container,
+  createStyles,
+  Divider,
+  Drawer,
+  Group,
+  Header,
+  HoverCard,
   Loader,
+  ScrollArea,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
 } from "@mantine/core";
-import { IconStar, IconWallet } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
+import { PublicKey, Transaction } from "@solana/web3.js";
 import {
-  IconNotification,
-  IconCode,
   IconBook,
   IconChartPie3,
-  IconFingerprint,
-  IconCoin,
   IconChevronDown,
+  IconCode,
+  IconCoin,
+  IconFingerprint,
+  IconNotification,
+  IconWallet,
 } from "@tabler/icons";
-import LightDarkMode from "./LightDarkMode";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { PublicKey, Transaction } from "@solana/web3.js";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
 import {
   createNewImpactor,
   getSpecificImpactor,
 } from "../repositories/ImpactorRepository";
-import axios from "axios";
-import { Impactor } from "../models/Impactor";
-import { useGetSpecificProject } from "../repositories/ProjectRepository";
-import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import LightDarkMode from "./LightDarkMode";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -393,7 +386,11 @@ export default function HeaderResponsive({
                 fontWeight: "100",
               }}
             >
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link
+                to="https://twitter.com/ChainImpactSOL"
+                style={{ textDecoration: "none" }}
+                target="_blank"
+              >
                 <Text
                   style={{
                     marginLeft: "px",

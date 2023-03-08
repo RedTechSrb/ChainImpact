@@ -186,6 +186,7 @@ export default function FAQ() {
               spy={true}
               smooth={true}
               duration={2500}
+              style={{ textDecoration: "none" }}
             >
               <Button
                 color="lime"

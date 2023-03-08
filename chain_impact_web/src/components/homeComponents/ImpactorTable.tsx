@@ -1,20 +1,16 @@
 import {
   Avatar,
   Badge,
-  Table,
-  Group,
-  Text,
-  Select,
-  ScrollArea,
-  Title,
   createStyles,
+  Group,
   Modal,
+  ScrollArea,
+  Table,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
-import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
 import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
-import { useGetAllProjects } from "../../repositories/ProjectRepository";
 
 interface UsersTableProps {
   title: string;
@@ -22,7 +18,7 @@ interface UsersTableProps {
     avatar: string;
     name: string;
     job: string;
-    email: string;
+    wallet: string;
     role: string;
     amount: number;
   }[];
@@ -57,7 +53,7 @@ export default function ImpactorTable({
           : "https://avatars.githubusercontent.com/u/1309537?v=4",
         name: impactor.name,
         job: "",
-        email: impactor.wallet,
+        wallet: impactor.wallet,
         role: "Company",
         amount: impactor.totalDonations,
       }));
@@ -66,7 +62,10 @@ export default function ImpactorTable({
     const rows = impactorData.map((item: any) => (
       <tr key={item.name}>
         <td>
-          <Link to={`/company/${item.email}`}>
+          <Link
+            to={`/company/${item.wallet}`}
+            style={{ textDecoration: "none" }}
+          >
             <Group spacing="sm">
               <Avatar size={40} src={item.avatar} radius={40} />
               <div>
@@ -74,7 +73,7 @@ export default function ImpactorTable({
                   {item.name}
                 </Text>
                 <Text size="xs" color="dimmed">
-                  {item.email}
+                  {item.wallet}
                 </Text>
               </div>
             </Group>

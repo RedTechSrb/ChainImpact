@@ -1,10 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
+import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
+import { ImpactorsWithProjects } from "../models/dto/response/ImpactorsWithProjects";
+import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
 import { Impactor } from "../models/Impactor";
+import { Project } from "../models/Project";
 
 const url = "http://167.99.246.54/";
 
@@ -66,4 +70,16 @@ export function createNewImpactor(newImpactor: CreateNewImpactor) {
     const impactorData = response.data as Impactor;
     return impactorData;
   });
+}
+
+export function useGetImpactorsWithProjects(searchDto: ImpactorsWithProjectsSearch) {
+  const [projects, setProjects] = useState<ProjectWithTotalDonations[]>([]);
+
+  useEffect(() => {
+    axios.post(url + "Impactor/ImpactorsWithProjects", searchDto).then((response) => {
+      const impactorsWithProjectsData = response.data as ImpactorsWithProjects[];
+      setProjects(impactorsWithProjectsData[0].donatedProjects);
+    });
+  }, []);
+  return projects;
 }

@@ -159,16 +159,14 @@ export function Hero2() {
               100% transparency, 0% excuses.
             </Text>
 
-            <Group>
-              <div className={classes.control}>
+            <Group className={classes.control} style={{marginLeft: "0px"}}>
                 <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
                   <Button className={classes.control} variant="white" size="xl">
                     Show me how to change the world!
                   </Button>
                 </ScrollLink>
-              </div>
-              <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
-                <Button className={classes.control} size="xl">
+                <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
+                <Button className={classes.control} size="xl" style={{backgroundColor: "#BBFD00"}}>
                   I want to donate!
                 </Button>
               </ScrollLink>

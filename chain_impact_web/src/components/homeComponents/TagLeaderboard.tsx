@@ -154,7 +154,7 @@ export default function TagLeaderboard() {
         : "https://avatars.githubusercontent.com/u/1309537?v=4",
       name: impactor.name,
       job: "",
-      email: impactor.wallet,
+      wallet: impactor.wallet,
       role: "Company",
       amount: impactor.totalDonations,
     }));

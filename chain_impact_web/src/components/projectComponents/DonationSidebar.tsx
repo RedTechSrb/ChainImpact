@@ -14,11 +14,14 @@ import {
   Grid,
   Title,
 } from "@mantine/core";
+import { clusterApiUrl, Connection, PublicKey, SystemProgram } from "@solana/web3.js";
 import { Icon123, IconHeart } from "@tabler/icons";
 import { useState } from "react";
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
 import { NftStats } from "./NftStats";
+import { Program, Provider, web3, BN, getProvider } from '@coral-xyz/anchor';
+import idl from '../../res/transactions/idl.json';
 
 type DonationSidebarProps = {
   project: Project;
@@ -71,6 +74,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const programID = new PublicKey(idl.metadata.address)
+const network = clusterApiUrl('devnet')
+
+//Ovo odredjuje koliko se ceka da se validira transakcija
+const opts = {
+  preflightCommitment: "processed"
+}
+
 export default function DonationSidebar({
   project,
   sidebarTop,
@@ -78,6 +89,9 @@ export default function DonationSidebar({
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState<number>(0);
+
+  const to = new PublicKey("qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT"); // wallet of project for donating to
+  const poreskaUprava = new PublicKey("Gu766PjJnV7DbbEWGPRUPtpeSGB5Xz3DJGiETuk1uHmE");
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -103,6 +117,40 @@ export default function DonationSidebar({
       },
     ],
   };
+
+  /*const getProvider = () => {
+    const connection = new Connection(network, opts.preflightCommitment);
+    const provider = new Provider(connection, window.solana, opts.preflightCommitment);
+    return provider
+  }
+
+  const donateToLimun = async () => {
+    try {
+      console.log("Amount donated:", donationAmount);
+      const connection = new Connection(network, opts.preflightCommitment);
+      const provider = getProvider()
+      const program = new Program(idl, programID, provider);
+      let balance = await connection.getBalance(to) / web3.LAMPORTS_PER_SOL;
+      console.log("Limun wealth: ", balance);
+      console.log("Donating 0.1 SOL to Limun...");
+      let ts = await program.rpc.transfer(new BN(donationAmount * web3.LAMPORTS_PER_SOL),
+        {
+          accounts:
+          {
+            user: provider.wallet.publicKey,
+            receiver: to,
+            feeCollector: poreskaUprava,
+            systemProgram: SystemProgram.programId
+          }
+        });
+      console.log("Transaction signature:", ts);
+      balance = await connection.getBalance(to) / web3.LAMPORTS_PER_SOL;
+      console.log("Limun wealth: ", balance);
+    }
+    catch (err) {
+      console.error("Error in donating to Limun", err)
+    }
+  }*/
 
   return (
     <Card
@@ -160,7 +208,7 @@ export default function DonationSidebar({
                 label="Amount in USDC"
                 placeholder="Help this project reach it's goal"
                 description="Earn Proof of Impact NFT for donating"
-                onChange={(value: number) => setDonationAmount(value)}
+                onChange={(value: number) => {if(value >= 0) setDonationAmount(value); else setDonationAmount(0)}}
                 size="lg"
               />
             </Grid.Col>
@@ -176,7 +224,7 @@ export default function DonationSidebar({
                       : theme.white,
                 })}
               >
-                {donationAmount === 0 || undefined ? (
+                { (donationAmount === 0 || isNaN(donationAmount)) ? (
                   <Text size="xl" weight={500} color={"#BBFD00"}>
                     Currently donated: ${project.totaldonated}
                   </Text>
@@ -202,9 +250,8 @@ export default function DonationSidebar({
                         100,
 
                       label:
-                        ((project.totaldonated * 1.0) / project.financialgoal) *
-                          100 +
-                        "%",
+                      Math.round((((project.totaldonated * 1.0) / project.financialgoal) * 100 + Number.EPSILON)* 100) / 100 +
+                      "%",
                       color: "#68b5e8",
                     },
                     {
@@ -216,10 +263,13 @@ export default function DonationSidebar({
                           : (donationAmount / project.financialgoal) * 100,
 
                       label:
-                        donationAmount == 0
+                        (donationAmount == 0 || isNaN(donationAmount))
                           ? "You can help!"
-                          : (donationAmount / project.financialgoal) * 100 +
-                            "%",
+                          : 
+                          (donationAmount + project.totaldonated < project.financialgoal) 
+                          ? (Math.round((((donationAmount * 1.0) / project.financialgoal) * 100 + Number.EPSILON)* 1000) / 1000 +
+                          "%")
+                          : "Goal Complete!",
 
                       color: "#8468e8",
                     },

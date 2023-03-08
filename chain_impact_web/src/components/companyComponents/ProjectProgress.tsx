@@ -34,7 +34,7 @@ export function ProjectProgress({
           ((projectData.totaldonated * 1.0) / projectData.financialgoal) * 100
         }
         label={
-          ((projectData.totaldonated * 1.0) / projectData.financialgoal) * 100 +
+          Math.round((((projectData.totaldonated * 1.0) / projectData.financialgoal) * 100 + Number.EPSILON)* 100) / 100 +
           "%"
         }
         size="xl"

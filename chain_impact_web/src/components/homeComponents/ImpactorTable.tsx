@@ -48,8 +48,8 @@ export default function ImpactorTable({
     let impactorData = data;
     if (arangeFromAPI) {
       impactorData = data.map((impactor: any) => ({
-        avatar: impactor.imageurl
-          ? impactor.imageurl
+        avatar: impactor.imageUrl
+          ? impactor.imageUrl
           : "https://avatars.githubusercontent.com/u/1309537?v=4",
         name: impactor.name,
         job: "",
@@ -64,7 +64,8 @@ export default function ImpactorTable({
         <td>
           <Link
             to={`/company/${item.wallet}`}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "#E4E5E8" }}
+            
           >
             <Group spacing="sm">
               <Avatar size={40} src={item.avatar} radius={40} />
@@ -106,9 +107,17 @@ export default function ImpactorTable({
   return (
     <div>
       <Modal
+        sx={(theme) => ({
+          backgroundColor:
+            theme.colorScheme === "dark" ? `rgba(37, 38, 43, 0.6)` : theme.white,
+          color: "#C1C2C5"
+        })}
+        size="50%"
         opened={opened}
         onClose={close}
         title={"Top Impactors in " + type.toUpperCase() + " category"}
+        centered
+        radius={20}
       >
         <ScrollArea>
           <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
@@ -125,14 +134,22 @@ export default function ImpactorTable({
 
       <Badge
         className={classes.badge}
-        style={{ color: titlecolor }}
+        style={{ color: titlecolor, marginBottom: "15px" }}
         size="lg"
         onClick={open}
       >
         {title}
       </Badge>
-      <ScrollArea>
-        <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
+      <ScrollArea
+        sx={(theme) => ({
+          backgroundColor:
+            theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+        })}
+        style={{borderRadius: 20}}
+      >
+        <Table sx={(theme) => ({
+          minWidth: 400,
+        })} verticalSpacing="sm">
           <thead>
             <tr>
               <th>{isPrivate ? "Impactor" : "Company"}</th>

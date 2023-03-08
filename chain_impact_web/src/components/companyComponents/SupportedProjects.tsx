@@ -18,6 +18,8 @@ import {
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
+import { ProjectWithTotalDonations } from "../../models/dto/response/ProjectWithTotalDonations";
+import { Project } from "../../models/Project";
 import { useGetAllProjects } from "../../repositories/ProjectRepository";
 import ProjectComponent from "./ProjectComponent";
 
@@ -284,16 +286,22 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectExplorer() {
+
+interface SupportedProjectsProps {
+  projects: ProjectWithTotalDonations[];
+  impactorName: string;
+}
+
+
+export default function SupportedProjects({projects, impactorName}: SupportedProjectsProps) {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [activePage, setPage] = useState(1);
-  const dbMockData = useGetAllProjects();
-  const [filteredData, setFilteredData] = useState(/*mockdata*/ dbMockData);
+  const [filteredData, setFilteredData] = useState(/*mockdata*/ projects);
 
-  var projects = filteredData.map((article, index) => (
+  var projectsData = filteredData.map((article, index) => (
     <Grid.Col span={4} style={{marginLeft: 0}}>
-        <ProjectComponent project={article}></ProjectComponent>
+        <ProjectComponent data={article} impactorName={impactorName}></ProjectComponent>
     </Grid.Col>
   ));
 
@@ -303,10 +311,10 @@ export default function ProjectExplorer() {
 
 
     setFilteredData(
-      dbMockData.slice(startIndex, endIndex)
+      projects.slice(startIndex, endIndex)
     );
 
-  }, [activePage, dbMockData]);
+  }, [activePage, projects]);
 
   return (
     <Container size="xl" id="project_explorer" style={{width: "100%"}}>
@@ -314,10 +322,10 @@ export default function ProjectExplorer() {
       <Grid
         style={{ minHeight: "600px", margin: "auto" }}
       >
-        {projects}
+        {projectsData}
       </Grid>
-      <Pagination style={{marginTop: "-15px"}}
-        total={Math.ceil(dbMockData.length/3)}
+      <Pagination style={{marginTop: "0px"}}
+        total={Math.ceil(projects.length/3)}
         color="lime"
         mt="lg"
         page={activePage}

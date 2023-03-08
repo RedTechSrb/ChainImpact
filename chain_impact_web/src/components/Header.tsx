@@ -273,8 +273,8 @@ export default function HeaderResponsive({
           role: null,
         };
 
-        setWalletKey(response.publicKey.toString());
         createNewImpactor(newUser);
+        setWalletKey(response.publicKey.toString());
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
       }
@@ -292,8 +292,8 @@ export default function HeaderResponsive({
 
     if (walletKey && solana) {
       await (solana as PhantomProvider).disconnect();
-      setWalletKey(undefined);
       cookies.remove("wallet");
+      setWalletKey(undefined);
     }
   };
 

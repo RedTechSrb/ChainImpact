@@ -75,7 +75,7 @@ import SupportedProjects from "./SupportedProjects";
               </Container>
               <Container size={500}  fluid={false} style={{marginLeft: "0"}}>
                 <Text ta="left" weight={500} className={classes.angelimpactor}>
-                  {impactor?.name}
+                  {(impactor?.name) ? impactor.name : <span style={{fontSize: "1.2rem"}}>{impactor.wallet}</span>}
                 </Text>
                 <Text ta="left" c="dimmed" fz="xl">
                   Total donated: {totaldonated}

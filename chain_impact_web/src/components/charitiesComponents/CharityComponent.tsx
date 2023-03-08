@@ -75,7 +75,7 @@ export default function CharityComponent({
             <Badge size="sm">{wallet}</Badge>
           </Group>
         </Group>
-        <Text size="sm" mt="xs" style={{minHeight: "45px"}} >
+        <Text size="sm" mt="xs" style={{minHeight: "45px", textAlign: "justify"}} >
           {description}
         </Text>
       </Card.Section>

@@ -72,7 +72,7 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
             <Badge size="sm">{project.secondarycausetype.name}</Badge>
           </Group>
         </Group>
-        <Text size="sm" mt="xs">
+        <Text size="sm" mt="xs" style={{textAlign: "justify"}}>
           <Spoiler
             showLabel="Read more"
             hideLabel="Read less"

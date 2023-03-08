@@ -474,7 +474,7 @@ export default function HeaderResponsive({
               <a href="#" className={classes.link}>
                 I'm confused
               </a>
-              <a href="#" className={classes.link}>
+              <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>
             </Group>

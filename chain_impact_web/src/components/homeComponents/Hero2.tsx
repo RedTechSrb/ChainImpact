@@ -123,7 +123,7 @@ export function Hero2() {
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
-              <RouterLink to="/project/1" style={{ textDecoration: "none" }}>
+              <RouterLink to="/esg" style={{ textDecoration: "none" }}>
                 <Text
                   component="span"
                   inherit
@@ -159,14 +159,23 @@ export function Hero2() {
               100% transparency, 0% excuses.
             </Text>
 
-            <Group className={classes.control} style={{marginLeft: "0px"}}>
-                <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
-                  <Button className={classes.control} variant="white" size="xl">
-                    Show me how to change the world!
-                  </Button>
-                </ScrollLink>
-                <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
-                <Button className={classes.control} size="xl" style={{backgroundColor: "#BBFD00"}}>
+            <Group className={classes.control} style={{ marginLeft: "0px" }}>
+              <ScrollLink to="faq" spy={true} smooth={true} duration={2500}>
+                <Button className={classes.control} variant="white" size="xl">
+                  Show me how to change the world!
+                </Button>
+              </ScrollLink>
+              <ScrollLink
+                to="project_explorer"
+                spy={true}
+                smooth={true}
+                duration={2500}
+              >
+                <Button
+                  className={classes.control}
+                  size="xl"
+                  style={{ backgroundColor: "#BBFD00" }}
+                >
                   I want to donate!
                 </Button>
               </ScrollLink>

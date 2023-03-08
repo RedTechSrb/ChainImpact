@@ -13,6 +13,7 @@ import "./index.css";
 import About from "./views/About";
 import Charities from "./views/Charities";
 import CompanyOverview from "./views/CompanyOverview";
+import ESGFAQ from "./views/ESGFAQ";
 import Home from "./views/Home";
 import NotFound from "./views/NotFound";
 import ProjectOverview from "./views/ProjectOverview";
@@ -130,6 +131,7 @@ function App() {
           <Route path="/company/:wallet" element={<CompanyOverview />} />
           <Route path="/project/:id" element={<ProjectOverview />} />
           <Route path="/charities" element={<Charities />} />
+          <Route path="/esg" element={<ESGFAQ />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
 

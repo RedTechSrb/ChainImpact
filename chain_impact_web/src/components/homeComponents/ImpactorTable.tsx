@@ -9,6 +9,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 
@@ -35,6 +36,13 @@ const useStyles = createStyles((theme) => ({
     color: "titlecolor",
     cursor: "pointer",
   },
+
+  link: {
+    textDecoration: "none",
+    "&:hover": {
+      borderBottomColor: "#5A96AE",
+    },
+  },
 }));
 
 export default function ImpactorTable({
@@ -44,6 +52,8 @@ export default function ImpactorTable({
   type,
   isPrivate,
 }: UsersTableProps) {
+  const [hovered, setHovered] = useState(false);
+
   function arangeData(data: any, arangeFromAPI: boolean) {
     let impactorData = data;
     if (arangeFromAPI) {
@@ -65,7 +75,6 @@ export default function ImpactorTable({
           <Link
             to={`/company/${item.wallet}`}
             style={{ textDecoration: "none", color: "#E4E5E8" }}
-            
           >
             <Group spacing="sm">
               <Avatar size={40} src={item.avatar} radius={40} />
@@ -73,14 +82,25 @@ export default function ImpactorTable({
                 <Text size="sm" weight={500}>
                   {item.name}
                 </Text>
-                <Text size="xs" color="dimmed">
-                  {item.wallet}
+
+                <Text
+                  size="xs"
+                  color="dimmed"
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
+                  className={classes.link}
+                >
+                  {item.wallet.slice(0, 6) + "..." + item.wallet.slice(-6)}
                 </Text>
               </div>
             </Group>
           </Link>
         </td>
-        <td>{item.amount}</td>
+        <td>
+          <Text size="lg" fw={500}>
+            ${item.amount}
+          </Text>
+        </td>
       </tr>
     ));
 
@@ -109,8 +129,10 @@ export default function ImpactorTable({
       <Modal
         sx={(theme) => ({
           backgroundColor:
-            theme.colorScheme === "dark" ? `rgba(37, 38, 43, 0.6)` : theme.white,
-          color: "#C1C2C5"
+            theme.colorScheme === "dark"
+              ? `rgba(37, 38, 43, 0.6)`
+              : theme.white,
+          color: "#C1C2C5",
         })}
         size="50%"
         opened={opened}
@@ -145,11 +167,14 @@ export default function ImpactorTable({
           backgroundColor:
             theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
         })}
-        style={{borderRadius: 20}}
+        style={{ borderRadius: 20 }}
       >
-        <Table sx={(theme) => ({
-          minWidth: 400,
-        })} verticalSpacing="sm">
+        <Table
+          sx={(theme) => ({
+            minWidth: 400,
+          })}
+          verticalSpacing="sm"
+        >
           <thead>
             <tr>
               <th>{isPrivate ? "Impactor" : "Company"}</th>

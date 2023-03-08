@@ -130,7 +130,7 @@ const useStyles = createStyles((theme) => ({
 
 const environmentalFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 1,
+  pageSize: 5,
   dto: {
     projectType: "environment",
   },
@@ -138,7 +138,7 @@ const environmentalFilter: ImpactorTypeFilter = {
 
 const socialFilter: ImpactorTypeFilter = {
   pageNumber: 1,
-  pageSize: 1,
+  pageSize: 5,
   dto: {
     projectType: "social",
   },

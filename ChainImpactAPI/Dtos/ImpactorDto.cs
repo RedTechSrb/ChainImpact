@@ -10,18 +10,18 @@ namespace ChainImpactAPI.Dtos
         }
 
         public ImpactorDto(
-            int? id, 
-            string? wallet, 
-            string? name, 
-            string? description, 
-            string? website, 
-            string? facebook, 
-            string? discord, 
-            string? twitter, 
-            string? instagram, 
-            string? imageurl, 
-            int? role, 
-            int? type)
+            int? id = null, 
+            string? wallet = null,
+            string? name = null,
+            string? description = null, 
+            string? website = null, 
+            string? facebook = null, 
+            string? discord = null, 
+            string? twitter = null, 
+            string? instagram = null, 
+            string? imageurl = null, 
+            int? role = null, 
+            int? type = null)
         {
             this.id = id;
             this.wallet = wallet;

@@ -212,7 +212,7 @@ export default function HeaderResponsive({
   setWalletKey,
   connectWallet,
   disconnectWallet,
-  setSolana
+  solana
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -232,21 +232,33 @@ export default function HeaderResponsive({
   // detect phantom provider exists
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      const provider = getProvider();
-      if (provider) setProvider(provider);
-      else setProvider(undefined);
+      //const provider = getProvider();
+      // if (provider) setProvider(provider);
+      // else{
+      //   let cookieWallet;
+      //   if ((cookieWallet = cookies.get("wallet"))) {
+      //     //connectWallet();
+      //     setWalletKey(cookieWallet);
+      //   }
+      //   else{
+      //     setProvider(undefined);
+      //   }
+      // }
       setIsLoading(false);
       console.log(isLoading, walletKey, provider)
-    }, 2000);
+    }, 3000);
 
+    const provider = getProvider();
+    setProvider(provider);
     let cookieWallet;
+    console.log("Eggp")
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
     }
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [provider, walletKey]);
+  }, [provider, isLoading]);
 
   function PhantomWrapper() {
     const { classes } = useStyles();

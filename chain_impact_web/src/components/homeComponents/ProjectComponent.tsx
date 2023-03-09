@@ -17,6 +17,7 @@ import {
 } from "@mantine/core";
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
+import { useMediaQuery } from "@mantine/hooks";
 
 type ProjectComponentProps = {
   project: Project;
@@ -56,6 +57,10 @@ const useStyles = createStyles((theme) => ({
 
 export default function ProjectComponent({ project }: ProjectComponentProps) {
   const { classes, theme } = useStyles();
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
+  const href = isMobile ? `/mobile` : `/project/${project.id}`;
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
@@ -155,7 +160,7 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
             style={{ flex: 1 }}
             color="lime"
             component="a"
-            href={`/project/${project.id}`}
+            href={href}
           >
             Donate
           </Button>
@@ -167,7 +172,13 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
             Showcase your company values by making a project your own.
           </Text>
 
-          <Button radius="md" style={{ flex: 1 }} color="pink">
+          <Button
+            radius="md"
+            style={{ flex: 1 }}
+            color="pink"
+            component="a"
+            href={href}
+          >
             Become Angel Impactor
           </Button>
         </Group>

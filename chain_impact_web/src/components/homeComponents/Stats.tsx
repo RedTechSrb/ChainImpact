@@ -6,6 +6,7 @@ import {
   ThemeIcon,
   SimpleGrid,
   Container,
+  Title,
 } from "@mantine/core";
 import { IconArrowUpRight } from "@tabler/icons";
 const useStyles = createStyles((theme) => ({
@@ -15,6 +16,14 @@ const useStyles = createStyles((theme) => ({
 
   label: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+
+  title: {
+    lineHeight: 1,
+    textAlign: "center",
+    marginTop: theme.spacing.xl,
+    marginBottom: theme.spacing.xl,
+    fontSize: "2.5rem",
   },
 }));
 
@@ -70,6 +79,9 @@ export default function Stats({ data }: StatsGridIconsProps) {
 
   return (
     <Container size={"lg"} mt="xl">
+      <Title className={classes.title} order={2}>
+        Stats about our plaftorm
+      </Title>
       <div className={classes.root}>
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
           {stats}

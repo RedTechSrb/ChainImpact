@@ -4,5 +4,6 @@
     {
         public ImpactorDto? impactor { get; set; }
         public double ? amount { get; set; }
+        public List<TransactionDto> transactions { get; set; } 
     }
 }

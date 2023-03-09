@@ -6,24 +6,24 @@ namespace ChainImpactAPI.Dtos
     public class ProjectDto
     {
         public ProjectDto(
-            int? id, 
-            CharityDto? charity, 
-            string? wallet, 
-            string? name, 
-            string? description, 
-            string? milestones, 
-            double? financialgoal, 
-            double? totaldonated, 
-            int? totalbackers, 
-            string? website, 
-            string? facebook, 
-            string? discord, 
-            string? twitter, 
-            string? instagram, 
-            string? imageurl, 
-            ImpactorDto? angelimpactor, 
-            CauseTypeDto? primarycausetype, 
-            CauseTypeDto? secondarycausetype)
+            int? id = null, 
+            CharityDto? charity = null, 
+            string? wallet = null, 
+            string? name = null, 
+            string? description = null, 
+            string? milestones = null, 
+            double? financialgoal = null, 
+            double? totaldonated = null, 
+            int? totalbackers = null, 
+            string? website = null, 
+            string? facebook = null, 
+            string? discord = null, 
+            string? twitter = null, 
+            string? instagram = null, 
+            string? imageurl = null, 
+            ImpactorDto? angelimpactor = null, 
+            CauseTypeDto? primarycausetype = null, 
+            CauseTypeDto? secondarycausetype = null)
         {
             this.id = id;
             this.charity = charity;

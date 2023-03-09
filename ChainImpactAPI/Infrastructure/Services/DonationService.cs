@@ -2,6 +2,8 @@
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.ImpactorsWithDonations;
+using ChainImpactAPI.Dtos.NFT;
+using ChainImpactAPI.Dtos.RecentDonations;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
@@ -46,6 +48,63 @@ namespace ChainImpactAPI.Infrastructure.Services
             }
 
             return impactorsWithDonationsDtoList;
+
+        }
+
+        public List<RecentDonationsResponseDto> GetRecentDonations(GenericDto<RecentDonationsRequestDto>? recentDonationsDto)
+        {
+            int? skip = null;
+            int? take = null;
+            List<Donation> donations = null;
+
+            if (recentDonationsDto != null)
+            {
+                if (recentDonationsDto.PageSize != null && recentDonationsDto.PageNumber != null)
+                {
+                    skip = recentDonationsDto.PageSize.Value * (recentDonationsDto.PageNumber.Value - 1);
+                    take = recentDonationsDto.PageSize.Value;
+                }
+
+                if (recentDonationsDto.Dto != null)
+                {
+                    donations = donationRepository.SearchAsync(new GenericDto<DonationDto>(null, null, new DonationDto { project = new ProjectDto { id = recentDonationsDto.Dto.projectid } })).Result;
+                }
+            }
+
+            // TODO: Recent donations are returned, if someone donated twice in the recent period, he will be in the retunred list twice. 
+            // TODO: Probably, this should be fixed to group recent users
+
+            donations = donations.OrderBy(d => d.id).ToList();
+
+            if (skip != null && take != null)
+            {
+                donations = donations.Skip(skip.Value).Take(take.Value).ToList();
+            }
+
+
+            var recentImpactors= new List<RecentDonationsResponseDto>();
+            foreach (var donation in donations)
+            {
+                recentImpactors.Add(new RecentDonationsResponseDto
+                {
+                    impactor = new ImpactorDto(
+                                            donation.donator.id, 
+                                            donation.donator.wallet,
+                                            donation.donator.name,
+                                            donation.donator.description,
+                                            donation.donator.website,
+                                            donation.donator.facebook,
+                                            donation.donator.discord,
+                                            donation.donator.twitter,
+                                            donation.donator.instagram,
+                                            donation.donator.imageurl,
+                                            donation.donator.role,
+                                            donation.donator.type
+                                           )
+                });
+            }
+
+            return recentImpactors;
 
         }
 

@@ -14,18 +14,58 @@ import {
   Grid,
   Title,
 } from "@mantine/core";
-import { clusterApiUrl, Connection, PublicKey, SystemProgram } from "@solana/web3.js";
+import { clusterApiUrl, Commitment, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { Icon123, IconHeart } from "@tabler/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
 import { NftStats } from "./NftStats";
-import { Program, Provider, web3, BN, getProvider } from '@coral-xyz/anchor';
+import { Program, web3, BN, AnchorProvider, Idl } from '@project-serum/anchor';
 import idl from '../../res/transactions/idl.json';
+import * as anchor from '@project-serum/anchor'
+
+import { Buffer } from 'buffer';
+import { createNewImpactor, getSpecificImpactor } from "../../repositories/ImpactorRepository";
+import { ImpactorWalletSearch } from "../../models/dto/request/ImpactorWalletSearch";
+import { TOKEN_PROGRAM_ID, createAssociatedTokenAccountInstruction, getAssociatedTokenAddress, createInitializeMintInstruction, MINT_SIZE, createSetAuthorityInstruction } from '@solana/spl-token'
+import minting from '../../res/transactions/minting.json';
+window.Buffer = Buffer;
+
+type DisplayEncoding = "utf8" | "hex";
+type PhantomEvent = "disconnect" | "connect" | "accountChanged";
+type PhantomRequestMethod =
+  | "connect"
+  | "disconnect"
+  | "signTransaction"
+  | "signAllTransactions"
+  | "signMessage";
+
+interface ConnectOpts {
+  onlyIfTrusted: boolean;
+}
+
+interface PhantomProvider {
+  publicKey: PublicKey | null;
+  isConnected: boolean | null;
+  signTransaction: (transaction: Transaction) => Promise<Transaction>;
+  signAllTransactions: (transactions: Transaction[]) => Promise<Transaction[]>;
+  signMessage: (
+    message: Uint8Array | string,
+    display?: DisplayEncoding
+  ) => Promise<any>;
+  connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>;
+  disconnect: () => Promise<void>;
+  on: (event: PhantomEvent, handler: (args: any) => void) => void;
+  request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
+}
 
 type DonationSidebarProps = {
   project: Project;
   sidebarTop: number;
+  walletKey: string;
+  connectWallet: any;
+  disconnectWallet: any;
+  solana: any;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -78,13 +118,20 @@ const programID = new PublicKey(idl.metadata.address)
 const network = clusterApiUrl('devnet')
 
 //Ovo odredjuje koliko se ceka da se validira transakcija
-const opts = {
-  preflightCommitment: "processed"
-}
+const opts: { preflightCommitment: Commitment } = {
+  preflightCommitment: "singleGossip"
+};
+
+
+
 
 export default function DonationSidebar({
   project,
   sidebarTop,
+  walletKey,
+  connectWallet,
+  disconnectWallet,
+  solana
 }: DonationSidebarProps) {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
@@ -118,21 +165,30 @@ export default function DonationSidebar({
     ],
   };
 
-  /*const getProvider = () => {
+
+  const getProvider: any = () => {
+    
     const connection = new Connection(network, opts.preflightCommitment);
-    const provider = new Provider(connection, window.solana, opts.preflightCommitment);
+    const provider = new AnchorProvider(connection, solana, opts);
     return provider
+    
   }
 
-  const donateToLimun = async () => {
+  const donateToProject = async () => {
     try {
+      if(!solana){
+        await connectWallet();
+        connectWallet();
+      }
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const provider = getProvider()
-      const program = new Program(idl, programID, provider);
+      const program = new Program(idl as Idl, programID, provider);
       let balance = await connection.getBalance(to) / web3.LAMPORTS_PER_SOL;
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
+      console.log(provider.wallet?.publicKey.toString(), to, poreskaUprava)
+      //if (provider) provider.wallet.publicKey = new PublicKey(walletKey)
       let ts = await program.rpc.transfer(new BN(donationAmount * web3.LAMPORTS_PER_SOL),
         {
           accounts:
@@ -150,7 +206,223 @@ export default function DonationSidebar({
     catch (err) {
       console.error("Error in donating to Limun", err)
     }
-  }*/
+  }
+
+  class MyWallet {
+    keypair: any;
+    publicKey: any;
+    constructor(secretKey: any) {
+      this.keypair = Keypair.fromSecretKey(secretKey);
+      this.publicKey = this.keypair.publicKey;
+    }
+  
+    async signTransaction(transaction: any) {
+      transaction.partialSign(this.keypair);
+      return transaction;
+    }
+
+    async signAllTransactions(transactions: any) {
+      transactions.forEach((transaction: any) => {
+        this.signTransaction(transaction);
+      });
+      return transactions;
+    }
+  }
+
+  async function mintAndSendNFT (
+    user_public_key: string, 
+    metadata_uri: string,
+    title: string,
+    symbol: string,
+    ): Promise<void> {
+        
+        //const wallet = provider.wallet as Wallet;
+  
+        const user_wallet = new anchor.web3.PublicKey(
+          user_public_key
+        );
+  
+        const SECRET_KEY = new Uint8Array([178,231,218,52,72,8,215,217,224,7,123,194,
+          27,123,175,242,214,14,94,52,111,231,60,206,231,125,141,43,92,
+          169,82,93,12,98,129,34,188,243,124,125,135,136,107,30,134,74,38,
+          157,71,31,118,38,190,236,253,57,150,72,179,33,196,163,24,174]
+          );
+  
+        const wallet = new MyWallet(SECRET_KEY);
+        const connection = new Connection(network, opts.preflightCommitment);
+        const provider = new AnchorProvider(connection, wallet, opts);
+        anchor.setProvider(provider);
+        const programID = new PublicKey(minting.metadata.address)
+        const program = new Program(minting as Idl, programID, provider);
+      
+        console.log(wallet.publicKey.toString());
+  
+      
+          const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey(
+            "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+          );
+          const lamports: number =
+            await program.provider.connection.getMinimumBalanceForRentExemption(
+              MINT_SIZE
+            );
+          const getMetadata = async (
+            mint: anchor.web3.PublicKey
+          ): Promise<anchor.web3.PublicKey> => {
+            return (
+              await anchor.web3.PublicKey.findProgramAddress(
+                [
+                  Buffer.from("metadata"),
+                  TOKEN_METADATA_PROGRAM_ID.toBuffer(),
+                  mint.toBuffer(),
+                ],
+                TOKEN_METADATA_PROGRAM_ID
+              )
+            )[0];
+          };
+      
+          const getMasterEdition = async (
+            mint: anchor.web3.PublicKey
+          ): Promise<anchor.web3.PublicKey> => {
+            return (
+              await anchor.web3.PublicKey.findProgramAddress(
+                [
+                  Buffer.from("metadata"),
+                  TOKEN_METADATA_PROGRAM_ID.toBuffer(),
+                  mint.toBuffer(),
+                  Buffer.from("edition"),
+                ],
+                TOKEN_METADATA_PROGRAM_ID
+              )
+            )[0];
+          };
+      
+          const mintKey: anchor.web3.Keypair = anchor.web3.Keypair.generate();
+          //const mintKey = anchor.web3.Keypair.fromSeed(SECRET_KEY);
+          const NftTokenAccount = await getAssociatedTokenAddress(
+            mintKey.publicKey,
+            user_wallet,
+          );
+          // console.log("NFT issued to: ", user_public_key);
+      
+          const mint_tx = new anchor.web3.Transaction().add(
+            anchor.web3.SystemProgram.createAccount({
+              fromPubkey: wallet.publicKey,
+              newAccountPubkey: mintKey.publicKey,
+              space: MINT_SIZE,
+              programId: TOKEN_PROGRAM_ID,
+              lamports,
+            }),
+            createInitializeMintInstruction(
+              mintKey.publicKey,
+              0,
+              wallet.publicKey,
+              wallet.publicKey
+            ),
+            createAssociatedTokenAccountInstruction(
+              wallet.publicKey,
+              NftTokenAccount,
+              user_wallet,
+              mintKey.publicKey
+            )
+          );
+          // createSetAuthorityInstruction
+          if (program !== undefined && program.provider !== undefined && program.provider.sendAndConfirm !== undefined){
+            await program.provider.sendAndConfirm(mint_tx, [mintKey]);
+          }
+          // console.log(
+          //   await program.provider.connection.getParsedAccountInfo(mintKey.publicKey)
+          // );
+      
+          // console.log("Account: ", res);
+          console.log("NFT address: ", mintKey.publicKey.toString());
+          // console.log("Our wallet: ", wallet.publicKey.toString());
+      
+          const metadataAddress = await getMetadata(mintKey.publicKey);
+          const masterEdition = await getMasterEdition(mintKey.publicKey);
+      
+          console.log("Metadata address: ", metadataAddress.toBase58());
+          console.log("Master edition address: ", masterEdition.toBase58());
+          console.log("MDU: ", metadata_uri);
+          
+          const tx = await program.rpc.mintNft(
+            wallet.publicKey,
+            metadata_uri,
+            title,
+            symbol,
+            {
+              accounts:
+              {
+                mintAuthority: wallet.publicKey,
+                mint: mintKey.publicKey,
+                tokenAccount: NftTokenAccount,
+                tokenProgram: TOKEN_PROGRAM_ID,
+                metadata: metadataAddress,
+                tokenMetadataProgram: TOKEN_METADATA_PROGRAM_ID,
+                payer: wallet.publicKey,
+                systemProgram: SystemProgram.programId,
+                rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+                masterEdition: masterEdition,
+              }
+            }
+          );
+  
+          // const master_edition_public_key = new PublicKey(masterEdition.publicKey);
+  
+          // const change_authority_tx = new anchor.web3.Transaction().add(
+          //   createSetAuthorityInstruction(
+          //     TOKEN_PROGRAM_ID,
+          //     mintKey.publicKey,
+          //     master_edition_public_key,
+          //     "FreezeAccount",
+          //     wallet.publicKey,
+          //     [],
+          //   )
+          // );
+  
+          // await program.provider.sendAndConfirm(change_authority_tx, [wallet, mintKey]);
+  
+    }
+  
+  interface NFT {
+    tier: number;
+    user_type: number;
+    cause_type: string;
+  }
+  
+  function mintAndSendNFT_v2 (
+    user_public_key: string,
+    nft: NFT,
+    ): void {
+      let user: string = "Company";
+      if(nft.user_type == 1){
+        user = "User";
+      }
+      const cause_type: string = nft.cause_type.charAt(0).toUpperCase() + nft.cause_type.slice(1).toLowerCase();
+      const metadata_uri: string = "https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/".concat(
+        cause_type,
+        user,
+        nft.tier.toString(),
+        ".json",
+        );
+      mintAndSendNFT(
+        user_public_key, 
+        metadata_uri,
+        cause_type.concat(" #", nft.tier.toString()),
+        "CHAING",
+        );
+      //console.log(metadata_uri);
+  }
+  
+  const nft: NFT = {
+    tier: 1,
+    user_type: 1,
+    cause_type: "geneRAL",
+  }
+  
+  // mintAndSendNFT_v2(
+  //   "qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT", 
+  //   nft,
+  // );
 
   return (
     <Card
@@ -310,8 +582,12 @@ export default function DonationSidebar({
                 color="lime"
                 radius="md"
                 size="xl"
+                onClick={donateToProject}
               >
                 Donate
+              </Button>
+              <Button onClick={() => mintAndSendNFT_v2("qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT", nft)}>
+                Send NFT
               </Button>
             </Grid.Col>
 

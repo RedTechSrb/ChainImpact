@@ -58,7 +58,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectOverview() {
+interface WalletKey {
+  walletKey: string;
+  connectWallet: any;
+  disconnectWallet: any;
+  solana: any;
+}
+
+export default function ProjectOverview({walletKey, connectWallet, disconnectWallet, solana}: WalletKey) {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
 
@@ -204,6 +211,10 @@ export default function ProjectOverview() {
               <DonationSidebar
                 project={projectData}
                 sidebarTop={sidebarTop}
+                walletKey={walletKey}
+                connectWallet={connectWallet}
+                disconnectWallet={disconnectWallet}
+                solana={solana}
               ></DonationSidebar>
             </Grid.Col>
           </Grid>

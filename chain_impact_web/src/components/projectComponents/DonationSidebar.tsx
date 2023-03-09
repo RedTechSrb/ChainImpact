@@ -47,6 +47,7 @@ import {
   createSetAuthorityInstruction,
 } from "@solana/spl-token";
 import minting from "../../res/transactions/minting.json";
+import Cookies from "universal-cookie";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -157,6 +158,8 @@ export default function DonationSidebar({
     "Gu766PjJnV7DbbEWGPRUPtpeSGB5Xz3DJGiETuk1uHmE"
   );
 
+  const cookies = new Cookies();
+
   const handleDonateClick = () => {
     setOpen(true);
   };
@@ -190,10 +193,10 @@ export default function DonationSidebar({
 
   const donateToProject = async () => {
     try {
-      if (!solana) {
-        await connectWallet();
-        connectWallet();
+      if(!solana){
+        solana = await connectWallet();
       }
+      await connectWallet();
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const provider = getProvider();
@@ -515,10 +518,11 @@ export default function DonationSidebar({
                 color="lime"
                 radius="md"
                 size="lg"
+                style={{width: "60%"}}
                 mt="sm"
-                onClick={donateToProject}
+                onClick={() => { (donateToProject())} }
               >
-                Donate
+                {cookies.get("wallet") ? "Donate" : "Connect to donate"}
               </Button>
               <Button
                 radius="md"
@@ -629,6 +633,8 @@ export default function DonationSidebar({
                 )}
               </Card>
             </Grid.Col>
+
+            
 
             <Grid.Col>
               <Text size="lg" mb="md">

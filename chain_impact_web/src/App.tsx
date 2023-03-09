@@ -131,9 +131,7 @@ function App() {
   const [walletKey, setWalletKey] = useState<any>(undefined);
   const [solana, setSolana] = useState<any>();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [solana, walletKey]);
+
 
   const cookies = new Cookies();
 
@@ -155,12 +153,14 @@ function App() {
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
+    let response
     if ((cookieWallet = cookies.get("wallet"))) {
-      const response = await solana.connect();
-      setSolana(solana);
+      if (solana)
+        response = await solana.connect();
       setWalletKey(cookieWallet);
-      return;
+      return solana;
     }
+    console.log("Eggo")
 
     if (solana) {
       try {
@@ -212,11 +212,13 @@ function App() {
     // @ts-ignore
     const { solana } = window;
 
+    cookies.remove("wallet");
+    setWalletKey(undefined);
     if (walletKey) {
       if (solana) await (solana as PhantomProvider).disconnect();
-      cookies.remove("wallet");
-      setWalletKey(undefined);
     }
+
+    
   };
 
   return (

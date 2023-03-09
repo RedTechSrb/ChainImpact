@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { DonationSearch } from "../models/dto/request/DonationSearch";
 import { ProjectSearch } from "../models/dto/request/ProjectSearch";
+import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
 
 const url = "http://167.99.246.54/"
@@ -35,4 +37,18 @@ export function useGetSpecificProject(searchDto: ProjectSearch){
     },[]);
 
     return project;
+}
+
+
+export function useGetBiggestImpactors(filter: DonationSearch) {
+    
+    const [impactors, setImpactors] = useState<BiggestDonators[]>([]);
+    useEffect(() => {
+      axios.post(url + "Donation/BiggestDonations", filter).then((response) => {
+        const donationData = response.data as BiggestDonators[];
+        setImpactors(donationData);
+      });
+    }, []);
+  
+    return impactors;
 }

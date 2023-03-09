@@ -2,23 +2,22 @@ import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 import {
   createStyles,
-  Paper,
   Text,
-  Title,
   Button,
   useMantineTheme,
   Image,
   Group,
   Card,
-  Container,
   Center,
   SimpleGrid,
+  Flex,
 } from "@mantine/core";
 import { Donation } from "../../models/Donation";
+import { BiggestDonators } from "../../models/dto/response/BiggestDonators";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    height: "375px",
+    height: "330px",
     display: "flex",
     flexDirection: "column",
     //justifyContent: "space-between",
@@ -110,16 +109,16 @@ const data = [
   },
 ];
 
-type RecentImpactorsProps = {
-  recentImpactors: Donation[];
+type BiggestImpactorsProps = {
+    biggestImpactors: BiggestDonators[];
 };
 
-export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
+export default function BiggestImpactors(biggestImpactors: BiggestImpactorsProps) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const laptop = useMediaQuery(`(max-width: 1440px)`);
   const { classes } = useStyles();
-  const slides = recentImpactors.recentImpactors.map((item) => (
+  const slides = biggestImpactors.biggestImpactors.map((item) => (
     <Carousel.Slide key={item.impactor.name}>
       <Card withBorder radius="md" className={classes.card}>
         <Card.Section className={classes.imageSection}>
@@ -130,7 +129,7 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
           />
         </Card.Section>
 
-        <Group position="apart" mt="md"  style={{minHeight: "60px"}}>
+        <Group position="apart" mt="md" style={{minHeight: "70px"}}>
           <div>
             <Text fw={500}>{item.impactor.name}</Text>
             <Text fz="xs" c="dimmed">
@@ -151,18 +150,13 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
           >
             Donated
           </Text>
-          <Center>
-            <Button radius="xl" style={{ flex: 1, marginTop: 25 }}>
-              Impact trace
-            </Button>
-          </Center>
         </Card.Section>
       </Card>
     </Carousel.Slide>
   ));
 
   return (
-    <Center>
+    <Flex style={{marginTop: "40px"}}>
       <SimpleGrid cols={1}>
         <Carousel
           slideSize={laptop ? "50%" : "33.3333%"}
@@ -182,6 +176,6 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
           {slides}
         </Carousel>
       </SimpleGrid>
-    </Center>
+    </Flex>
   );
 }

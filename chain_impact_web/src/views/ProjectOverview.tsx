@@ -19,13 +19,15 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
+import BiggestImpactors from "../components/projectComponents/BiggestImpactors";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
 import { Donation } from "../models/Donation";
+import { BiggestDonators} from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
 import { useGetRecentDonations } from "../repositories/DonationRepository";
 
-import { useGetSpecificProject } from "../repositories/ProjectRepository";
+import { useGetBiggestImpactors, useGetSpecificProject } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
 
 const PRIMARY_COL_HEIGHT = "32rem";
@@ -89,6 +91,7 @@ export default function ProjectOverview({
   };
 
   const recentImpactors: Donation[] = useGetRecentDonations(donationSearch);
+  const biggestImpactors: BiggestDonators[] = useGetBiggestImpactors(donationSearch);
 
   useEffect(() => {
     if (projectData) setIsLoading(false);
@@ -176,7 +179,7 @@ export default function ProjectOverview({
               <Text size={24} weight={500} color="white" mt="sm">
                 Description:
               </Text>
-              <Text size="md" color="white" mb="xl">
+              <Text size="md" color="white" mb="xl" style={{textAlign: "justify"}}>
                 {projectData?.description}
               </Text>
 
@@ -214,9 +217,22 @@ export default function ProjectOverview({
                 ></AngelImpactor>
               </SimpleGrid>
 
-              <Text size="xl" weight={500} mb="xl">
-                Biggest donators
-              </Text>
+              <SimpleGrid cols={1}>
+                <Text
+                    size={laptop ? 20 : 24}
+                    weight={500}
+                    color="white"
+                    mt="sm"
+                    style={{marginRight: "auto", marginTop: "30px"}}
+                  >
+                    Biggest Impactors:
+                  </Text>
+
+                <BiggestImpactors
+                    biggestImpactors={biggestImpactors}
+                  ></BiggestImpactors>
+              </SimpleGrid>
+
               {/* <RecentImpactors></RecentImpactors>
 
               <Text size="xl" weight={500} mb="xl">
@@ -224,6 +240,7 @@ export default function ProjectOverview({
               </Text>
               <RecentImpactors></RecentImpactors> */}
             </Grid.Col>
+
 
             <Grid.Col span={mobile ? 12 : 3}>
               <DonationSidebar

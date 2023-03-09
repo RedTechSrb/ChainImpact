@@ -14,16 +14,21 @@ import {
   SimpleGrid,
   Spoiler,
 } from "@mantine/core";
-import { Project } from "../../models/Project";
+import { ProjectWithTotalDonations } from "../../models/dto/response/ProjectWithTotalDonations";
 import { ProjectProgress } from "./ProjectProgress";
 
 type ProjectComponentProps = {
-  project: Project;
+  data: ProjectWithTotalDonations;
+  impactorName: string;
 };
 
 const useStyles = createStyles((theme) => ({
   card: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
     width: "100%",
+    height: "100%",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -54,38 +59,41 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectComponent({ project }: ProjectComponentProps) {
+export default function ProjectComponent({ data, impactorName }: ProjectComponentProps) {
   const { classes, theme } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
+      <Card.Section style={{backgroundColor: "#BBFD00", color: "black", fontWeight: "700", textAlign: "center"}}>
+        {impactorName + " donated $" + data.totalDonation} 
+      </Card.Section>
       <Card.Section>
-        <Image src={project.imageurl} height={180} />
+        <Image src={data.project.imageurl} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Group position="apart">
-          <Text size="lg" weight={500}>
-            {project.name}
+        <Group position="apart" style={{alignItems: "start"}}>
+          <Text size="lg" weight={500} style={{minHeight: "60px", textAlign: "center", margin: "auto"}}>
+            {data.project.name}
           </Text>
         </Group>
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <SimpleGrid cols={2} spacing="xs" verticalSpacing="xs">
+        <SimpleGrid cols={2} spacing="xs" verticalSpacing="xs" style={{minHeight: "50px", alignItems: "center"}}>
           <Text size="md" weight={500}>
             Charity
           </Text>
           <Group>
-            <Avatar src={project.charity.imageurl} radius="xl" />
+            <Avatar src={data.project.charity.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
-                {project.charity.name}
+                {data.project.charity.name}
               </Text>
 
               <Text color="dimmed" size="xs">
-                {project.charity.wallet}
+                {data.project.charity.wallet}
               </Text>
             </div>
           </Group>
@@ -103,23 +111,24 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
         /> */}
 
         <ProjectProgress
-          projectData={project}
+          projectData={data.project}
           mtVal={""}
           mbVal={""}
         ></ProjectProgress>
+        
       </Card.Section>
 
-        <Group mt="xs">
+        <Card.Section style={{display: "flex", marginTop: "auto"}}>
           <Button
             radius="md"
-            style={{ flex: 1 }}
+            style={{ flex: 1}}
             color="lime"
             component="a"
-            href={`/project/${project.id}`}
+            href={`/project/${data.project.id}`}
           >
             View project
           </Button>
-        </Group>
+        </Card.Section>
       
     </Card>
   );

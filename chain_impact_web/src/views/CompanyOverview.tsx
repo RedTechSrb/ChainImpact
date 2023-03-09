@@ -23,10 +23,11 @@ import CompanyData from "../components/companyComponents/CompanyData";
 import SupportedProjects from "../components/companyComponents/SupportedProjects";
 import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
-import { getSpecificImpactor, useGetAllImpactors } from "../repositories/ImpactorRepository";
+import { getSpecificImpactor, useGetAllImpactors, useGetImpactorsWithProjects } from "../repositories/ImpactorRepository";
 import { useGetSpecificProject } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
 import {ImpactorWalletSearch} from '../models/dto/request/ImpactorWalletSearch';
+import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
 
 const PRIMARY_COL_HEIGHT = "32rem";
 
@@ -74,6 +75,14 @@ export default function CompanyOverview() {
   let { id } = useParams();
   //const projectSearch = { dto: { id: Number(id) } };
 
+  const impactorsWithProjectsSearchDto = new ImpactorsWithProjectsSearch(wallet);
+  const projectsWithDonations = useGetImpactorsWithProjects(impactorsWithProjectsSearchDto);
+  let totalDonated = 0;
+  const projects = projectsWithDonations.map((projectWithDonations) => {
+    totalDonated += projectWithDonations.totalDonation;
+    return projectWithDonations.project
+  })
+
   function setImpactorData() {
     impactorData = getSpecificImpactor(
         new ImpactorWalletSearch(null, null, wallet)
@@ -98,12 +107,6 @@ export default function CompanyOverview() {
     };
   }, [isLoading]);
 
-  const angelimpactor = {
-    imageurl: "https://picsum.photos/id/1/200",
-    name: "John Doe",
-    wallet: "0x1234567890abcdef",
-  };
-
   const { classes } = useStyles();
   const laptop = useMediaQuery(`(max-width: 1440px)`);
   return (
@@ -111,7 +114,7 @@ export default function CompanyOverview() {
       <Container size={1750}>
         {isLoading ? (
           <Container size={1750} className={classes.loadingContainer}>
-            <Text className={classes.loadingBar}>Loading project data</Text>
+            <Text className={classes.loadingBar}>Loading impactor data</Text>
             <Loader variant="dots" />
           </Container>
         ) : impactor ? (
@@ -136,53 +139,16 @@ export default function CompanyOverview() {
                   {companyData?.description}
                 </Text>
               </Grid.Col> */}
+              <Grid.Col span={1} />
               <Grid.Col span={10}>
                 <CompanyData
                     impactor={impactor}
-                    totalbacked={0}
-                    totaldonated={0}
+                    totalbacked={projects.length}
+                    totaldonated={totalDonated}
+                    projects={projectsWithDonations}
                   ></CompanyData>
               </Grid.Col>
-
-              <Grid.Col span={2}>
-              <Group
-                  spacing={0}
-                  className={classes.links}
-                  position="right"
-              
-                >
-                  <SimpleGrid>
-                    <Text size="md" weight={500} color="white">
-                      Connect on socials
-                    </Text>
-
-                    <ActionIcon style={{margin: "auto"}}
-                      size="xl"
-                      component="a"
-                      href={impactor?.twitter ?? undefined}
-                    >
-                      <IconBrandTwitter size="2rem" stroke={1.5}/>
-                    </ActionIcon>
-                  
-                    <ActionIcon style={{margin: "auto"}}
-                      size="xl"
-                      component="a"
-                      href={impactor?.discord ?? undefined}
-                    >
-                      <IconBrandDiscord size="2rem" stroke={1.5} />
-                    </ActionIcon>
-                    
-                    <ActionIcon style={{margin: "auto"}}
-                      size="xl"
-                      component="a"
-                      href={impactor?.instagram ?? undefined}
-                    >
-                      <IconBrandInstagram size="2rem" stroke={1.5} />
-                    </ActionIcon>
-                  </SimpleGrid>
-                  
-                </Group>
-              </Grid.Col>
+              <Grid.Col span={1} />
 
               {/* <SimpleGrid
                 cols={1}

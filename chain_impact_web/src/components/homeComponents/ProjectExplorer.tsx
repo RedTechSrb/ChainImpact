@@ -407,7 +407,7 @@ export default function ProjectExplorer() {
             "Social",
             "Disaster Relief",
             "Education",
-            "Ecosystem",
+            "Health",
           ]}
           classNames={classes}
           value={tag}

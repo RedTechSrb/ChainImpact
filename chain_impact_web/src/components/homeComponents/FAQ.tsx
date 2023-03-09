@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-scroll";
 
-import image from "../../res/images/faq_image.png";
+import image from "../../res/images/faq_green_black.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {

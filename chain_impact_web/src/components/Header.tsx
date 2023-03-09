@@ -39,7 +39,7 @@ import {
 } from "../repositories/ImpactorRepository";
 import LightDarkMode from "./LightDarkMode";
 
-const useStyles = createStyles((theme) => ({
+const useStyles: any = createStyles((theme) => ({
   header: {
     backgroundColor:
       theme.colorScheme === "dark"
@@ -210,6 +210,9 @@ export default function HeaderResponsive({
   setProvider,
   walletKey,
   setWalletKey,
+  connectWallet,
+  disconnectWallet,
+  setSolana
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -226,77 +229,6 @@ export default function HeaderResponsive({
     }
   };
 
-  /**
-   * @description prompts user to connect wallet if it exists
-   */
-  const connectWallet = async () => {
-    // @ts-ignore
-    const { solana } = window;
-
-    // check if there is cookie containing a wallet
-    let cookieWallet;
-    let newUser;
-    if ((cookieWallet = cookies.get("wallet"))) {
-      setWalletKey(cookieWallet);
-      return;
-    }
-
-    if (solana) {
-      try {
-        const response = await solana.connect();
-
-        // put wallet in cookie for next 365 days
-        cookies.set("wallet", response.publicKey.toString(), {
-          expires: new Date(Date.now() + 31536000000),
-        });
-        // if there is already impactor with this wallet, continue
-        let impactor = getSpecificImpactor(
-          new ImpactorWalletSearch(null, null, response.publicKey.toString())
-        );
-        if (await impactor) {
-          setWalletKey(response.publicKey.toString());
-          return;
-        }
-
-        // if not, create new impactor with this wallet
-        newUser = {
-          wallet: response.publicKey.toString(),
-          type: 1,
-          name: null,
-          description: null,
-          website: null,
-          facebook: null,
-          discord: null,
-          twitter: null,
-          instagram: null,
-          imageurl: null,
-          role: null,
-        };
-
-        setWalletKey(response.publicKey.toString());
-        createNewImpactor(newUser);
-      } catch (err) {
-        // { code: 4001, message: 'User rejected the request.' }
-      }
-    } else {
-      return;
-    }
-  };
-
-  /**
-   * @description disconnect Phantom wallet
-   */
-  const disconnectWallet = async () => {
-    // @ts-ignore
-    const { solana } = window;
-
-    if (walletKey && solana) {
-      await (solana as PhantomProvider).disconnect();
-      setWalletKey(undefined);
-      cookies.remove("wallet");
-    }
-  };
-
   // detect phantom provider exists
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -304,6 +236,7 @@ export default function HeaderResponsive({
       if (provider) setProvider(provider);
       else setProvider(undefined);
       setIsLoading(false);
+      console.log(isLoading, walletKey, provider)
     }, 2000);
 
     let cookieWallet;
@@ -474,7 +407,7 @@ export default function HeaderResponsive({
               <a href="#" className={classes.link}>
                 I'm confused
               </a>
-              <a href="#" className={classes.link}>
+              <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>
             </Group>

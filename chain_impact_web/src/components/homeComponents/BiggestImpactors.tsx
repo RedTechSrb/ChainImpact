@@ -84,8 +84,8 @@ export default function TagLeaderboard() {
 
   function arangeImpactorData(data: ImpactorsWithDonations[]) {
     const impactorData = data.map((impactor) => ({
-      avatar: impactor.imageurl
-        ? impactor.imageurl
+      avatar: impactor.imageUrl
+        ? impactor.imageUrl
         : "https://avatars.githubusercontent.com/u/1309537?v=4",
       name: impactor.name,
       job: "",

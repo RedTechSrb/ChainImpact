@@ -55,14 +55,14 @@ export default function MobileVersionSoon() {
   return (
     <Container className={classes.root}>
       <div className={classes.label}>LFG</div>
-      <Title className={classes.title}>Coming soon</Title>
+      <Title className={classes.title}>Mobile Coming soon</Title>
       <Text
         color="dimmed"
         size="lg"
         align="center"
         className={classes.description}
       >
-        Unfortunately, Mobile site is not available yet. Please use desktop!
+        Unfortunately, Mobile platform is not available yet. Please use desktop!
       </Text>
       <Group position="center">
         <Button variant="subtle" size="md">

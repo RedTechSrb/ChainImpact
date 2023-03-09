@@ -1,5 +1,6 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.BiggestDonations;
 using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.RecentDonations;
 using Microsoft.AspNetCore.Mvc;
@@ -34,16 +35,16 @@ namespace ChainImpactAPI.Controllers
 
             return Ok(recentDonations);
         }
-/*
+
         [HttpPost("BiggestDonations")]
-        public IActionResult getImpctorsWithDonations(GenericDto<ImpactorsWithDonationsRequestDto>? impactorsWithDonationsDto)
+        public IActionResult getBiggestDonations(GenericDto<BiggestDonationsRequestDto>? biggestDonationsDto)
         {
 
-            var impactorsdonationsDtoList = donationService.GetImpactorsWithDonations(impactorsWithDonationsDto);
+            var biggestDonationsDtoList = donationService.GetBiggestDonations(biggestDonationsDto);
 
-            return Ok(impactorsdonationsDtoList);
+            return Ok(biggestDonationsDtoList);
         }
-*/
+
 
 
     }

@@ -100,7 +100,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             donation.donator.imageurl,
                                             donation.donator.role,
                                             donation.donator.type
-                                           )
+                                           ),
+                    amount = donation.amount
                 });
             }
 

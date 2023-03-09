@@ -14,6 +14,7 @@ import {
   Center,
   SimpleGrid,
 } from "@mantine/core";
+import { Donation } from "../../models/Donation";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -107,17 +108,21 @@ const data = [
   },
 ];
 
-export default function RecentImpactors() {
+type RecentImpactorsProps = {
+  recentImpactors: Donation[];
+};
+
+export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const laptop = useMediaQuery(`(max-width: 1440px)`);
   const { classes } = useStyles();
-  const slides = data.map((item) => (
-    <Carousel.Slide key={item.title}>
+  const slides = recentImpactors.recentImpactors.map((item) => (
+    <Carousel.Slide key={item.impactor.name}>
       <Card withBorder radius="md" className={classes.card}>
         <Card.Section className={classes.imageSection}>
           <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/600px-Tesla_logo.png?20210117060557"
+            src={item.impactor.imageurl}
             alt="Tesla Model S"
             className={classes.image}
           />
@@ -125,16 +130,16 @@ export default function RecentImpactors() {
 
         <Group position="apart" mt="md">
           <div>
-            <Text fw={500}>Tesla</Text>
+            <Text fw={500}>{item.impactor.name}</Text>
             <Text fz="xs" c="dimmed">
-              Free recharge at any station
+              {item.impactor.description}
             </Text>
           </div>
         </Group>
 
         <Card.Section className={classes.section}>
           <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
-            $12000
+            {item.amount}
           </Text>
           <Text
             fz="sm"

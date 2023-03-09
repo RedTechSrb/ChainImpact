@@ -72,14 +72,19 @@ export function createNewImpactor(newImpactor: CreateNewImpactor) {
   });
 }
 
-export function useGetImpactorsWithProjects(searchDto: ImpactorsWithProjectsSearch) {
+export function useGetImpactorsWithProjects(
+  searchDto: ImpactorsWithProjectsSearch
+) {
   const [projects, setProjects] = useState<ProjectWithTotalDonations[]>([]);
 
   useEffect(() => {
-    axios.post(url + "Impactor/ImpactorsWithProjects", searchDto).then((response) => {
-      const impactorsWithProjectsData = response.data as ImpactorsWithProjects[];
-      setProjects(impactorsWithProjectsData[0].donatedProjects);
-    });
+    axios
+      .post(url + "Impactor/ImpactorsWithProjects", searchDto)
+      .then((response) => {
+        const impactorsWithProjectsData =
+          response.data as ImpactorsWithProjects[];
+        setProjects(impactorsWithProjectsData[0].donatedProjects);
+      });
   }, []);
   return projects;
 }

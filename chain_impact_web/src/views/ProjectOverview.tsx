@@ -21,7 +21,10 @@ import { useParams } from "react-router-dom";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
+import { Donation } from "../models/Donation";
 import { Project } from "../models/Project";
+import { useGetRecentDonations } from "../repositories/DonationRepository";
+
 import { useGetSpecificProject } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
 
@@ -65,7 +68,12 @@ interface WalletKey {
   solana: any;
 }
 
-export default function ProjectOverview({walletKey, connectWallet, disconnectWallet, solana}: WalletKey) {
+export default function ProjectOverview({
+  walletKey,
+  connectWallet,
+  disconnectWallet,
+  solana,
+}: WalletKey) {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
 
@@ -73,6 +81,14 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
   let { id } = useParams();
   const projectSearch = { dto: { id: Number(id) } };
   const projectData: Project | undefined = useGetSpecificProject(projectSearch);
+
+  const donationSearch = {
+    dto: { projectid: Number(id) },
+    pageNumber: 1,
+    pageSize: 4,
+  };
+
+  const recentImpactors: Donation[] = useGetRecentDonations(donationSearch);
 
   useEffect(() => {
     if (projectData) setIsLoading(false);
@@ -187,7 +203,9 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
                   Angel Impactor who brought this project to life.
                 </Text>
 
-                <RecentImpactors></RecentImpactors>
+                <RecentImpactors
+                  recentImpactors={recentImpactors}
+                ></RecentImpactors>
 
                 <AngelImpactor
                   impactor={projectData.angelimpactor}
@@ -199,12 +217,12 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
               <Text size="xl" weight={500} mb="xl">
                 Biggest donators
               </Text>
-              <RecentImpactors></RecentImpactors>
+              {/* <RecentImpactors></RecentImpactors>
 
               <Text size="xl" weight={500} mb="xl">
                 Milestones
               </Text>
-              <RecentImpactors></RecentImpactors>
+              <RecentImpactors></RecentImpactors> */}
             </Grid.Col>
 
             <Grid.Col span={mobile ? 12 : 3}>

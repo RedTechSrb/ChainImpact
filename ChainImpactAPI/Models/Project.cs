@@ -4,6 +4,9 @@ namespace ChainImpactAPI.Models
 {
     public class Project : BaseEntity
     {
+        public Project()
+        {
+        }
 
         [ForeignKey("CharityId")]
         public int charityid { get; set; }

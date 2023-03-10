@@ -9,14 +9,16 @@ import {
   createStyles,
   Image,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
+import { ImpactorWalletSearch } from "../../models/dto/request/ImpactorWalletSearch";
+import { AngelImpactorData } from "../../models/dto/response/AngelImpactorData";
 import { Impactor } from "../../models/Impactor";
+import { useGetAngelImpactorData } from "../../repositories/ImpactorRepository";
 import NftShowcaseCarousel from "./NftShowcaseCarousel";
 import RecentImpactors from "./RecentImpactors";
 
 interface AngelImpactorProps {
   impactor: Impactor | null;
-  totalbacked: number;
-  totaldonated: number;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -30,11 +32,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function AngelImpactor({
-  impactor,
-  totalbacked,
-  totaldonated,
+  impactor
 }: AngelImpactorProps) {
   const { classes } = useStyles();
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
+  const href = isMobile ? `/mobile` : `/company/${impactor?.wallet}`;
+
+  const angelImpactorData: AngelImpactorData | undefined = useGetAngelImpactorData(new ImpactorWalletSearch(null, null, impactor?.wallet ?? ""))
 
   return (
     <Paper
@@ -46,10 +51,11 @@ export default function AngelImpactor({
           theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
       })}
     >
-      <Grid>
+      { angelImpactorData &&
+        <Grid>
         <Grid.Col span={4}>
           <Image
-            src="https://picsum.photos/id/1/200" //{impactor?.imageurl}
+            src={impactor?.imageurl} //{impactor?.imageurl}
             radius={20}
             mx="auto"
             className={classes.image}
@@ -61,10 +67,10 @@ export default function AngelImpactor({
               {impactor?.name}
             </Text>
             <Text ta="left" c="dimmed" fz="xl">
-              Total donated: {totaldonated}
+              Total donated: {angelImpactorData?.totalDonated}
             </Text>
             <Text ta="left" c="dimmed" fz="lg">
-              Projects involved in: {totalbacked}
+              Projects involved in: {angelImpactorData?.totalProjects}
             </Text>
             <Text ta="left" c="dimmed" fz="lg">
               Proof of Impact NFT's: 3
@@ -75,11 +81,25 @@ export default function AngelImpactor({
         <Grid.Col span={12}>
           <NftShowcaseCarousel></NftShowcaseCarousel>
         </Grid.Col>
-      </Grid>
+      </Grid>}
 
-      <Button variant="default" fullWidth mt="md">
+      { angelImpactorData &&
+      <Button variant="default" fullWidth mt="md" component="a"
+            href={href}>
         Other projects they supported
-      </Button>
+      </Button>}
+
+      { !angelImpactorData &&
+      <>
+        <Text size={25} align={"center"}>
+          Project is still new, so it could still be <span style={{color: "#BBFD00"}}>You</span>!
+        </Text>
+        <Text size={25} align={"center"}>
+            Become an Angel Impactor by donating!
+        </Text>
+      </>
+      }
+
     </Paper>
   );
 }

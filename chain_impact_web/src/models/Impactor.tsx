@@ -1,4 +1,5 @@
 export interface Impactor {
+  id: number;
   wallet: string;
   name: string;
   description: string | null;

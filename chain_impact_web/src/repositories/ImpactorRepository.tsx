@@ -4,6 +4,7 @@ import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
 import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import { AngelImpactorData } from "../models/dto/response/AngelImpactorData";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { ImpactorsWithProjects } from "../models/dto/response/ImpactorsWithProjects";
 import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
@@ -87,4 +88,28 @@ export function useGetImpactorsWithProjects(
       });
   }, []);
   return projects;
+}
+
+export function useGetAngelImpactorData(
+  searchDto: ImpactorWalletSearch
+) {
+  const [angelImpactorData, setAngelImpactorData] = useState<AngelImpactorData>();
+
+  useEffect(() => {
+    axios
+      .post(url + "Impactor/ImpactorsWithProjects", searchDto)
+      .then((response) => {
+        const impactorsWithProjectsData = response.data as ImpactorsWithProjects[];
+          let totalDonated = 0;
+          let totalProjects = impactorsWithProjectsData[0].donatedProjects.length;
+          impactorsWithProjectsData[0].donatedProjects.map((projectWithDonations) => {
+            if (Number(impactorsWithProjectsData[0]?.impactor?.id) === Number(projectWithDonations.project.angelimpactor?.id)) {
+              totalDonated = projectWithDonations.totalDonation;
+            }
+          })
+          let donatedProjects =  impactorsWithProjectsData[0].donatedProjects;
+          setAngelImpactorData({donatedProjects , totalDonated, totalProjects});
+      });
+  }, []);
+  return angelImpactorData;
 }

@@ -23,7 +23,11 @@ import BiggestImpactors from "../components/projectComponents/BiggestImpactors";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
 import { Donation } from "../models/Donation";
+import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import { AngelImpactorData } from "../models/dto/response/AngelImpactorData";
 import { BiggestDonators} from "../models/dto/response/BiggestDonators";
+import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
 import { Project } from "../models/Project";
 import { useGetRecentDonations } from "../repositories/DonationRepository";
 
@@ -104,12 +108,6 @@ export default function ProjectOverview({
       clearTimeout(timeoutId);
     };
   }, [isLoading, projectData]);
-
-  const angelimpactor = {
-    imageurl: "https://picsum.photos/id/1/200",
-    name: "John Doe",
-    wallet: "0x1234567890abcdef",
-  };
 
   const { classes } = useStyles();
   const laptop = useMediaQuery(`(max-width: 1440px)`);
@@ -212,8 +210,6 @@ export default function ProjectOverview({
 
                 <AngelImpactor
                   impactor={projectData.angelimpactor}
-                  totalbacked={0}
-                  totaldonated={0}
                 ></AngelImpactor>
               </SimpleGrid>
 

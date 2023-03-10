@@ -19,10 +19,19 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
+import BiggestImpactors from "../components/projectComponents/BiggestImpactors";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
 import RecentImpactors from "../components/projectComponents/RecentImpactors";
+import { Donation } from "../models/Donation";
+import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import { AngelImpactorData } from "../models/dto/response/AngelImpactorData";
+import { BiggestDonators} from "../models/dto/response/BiggestDonators";
+import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
 import { Project } from "../models/Project";
-import { useGetSpecificProject } from "../repositories/ProjectRepository";
+import { useGetRecentDonations } from "../repositories/DonationRepository";
+
+import { useGetBiggestImpactors, useGetSpecificProject } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
 
 const PRIMARY_COL_HEIGHT = "32rem";
@@ -65,7 +74,12 @@ interface WalletKey {
   solana: any;
 }
 
-export default function ProjectOverview({walletKey, connectWallet, disconnectWallet, solana}: WalletKey) {
+export default function ProjectOverview({
+  walletKey,
+  connectWallet,
+  disconnectWallet,
+  solana,
+}: WalletKey) {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
 
@@ -73,6 +87,15 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
   let { id } = useParams();
   const projectSearch = { dto: { id: Number(id) } };
   const projectData: Project | undefined = useGetSpecificProject(projectSearch);
+
+  const donationSearch = {
+    dto: { projectid: Number(id) },
+    pageNumber: 1,
+    pageSize: 4,
+  };
+
+  const recentImpactors: Donation[] = useGetRecentDonations(donationSearch);
+  const biggestImpactors: BiggestDonators[] = useGetBiggestImpactors(donationSearch);
 
   useEffect(() => {
     if (projectData) setIsLoading(false);
@@ -85,12 +108,6 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
       clearTimeout(timeoutId);
     };
   }, [isLoading, projectData]);
-
-  const angelimpactor = {
-    imageurl: "https://picsum.photos/id/1/200",
-    name: "John Doe",
-    wallet: "0x1234567890abcdef",
-  };
 
   const { classes } = useStyles();
   const laptop = useMediaQuery(`(max-width: 1440px)`);
@@ -160,7 +177,7 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
               <Text size={24} weight={500} color="white" mt="sm">
                 Description:
               </Text>
-              <Text size="md" color="white" mb="xl">
+              <Text size="md" color="white" mb="xl" style={{textAlign: "justify"}}>
                 {projectData?.description}
               </Text>
 
@@ -187,25 +204,39 @@ export default function ProjectOverview({walletKey, connectWallet, disconnectWal
                   Angel Impactor who brought this project to life.
                 </Text>
 
-                <RecentImpactors></RecentImpactors>
+                <RecentImpactors
+                  recentImpactors={recentImpactors}
+                ></RecentImpactors>
 
                 <AngelImpactor
                   impactor={projectData.angelimpactor}
-                  totalbacked={0}
-                  totaldonated={0}
                 ></AngelImpactor>
               </SimpleGrid>
 
-              <Text size="xl" weight={500} mb="xl">
-                Biggest donators
-              </Text>
-              <RecentImpactors></RecentImpactors>
+              <SimpleGrid cols={1}>
+                <Text
+                    size={laptop ? 20 : 24}
+                    weight={500}
+                    color="white"
+                    mt="sm"
+                    style={{marginRight: "auto", marginTop: "30px"}}
+                  >
+                    Biggest Impactors:
+                  </Text>
+
+                <BiggestImpactors
+                    biggestImpactors={biggestImpactors}
+                  ></BiggestImpactors>
+              </SimpleGrid>
+
+              {/* <RecentImpactors></RecentImpactors>
 
               <Text size="xl" weight={500} mb="xl">
                 Milestones
               </Text>
-              <RecentImpactors></RecentImpactors>
+              <RecentImpactors></RecentImpactors> */}
             </Grid.Col>
+
 
             <Grid.Col span={mobile ? 12 : 3}>
               <DonationSidebar

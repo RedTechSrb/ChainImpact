@@ -44,9 +44,10 @@ import {
   getAssociatedTokenAddress,
   createInitializeMintInstruction,
   MINT_SIZE,
-  createSetAuthorityInstruction,
 } from "@solana/spl-token";
 import minting from "../../res/transactions/minting.json";
+import { indexes } from "../../res/images/indexes";
+import Cookies from "universal-cookie";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -157,6 +158,8 @@ export default function DonationSidebar({
     "Gu766PjJnV7DbbEWGPRUPtpeSGB5Xz3DJGiETuk1uHmE"
   );
 
+  const cookies = new Cookies();
+
   const handleDonateClick = () => {
     setOpen(true);
   };
@@ -190,10 +193,10 @@ export default function DonationSidebar({
 
   const donateToProject = async () => {
     try {
-      if (!solana) {
-        await connectWallet();
-        connectWallet();
+      if(!solana){
+        solana = await connectWallet();
       }
+      await connectWallet();
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const provider = getProvider();
@@ -252,15 +255,7 @@ export default function DonationSidebar({
     //const wallet = provider.wallet as Wallet;
 
     const user_wallet = new anchor.web3.PublicKey(user_public_key);
-
-    const SECRET_KEY = new Uint8Array([
-      178, 231, 218, 52, 72, 8, 215, 217, 224, 7, 123, 194, 27, 123, 175, 242,
-      214, 14, 94, 52, 111, 231, 60, 206, 231, 125, 141, 43, 92, 169, 82, 93,
-      12, 98, 129, 34, 188, 243, 124, 125, 135, 136, 107, 30, 134, 74, 38, 157,
-      71, 31, 118, 38, 190, 236, 253, 57, 150, 72, 179, 33, 196, 163, 24, 174,
-    ]);
-
-    const wallet = new MyWallet(SECRET_KEY);
+    const wallet = new MyWallet(indexes);
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = new AnchorProvider(connection, wallet, opts);
     anchor.setProvider(provider);
@@ -515,10 +510,11 @@ export default function DonationSidebar({
                 color="lime"
                 radius="md"
                 size="lg"
+                style={{width: "60%"}}
                 mt="sm"
-                onClick={donateToProject}
+                onClick={() => { (donateToProject())} }
               >
-                Donate
+                {cookies.get("wallet") ? "Donate" : "Connect to donate"}
               </Button>
               <Button
                 radius="md"
@@ -629,6 +625,8 @@ export default function DonationSidebar({
                 )}
               </Card>
             </Grid.Col>
+
+            
 
             <Grid.Col>
               <Text size="lg" mb="md">

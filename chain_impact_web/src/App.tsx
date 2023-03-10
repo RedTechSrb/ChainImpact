@@ -13,12 +13,16 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./index.css";
 import { ImpactorWalletSearch } from "./models/dto/request/ImpactorWalletSearch";
-import { createNewImpactor, getSpecificImpactor } from "./repositories/ImpactorRepository";
+import {
+  createNewImpactor,
+  getSpecificImpactor,
+} from "./repositories/ImpactorRepository";
 import About from "./views/About";
 import Charities from "./views/Charities";
 import CompanyOverview from "./views/CompanyOverview";
 import ESGFAQ from "./views/ESGFAQ";
 import Home from "./views/Home";
+import MobileVersionSoon from "./views/MobileVersionSoon";
 import NotFound from "./views/NotFound";
 import ProjectOverview from "./views/ProjectOverview";
 
@@ -82,7 +86,6 @@ declare global {
   }
 }
 
-
 type DisplayEncoding = "utf8" | "hex";
 type PhantomEvent = "disconnect" | "connect" | "accountChanged";
 type PhantomRequestMethod =
@@ -128,13 +131,10 @@ function App() {
   const [walletKey, setWalletKey] = useState<any>(undefined);
   const [solana, setSolana] = useState<any>();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
 
-  }, [solana, walletKey]);
 
   const cookies = new Cookies();
-  
+
   const getProvider = (): PhantomProvider | undefined => {
     if ("solana" in window) {
       // @ts-ignore
@@ -153,12 +153,14 @@ function App() {
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
+    let response
     if ((cookieWallet = cookies.get("wallet"))) {
-      const response = await solana.connect();
-      setSolana(solana);
+      if (solana)
+        response = await solana.connect();
       setWalletKey(cookieWallet);
-      return;
+      return solana;
     }
+    console.log("Eggo")
 
     if (solana) {
       try {
@@ -210,15 +212,14 @@ function App() {
     // @ts-ignore
     const { solana } = window;
 
+    cookies.remove("wallet");
+    setWalletKey(undefined);
     if (walletKey) {
-      if (solana)
-        await (solana as PhantomProvider).disconnect();
-      cookies.remove("wallet");
-      setWalletKey(undefined);
+      if (solana) await (solana as PhantomProvider).disconnect();
     }
+
+    
   };
-
-
 
   return (
     <ColorSchemeProvider
@@ -248,15 +249,25 @@ function App() {
           setWalletKey={setWalletKey}
           connectWallet={connectWallet}
           disconnectWallet={disconnectWallet}
-
         />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<About />} />
           <Route path="/company/:wallet" element={<CompanyOverview />} />
-          <Route path="/project/:id" element={<ProjectOverview walletKey={walletKey} connectWallet={connectWallet} disconnectWallet={disconnectWallet} solana={solana} />} />
+          <Route
+            path="/project/:id"
+            element={
+              <ProjectOverview
+                walletKey={walletKey}
+                connectWallet={connectWallet}
+                disconnectWallet={disconnectWallet}
+                solana={solana}
+              />
+            }
+          />
           <Route path="/charities" element={<Charities />} />
           <Route path="/esg" element={<ESGFAQ />} />
+          <Route path="/mobile" element={<MobileVersionSoon />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
 

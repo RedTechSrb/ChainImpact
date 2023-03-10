@@ -9,7 +9,7 @@ import {
   List,
   ThemeIcon,
 } from "@mantine/core";
-import { useHover } from "@mantine/hooks";
+import { useHover, useMediaQuery } from "@mantine/hooks";
 import { IconCheck } from "@tabler/icons";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
@@ -86,8 +86,9 @@ const useStyles = createStyles((theme) => ({
 
     "@media (max-width: 520px)": {
       "&:not(:first-of-type)": {
-        marginTop: theme.spacing.md,
+        marginTop: 2,
         marginLeft: 0,
+        marginBottom: theme.spacing.md,
       },
     },
     [theme.fn.smallerThan("xs")]: {
@@ -117,6 +118,9 @@ const useStyles = createStyles((theme) => ({
 export function Hero2() {
   const { classes } = useStyles();
   const { hovered, ref } = useHover();
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
     <div>
       <Container size="lg" className={classes.herocomponent}>
@@ -165,20 +169,24 @@ export function Hero2() {
                   Show me how to change the world!
                 </Button>
               </ScrollLink>
-              <ScrollLink
-                to="project_explorer"
-                spy={true}
-                smooth={true}
-                duration={2500}
-              >
-                <Button
-                  className={classes.control}
-                  size="xl"
-                  style={{ backgroundColor: "#BBFD00" }}
+              {!isMobile ? (
+                <ScrollLink
+                  to="project_explorer"
+                  spy={true}
+                  smooth={true}
+                  duration={2500}
                 >
-                  I want to donate!
-                </Button>
-              </ScrollLink>
+                  <Button
+                    className={classes.control}
+                    size="xl"
+                    style={{ backgroundColor: "#BBFD00" }}
+                  >
+                    I want to donate!
+                  </Button>
+                </ScrollLink>
+              ) : (
+                <div></div>
+              )}
             </Group>
           </div>
           <Image src={image} className={classes.image} />

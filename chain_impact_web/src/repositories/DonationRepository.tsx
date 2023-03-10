@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Donation } from "../models/Donation";
 import { DonationSearch } from "../models/dto/request/DonationSearch";
 
-const url = "http://167.99.246.54/";
+const url = process.env.REACT_APP_BASE_URL;
 
 export function useGetRecentDonations(filter: DonationSearch) {
   let donation: Donation[] | null = null;
@@ -18,3 +18,4 @@ export function useGetRecentDonations(filter: DonationSearch) {
 
   return donations;
 }
+

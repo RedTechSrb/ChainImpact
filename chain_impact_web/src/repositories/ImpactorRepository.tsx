@@ -11,7 +11,7 @@ import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTot
 import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
 
-const url = "http://167.99.246.54/";
+const url = process.env.REACT_APP_BASE_URL;
 
 export function useGetAllImpactors() {
   const [impactors, setImpactors] = useState<Impactor[]>([]);

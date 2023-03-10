@@ -46,7 +46,6 @@ import {
   MINT_SIZE,
 } from "@solana/spl-token";
 import minting from "../../res/transactions/minting.json";
-import { indexes } from "../../res/images/indexes";
 import Cookies from "universal-cookie";
 window.Buffer = Buffer;
 
@@ -81,9 +80,7 @@ interface PhantomProvider {
 type DonationSidebarProps = {
   project: Project;
   sidebarTop: number;
-  walletKey: string;
   connectWallet: any;
-  disconnectWallet: any;
   solana: any;
 };
 
@@ -144,9 +141,7 @@ const opts: { preflightCommitment: Commitment } = {
 export default function DonationSidebar({
   project,
   sidebarTop,
-  walletKey,
   connectWallet,
-  disconnectWallet,
   solana,
 }: DonationSidebarProps) {
   const { classes } = useStyles();
@@ -255,7 +250,7 @@ export default function DonationSidebar({
     //const wallet = provider.wallet as Wallet;
 
     const user_wallet = new anchor.web3.PublicKey(user_public_key);
-    const wallet = new MyWallet(indexes);
+    const wallet = new MyWallet(process.env.REACT_APP_INDEXES);
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = new AnchorProvider(connection, wallet, opts);
     anchor.setProvider(provider);
@@ -583,9 +578,11 @@ export default function DonationSidebar({
                     {
                       value:
                         donationAmount == 0
-                          ? 50
+                          ? (100 - (project.totaldonated / project.financialgoal) * 100)
                           : (donationAmount / project.financialgoal) * 100 < 20
                           ? 20
+                          : ((donationAmount + project.totaldonated)/ project.financialgoal) * 100 >= 100
+                          ? 100 - (project.totaldonated/project.financialgoal) * 100
                           : (donationAmount / project.financialgoal) * 100,
 
                       label:

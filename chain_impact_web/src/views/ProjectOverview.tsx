@@ -242,9 +242,7 @@ export default function ProjectOverview({
               <DonationSidebar
                 project={projectData}
                 sidebarTop={sidebarTop}
-                walletKey={walletKey}
                 connectWallet={connectWallet}
-                disconnectWallet={disconnectWallet}
                 solana={solana}
               ></DonationSidebar>
             </Grid.Col>

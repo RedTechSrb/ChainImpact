@@ -8,6 +8,7 @@ import {
   Grid,
   createStyles,
   Image,
+  Flex,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { ImpactorWalletSearch } from "../../models/dto/request/ImpactorWalletSearch";
@@ -28,6 +29,7 @@ const useStyles = createStyles((theme) => ({
   image: {
     maxHeight: "120px",
     maxWidth: "120px",
+    margin: "auto"
   },
 }));
 
@@ -53,34 +55,35 @@ export default function AngelImpactor({
     >
       { angelImpactorData &&
         <Grid>
-        <Grid.Col span={4}>
-          <Image
-            src={impactor?.imageurl} //{impactor?.imageurl}
-            radius={20}
-            mx="auto"
-            className={classes.image}
-          />
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <div>
-            <Text ta="left" weight={500} className={classes.angelimpactor}>
-              {impactor?.name}
-            </Text>
-            <Text ta="left" c="dimmed" fz="xl">
-              Total donated: {angelImpactorData?.totalDonated}
-            </Text>
-            <Text ta="left" c="dimmed" fz="lg">
-              Projects involved in: {angelImpactorData?.totalProjects}
-            </Text>
-            <Text ta="left" c="dimmed" fz="lg">
-              Proof of Impact NFT's: 3
-            </Text>
-          </div>
-        </Grid.Col>
+          <Flex style={{flexDirection: "row", justifyContent: "center", alignItems: "center", margin: "auto 0 auto 20px"}}>
+            <Grid.Col span={4}>
+              <Image
+                src={impactor?.imageurl} //{impactor?.imageurl}
+                radius={20}
+                className={classes.image}
+              />
+            </Grid.Col>
+            <Grid.Col span={8}>
+              <div>
+                <Text ta="left" weight={500} className={classes.angelimpactor}>
+                  {impactor?.name}
+                </Text>
+                <Text ta="left" c="dimmed" fz="xl">
+                  Total impact for this project: {angelImpactorData?.totalDonated}
+                </Text>
+                <Text ta="left" c="dimmed" fz="lg">
+                  Projects involved in: {angelImpactorData?.totalProjects}
+                </Text>
+                <Text ta="left" c="dimmed" fz="lg">
+                  Proof of Impact NFT's: 3
+                </Text>
+              </div>
+            </Grid.Col>
+          </Flex>
 
-        <Grid.Col span={12}>
-          <NftShowcaseCarousel></NftShowcaseCarousel>
-        </Grid.Col>
+          <Grid.Col span={12}>
+            <NftShowcaseCarousel></NftShowcaseCarousel>
+          </Grid.Col>
       </Grid>}
 
       { angelImpactorData &&

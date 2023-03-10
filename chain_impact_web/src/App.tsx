@@ -5,6 +5,7 @@ import {
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { PublicKey, Transaction } from "@solana/web3.js";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -12,10 +13,13 @@ import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./index.css";
+import { ImpactorIdSearch } from "./models/dto/request/ImpactorIdSearch";
 import { ImpactorWalletSearch } from "./models/dto/request/ImpactorWalletSearch";
+import { Impactor } from "./models/Impactor";
 import {
   createNewImpactor,
   getSpecificImpactor,
+  getSpecificImpactorById,
 } from "./repositories/ImpactorRepository";
 import About from "./views/About";
 import Charities from "./views/Charities";
@@ -114,6 +118,7 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
+
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
@@ -131,9 +136,20 @@ function App() {
   const [walletKey, setWalletKey] = useState<any>(undefined);
   const [solana, setSolana] = useState<any>();
 
-
-
   const cookies = new Cookies();
+
+  useEffect(() => {
+    if (!cookies.get("ChainImpactWallet")){
+      getSpecificImpactorById(new ImpactorIdSearch(null, null, 0))
+        .then(data => {
+          const obj: Impactor[] = JSON.parse(data)
+          cookies.set("ChainImpactWallet", obj[0].wallet)
+        })
+    }
+
+  }, [])
+
+  console.log(cookies.get("ChainImpactWallet"))
 
   const getProvider = (): PhantomProvider | undefined => {
     if ("solana" in window) {

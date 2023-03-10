@@ -4,12 +4,14 @@ import { CreateNewImpactor } from "../models/dto/request/CreateNewImpactor";
 import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
 import { ImpactorTypeFilter } from "../models/dto/request/ImpactorTypeFilter";
 import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import { ImpactorIdSearch } from "../models/dto/request/ImpactorIdSearch";
 import { AngelImpactorData } from "../models/dto/response/AngelImpactorData";
 import { ImpactorsWithDonations } from "../models/dto/response/ImpactorsWithDonations";
 import { ImpactorsWithProjects } from "../models/dto/response/ImpactorsWithProjects";
 import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
 import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
+import Cookies from "universal-cookie";
 
 const url = process.env.REACT_APP_BASE_URL;
 
@@ -34,6 +36,15 @@ export async function getSpecificImpactor(filter: ImpactorWalletSearch) {
     impactor = impactorData[0];
   });
   return impactor;
+}
+
+export function getSpecificImpactorById(filter: ImpactorIdSearch) {
+ 
+  return axios.post(url + "Impactor/Search", filter).then((response) => {
+      const impactorData = response.data as Impactor[];
+      return JSON.stringify(impactorData)
+  });
+
 }
 
 export function useGetImpactorsWithDonations(

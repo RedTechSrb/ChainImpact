@@ -47,6 +47,7 @@ import {
 } from "@solana/spl-token";
 import minting from "../../res/transactions/minting.json";
 import Cookies from "universal-cookie";
+import { useGetNextTierNFTs } from "../../repositories/NFTRepository";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -138,6 +139,7 @@ const opts: { preflightCommitment: Commitment } = {
   preflightCommitment: "singleGossip",
 };
 
+
 export default function DonationSidebar({
   project,
   sidebarTop,
@@ -148,12 +150,16 @@ export default function DonationSidebar({
   const [open, setOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState<number>(0);
 
-  const to = new PublicKey("qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT"); // wallet of project for donating to
+  const cookies = new Cookies();
+
+  let to: any = null;
+  if (project?.charity?.wallet)
+    to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
+
   const poreskaUprava = new PublicKey(
-    "Gu766PjJnV7DbbEWGPRUPtpeSGB5Xz3DJGiETuk1uHmE"
+    cookies.get("ChainImpactWallet") // Chain Impact wallet
   );
 
-  const cookies = new Cookies();
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -179,6 +185,17 @@ export default function DonationSidebar({
       },
     ],
   };
+
+  const nextTierNftSearch = {
+    projectId: project.id,
+    wallet: cookies.get("wallet") ?? "asdf"
+  }
+  console.log(nextTierNftSearch)
+
+  const dataNftNew = useGetNextTierNFTs(nextTierNftSearch);
+  console.log(dataNftNew);
+
+
 
   const getProvider: any = () => {
     const connection = new Connection(network, opts.preflightCommitment);

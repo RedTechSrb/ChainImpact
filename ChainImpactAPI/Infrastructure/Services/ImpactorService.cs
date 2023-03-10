@@ -4,6 +4,7 @@ using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.ImpactorsWithProjects;
 using ChainImpactAPI.Dtos.NFT;
+using ChainImpactAPI.Dtos.NFTLeft;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
@@ -17,17 +18,20 @@ namespace ChainImpactAPI.Infrastructure.Services
         private readonly IImpactorRepository impactorRepository;
         private readonly IDonationService donationService;
         private readonly IProjectService projectService;
+        private readonly INFTOwnerRepository nftOwnerRepository;
 
         public ImpactorService(
             IConfiguration configuration,
             IImpactorRepository impactorRepository,
             IDonationService donationService,
-            IProjectService projectService)
+            IProjectService projectService,
+            INFTOwnerRepository nftOwnerRepository)
         {
             this.configuration = configuration;
             this.impactorRepository = impactorRepository;
             this.donationService = donationService;
             this.projectService = projectService;
+            this.nftOwnerRepository = nftOwnerRepository;
         }
 
         public List<ImpactorDto> GetImpactors()
@@ -153,5 +157,31 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         }
 
+        public List<NFTTypeDto> GetImpactorsWithNFTs(ImpactorDto impactorDto)
+        {
+            var impactor = this.SearchImpactors(new GenericDto<ImpactorDto>(null, null, impactorDto)).FirstOrDefault();
+            var nftowners = nftOwnerRepository.SearchAsync(new GenericDto<NFTOwnerDto>(null, null, new NFTOwnerDto { impactor = new ImpactorDto { id = impactor.id } })).Result;
+
+
+            var nfttypeDtoList = new List<NFTTypeDto>();
+            foreach (var nftowner in nftowners)
+            {
+                nfttypeDtoList.Add(new NFTTypeDto(
+                                        nftowner.nfttype.id,
+                                        nftowner.nfttype.tier,
+                                        nftowner.nfttype.usertype,
+                                        new CauseTypeDto(
+                                            nftowner.nfttype.causetype.id,
+                                            nftowner.nfttype.causetype.name
+                                        ),
+                                        nftowner.nfttype.imageurl,
+                                        nftowner.nfttype.minimaldonation,
+                                        nftowner.nfttype.symbol,
+                                        nftowner.nfttype.description
+                                    ));
+            }
+
+            return nfttypeDtoList;
+        }
     }
 }

@@ -5,6 +5,7 @@ using ChainImpactAPI.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using ChainImpactAPI.Dtos.NFTLeft;
 using ChainImpactAPI.Dtos.SearchDtos;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -103,6 +104,48 @@ namespace ChainImpactAPI.Infrastructure.Services
 
 
             return nftLeftList;
+
+        }
+
+        public List<NFTOwnerDto> SearchNftOwners(GenericDto<NFTOwnerDto> genericDto)
+        {
+            var nftowners = nFTOwnerRepository.SearchAsync(genericDto).Result;
+
+            var nftOwnerDtoList = new List<NFTOwnerDto>();
+            foreach (var nftowner in nftowners)
+            {
+                nftOwnerDtoList.Add(new NFTOwnerDto(
+                        nftowner.id,
+                        new NFTTypeDto(
+                            nftowner.nfttype.id,
+                            nftowner.nfttype.tier,
+                            nftowner.nfttype.usertype,
+                            new CauseTypeDto(
+                                nftowner.nfttype.causetype.id,
+                                nftowner.nfttype.causetype.name
+                            ),
+                            nftowner.nfttype.imageurl,
+                            nftowner.nfttype.minimaldonation,
+                            nftowner.nfttype.symbol,
+                            nftowner.nfttype.description
+                        ), 
+                        new ImpactorDto(
+                            nftowner.impactor.id,
+                            nftowner.impactor.wallet,
+                            nftowner.impactor.name,
+                            nftowner.impactor.description,
+                            nftowner.impactor.website,
+                            nftowner.impactor.facebook,
+                            nftowner.impactor.discord,
+                            nftowner.impactor.twitter,
+                            nftowner.impactor.instagram,
+                            nftowner.impactor.imageurl,
+                            nftowner.impactor.role,
+                            nftowner.impactor.type
+                            )
+                    ));
+            }
+            return nftOwnerDtoList;
 
         }
     }

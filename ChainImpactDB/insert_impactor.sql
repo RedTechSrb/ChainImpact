@@ -2,7 +2,7 @@
 
 INSERT INTO public.impactor(
 	id, wallet, name, description, facebook, twitter, instagram, website, discord, imageurl, role, type)
-	VALUES (0, 'fhlefhhiefhefhiehifhie', 'ChainImpact', 'Blockchain', null, null, null, null, null, null, 1, 0);
+	VALUES (0, 'Gu766PjJnV7DbbEWGPRUPtpeSGB5Xz3DJGiETuk1uHmE', 'ChainImpact', 'Blockchain', null, null, null, null, null, null, 0, 0);
 
 -- companies
 

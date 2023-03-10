@@ -11,7 +11,7 @@ INSERT INTO public.project(
 	impactorid, 
 	primarycausetypeid, secondarycausetypeid)
 	VALUES ((select id from charity where name like 'Turkey DAO'), 'Turkey Earthquake Relief', 
-		null,
+		'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT',
 		'Multi-sig crypto relief fund operated by industry leaders to support the people of Türkiye after the disastrous earthquakes that hit the region.', 
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
 		100000.0, 40540.0, 11,

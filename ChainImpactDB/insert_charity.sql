@@ -3,7 +3,7 @@ INSERT INTO public.charity(
 	website, facebook, discord, twitter, instagram, 
 	imageurl, 
 	description)
-	VALUES ('Turkey DAO', null, 
+	VALUES ('Turkey DAO', 'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT', 
 		'https://turkiyereliefdao.org', null, null,'https://twitter.com/TurkeyReliefDAO', null, 
 		'https://pbs.twimg.com/profile_banners/1622499786770219008/1675713212/1500x500', 
 		'Türkiye Relief DAO is a decentralized autonomous organization (DAO) that was established to provide humanitarian aid to people affected by natural disasters and humanitarian crises in Turkey and around the world. The organization operates on the Ethereum blockchain, which allows for transparent and secure management of donations and funds. Türkiye Relief DAO is run by a group of volunteers who work together to identify and prioritize relief efforts, coordinate with local partners, and distribute aid to those in need. The organization is committed to providing assistance to vulnerable communities without discrimination based on race, religion, or nationality. Türkiye Relief DAO''s work is guided by principles of transparency, accountability, and community-driven decision-making. The organization also seeks to raise awareness of humanitarian issues and promote solidarity among individuals and organizations working towards the same goal.'

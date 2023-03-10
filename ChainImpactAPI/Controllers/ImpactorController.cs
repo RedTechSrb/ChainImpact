@@ -55,10 +55,13 @@ namespace ChainImpactAPI.Controllers
             return Ok(impactorsWithProjectsDtoList);
         }
 
-        [HttpGet("SKInfo")]
-        public IActionResult GetSKInfo()
+        [HttpPost("ImpactorsWithNFTs")]
+        public IActionResult GetImpactorsWithNFTs(ImpactorDto impactorDto)
         {
-            return Ok(impactorService.GetSK());
+
+            var impactorsWithNFTs = impactorService.GetImpactorsWithNFTs(impactorDto);
+
+            return Ok(impactorsWithNFTs);
         }
 
 

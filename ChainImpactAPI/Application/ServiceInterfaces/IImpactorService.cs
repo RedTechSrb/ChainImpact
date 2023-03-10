@@ -7,8 +7,8 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     public interface IImpactorService
     {
         List<ImpactorDto> GetImpactors();
+        List<NFTTypeDto> GetImpactorsWithNFTs(ImpactorDto impactorDto);
         List<ImpactorsWithProjectsResponseDto> GetImpactorsWithProjects(GenericDto<ImpactorDto>? impactorsWithDonationsRequestDto);
-        string GetSK();
         Impactor SaveImpactor(ImpactorDto impactorDto);
         List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto);
     }

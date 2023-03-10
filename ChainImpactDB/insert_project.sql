@@ -11,16 +11,16 @@ INSERT INTO public.project(
 	impactorid, 
 	primarycausetypeid, secondarycausetypeid)
 	VALUES ((select id from charity where name like 'Turkey DAO'), 'Turkey Earthquake Relief', 
-		null,
+		'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT',
 		'Multi-sig crypto relief fund operated by industry leaders to support the people of Türkiye after the disastrous earthquakes that hit the region.', 
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
 		100000.0, 40540.0, 11,
 		null, null, null, null, null, 
 		'https://www.redcross.org/content/dam/redcross/uncategorized/1/1428x820-earthquake-relief-conduct-search-rescue-efforts.jpg.transform/1288/q82/feature/image.jpeg', 
-		(select id from impactor where name like 'MonkeDAO'), 
+		(select id from impactor where name like 'RedTech'), 
 		(select id from causetype where name like 'disaster relief'), (select id from causetype where name like 'social'));
 
-
+--TMP CHANGE MonkeDAO->RedTech
 
 -- UNESCO
 

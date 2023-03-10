@@ -5,7 +5,7 @@ import { ProjectSearch } from "../models/dto/request/ProjectSearch";
 import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
 
-const url = "http://167.99.246.54/"
+const url = process.env.REACT_APP_BASE_URL
 
 export function useGetAllProjects(){
 

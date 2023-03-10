@@ -212,7 +212,8 @@ function App() {
     // @ts-ignore
     const { solana } = window;
 
-    cookies.remove("wallet");
+    if(cookies.get("wallet"))
+      cookies.remove("wallet");
     setWalletKey(undefined);
     if (walletKey) {
       if (solana) await (solana as PhantomProvider).disconnect();

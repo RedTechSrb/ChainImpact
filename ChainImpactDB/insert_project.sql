@@ -17,10 +17,10 @@ INSERT INTO public.project(
 		100000.0, 40540.0, 11,
 		null, null, null, null, null, 
 		'https://www.redcross.org/content/dam/redcross/uncategorized/1/1428x820-earthquake-relief-conduct-search-rescue-efforts.jpg.transform/1288/q82/feature/image.jpeg', 
-		(select id from impactor where name like 'MonkeDAO'), 
+		(select id from impactor where name like 'RedTech'), 
 		(select id from causetype where name like 'disaster relief'), (select id from causetype where name like 'social'));
 
-
+--TMP CHANGE MonkeDAO->RedTech
 
 -- UNESCO
 

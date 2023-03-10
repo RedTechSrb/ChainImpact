@@ -55,12 +55,5 @@ namespace ChainImpactAPI.Controllers
             return Ok(impactorsWithProjectsDtoList);
         }
 
-        [HttpGet("SKInfo")]
-        public IActionResult GetSKInfo()
-        {
-            return Ok(impactorService.GetSK());
-        }
-
-
     }
 }

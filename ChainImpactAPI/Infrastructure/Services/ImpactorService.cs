@@ -153,9 +153,5 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         }
 
-        public string GetSK()
-        {
-            return configuration["ChainImpactData:SK"];
-        }
     }
 }

@@ -18,4 +18,3 @@ export function useGetRecentDonations(filter: DonationSearch) {
 
   return donations;
 }
-

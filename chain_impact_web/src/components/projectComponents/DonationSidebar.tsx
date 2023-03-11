@@ -152,6 +152,7 @@ export default function DonationSidebar({
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState<number>(0);
+  const [reasonableAmount, setReasonableAmount] = useState(true);
 
 
   let to: any = null;
@@ -295,6 +296,12 @@ export default function DonationSidebar({
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
       console.log(new PublicKey(cookies.get("wallet")), to, poreskaUprava);
+      if (donationAmount <=0 || isNaN(donationAmount)) {
+        setReasonableAmount(false);
+        return;
+      } else {
+        setReasonableAmount(true);
+      }
       //provider = getProviderConnect();
       let ts = await program.rpc.transfer(
         new BN(donationAmount * web3.LAMPORTS_PER_SOL),
@@ -585,6 +592,7 @@ export default function DonationSidebar({
               // }}
             >
               <NumberInput
+                hideControls
                 value={donationAmount}
                 label="Amount in USDC"
                 placeholder="Help this project reach it's goal"
@@ -620,6 +628,10 @@ export default function DonationSidebar({
               >
                 Send NFT
               </Button>
+              { !reasonableAmount &&
+                  <Text mt={10} color="red" weight={700} pb={0}>
+                  You can't donate that amount
+                </Text>}
             </Grid.Col>
 
             <Grid.Col span={6}>

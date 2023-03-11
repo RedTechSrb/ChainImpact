@@ -48,6 +48,7 @@ export function NftStats({ projectId, wallet, donationAmount, primaryType }: Sta
   }
   console.log(impactor)
 
+
   useEffect(() => {
     setImpactorData()
   }, []);
@@ -57,7 +58,7 @@ export function NftStats({ projectId, wallet, donationAmount, primaryType }: Sta
 
   const stats = dataNftNew.map((stat, index) => {
     return (
-      <Paper withBorder p="xs" key={(stat.amountleft+stat.tier)%(Math.random()*100+1)} style={{display: "flex"}}>
+      <Paper withBorder p="xs" key={(Math.random()*1000000+1)} style={{display: "flex"}}>
         <Grid style={{justifyContent: "center", margin: "auto"}}>
           { stat.amountleft > 0 &&
             (<Grid.Col span={6} style={{margin: "auto"}}>

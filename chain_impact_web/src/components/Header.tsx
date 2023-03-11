@@ -210,24 +210,24 @@ export default function HeaderResponsive({
   setProvider,
   walletKey,
   setWalletKey,
-  connectWallet,
-  disconnectWallet,
-  solana
+  cookies
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState(true);
   const { classes, theme } = useStyles();
-  const cookies = new Cookies();
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ("solana" in window) {
-      // @ts-ignore
-      const provider = window.solana as any;
-      if (provider.isPhantom) return provider as PhantomProvider;
+    if ('phantom' in window) {
+      const anyWindow: any = window;
+      const provider = anyWindow.phantom?.solana;
+  
+      if (provider?.isPhantom) {
+        return provider;
+      }
     }
-  };
+};
 
   // detect phantom provider exists
   useEffect(() => {
@@ -250,8 +250,9 @@ export default function HeaderResponsive({
 
     const provider = getProvider();
     setProvider(provider);
+    console.log(walletKey)
+    
     let cookieWallet;
-    console.log("Eggp")
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
     }
@@ -259,6 +260,78 @@ export default function HeaderResponsive({
       clearTimeout(timeoutId);
     };
   }, [provider, isLoading]);
+
+  /**
+   * @description prompts user to connect wallet if it exists
+   */
+  const connectWallet = async () => {
+    // @ts-ignore
+    const provider = getProvider();
+
+    // check if there is cookie containing a wallet
+    let cookieWallet;
+    let newUser;
+    let response
+    if ((cookieWallet = cookies.get("wallet"))) {
+      setWalletKey(walletKey);
+      return;
+    }
+
+    if (provider) {
+      try {
+        const resp = await provider.connect();
+
+        // put wallet in cookie for next 365 days
+        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        // if there is already impactor with this wallet, continue
+        let impactor = getSpecificImpactor(
+          new ImpactorWalletSearch(null, null, resp.publicKey.toString())
+        );
+        if (await impactor) {
+          setWalletKey(resp.publicKey.toString());
+          return;
+        }
+
+        // if not, create new impactor with this wallet
+        newUser = {
+          wallet: resp.publicKey.toString(),
+          type: 1,
+          name: null,
+          description: null,
+          website: null,
+          facebook: null,
+          discord: null,
+          twitter: null,
+          instagram: null,
+          imageurl: null,
+          role: null,
+        };
+
+        createNewImpactor(newUser);
+      } catch (err) {
+        // { code: 4001, message: 'User rejected the request.' }
+      }
+    } else {
+      return;
+    }
+  };
+
+  /**
+   * @description disconnect Phantom wallet
+   */
+  const disconnectWallet = () => {
+    // @ts-ignore
+    const provider = getProvider();
+
+    if(cookies.get("wallet")){
+      cookies.remove("wallet", { path: '/' });
+      setWalletKey(null);
+    }
+    if (provider) {
+      provider.disconnect();
+    }
+  };
+
 
   function PhantomWrapper() {
     const { classes } = useStyles();

@@ -13,6 +13,7 @@ import {
   NumberInput,
   Grid,
   Title,
+  Paper,
 } from "@mantine/core";
 import {
   clusterApiUrl,
@@ -81,8 +82,9 @@ interface PhantomProvider {
 type DonationSidebarProps = {
   project: Project;
   sidebarTop: number;
-  connectWallet: any;
-  solana: any;
+  walletKey: string;
+  setWalletKey: any;
+  cookies: Cookies;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -143,23 +145,27 @@ const opts: { preflightCommitment: Commitment } = {
 export default function DonationSidebar({
   project,
   sidebarTop,
-  connectWallet,
-  solana,
+  walletKey,
+  setWalletKey,
+  cookies
 }: DonationSidebarProps) {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState<number>(0);
 
-  const cookies = new Cookies();
 
   let to: any = null;
   if (project?.charity?.wallet)
     to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
 
+  console.log("TOTO "+to)
   const poreskaUprava = new PublicKey(
     cookies.get("ChainImpactWallet") // Chain Impact wallet
   );
 
+  useEffect(() => {
+    console.log(poreskaUprava)
+  }, [])
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -169,60 +175,132 @@ export default function DonationSidebar({
     setOpen(false);
   };
 
-  const dataNft = {
-    data: [
-      {
-        label: "Page views",
-        stats: "456,578",
-        progress: 65,
-        color: "teal",
-      },
-      {
-        label: "New users",
-        stats: "2,550",
-        progress: 72,
-        color: "blue",
-      },
-    ],
+  // const dataNft = {
+  //   data: [
+  //     {
+  //       label: "Page views",
+  //       stats: "456,578",
+  //       progress: 65,
+  //       color: "teal",
+  //     },
+  //     {
+  //       label: "New users",
+  //       stats: "2,550",
+  //       progress: 72,
+  //       color: "blue",
+  //     },
+  //   ],
+  // };
+
+  // const nextTierNftSearch = {
+  //   projectId: project.id,
+  //   wallet: cookies.get("wallet") ?? "asdf"
+  // }
+  // console.log(nextTierNftSearch)
+
+  // const dataNftNew = useGetNextTierNFTs(nextTierNftSearch);
+  // console.log(dataNftNew);
+
+  let solana: any;
+
+  const connectWallet = async () => {
+    // @ts-ignore
+    const provider = getProviderConnect();
+
+    // check if there is cookie containing a wallet
+    let cookieWallet;
+    let newUser;
+    let response
+    if ((cookieWallet = cookies.get("wallet"))) {
+      if (provider) { 
+        const resp = await provider.connect();
+        return resp.publicKey;
+      }
+    }
+
+    console.log(provider)
+    if (provider) {
+      try {
+        const resp = await provider.connect();
+
+        // put wallet in cookie for next 365 days
+        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        // if there is already impactor with this wallet, continue
+        let impactor = getSpecificImpactor(
+          new ImpactorWalletSearch(null, null, resp.publicKey.toString())
+        );
+        setWalletKey(resp.publicKey.toString())
+        if (await impactor) {
+          return resp.publicKey;
+        }
+
+        // if not, create new impactor with this wallet
+        newUser = {
+          wallet: resp.publicKey.toString(),
+          type: 1,
+          name: null,
+          description: null,
+          website: null,
+          facebook: null,
+          discord: null,
+          twitter: null,
+          instagram: null,
+          imageurl: null,
+          role: null,
+        };
+
+        createNewImpactor(newUser);
+        return resp.publicKey;
+      } catch (err) {
+        // { code: 4001, message: 'User rejected the request.' }
+      }
+    } else {
+      return;
+    }
   };
 
-  const nextTierNftSearch = {
-    projectId: project.id,
-    wallet: cookies.get("wallet") ?? "asdf"
+  const getProviderConnect: any = () => {
+    const anyWindow: any = window;
+    const provider = anyWindow.phantom?.solana;
+    return provider;
   }
-  console.log(nextTierNftSearch)
 
-  const dataNftNew = useGetNextTierNFTs(nextTierNftSearch);
-  console.log(dataNftNew);
-
-
-
-  const getProvider: any = () => {
+  const getProvider: any = () => {  
+    const anyWindow: any = window;
+    solana = anyWindow.phantom?.solana;
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = new AnchorProvider(connection, solana, opts);
     return provider;
   };
 
   const donateToProject = async () => {
+    if (!("phantom" in window)){ 
+      return;
+    }
     try {
-      if(!solana){
-        solana = await connectWallet();
+      let key: PublicKey;
+      if (!cookies.get("wallet")){
+        key = await connectWallet();
+        return;
       }
-      await connectWallet();
+      else{
+        key = await connectWallet();
+      }
+      console.log(key)
+      const provider = getProvider();
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
-      const provider = getProvider();
       const program = new Program(idl as Idl, programID, provider);
       let balance = (await connection.getBalance(to)) / web3.LAMPORTS_PER_SOL;
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
-      console.log(provider.wallet?.publicKey.toString(), to, poreskaUprava);
-      //if (provider) provider.wallet.publicKey = new PublicKey(walletKey)
+      console.log(new PublicKey(cookies.get("wallet")), to, poreskaUprava);
+      //provider = getProviderConnect();
       let ts = await program.rpc.transfer(
         new BN(donationAmount * web3.LAMPORTS_PER_SOL),
         {
           accounts: {
-            user: provider.wallet.publicKey,
+            user: key,
             receiver: to,
             feeCollector: poreskaUprava,
             systemProgram: SystemProgram.programId,
@@ -491,13 +569,13 @@ export default function DonationSidebar({
             <Grid.Col>
               <Title>Help {project.name} reach it's goal!</Title>
               <Title size="lg" fw={200}>
-                Become an Impactor today.
+                Make an Impact today.
               </Title>
             </Grid.Col>
 
             <Grid.Col></Grid.Col>
 
-            <Grid.Col
+            <Grid.Col style={{paddingBottom: "85px"}}
               span={6}
               // style={{
               //   display: "flex",
@@ -519,14 +597,14 @@ export default function DonationSidebar({
               />
               <Button
                 leftIcon={<IconHeart size="0.88rem" />}
-                color="lime"
+                color="#33860c"
                 radius="md"
                 size="lg"
-                style={{width: "60%"}}
+                style={{width: "60%", backgroundColor: "#33860c"}}
                 mt="sm"
                 onClick={() => { (donateToProject())} }
               >
-                {cookies.get("wallet") ? "Donate" : "Connect to donate"}
+                {walletKey ? "Donate" : "Connect to donate"}
               </Button>
               <Button
                 radius="md"
@@ -561,7 +639,8 @@ export default function DonationSidebar({
                   </Text>
                 ) : (
                   <Text size="xl" weight={500} color={"#BBFD00"}>
-                    Currently donated: ${project.totaldonated} +{" "}
+                    Currently donated: ${project.totaldonated} +
+                    <br />
                     <span
                       style={{ color: donationAmount ? "#8468e8" : "#BBFD00" }}
                     >
@@ -590,7 +669,7 @@ export default function DonationSidebar({
                         ) /
                           100 +
                         "%",
-                      color: "#68b5e8",
+                      color: "#33860c",
                     },
                     {
                       value:
@@ -631,7 +710,7 @@ export default function DonationSidebar({
                 {((project.totaldonated * 1.0) / project.financialgoal) * 100 +
                   (donationAmount / project.financialgoal) * 100 >=
                 100 ? (
-                  <Text size={42} weight={500} color={"#8468e8"} mt="xs">
+                  <Text size={30} weight={500} color={"#8468e8"} mt="xs" style={{textAlign: "center"}}>
                     Goal reached!
                   </Text>
                 ) : (
@@ -644,12 +723,22 @@ export default function DonationSidebar({
 
             <Grid.Col>
               <Text size="lg" mb="md">
-                See how much you need to become an Impactor:
+                See how much you need to claim your NFT:
               </Text>
-              <NftStats
-                data={dataNft.data}
-                progress={donationAmount}
-              ></NftStats>
+              { cookies.get("wallet") && 
+                (<NftStats
+                  donationAmount={donationAmount}
+                  primaryType={project.primarycausetype.name}
+                  projectId={project.id}
+                  wallet={walletKey}
+                ></NftStats>)}
+              { !cookies.get("wallet") &&
+                <Paper withBorder p="xs" style={{fontSize: "24px", textAlign: "center"}} radius={25}>
+                  <Text style={{margin: "10px auto"}}>
+                    You must connect with your wallet to see your NFT progress 
+                  </Text>
+                </Paper>
+              }
             </Grid.Col>
           </Grid>
         </Modal>

@@ -18,6 +18,7 @@ import {
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Cookies, { Cookie } from "universal-cookie";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import BiggestImpactors from "../components/projectComponents/BiggestImpactors";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
@@ -69,16 +70,14 @@ const useStyles = createStyles((theme) => ({
 
 interface WalletKey {
   walletKey: string;
-  connectWallet: any;
-  disconnectWallet: any;
-  solana: any;
+  setWalletKey: any;
+  cookies: Cookies;
 }
 
 export default function ProjectOverview({
   walletKey,
-  connectWallet,
-  disconnectWallet,
-  solana,
+  setWalletKey,
+  cookies
 }: WalletKey) {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
@@ -242,8 +241,9 @@ export default function ProjectOverview({
               <DonationSidebar
                 project={projectData}
                 sidebarTop={sidebarTop}
-                connectWallet={connectWallet}
-                solana={solana}
+                walletKey={walletKey}
+                setWalletKey={setWalletKey}
+                cookies={cookies}
               ></DonationSidebar>
             </Grid.Col>
           </Grid>

@@ -119,6 +119,7 @@ interface PhantomProvider {
 }
 
 
+
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
@@ -134,7 +135,6 @@ function App() {
 
   const [provider, setProvider] = useState<any>(undefined);
   const [walletKey, setWalletKey] = useState<any>(undefined);
-  const [solana, setSolana] = useState<any>();
 
   const cookies = new Cookies();
 
@@ -143,101 +143,27 @@ function App() {
       getSpecificImpactorById(new ImpactorIdSearch(null, null, 0))
         .then(data => {
           const obj: Impactor[] = JSON.parse(data)
-          cookies.set("ChainImpactWallet", obj[0].wallet)
+          cookies.set("ChainImpactWallet", obj[0].wallet, { path: '/' })
         })
-    }
+    } 
 
   }, [])
 
   console.log(cookies.get("ChainImpactWallet"))
 
+
   const getProvider = (): PhantomProvider | undefined => {
-    if ("solana" in window) {
-      // @ts-ignore
-      const provider = window.solana as any;
-      if (provider.isPhantom) return provider as PhantomProvider;
-    }
-  };
-
-  /**
-   * @description prompts user to connect wallet if it exists
-   */
-  const connectWallet = async () => {
-    // @ts-ignore
-    const { solana } = window;
-
-    // check if there is cookie containing a wallet
-    let cookieWallet;
-    let newUser;
-    let response
-    if ((cookieWallet = cookies.get("wallet"))) {
-      if (solana)
-        response = await solana.connect();
-      setWalletKey(cookieWallet);
-      return solana;
-    }
-    console.log("Eggo")
-
-    if (solana) {
-      try {
-        const response = await solana.connect();
-        setSolana(solana);
-
-        // put wallet in cookie for next 365 days
-        cookies.set("wallet", response.publicKey.toString(), {
-          expires: new Date(Date.now() + 31536000000),
-        });
-        // if there is already impactor with this wallet, continue
-        let impactor = getSpecificImpactor(
-          new ImpactorWalletSearch(null, null, response.publicKey.toString())
-        );
-        if (await impactor) {
-          setWalletKey(response.publicKey.toString());
-          return;
-        }
-
-        // if not, create new impactor with this wallet
-        newUser = {
-          wallet: response.publicKey.toString(),
-          type: 1,
-          name: null,
-          description: null,
-          website: null,
-          facebook: null,
-          discord: null,
-          twitter: null,
-          instagram: null,
-          imageurl: null,
-          role: null,
-        };
-
-        createNewImpactor(newUser);
-        setWalletKey(response.publicKey.toString());
-      } catch (err) {
-        // { code: 4001, message: 'User rejected the request.' }
+    if ('phantom' in window) {
+      const anyWindow: any = window;
+      const provider = anyWindow.phantom?.solana;
+  
+      if (provider?.isPhantom) {
+        return provider;
       }
-    } else {
-      return;
     }
-  };
+};
 
-  /**
-   * @description disconnect Phantom wallet
-   */
-  const disconnectWallet = async () => {
-    // @ts-ignore
-    const { solana } = window;
-
-    if(cookies.get("wallet"))
-      cookies.remove("wallet");
-    setWalletKey(undefined);
-    if (walletKey) {
-      if (solana) await (solana as PhantomProvider).disconnect();
-    }
-
-    
-  };
-
+  
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -264,8 +190,7 @@ function App() {
           setProvider={setProvider}
           walletKey={walletKey}
           setWalletKey={setWalletKey}
-          connectWallet={connectWallet}
-          disconnectWallet={disconnectWallet}
+          cookies={cookies}
         />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -276,9 +201,8 @@ function App() {
             element={
               <ProjectOverview
                 walletKey={walletKey}
-                connectWallet={connectWallet}
-                disconnectWallet={disconnectWallet}
-                solana={solana}
+                setWalletKey={setWalletKey}
+                cookies={cookies}
               />
             }
           />

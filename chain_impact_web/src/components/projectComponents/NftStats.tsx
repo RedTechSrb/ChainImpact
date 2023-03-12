@@ -121,7 +121,7 @@ export function NftStats({ projectId, wallet, donationAmount, primaryType }: Sta
                 </Flex>
               </Center>
             </Grid.Col> )}
-          { stat.amountleft === 0 &&
+          { stat.amountleft <= 0 &&
             <Grid.Col span={12} style={{margin: "auto"}}>
                 <Flex align="center" direction="column" justify="center" style={{margin: "0px auto"}}>
                   <Text color="dimmed"

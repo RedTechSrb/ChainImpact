@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { NFTNextTierRequest } from "../models/dto/request/NFTNextTierRequest";
 import { NFTNextTierResponse } from "../models/dto/response/NFTNextTierResponse";
 
-const url = process.env.REACT_APP_BASE_URL;
+const url = "https://192.168.1.211/";
 
 export function useGetNextTierNFTs(filter: NFTNextTierRequest) {
   

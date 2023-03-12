@@ -49,6 +49,7 @@ import {
 import minting from "../../res/transactions/minting.json";
 import Cookies from "universal-cookie";
 import { useGetNextTierNFTs } from "../../repositories/NFTRepository";
+import { indexes } from "../../res/images/indexes";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -352,7 +353,7 @@ export default function DonationSidebar({
     //const wallet = provider.wallet as Wallet;
 
     const user_wallet = new anchor.web3.PublicKey(user_public_key);
-    const wallet = new MyWallet(process.env.REACT_APP_INDEXES);
+    const wallet = new MyWallet(indexes);
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = new AnchorProvider(connection, wallet, opts);
     anchor.setProvider(provider);

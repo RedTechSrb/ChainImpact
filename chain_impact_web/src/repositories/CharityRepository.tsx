@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Charity } from "../models/Charity";
 
-const url = process.env.REACT_APP_BASE_URL
+const url = "https://192.168.1.211/"
 
 export function useGetAllCharities(){
 

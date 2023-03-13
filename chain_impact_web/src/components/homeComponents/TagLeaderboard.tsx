@@ -173,7 +173,7 @@ export default function TagLeaderboard() {
   const impactorsGen = arangeImpactorData(impactorsGeneral);
 
   return (
-    <Container size="xl" py="xl">
+    <Container size="lg" py="xl">
       <Title order={2} className={classes.title} align="center" mt="sm">
         Top Companies that make a real Impact
       </Title>

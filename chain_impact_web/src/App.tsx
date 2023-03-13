@@ -138,16 +138,6 @@ function App() {
 
   const cookies = new Cookies();
 
-  useEffect(() => {
-    if (!cookies.get("ChainImpactWallet")){
-      getSpecificImpactorById(new ImpactorIdSearch(null, null, 0))
-        .then(data => {
-          const obj: Impactor[] = JSON.parse(data)
-          cookies.set("ChainImpactWallet", obj[0].wallet, { path: '/' })
-        })
-    } 
-
-  }, [])
 
   console.log(cookies.get("ChainImpactWallet"))
 

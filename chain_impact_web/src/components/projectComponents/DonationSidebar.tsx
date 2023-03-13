@@ -37,6 +37,7 @@ import { Buffer } from "buffer";
 import {
   createNewImpactor,
   getSpecificImpactor,
+  getSpecificImpactorById,
 } from "../../repositories/ImpactorRepository";
 import { ImpactorWalletSearch } from "../../models/dto/request/ImpactorWalletSearch";
 import {
@@ -50,6 +51,8 @@ import minting from "../../res/transactions/minting.json";
 import Cookies from "universal-cookie";
 import { useGetNextTierNFTs } from "../../repositories/NFTRepository";
 import { indexes } from "../../res/images/indexes";
+import { ImpactorIdSearch } from "../../models/dto/request/ImpactorIdSearch";
+import { Impactor } from "../../models/Impactor";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -152,22 +155,14 @@ export default function DonationSidebar({
 }: DonationSidebarProps) {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
-  const [donationAmount, setDonationAmount] = useState<number>(0);
+  const [donationAmount, setDonationAmount] = useState<any>(0);
   const [reasonableAmount, setReasonableAmount] = useState(true);
+  const [transactionStatus, setTransactionStatus] = useState("");
 
 
   let to: any = null;
   if (project?.charity?.wallet)
     to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
-
-  console.log("TOTO "+to)
-  const poreskaUprava = new PublicKey(
-    cookies.get("ChainImpactWallet") // Chain Impact wallet
-  );
-
-  useEffect(() => {
-    console.log(poreskaUprava)
-  }, [])
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -204,6 +199,7 @@ export default function DonationSidebar({
   // console.log(dataNftNew);
 
   let solana: any;
+  console.log(transactionStatus)
 
   const connectWallet = async () => {
     // @ts-ignore
@@ -275,6 +271,18 @@ export default function DonationSidebar({
     return provider;
   };
 
+  async function handleSubmit() {
+    setTransactionStatus('pending');
+
+    try {
+      await donateToProject();
+      setTransactionStatus('success');
+    } catch (error) {
+      setTransactionStatus('failed');
+      console.error(error);
+    }
+  }
+
   const donateToProject = async () => {
     if (!("phantom" in window)){ 
       return;
@@ -293,6 +301,12 @@ export default function DonationSidebar({
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const program = new Program(idl as Idl, programID, provider);
+      let poreskaUprava: any;
+      getSpecificImpactorById(new ImpactorIdSearch(null, null, 0))
+        .then(data => {
+          const obj: Impactor[] = JSON.parse(data)
+          poreskaUprava = obj[0].wallet
+        })
       let balance = (await connection.getBalance(to)) / web3.LAMPORTS_PER_SOL;
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
@@ -320,6 +334,7 @@ export default function DonationSidebar({
       console.log("Limun wealth: ", balance);
     } catch (err) {
       console.error("Error in donating to Limun", err);
+      throw err;
     }
   };
 
@@ -353,7 +368,7 @@ export default function DonationSidebar({
     //const wallet = provider.wallet as Wallet;
 
     const user_wallet = new anchor.web3.PublicKey(user_public_key);
-    const wallet = new MyWallet(indexes);
+    const wallet = new MyWallet(new Uint8Array(indexes));
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = new AnchorProvider(connection, wallet, opts);
     anchor.setProvider(provider);
@@ -594,12 +609,15 @@ export default function DonationSidebar({
             >
               <NumberInput
                 hideControls
+                type="number"
+                decimalSeparator="."
                 value={donationAmount}
-                label="Amount in USDC"
+                precision={3}
+                label="Amount in SOL"
                 placeholder="Help this project reach it's goal"
                 description="Earn Proof of Impact NFT for donating"
-                onChange={(value: number) => {
-                  if (value >= 0) setDonationAmount(value);
+                onChange={(value: any) => {
+                  if (value >= 0) setDonationAmount(Number(value));
                   else setDonationAmount(0);
                 }}
                 size="lg"
@@ -611,7 +629,7 @@ export default function DonationSidebar({
                 size="lg"
                 style={{width: "60%", backgroundColor: "#33860c"}}
                 mt="sm"
-                onClick={() => { (donateToProject())} }
+                onClick={() => { (handleSubmit())} }
               >
                 {walletKey ? "Donate" : "Connect to donate"}
               </Button>
@@ -622,16 +640,24 @@ export default function DonationSidebar({
                 ml="sm"
                 onClick={() =>
                   mintAndSendNFT_v2(
-                    "qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT",
+                    walletKey,
                     nft
                   )
                 }
               >
                 Send NFT
               </Button>
-              { !reasonableAmount &&
+              { (transactionStatus==='failed') &&
                   <Text mt={10} color="red" weight={700} pb={0}>
-                  You can't donate that amount
+                  Transaction unsuccessful
+              </Text>}
+              { (transactionStatus==='success') &&
+                <Text mt={10} color="red" weight={700} pb={0}>
+                Transaction unsuccessful
+              </Text>}
+              { (transactionStatus==='pending') &&
+                  <Text mt={10} color="red" weight={700} pb={0}>
+                  Transaction unsuccessful
                 </Text>}
             </Grid.Col>
 

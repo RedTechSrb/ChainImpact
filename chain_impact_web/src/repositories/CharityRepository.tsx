@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Charity } from "../models/Charity";
 
-const url = "https://167.99.246.54/";
+const url = "http://192.168.1.63:7071/"
 
 export function useGetAllCharities() {
   const [charities, setCharities] = useState<Charity[]>([]);

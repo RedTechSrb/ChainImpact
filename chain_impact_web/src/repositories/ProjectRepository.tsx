@@ -5,7 +5,7 @@ import { ProjectSearch } from "../models/dto/request/ProjectSearch";
 import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
 
-const url = "https://167.99.246.54/"
+const url = "http://192.168.1.63:7071/"
 
 export function useGetAllProjects(){
 

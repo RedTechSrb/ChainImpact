@@ -37,6 +37,10 @@ const useStyles = createStyles((theme) => ({
     cursor: "pointer",
   },
 
+  tablerow: {
+    maxwidth: "200px",
+  },
+
   link: {
     textDecoration: "none",
     "&:hover": {

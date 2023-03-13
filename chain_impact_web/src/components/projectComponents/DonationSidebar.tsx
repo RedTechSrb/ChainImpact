@@ -160,8 +160,6 @@ export default function DonationSidebar({
   const [reasonableAmount, setReasonableAmount] = useState(true);
   const [transactionStatus, setTransactionStatus] = useState("");
   const [opened, { open, close }] = useDisclosure(false);
-  
-
 
   let to: any = null;
   if (project?.charity?.wallet) to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
@@ -210,7 +208,7 @@ export default function DonationSidebar({
   // console.log(dataNftNew);
 
   let solana: any;
-  console.log(transactionStatus)
+  console.log(transactionStatus);
 
   const connectWallet = async () => {
     // @ts-ignore
@@ -283,36 +281,33 @@ export default function DonationSidebar({
   };
 
   useEffect(() => {
-    setTransactionStatus("")
-  }, [walletKey])
+    setTransactionStatus("");
+  }, [walletKey]);
 
   async function handleSubmit() {
-    let skip = false
-    if (walletKey)
-      setTransactionStatus('pending');
-    else{
-      skip = true
+    let skip = false;
+    if (walletKey) setTransactionStatus("pending");
+    else {
+      skip = true;
     }
-
 
     try {
       await donateToProject();
-      if(!skip){
-        if (donationAmount <= 0){
-          setTransactionStatus("You can't donate this amount")
+      if (!skip) {
+        if (donationAmount <= 0) {
+          setTransactionStatus("You can't donate this amount");
         } else {
           // here comes the logic for potential NFT sending
           // first only message display (proper modal with images), only after you call the method
-          setTransactionStatus('success');
+          setTransactionStatus("success");
           open();
           setOpen(false);
         }
       }
     } catch (error) {
-      setTransactionStatus('failed');
+      setTransactionStatus("failed");
       console.error(error);
     }
-      
   }
 
   const donateToProject = async () => {
@@ -333,11 +328,12 @@ export default function DonationSidebar({
       const connection = new Connection(network, opts.preflightCommitment);
       const program = new Program(idl as Idl, programID, provider);
       let poreskaUprava: any;
-      getSpecificImpactorById(new ImpactorIdSearch(null, null, 0))
-        .then(data => {
-          const obj: Impactor[] = JSON.parse(data)
-          poreskaUprava = obj[0].wallet
-        })
+      getSpecificImpactorById(new ImpactorIdSearch(null, null, 0)).then(
+        (data) => {
+          const obj: Impactor[] = JSON.parse(data);
+          poreskaUprava = obj[0].wallet;
+        }
+      );
       let balance = (await connection.getBalance(to)) / web3.LAMPORTS_PER_SOL;
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
@@ -578,6 +574,7 @@ export default function DonationSidebar({
 
   return (
     <Card
+      id="donation-sidebar"
       withBorder
       radius="md"
       className={classes.card}
@@ -615,14 +612,24 @@ export default function DonationSidebar({
           onClick={handleDonateClick}
           size="lg"
         >
-          Become an Impactor
+          Donate
         </Button>
 
-        <Modal opened={opened} onClose={() => { close(); setOpen(false);}} title="Transaction successful" centered withCloseButton>
-        { (transactionStatus==='success') &&
-                <Text mt={10} color="#33860c" weight={700} pb={0} align="center">
-                  Thank You for making an Impact!
-              </Text>}
+        <Modal
+          opened={opened}
+          onClose={() => {
+            close();
+            setOpen(false);
+          }}
+          title="Transaction successful"
+          centered
+          withCloseButton
+        >
+          {transactionStatus === "success" && (
+            <Text mt={10} color="#33860c" weight={700} pb={0} align="center">
+              Thank You for making an Impact!
+            </Text>
+          )}
         </Modal>
 
         <Modal opened={open1} onClose={handleModalClose} size="800px">
@@ -668,7 +675,9 @@ export default function DonationSidebar({
                 size="lg"
                 style={{ width: "60%", backgroundColor: "#33860c" }}
                 mt="sm"
-                onClick={() => { (handleSubmit())} }
+                onClick={() => {
+                  handleSubmit();
+                }}
               >
                 {walletKey ? "Donate" : "Connect to donate"}
               </Button>
@@ -677,27 +686,25 @@ export default function DonationSidebar({
                 size="lg"
                 mt="sm"
                 ml="sm"
-                onClick={() =>
-                  mintAndSendNFT_v2(
-                    walletKey,
-                    nft
-                  )
-                }
+                onClick={() => mintAndSendNFT_v2(walletKey, nft)}
               >
                 Send NFT
               </Button>
-              { (transactionStatus==='failed') &&
-                  <Text mt={10} color="red" weight={700} pb={0}>
-                  Transaction unsuccessful
-              </Text>}
-              { (transactionStatus==='pending') &&
-                  <Text mt={10} weight={700} pb={0}>
-                  Processing transaction <Loader variant="dots" />
-                </Text>}
-              { (transactionStatus==="You can't donate this amount") &&
+              {transactionStatus === "failed" && (
                 <Text mt={10} color="red" weight={700} pb={0}>
-                Transaction failed, You can't donate this amount
-            </Text>}
+                  Transaction unsuccessful
+                </Text>
+              )}
+              {transactionStatus === "pending" && (
+                <Text mt={10} weight={700} pb={0}>
+                  Processing transaction <Loader variant="dots" />
+                </Text>
+              )}
+              {transactionStatus === "You can't donate this amount" && (
+                <Text mt={10} color="red" weight={700} pb={0}>
+                  Transaction failed, You can't donate this amount
+                </Text>
+              )}
             </Grid.Col>
 
             <Grid.Col span={6}>

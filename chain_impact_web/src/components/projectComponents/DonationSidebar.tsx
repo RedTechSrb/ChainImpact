@@ -145,13 +145,12 @@ const opts: { preflightCommitment: Commitment } = {
   preflightCommitment: "singleGossip",
 };
 
-
 export default function DonationSidebar({
   project,
   sidebarTop,
   walletKey,
   setWalletKey,
-  cookies
+  cookies,
 }: DonationSidebarProps) {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
@@ -161,8 +160,16 @@ export default function DonationSidebar({
 
 
   let to: any = null;
-  if (project?.charity?.wallet)
-    to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
+  if (project?.charity?.wallet) to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
+
+  console.log("TOTO "+to)
+  const poreskaUprava = new PublicKey(
+    cookies.get("ChainImpactWallet") // Chain Impact wallet
+  );
+
+  useEffect(() => {
+    console.log(poreskaUprava)
+  }, [])
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -208,26 +215,26 @@ export default function DonationSidebar({
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
-    let response
+    let response;
     if ((cookieWallet = cookies.get("wallet"))) {
-      if (provider) { 
+      if (provider) {
         const resp = await provider.connect();
         return resp.publicKey;
       }
     }
 
-    console.log(provider)
+    console.log(provider);
     if (provider) {
       try {
         const resp = await provider.connect();
 
         // put wallet in cookie for next 365 days
-        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        cookies.set("wallet", resp.publicKey.toString(), { path: "/" });
         // if there is already impactor with this wallet, continue
         let impactor = getSpecificImpactor(
           new ImpactorWalletSearch(null, null, resp.publicKey.toString())
         );
-        setWalletKey(resp.publicKey.toString())
+        setWalletKey(resp.publicKey.toString());
         if (await impactor) {
           return resp.publicKey;
         }
@@ -261,9 +268,9 @@ export default function DonationSidebar({
     const anyWindow: any = window;
     const provider = anyWindow.phantom?.solana;
     return provider;
-  }
+  };
 
-  const getProvider: any = () => {  
+  const getProvider: any = () => {
     const anyWindow: any = window;
     solana = anyWindow.phantom?.solana;
     const connection = new Connection(network, opts.preflightCommitment);
@@ -284,19 +291,18 @@ export default function DonationSidebar({
   }
 
   const donateToProject = async () => {
-    if (!("phantom" in window)){ 
+    if (!("phantom" in window)) {
       return;
     }
     try {
       let key: PublicKey;
-      if (!cookies.get("wallet")){
+      if (!cookies.get("wallet")) {
         key = await connectWallet();
         return;
-      }
-      else{
+      } else {
         key = await connectWallet();
       }
-      console.log(key)
+      console.log(key);
       const provider = getProvider();
       console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
@@ -311,7 +317,7 @@ export default function DonationSidebar({
       console.log("Limun wealth: ", balance);
       console.log("Donating 0.1 SOL to Limun...");
       console.log(new PublicKey(cookies.get("wallet")), to, poreskaUprava);
-      if (donationAmount <=0 || isNaN(donationAmount)) {
+      if (donationAmount <= 0 || isNaN(donationAmount)) {
         setReasonableAmount(false);
         return;
       } else {
@@ -554,8 +560,8 @@ export default function DonationSidebar({
     >
       <Card.Section className={classes.imageSection}>
         <Image
-          src="https://media.istockphoto.com/id/174062115/photo/homeless-people.jpg?s=612x612&w=is&k=20&c=9fbaYUH1LNfNUsPopf1lwKjtSDwdYLb2lENKvZCVPWA="
-          alt="Tesla Model S"
+          src={project.imageurl}
+          alt="Project Image"
           className={classes.image}
         />
       </Card.Section>
@@ -598,7 +604,8 @@ export default function DonationSidebar({
 
             <Grid.Col></Grid.Col>
 
-            <Grid.Col style={{paddingBottom: "85px"}}
+            <Grid.Col
+              style={{ paddingBottom: "85px" }}
               span={6}
               // style={{
               //   display: "flex",
@@ -627,9 +634,9 @@ export default function DonationSidebar({
                 color="#33860c"
                 radius="md"
                 size="lg"
-                style={{width: "60%", backgroundColor: "#33860c"}}
+                style={{ width: "60%", backgroundColor: "#33860c" }}
                 mt="sm"
-                onClick={() => { (handleSubmit())} }
+                onClick={() => { (donateToProject())} }
               >
                 {walletKey ? "Donate" : "Connect to donate"}
               </Button>
@@ -713,11 +720,16 @@ export default function DonationSidebar({
                     {
                       value:
                         donationAmount == 0
-                          ? (100 - (project.totaldonated / project.financialgoal) * 100)
+                          ? 100 -
+                            (project.totaldonated / project.financialgoal) * 100
                           : (donationAmount / project.financialgoal) * 100 < 20
                           ? 20
-                          : ((donationAmount + project.totaldonated)/ project.financialgoal) * 100 >= 100
-                          ? 100 - (project.totaldonated/project.financialgoal) * 100
+                          : ((donationAmount + project.totaldonated) /
+                              project.financialgoal) *
+                              100 >=
+                            100
+                          ? 100 -
+                            (project.totaldonated / project.financialgoal) * 100
                           : (donationAmount / project.financialgoal) * 100,
 
                       label:
@@ -749,7 +761,13 @@ export default function DonationSidebar({
                 {((project.totaldonated * 1.0) / project.financialgoal) * 100 +
                   (donationAmount / project.financialgoal) * 100 >=
                 100 ? (
-                  <Text size={30} weight={500} color={"#8468e8"} mt="xs" style={{textAlign: "center"}}>
+                  <Text
+                    size={30}
+                    weight={500}
+                    color={"#8468e8"}
+                    mt="xs"
+                    style={{ textAlign: "center" }}
+                  >
                     Goal reached!
                   </Text>
                 ) : (
@@ -758,26 +776,30 @@ export default function DonationSidebar({
               </Card>
             </Grid.Col>
 
-            
-
             <Grid.Col>
               <Text size="lg" mb="md">
                 See how much you need to claim your NFT:
               </Text>
-              { cookies.get("wallet") && 
-                (<NftStats
+              {cookies.get("wallet") && (
+                <NftStats
                   donationAmount={donationAmount}
                   primaryType={project.primarycausetype.name}
                   projectId={project.id}
                   wallet={walletKey}
-                ></NftStats>)}
-              { !cookies.get("wallet") &&
-                <Paper withBorder p="xs" style={{fontSize: "24px", textAlign: "center"}} radius={25}>
-                  <Text style={{margin: "10px auto"}}>
-                    You must connect with your wallet to see your NFT progress 
+                ></NftStats>
+              )}
+              {!cookies.get("wallet") && (
+                <Paper
+                  withBorder
+                  p="xs"
+                  style={{ fontSize: "24px", textAlign: "center" }}
+                  radius={25}
+                >
+                  <Text style={{ margin: "10px auto" }}>
+                    You must connect with your wallet to see your NFT progress
                   </Text>
                 </Paper>
-              }
+              )}
             </Grid.Col>
           </Grid>
         </Modal>

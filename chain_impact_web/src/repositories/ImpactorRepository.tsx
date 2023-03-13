@@ -13,7 +13,7 @@ import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
 import Cookies from "universal-cookie";
 
-const url = "http://192.168.1.63:7071/"
+const url = "https://192.168.1.63/"
 
 export function useGetAllImpactors() {
   const [impactors, setImpactors] = useState<Impactor[]>([]);

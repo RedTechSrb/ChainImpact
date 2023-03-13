@@ -14,6 +14,7 @@ import {
   Grid,
   Title,
   Paper,
+  Loader,
 } from "@mantine/core";
 import {
   clusterApiUrl,
@@ -53,6 +54,7 @@ import { useGetNextTierNFTs } from "../../repositories/NFTRepository";
 import { indexes } from "../../res/images/indexes";
 import { ImpactorIdSearch } from "../../models/dto/request/ImpactorIdSearch";
 import { Impactor } from "../../models/Impactor";
+import { useDisclosure } from "@mantine/hooks";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -153,10 +155,12 @@ export default function DonationSidebar({
   cookies,
 }: DonationSidebarProps) {
   const { classes } = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open1, setOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState<any>(0);
   const [reasonableAmount, setReasonableAmount] = useState(true);
   const [transactionStatus, setTransactionStatus] = useState("");
+  const [opened, { open, close }] = useDisclosure(false);
+  
 
 
   let to: any = null;
@@ -278,16 +282,37 @@ export default function DonationSidebar({
     return provider;
   };
 
+  useEffect(() => {
+    setTransactionStatus("")
+  }, [walletKey])
+
   async function handleSubmit() {
-    setTransactionStatus('pending');
+    let skip = false
+    if (walletKey)
+      setTransactionStatus('pending');
+    else{
+      skip = true
+    }
+
 
     try {
       await donateToProject();
-      setTransactionStatus('success');
+      if(!skip){
+        if (donationAmount <= 0){
+          setTransactionStatus("You can't donate this amount")
+        } else {
+          // here comes the logic for potential NFT sending
+          // first only message display (proper modal with images), only after you call the method
+          setTransactionStatus('success');
+          open();
+          setOpen(false);
+        }
+      }
     } catch (error) {
       setTransactionStatus('failed');
       console.error(error);
     }
+      
   }
 
   const donateToProject = async () => {
@@ -593,7 +618,14 @@ export default function DonationSidebar({
           Become an Impactor
         </Button>
 
-        <Modal opened={open} onClose={handleModalClose} size="800px">
+        <Modal opened={opened} onClose={() => { close(); setOpen(false);}} title="Transaction successful" centered withCloseButton>
+        { (transactionStatus==='success') &&
+                <Text mt={10} color="#33860c" weight={700} pb={0} align="center">
+                  Thank You for making an Impact!
+              </Text>}
+        </Modal>
+
+        <Modal opened={open1} onClose={handleModalClose} size="800px">
           <Grid>
             <Grid.Col>
               <Title>Help {project.name} reach it's goal!</Title>
@@ -658,14 +690,14 @@ export default function DonationSidebar({
                   <Text mt={10} color="red" weight={700} pb={0}>
                   Transaction unsuccessful
               </Text>}
-              { (transactionStatus==='success') &&
-                <Text mt={10} color="red" weight={700} pb={0}>
-                Transaction successful
-              </Text>}
               { (transactionStatus==='pending') &&
-                  <Text mt={10} color="red" weight={700} pb={0}>
-                  Transaction pending
+                  <Text mt={10} weight={700} pb={0}>
+                  Processing transaction <Loader variant="dots" />
                 </Text>}
+              { (transactionStatus==="You can't donate this amount") &&
+                <Text mt={10} color="red" weight={700} pb={0}>
+                Transaction failed, You can't donate this amount
+            </Text>}
             </Grid.Col>
 
             <Grid.Col span={6}>

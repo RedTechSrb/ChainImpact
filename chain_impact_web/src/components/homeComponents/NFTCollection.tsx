@@ -278,7 +278,7 @@ export default function NFTCollection() {
             You can earn a Proof of Impact by supporting a project that is part
             of our platform. You will notice that projects have tags that
             display which type of governance they represent. Each donation to a
-            ceratin tag will bring you closer to earning a Proof of Impact NFT
+            certain tag will bring you closer to earning a Proof of Impact NFT
             of that cause.
           </Accordion.Panel>
         </Accordion.Item>

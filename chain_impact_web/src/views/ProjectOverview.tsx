@@ -121,10 +121,7 @@ export default function ProjectOverview({
       const componentTop = component.offsetTop;
       const componentHeight = component.offsetHeight;
       const componentBottom = componentTop + componentHeight;
-      const scrollTop =
-        window.pageYOffset ||
-        (document.documentElement || document.body.parentNode || document.body)
-          .scrollTop;
+      const scrollTop = window.scrollY;
 
       let newDonationSidebarPosition = donationSidebarPosition;
       if (
@@ -133,7 +130,7 @@ export default function ProjectOverview({
       ) {
         newDonationSidebarPosition = scrollTop;
       } else if (scrollTop <= componentTop) {
-        newDonationSidebarPosition = componentTop;
+        newDonationSidebarPosition = 5;
       } else {
         newDonationSidebarPosition = componentBottom - donationSidebarHeight;
       }

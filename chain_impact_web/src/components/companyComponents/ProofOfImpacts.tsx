@@ -94,34 +94,16 @@ function Card({ image, title, category }: CardProps) {
 const data = [
   {
     image:
-      "https://www.arweave.net/L2xx_TKhUOImmE3YF9q8aqO23KYTFO8FILERCdSeMwc?ext=PNG",
-    title: "Best forests to visit in North America",
-    category: "nature",
+      "https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG",
+    title: "General Tier 1 NFT",
+    category: "generalnft",
   },
   {
     image:
-      "https://www.arweave.net/XuW3IePl-7omXSkY8cqcwupcbQYMg5u8ebh2viTBayU?ext=PNG",
-    title: "Hawaii beaches review: better than you think",
-    category: "beach",
-  },
-  {
-    image:
-      "https://www.arweave.net/iu44EnygpiLm12r_nbe5aOgh9SnWIFzm8p5dfoZlT4A?ext=PNG",
-    title: "Mountains at night: 12 best locations to enjoy the view",
-    category: "nature",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-    title: "Aurora in Norway: when to visit for best experience",
-    category: "nature",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-    title: "Best places to visit this winter",
-    category: "tourism",
-  },
+      "https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG",
+    title: "Education Tier 1 NFT",
+    category: "educationnft",
+  }
   
 ];
 

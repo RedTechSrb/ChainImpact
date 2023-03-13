@@ -21,10 +21,11 @@ interface StatsRingProps {
   wallet: string;
   donationAmount: number;
   primaryType: string;
+  setDataNftNew: any;
 }
 
 
-export function NftStats({ projectId, wallet, donationAmount, primaryType }: StatsRingProps) {
+export function NftStats({ projectId, wallet, donationAmount, primaryType, setDataNftNew }: StatsRingProps) {
   
   const [impactor, setImpactor] = useState<Impactor>();
   let impactorData: Promise<any>;
@@ -36,7 +37,7 @@ export function NftStats({ projectId, wallet, donationAmount, primaryType }: Sta
   console.log(nextTierNftSearch)
 
   let dataNftNew: any[] = useGetNextTierNFTs(nextTierNftSearch);
-  console.log(dataNftNew);
+  setDataNftNew(dataNftNew)
 
   function setImpactorData() {
     impactorData = getSpecificImpactor(

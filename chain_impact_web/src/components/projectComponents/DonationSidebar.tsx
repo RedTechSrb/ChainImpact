@@ -162,14 +162,14 @@ export default function DonationSidebar({
   let to: any = null;
   if (project?.charity?.wallet) to = new PublicKey(project?.charity?.wallet); // wallet of project for donating to
 
-  console.log("TOTO "+to)
-  const poreskaUprava = new PublicKey(
-    cookies.get("ChainImpactWallet") // Chain Impact wallet
-  );
+  // console.log("TOTO "+to)
+  // const poreskaUprava = new PublicKey(
+  //   cookies.get("ChainImpactWallet") // Chain Impact wallet
+  // );
 
-  useEffect(() => {
-    console.log(poreskaUprava)
-  }, [])
+  // useEffect(() => {
+  //   console.log(poreskaUprava)
+  // }, [])
 
   const handleDonateClick = () => {
     setOpen(true);
@@ -636,7 +636,7 @@ export default function DonationSidebar({
                 size="lg"
                 style={{ width: "60%", backgroundColor: "#33860c" }}
                 mt="sm"
-                onClick={() => { (donateToProject())} }
+                onClick={() => { (handleSubmit())} }
               >
                 {walletKey ? "Donate" : "Connect to donate"}
               </Button>
@@ -660,11 +660,11 @@ export default function DonationSidebar({
               </Text>}
               { (transactionStatus==='success') &&
                 <Text mt={10} color="red" weight={700} pb={0}>
-                Transaction unsuccessful
+                Transaction successful
               </Text>}
               { (transactionStatus==='pending') &&
                   <Text mt={10} color="red" weight={700} pb={0}>
-                  Transaction unsuccessful
+                  Transaction pending
                 </Text>}
             </Grid.Col>
 

@@ -281,26 +281,21 @@ export default function NFTCollection() {
             How can I earn a Proof of Impact?
           </Accordion.Control>
           <Accordion.Panel>
-            You start by selecting a project that aligns with your values. We've
-            partnered with a number of charity organizations to bring different
-            ESG projects. Collaborate with the Angel Impactors to bring a
-            project to it's goal by donating. Impactors will receive a Proof of
-            Impact NFT.
+            You can earn a Proof of Impact by supporting a project that is part
+            of our platform. You will notice that projects have tags that
+            display which type of governance they represent. Each donation to a
+            ceratin tag will bring you closer to earning a Proof of Impact NFT
+            of that cause.
           </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item className={classes.item} value="another-account">
           <Accordion.Control>
-            What are benefits of being an Impactor
+            What are benefits of being an Impactor?
           </Accordion.Control>
           <Accordion.Panel>
-            Investing in ESG projects not only helps create positive impact on
-            society and the environment, but it can also lead to increased
-            revenue opportunities and long-term sustainability for your
-            business. Our platform allows you to easily track and showcase your
-            ESG efforts, and connect with impact investors and customers who
-            share your values. <br></br>
-            Also it feels good to know you helped make a difference.
+            We will partner with the Ecosystem to provide you with exclusive
+            discounts, accesses and similar with the Proof of Impact.
           </Accordion.Panel>
         </Accordion.Item>
 
@@ -309,27 +304,29 @@ export default function NFTCollection() {
             What is "General" track? What are these tiers?
           </Accordion.Control>
           <Accordion.Panel>
-            Angel Impactors are companies that are first to support a certain
-            charity project by making an initial donation to it. They help
-            ensure that the project is carried out successfully by providing
-            financial support. They are always showcased in the project page.
-            This way companies can truly show their values.
+            There are 5 different categories of projects you can earn an NFT
+            for. Each donation to a ceratin cause will add up to your total
+            impact, for which you will receive a General NFT. <br></br> There
+            are 4 milestones you can achieve, each of which will give you a new
+            NFT. These milestones are: 50, 200, 1000 and 5000 if you're an
+            individual, and 1000, 5000, 20000 and 50000 if you're a company.
+            <br></br>
+            Better tiers will give you more utility and benefits, while
+            showacsing your impact to others.
           </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item className={classes.item} value="credit-card">
           <Accordion.Control>
-            How are tiered rewards distributed?
+            I invested $500 into a "Social" project and $4700 in "Environment"
+            project. Which NFTs will i get? Do i get a general NFT?
           </Accordion.Control>
           <Accordion.Panel>
-            At Chain Impact, we use blockchain technology to provide
-            transparency and accountability for every donation. Each donation is
-            recorded on the blockchain, which means that it cannot be altered or
-            tampered with. Additionally, we work with trusted and vetted charity
-            organizations to ensure that your donations go to the right place
-            and are used for their intended purpose. You can also track the
-            progress of the projects you support and see how your donation is
-            making an impact in real-time.
+            All the impact you made will be added up. In this example you've
+            donated a total of $5200, which will give you: Tier 1, 2, 3 of the
+            Environment NFT, Tier 1,2 of the Social NFT and all four tiers in
+            General category. When donating you will see how much you need to
+            get a next tier NFT.
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>

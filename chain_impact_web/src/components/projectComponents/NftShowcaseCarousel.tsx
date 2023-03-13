@@ -94,7 +94,7 @@ function Card({ image, title, category }: CardProps) {
 const data = [
   {
     image:
-      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/environmentnft.JPG?raw=true",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG?raw=true",
     title: "Best forests to visit in North America",
     category: "General",
   },

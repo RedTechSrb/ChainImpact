@@ -1,19 +1,17 @@
 import { Carousel } from "@mantine/carousel";
 import {
-  createStyles,
-  Group,
-  Paper,
-  Text,
+  Accordion,
   Button,
-  ThemeIcon,
-  SimpleGrid,
   Container,
+  createStyles,
+  Paper,
+  SimpleGrid,
+  Text,
   Title,
   useMantineTheme,
-  Accordion,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconArrowLeft, IconArrowRight, IconArrowUpRight } from "@tabler/icons";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -125,7 +123,7 @@ function Card({ image, title, category }: CardProps) {
 const data1 = [
   {
     image:
-      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/environmentnft.JPG?raw=true",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG?raw=true",
     title: "Best forests to visit in North America",
     category: "General",
   },
@@ -182,7 +180,7 @@ const data2 = [
   },
   {
     image:
-      "https://www.arweave.net/L2xx_TKhUOImmE3YF9q8aqO23KYTFO8FILERCdSeMwc?ext=PNG",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG?raw=true",
     title: "Best forests to visit in North America",
     category: "General",
   },
@@ -199,10 +197,6 @@ const data2 = [
     category: "Disaster Relief",
   },
 ];
-
-interface StatsGridIconsProps {
-  data: { title: string; value: string; diff: number }[];
-}
 
 export default function NFTCollection() {
   const { classes } = useStyles();

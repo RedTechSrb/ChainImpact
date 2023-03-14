@@ -211,7 +211,7 @@ export default function NFTCollection() {
       <Card {...item} />
     </Carousel.Slide>
   ));
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const mobile = useMediaQuery(`(max-width: 700px)`);
   return (
     <Container size={"lg"} mt="xl">
       <Title className={classes.title} order={2}>
@@ -333,7 +333,7 @@ export default function NFTCollection() {
         mt="xl"
         style={{ fontFamily: "Space Mono, monospace", fontWeight: 100 }}
       >
-        NFT is waiting for you! Come and get it.
+        Get your Proof of Impact.
       </Button>
     </Container>
   );

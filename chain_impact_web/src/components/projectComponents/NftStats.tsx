@@ -111,7 +111,7 @@ export function NftStats({ projectId, wallet, donationAmount, primaryType, setDa
                     { donationAmount < stat.amountleft ? (
                       <Text weight={700} size="md" align="center">
                         You need ${stat.amountleft - donationAmount} {" "}
-                        more to claim Tier {stat.tier} NFT for this cause
+                        more to claim the Tier {stat.tier} NFT for this cause
                       </Text>
                     ) : (
                       <Text weight={700} size="md" align="center">

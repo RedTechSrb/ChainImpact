@@ -384,7 +384,7 @@ export default function ProjectExplorer() {
             )}
           </ActionIcon>
         }
-        placeholder="Search questions"
+        placeholder="Search projects"
         rightSectionWidth={42}
         value={searchQuery}
         onChange={(event) => setSearch(event.currentTarget.value)}

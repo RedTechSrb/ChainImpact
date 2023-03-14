@@ -13,6 +13,7 @@ import {
   Container,
   Center,
   SimpleGrid,
+  Anchor,
 } from "@mantine/core";
 import { Donation } from "../../models/Donation";
 
@@ -152,9 +153,11 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
             Donated
           </Text>
           <Center>
-            <Button radius="xl" style={{ flex: 1, marginTop: 25 }}>
-              Impact trace
-            </Button>
+            <Anchor href="https://solscan.io/tx/4A7PCVcgDzyDgioTRKcdsHtmbz3HhTpc9S4Yx6UazvpjV5rZ5uV2JnNbEzc2j5kz3UuRgN189TkwfhAVHDPPU3Zp?cluster=devnet" target="_blank">
+              <Button radius="xl" style={{ flex: 1, marginTop: 25 }}>
+                Impact trace
+              </Button>
+            </Anchor>
           </Center>
         </Card.Section>
       </Card>

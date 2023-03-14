@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Donation } from "../models/Donation";
 import { DonationSearch } from "../models/dto/request/DonationSearch";
-
-const url = "https://167.99.246.54/"
+const url = "https://www.chain-impact.com/"
 
 export function useGetRecentDonations(filter: DonationSearch) {
   let donation: Donation[] | null = null;

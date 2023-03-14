@@ -102,7 +102,7 @@ export default function ProjectOverview({
   const donationSearch = {
     dto: { projectid: Number(id) },
     pageNumber: 1,
-    pageSize: 4,
+    pageSize: 9,
   };
 
   const [donationSidebarPosition, setDonationSidebarPosition] = useState(0);

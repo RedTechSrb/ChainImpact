@@ -24,17 +24,23 @@ export function ProjectProgress({
       mb={mbVal}
     >
       <Text size="xl" weight={500} color={"#BBFD00"}>
-        Currently donated: ${projectData.totaldonated}
+        Currently donated: ${projectData.totaldonated.toLocaleString()}
       </Text>
       <Text size="sm" weight={100} color="white" mb="xs">
-        Out of $USDC {projectData.financialgoal} goal
+        Out of $USDC {projectData.financialgoal.toLocaleString()}
       </Text>
       <Progress
         value={
           ((projectData.totaldonated * 1.0) / projectData.financialgoal) * 100
         }
         label={
-          Math.round((((projectData.totaldonated * 1.0) / projectData.financialgoal) * 100 + Number.EPSILON)* 100) / 100 +
+          Math.round(
+            (((projectData.totaldonated * 1.0) / projectData.financialgoal) *
+              100 +
+              Number.EPSILON) *
+              100
+          ) /
+            100 +
           "%"
         }
         size="xl"

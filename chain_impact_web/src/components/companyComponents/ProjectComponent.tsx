@@ -59,28 +59,47 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function ProjectComponent({ data, impactorName }: ProjectComponentProps) {
+export default function ProjectComponent({
+  data,
+  impactorName,
+}: ProjectComponentProps) {
   const { classes, theme } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section style={{backgroundColor: "#BBFD00", color: "black", fontWeight: "700", textAlign: "center"}}>
-        {impactorName + " donated $" + data.totalDonation} 
+      <Card.Section
+        style={{
+          backgroundColor: "#BBFD00",
+          color: "black",
+          fontWeight: "700",
+          textAlign: "center",
+        }}
+      >
+        {impactorName + " donated $" + data.totalDonation}
       </Card.Section>
       <Card.Section>
         <Image src={data.project.imageurl} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Group position="apart" style={{alignItems: "start"}}>
-          <Text size="lg" weight={500} style={{minHeight: "60px", textAlign: "center", margin: "auto"}}>
+        <Group position="apart" style={{ alignItems: "start" }}>
+          <Text
+            size="lg"
+            weight={500}
+            style={{ minHeight: "60px", textAlign: "center", margin: "auto" }}
+          >
             {data.project.name}
           </Text>
         </Group>
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <SimpleGrid cols={2} spacing="xs" verticalSpacing="xs" style={{minHeight: "50px", alignItems: "center"}}>
+        <SimpleGrid
+          cols={2}
+          spacing="xs"
+          verticalSpacing="xs"
+          style={{ minHeight: "50px", alignItems: "center" }}
+        >
           <Text size="md" weight={500}>
             Charity
           </Text>
@@ -90,10 +109,6 @@ export default function ProjectComponent({ data, impactorName }: ProjectComponen
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
                 {data.project.charity.name}
-              </Text>
-
-              <Text color="dimmed" size="xs">
-                {data.project.charity.wallet}
               </Text>
             </div>
           </Group>
@@ -115,21 +130,19 @@ export default function ProjectComponent({ data, impactorName }: ProjectComponen
           mtVal={""}
           mbVal={""}
         ></ProjectProgress>
-        
       </Card.Section>
 
-        <Card.Section style={{display: "flex", marginTop: "auto"}}>
-          <Button
-            radius="md"
-            style={{ flex: 1}}
-            color="lime"
-            component="a"
-            href={`/project/${data.project.id}`}
-          >
-            View project
-          </Button>
-        </Card.Section>
-      
+      <Card.Section style={{ display: "flex", marginTop: "auto" }}>
+        <Button
+          radius="md"
+          style={{ flex: 1 }}
+          color="lime"
+          component="a"
+          href={`/project/${data.project.id}`}
+        >
+          View project
+        </Button>
+      </Card.Section>
     </Card>
   );
 }

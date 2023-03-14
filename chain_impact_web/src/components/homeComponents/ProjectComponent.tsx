@@ -16,9 +16,10 @@ import {
   Grid,
 } from "@mantine/core";
 import { Project } from "../../models/Project";
-import { ProgressProject } from "../ProgressProject";
+
 import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
+import { ProjectProgress } from "../companyComponents/ProjectProgress";
 
 type ProjectComponentProps = {
   project: Project;
@@ -149,11 +150,11 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
           radius="xl"
         /> */}
 
-        <ProgressProject
+        <ProjectProgress
           projectData={project}
           mtVal={""}
           mbVal={""}
-        ></ProgressProject>
+        ></ProjectProgress>
       </Card.Section>
 
       {project.totaldonated !== 0 ? (

@@ -295,63 +295,50 @@ export default function ProjectOverview({
                 >
                   <Timeline.Item
                     bullet={<IconNumber1 size={12} />}
-                    title="New branch"
+                    title="Hire professors"
                   >
                     <Text color="dimmed" size="sm">
-                      You&apos;ve created new branch{" "}
-                      <Text variant="link" component="span" inherit>
-                        fix-notifications
-                      </Text>{" "}
-                      from master
+                      Hire professors to teach your students.
                     </Text>
                     <Text size="xs" mt={4}>
-                      2 hours ago
+                      2 weeks ago
                     </Text>
                   </Timeline.Item>
 
                   <Timeline.Item
                     bullet={<IconNumber2 size={12} />}
-                    title="Commits"
+                    title="Organize classes"
                   >
                     <Text color="dimmed" size="sm">
-                      You&apos;ve pushed 23 commits to
-                      <Text variant="link" component="span" inherit>
-                        fix-notifications branch
-                      </Text>
+                      Organize classes for your students, transport professors
+                      to a location
                     </Text>
                     <Text size="xs" mt={4}>
-                      52 minutes ago
+                      1 week ago
                     </Text>
                   </Timeline.Item>
 
                   <Timeline.Item
-                    title="Pull request"
+                    title="Find the students in desired country"
                     bullet={<IconNumber3 size={12} />}
                     lineVariant="dashed"
                   >
                     <Text color="dimmed" size="sm">
-                      You&apos;ve submitted a pull request
-                      <Text variant="link" component="span" inherit>
-                        Fix incorrect notification message (#187)
-                      </Text>
+                      Find the students in desired country, and motivate and
+                      educate them to come to lectures.
                     </Text>
                     <Text size="xs" mt={4}>
-                      34 minutes ago
+                      2 days ago
                     </Text>
                   </Timeline.Item>
 
                   <Timeline.Item
-                    title="Code review"
+                    title="Hold classes"
                     bullet={<IconNumber4 size={12} />}
                   >
-                    <Text color="dimmed" size="sm">
-                      <Text variant="link" component="span" inherit>
-                        Robert Gluesticker
-                      </Text>{" "}
-                      left a code review on your pull request
-                    </Text>
+                    Have more than 10000 students attend your classes.
                     <Text size="xs" mt={4}>
-                      12 minutes ago
+                      Soon
                     </Text>
                   </Timeline.Item>
                 </Timeline>

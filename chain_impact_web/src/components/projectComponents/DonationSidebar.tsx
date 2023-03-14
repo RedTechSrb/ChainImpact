@@ -28,7 +28,7 @@ import {
 import { Icon123, IconHeart } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/Project";
-import { ProgressProject } from "../ProgressProject";
+
 import { NftStats } from "./NftStats";
 import { Program, web3, BN, AnchorProvider, Idl } from "@project-serum/anchor";
 import idl from "../../res/transactions/idl.json";
@@ -56,6 +56,7 @@ import { ImpactorIdSearch } from "../../models/dto/request/ImpactorIdSearch";
 import { Impactor } from "../../models/Impactor";
 import { useDisclosure } from "@mantine/hooks";
 import { NFTNextTierResponse } from "../../models/dto/response/NFTNextTierResponse";
+import { ProjectProgress } from "../companyComponents/ProjectProgress";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -282,23 +283,23 @@ export default function DonationSidebar({
     return provider;
   };
 
-  const companyTiers = [ 1000, 5000, 20000, 50000 ];
-  const nonCompanyTiers = [ 50, 200, 1000, 5000 ];
+  const companyTiers = [1000, 5000, 20000, 50000];
+  const nonCompanyTiers = [50, 200, 1000, 5000];
   const [impactor, setImpactor] = useState<Impactor>();
   let impactorData: Promise<any>;
   const [dataNftNew, setDataNftNew] = useState<NFTNextTierResponse[]>([]);
 
   function setImpactorData() {
     impactorData = getSpecificImpactor(
-        new ImpactorWalletSearch(null, null, walletKey)
-      )
-    impactorData.then(data => {
+      new ImpactorWalletSearch(null, null, walletKey)
+    );
+    impactorData.then((data) => {
       setImpactor(data);
     });
   }
 
   useEffect(() => {
-    setImpactorData()
+    setImpactorData();
   }, []);
 
   useEffect(() => {
@@ -325,13 +326,13 @@ export default function DonationSidebar({
             user_type: 1,
             cause_type: "education",
           };
-          mintAndSendNFT_v2(walletKey, nft1)
+          mintAndSendNFT_v2(walletKey, nft1);
           const nft2: NFT = {
             tier: 1,
             user_type: 1,
             cause_type: "geneRAL",
           };
-          mintAndSendNFT_v2(walletKey, nft2)
+          mintAndSendNFT_v2(walletKey, nft2);
           setTransactionStatus("success");
           open();
           setOpen(false);
@@ -624,11 +625,11 @@ export default function DonationSidebar({
       <Text size={"xl"} weight={500} mt="0" color={"#BBFD00"}>
         {project.name}
       </Text>
-      <ProgressProject
+      <ProjectProgress
         projectData={project}
         mtVal={"lg"}
         mbVal={"0"}
-      ></ProgressProject>
+      ></ProjectProgress>
 
       <Card.Section className={classes.section}>
         {/* <TextInput
@@ -648,8 +649,9 @@ export default function DonationSidebar({
           Donate
         </Button>
 
-        <Modal size={600}
-          style={{backgroundColor: "rgba(0, 0, 0, 0.6)"}}
+        <Modal
+          size={600}
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
           opened={opened}
           onClose={() => {
             close();
@@ -661,23 +663,39 @@ export default function DonationSidebar({
         >
           {transactionStatus === "success" && (
             <>
-              <Text mt={10} color="#33860c" weight={700} pb={10} align="center" size={30} >
+              <Text
+                mt={10}
+                color="#33860c"
+                weight={700}
+                pb={10}
+                align="center"
+                size={30}
+              >
                 Thank You for making an Impact!
               </Text>
-              <br/> <br/>
+              <br /> <br />
               <Text weight={700} size={18}>
                 NFTs that you have claimed with this donation:
                 <Grid mt="15px" mb="15px">
-                  <Grid.Col span={7} >
-                    <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG"></img>
+                  <Grid.Col span={7}>
+                    <img
+                      style={{ maxHeight: "240px", maxWidth: "240px" }}
+                      src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG"
+                    ></img>
                   </Grid.Col>
-                  <Grid.Col span={5} style={{margin: "auto"}}>
+                  <Grid.Col span={5} style={{ margin: "auto" }}>
                     Tier 1 Education NFT
                   </Grid.Col>
                   <Grid.Col span={7}>
-                  <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG"></img>
+                    <img
+                      style={{ maxHeight: "240px", maxWidth: "240px" }}
+                      src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG"
+                    ></img>
                   </Grid.Col>
-                  <Grid.Col span={5} style={{margin: "auto", marginLeft: "auto"}}>
+                  <Grid.Col
+                    span={5}
+                    style={{ margin: "auto", marginLeft: "auto" }}
+                  >
                     Tier 1 General NFT
                   </Grid.Col>
                 </Grid>

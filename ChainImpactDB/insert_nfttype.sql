@@ -66,28 +66,28 @@ INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (1, 0, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 1000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (2, 0, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 5000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (3, 0, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 20000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (4, 0, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 50000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 -- cause type health
@@ -280,28 +280,28 @@ INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (1, 1, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 50, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (2, 1, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 200, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (3, 1, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 1000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 INSERT INTO public.nfttype(
 	tier, usertype, causetypeid, 
 		imageurl, minimaldonation, symbol, description)
 	VALUES (4, 1, (select id from causetype where name like 'social')
-			, 'https://raw.githubusercontent.com/urosm561/NFTSmartContractURI/main/medalja.jpg'
+			, 'https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG'
 			, 5000, 'CHAING', 'NFT granted for reaching the first impact milestone');
 
 -- cause type health

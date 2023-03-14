@@ -14,7 +14,7 @@ INSERT INTO public.charity(
 	website, facebook, discord, twitter, instagram, 
 	imageurl, 
 	description)
-	VALUES ('UNESCO', null, 
+	VALUES ('UNESCO', 'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT', 
 		'https://www.unicef.org/', null, null, null, null, 
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_UNESCO.svg/1200px-Flag_of_UNESCO.svg.png', 
 		'UNESCO uses education, science, culture, communication and information to foster mutual understanding and respect for our planet. UNESCO''s mission is to contribute to peace and security by promoting international collaboration through education, science, and culture in order to further universal respect for justice, the rule of law, and human rights along with fundamental freedom proclaimed in the United Nations Charter. UNESCO''s work is guided by the Universal Declaration of Human Rights and the UNESCO Constitution. The organization''s work is based on the principles of universality, impartiality, and non-discrimination. UNESCO''s work is guided by the Universal Declaration of Human Rights and the UNESCO Constitution.'

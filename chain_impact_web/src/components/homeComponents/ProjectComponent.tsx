@@ -18,6 +18,7 @@ import {
 import { Project } from "../../models/Project";
 import { ProgressProject } from "../ProgressProject";
 import { useMediaQuery } from "@mantine/hooks";
+import { Link } from "react-router-dom";
 
 type ProjectComponentProps = {
   project: Project;
@@ -65,7 +66,9 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
-        <Image src={project.imageurl} height={180} />
+        <Link to={href}>
+          <Image src={project.imageurl} height={180} />
+        </Link>
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">

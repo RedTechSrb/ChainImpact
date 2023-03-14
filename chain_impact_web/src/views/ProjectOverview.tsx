@@ -7,6 +7,7 @@ import {
   Loader,
   SimpleGrid,
   Text,
+  Timeline,
   Title,
   useMantineTheme,
 } from "@mantine/core";
@@ -15,9 +16,18 @@ import {
   IconBrandDiscord,
   IconBrandInstagram,
   IconBrandTwitter,
+  IconGitBranch,
+  IconGitCommit,
+  IconGitPullRequest,
+  IconMessageDots,
+  IconNumber1,
+  IconNumber2,
+  IconNumber3,
+  IconNumber4,
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Cookies, { Cookie } from "universal-cookie";
 import AngelImpactor from "../components/projectComponents/AngelImpactor";
 import BiggestImpactors from "../components/projectComponents/BiggestImpactors";
 import DonationSidebar from "../components/projectComponents/DonationSidebar";
@@ -26,12 +36,15 @@ import { Donation } from "../models/Donation";
 import { ImpactorsWithProjectsSearch } from "../models/dto/request/ImpactorsWithProjectsSearch";
 import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
 import { AngelImpactorData } from "../models/dto/response/AngelImpactorData";
-import { BiggestDonators} from "../models/dto/response/BiggestDonators";
+import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { ProjectWithTotalDonations } from "../models/dto/response/ProjectWithTotalDonations";
 import { Project } from "../models/Project";
 import { useGetRecentDonations } from "../repositories/DonationRepository";
 
-import { useGetBiggestImpactors, useGetSpecificProject } from "../repositories/ProjectRepository";
+import {
+  useGetBiggestImpactors,
+  useGetSpecificProject,
+} from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
 
 const PRIMARY_COL_HEIGHT = "32rem";
@@ -69,16 +82,14 @@ const useStyles = createStyles((theme) => ({
 
 interface WalletKey {
   walletKey: string;
-  connectWallet: any;
-  disconnectWallet: any;
-  solana: any;
+  setWalletKey: any;
+  cookies: Cookies;
 }
 
 export default function ProjectOverview({
   walletKey,
-  connectWallet,
-  disconnectWallet,
-  solana,
+  setWalletKey,
+  cookies,
 }: WalletKey) {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
@@ -94,8 +105,45 @@ export default function ProjectOverview({
     pageSize: 4,
   };
 
+  const [donationSidebarPosition, setDonationSidebarPosition] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    const donationSidebar = document.getElementById("donation-sidebar");
+    const component = document.getElementById("component");
+
+    if (donationSidebar && component) {
+      const donationSidebarHeight = donationSidebar.offsetHeight;
+      const componentTop = component.offsetTop;
+      const componentHeight = component.offsetHeight;
+      const componentBottom = componentTop + componentHeight;
+      const scrollTop = window.scrollY;
+
+      let newDonationSidebarPosition = donationSidebarPosition;
+      if (
+        scrollTop > componentTop &&
+        scrollTop + donationSidebarHeight < componentBottom
+      ) {
+        newDonationSidebarPosition = scrollTop;
+      } else if (scrollTop <= componentTop) {
+        newDonationSidebarPosition = 5;
+      } else {
+        newDonationSidebarPosition = componentBottom - donationSidebarHeight;
+      }
+
+      if (newDonationSidebarPosition !== donationSidebarPosition) {
+        setDonationSidebarPosition(newDonationSidebarPosition);
+      }
+    }
+  };
+
   const recentImpactors: Donation[] = useGetRecentDonations(donationSearch);
-  const biggestImpactors: BiggestDonators[] = useGetBiggestImpactors(donationSearch);
+  const biggestImpactors: BiggestDonators[] =
+    useGetBiggestImpactors(donationSearch);
 
   useEffect(() => {
     if (projectData) setIsLoading(false);
@@ -111,18 +159,10 @@ export default function ProjectOverview({
 
   const { classes } = useStyles();
   const laptop = useMediaQuery(`(max-width: 1440px)`);
-  useEffect(() => {
-    function handleScroll() {
-      setSidebarTop(window.scrollY);
-    }
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+
   return (
     <>
-      <Container size={1750}>
+      <Container size={1750} id="component">
         {isLoading ? (
           <Container size={1750} className={classes.loadingContainer}>
             <Text className={classes.loadingBar}>Loading project data</Text>
@@ -177,7 +217,12 @@ export default function ProjectOverview({
               <Text size={24} weight={500} color="white" mt="sm">
                 Description:
               </Text>
-              <Text size="md" color="white" mb="xl" style={{textAlign: "justify"}}>
+              <Text
+                size="md"
+                color="white"
+                mb="xl"
+                style={{ textAlign: "justify" }}
+              >
                 {projectData?.description}
               </Text>
 
@@ -215,18 +260,100 @@ export default function ProjectOverview({
 
               <SimpleGrid cols={1}>
                 <Text
-                    size={laptop ? 20 : 24}
-                    weight={500}
-                    color="white"
-                    mt="sm"
-                    style={{marginRight: "auto", marginTop: "30px"}}
-                  >
-                    Biggest Impactors:
-                  </Text>
+                  size={laptop ? 20 : 24}
+                  weight={500}
+                  color="white"
+                  mt="sm"
+                  style={{ marginRight: "auto", marginTop: "30px" }}
+                >
+                  Biggest Impactors:
+                </Text>
 
                 <BiggestImpactors
-                    biggestImpactors={biggestImpactors}
-                  ></BiggestImpactors>
+                  biggestImpactors={biggestImpactors}
+                ></BiggestImpactors>
+              </SimpleGrid>
+
+              <SimpleGrid cols={1}>
+                <Text
+                  size={laptop ? 20 : 24}
+                  weight={500}
+                  color="white"
+                  mt="sm"
+                  style={{ marginRight: "auto", marginTop: "30px" }}
+                >
+                  Project Milestones: (Coming Soon)
+                </Text>
+
+                <Timeline
+                  color="lime"
+                  radius="md"
+                  active={2}
+                  bulletSize={24}
+                  mt="xl"
+                >
+                  <Timeline.Item
+                    bullet={<IconNumber1 size={12} />}
+                    title="New branch"
+                  >
+                    <Text color="dimmed" size="sm">
+                      You&apos;ve created new branch{" "}
+                      <Text variant="link" component="span" inherit>
+                        fix-notifications
+                      </Text>{" "}
+                      from master
+                    </Text>
+                    <Text size="xs" mt={4}>
+                      2 hours ago
+                    </Text>
+                  </Timeline.Item>
+
+                  <Timeline.Item
+                    bullet={<IconNumber2 size={12} />}
+                    title="Commits"
+                  >
+                    <Text color="dimmed" size="sm">
+                      You&apos;ve pushed 23 commits to
+                      <Text variant="link" component="span" inherit>
+                        fix-notifications branch
+                      </Text>
+                    </Text>
+                    <Text size="xs" mt={4}>
+                      52 minutes ago
+                    </Text>
+                  </Timeline.Item>
+
+                  <Timeline.Item
+                    title="Pull request"
+                    bullet={<IconNumber3 size={12} />}
+                    lineVariant="dashed"
+                  >
+                    <Text color="dimmed" size="sm">
+                      You&apos;ve submitted a pull request
+                      <Text variant="link" component="span" inherit>
+                        Fix incorrect notification message (#187)
+                      </Text>
+                    </Text>
+                    <Text size="xs" mt={4}>
+                      34 minutes ago
+                    </Text>
+                  </Timeline.Item>
+
+                  <Timeline.Item
+                    title="Code review"
+                    bullet={<IconNumber4 size={12} />}
+                  >
+                    <Text color="dimmed" size="sm">
+                      <Text variant="link" component="span" inherit>
+                        Robert Gluesticker
+                      </Text>{" "}
+                      left a code review on your pull request
+                    </Text>
+                    <Text size="xs" mt={4}>
+                      12 minutes ago
+                    </Text>
+                  </Timeline.Item>
+                </Timeline>
               </SimpleGrid>
 
               {/* <RecentImpactors></RecentImpactors>
@@ -237,13 +364,13 @@ export default function ProjectOverview({
               <RecentImpactors></RecentImpactors> */}
             </Grid.Col>
 
-
             <Grid.Col span={mobile ? 12 : 3}>
               <DonationSidebar
                 project={projectData}
-                sidebarTop={sidebarTop}
-                connectWallet={connectWallet}
-                solana={solana}
+                sidebarTop={donationSidebarPosition}
+                walletKey={walletKey}
+                setWalletKey={setWalletKey}
+                cookies={cookies}
               ></DonationSidebar>
             </Grid.Col>
           </Grid>

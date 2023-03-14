@@ -3,10 +3,12 @@ import BiggestImpactors from "../components/homeComponents/BiggestImpactors";
 import FAQ from "../components/homeComponents/FAQ";
 import Hero from "../components/homeComponents/Hero";
 import { Hero2 } from "../components/homeComponents/Hero2";
+import NFTCollection from "../components/homeComponents/NFTCollection";
 import ProjectExplorer from "../components/homeComponents/ProjectExplorer";
 import Stats from "../components/homeComponents/Stats";
 import TagLeaderboard from "../components/homeComponents/TagLeaderboard";
 import Testimonials from "../components/homeComponents/Testimonials";
+import NftShowcaseCarousel from "../components/projectComponents/NftShowcaseCarousel";
 
 const statsdata = {
   data: [
@@ -60,6 +62,7 @@ export default function Home() {
       <BiggestImpactors />
       <ProjectExplorer />
       <FAQ />
+      <NFTCollection></NFTCollection>
       <Testimonials
         supTitle={testimonialsData.supTitle}
         description={testimonialsData.description}

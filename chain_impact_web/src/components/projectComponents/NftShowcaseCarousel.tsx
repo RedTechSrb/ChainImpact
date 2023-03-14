@@ -36,7 +36,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
   category: {
     color: theme.white,
-    opacity: 0.1,
+    opacity: 0.3,
     fontWeight: 700,
     textTransform: "uppercase",
   },
@@ -84,7 +84,7 @@ function Card({ image, title, category }: CardProps) {
     >
       <div>
         <Text className={classes.category} size="sm">
-          IMPACT
+          {category}
         </Text>
       </div>
     </Paper>
@@ -94,39 +94,39 @@ function Card({ image, title, category }: CardProps) {
 const data = [
   {
     image:
-      "https://www.arweave.net/L2xx_TKhUOImmE3YF9q8aqO23KYTFO8FILERCdSeMwc?ext=PNG",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG?raw=true",
     title: "Best forests to visit in North America",
-    category: "nature",
+    category: "General",
   },
   {
     image:
-      "https://www.arweave.net/XuW3IePl-7omXSkY8cqcwupcbQYMg5u8ebh2viTBayU?ext=PNG",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG?raw=true",
     title: "Hawaii beaches review: better than you think",
-    category: "beach",
+    category: "Education",
   },
   {
     image:
-      "https://www.arweave.net/iu44EnygpiLm12r_nbe5aOgh9SnWIFzm8p5dfoZlT4A?ext=PNG",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/disasternft.JPG?raw=true",
     title: "Mountains at night: 12 best locations to enjoy the view",
-    category: "nature",
+    category: "Disaster Relief",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/environmentnft.JPG?raw=true",
     title: "Aurora in Norway: when to visit for best experience",
-    category: "nature",
+    category: "Environment",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/healthnft.JPG?raw=true",
     title: "Best places to visit this winter",
-    category: "tourism",
+    category: "Health",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG?raw=true",
     title: "Active volcanos reviews: travel at your own risk",
-    category: "nature",
+    category: "Social",
   },
 ];
 

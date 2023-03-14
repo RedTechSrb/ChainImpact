@@ -161,7 +161,9 @@ export default function Footer({ data }: FooterLinksProps) {
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2023 RedTech & BitX All rights reserved.
+          © 2023 Made by Students from University of Belgrade and Zagreb for
+          Solana Grizzlython. All data on the app is fake. Mainnet coming soon.
+          Credits for photos go to their original authors.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>

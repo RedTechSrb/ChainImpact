@@ -102,7 +102,7 @@ export default function ProjectOverview({
   const donationSearch = {
     dto: { projectid: Number(id) },
     pageNumber: 1,
-    pageSize: 9,
+    pageSize: 4,
   };
 
   const [donationSidebarPosition, setDonationSidebarPosition] = useState(0);
@@ -128,16 +128,17 @@ export default function ProjectOverview({
         scrollTop > componentTop &&
         scrollTop + donationSidebarHeight < componentBottom
       ) {
-        newDonationSidebarPosition = scrollTop;
-      } else if (scrollTop <= componentTop) {
-        newDonationSidebarPosition = 5;
-      } else {
+        newDonationSidebarPosition = -1;
+      }else if (scrollTop + donationSidebarHeight >= (componentBottom-150)){
         newDonationSidebarPosition = componentBottom - donationSidebarHeight;
+      } else if (scrollTop <= componentTop) {
+        newDonationSidebarPosition = -1;
+      }  else {
+        newDonationSidebarPosition = componentTop;
       }
 
-      if (newDonationSidebarPosition !== donationSidebarPosition) {
-        setDonationSidebarPosition(newDonationSidebarPosition);
-      }
+      setDonationSidebarPosition(newDonationSidebarPosition);
+      
     }
   };
 

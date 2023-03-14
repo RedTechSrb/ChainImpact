@@ -96,6 +96,7 @@ type DonationSidebarProps = {
 
 const useStyles = createStyles((theme) => ({
   card: {
+    border: "1px solid  #BBFD00",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -610,7 +611,7 @@ export default function DonationSidebar({
       withBorder
       radius="md"
       className={classes.card}
-      style={{ top: `${sidebarTop}px` }}
+      style={(sidebarTop !== -1)?{ top: `${sidebarTop}px`, width: "95%" } : {position: "fixed", overflowY: "auto"}}
     >
       <Card.Section className={classes.imageSection}>
         <Image
@@ -688,7 +689,7 @@ export default function DonationSidebar({
         <Modal opened={open1} onClose={handleModalClose} size="800px">
           <Grid>
             <Grid.Col>
-              <Title>Help {project.name} reach it's goal!</Title>
+              <Title>Help {project.name} reach its goal!</Title>
               <Title size="lg" fw={200}>
                 Make an Impact today.
               </Title>

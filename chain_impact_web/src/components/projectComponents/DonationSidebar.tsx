@@ -55,6 +55,7 @@ import { indexes } from "../../res/images/indexes";
 import { ImpactorIdSearch } from "../../models/dto/request/ImpactorIdSearch";
 import { Impactor } from "../../models/Impactor";
 import { useDisclosure } from "@mantine/hooks";
+import { NFTNextTierResponse } from "../../models/dto/response/NFTNextTierResponse";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -280,6 +281,25 @@ export default function DonationSidebar({
     return provider;
   };
 
+  const companyTiers = [ 1000, 5000, 20000, 50000 ];
+  const nonCompanyTiers = [ 50, 200, 1000, 5000 ];
+  const [impactor, setImpactor] = useState<Impactor>();
+  let impactorData: Promise<any>;
+  const [dataNftNew, setDataNftNew] = useState<NFTNextTierResponse[]>([]);
+
+  function setImpactorData() {
+    impactorData = getSpecificImpactor(
+        new ImpactorWalletSearch(null, null, walletKey)
+      )
+    impactorData.then(data => {
+      setImpactor(data);
+    });
+  }
+
+  useEffect(() => {
+    setImpactorData()
+  }, []);
+
   useEffect(() => {
     setTransactionStatus("");
   }, [walletKey]);
@@ -299,6 +319,18 @@ export default function DonationSidebar({
         } else {
           // here comes the logic for potential NFT sending
           // first only message display (proper modal with images), only after you call the method
+          const nft1: NFT = {
+            tier: 1,
+            user_type: 1,
+            cause_type: "education",
+          };
+          mintAndSendNFT_v2(walletKey, nft1)
+          const nft2: NFT = {
+            tier: 1,
+            user_type: 1,
+            cause_type: "geneRAL",
+          };
+          mintAndSendNFT_v2(walletKey, nft2)
           setTransactionStatus("success");
           open();
           setOpen(false);
@@ -615,20 +647,41 @@ export default function DonationSidebar({
           Donate
         </Button>
 
-        <Modal
+        <Modal size={600}
+          style={{backgroundColor: "rgba(0, 0, 0, 0.6)"}}
           opened={opened}
           onClose={() => {
             close();
             setOpen(false);
           }}
-          title="Transaction successful"
+          title="TRANSACTION SUCCESSFUL"
           centered
           withCloseButton
         >
           {transactionStatus === "success" && (
-            <Text mt={10} color="#33860c" weight={700} pb={0} align="center">
-              Thank You for making an Impact!
-            </Text>
+            <>
+              <Text mt={10} color="#33860c" weight={700} pb={10} align="center" size={30} >
+                Thank You for making an Impact!
+              </Text>
+              <br/> <br/>
+              <Text weight={700} size={18}>
+                NFTs that you have claimed with this donation:
+                <Grid mt="15px" mb="15px">
+                  <Grid.Col span={7} >
+                    <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG"></img>
+                  </Grid.Col>
+                  <Grid.Col span={5} style={{margin: "auto"}}>
+                    Tier 1 Education NFT
+                  </Grid.Col>
+                  <Grid.Col span={7}>
+                  <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG"></img>
+                  </Grid.Col>
+                  <Grid.Col span={5} style={{margin: "auto", marginLeft: "auto"}}>
+                    Tier 1 General NFT
+                  </Grid.Col>
+                </Grid>
+              </Text>
+            </>
           )}
         </Modal>
 
@@ -681,7 +734,7 @@ export default function DonationSidebar({
               >
                 {walletKey ? "Donate" : "Connect to donate"}
               </Button>
-              <Button
+              {/* <Button
                 radius="md"
                 size="lg"
                 mt="sm"
@@ -689,7 +742,7 @@ export default function DonationSidebar({
                 onClick={() => mintAndSendNFT_v2(walletKey, nft)}
               >
                 Send NFT
-              </Button>
+              </Button> */}
               {transactionStatus === "failed" && (
                 <Text mt={10} color="red" weight={700} pb={0}>
                   Transaction unsuccessful
@@ -825,6 +878,7 @@ export default function DonationSidebar({
                   primaryType={project.primarycausetype.name}
                   projectId={project.id}
                   wallet={walletKey}
+                  setDataNftNew={setDataNftNew}
                 ></NftStats>
               )}
               {!cookies.get("wallet") && (

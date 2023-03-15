@@ -612,7 +612,7 @@ export default function DonationSidebar({
       withBorder
       radius="md"
       className={classes.card}
-      style={(sidebarTop !== -1)?{ top: `${sidebarTop}px`, width: "95%" } : {position: "fixed", overflowY: "auto"}}
+      style={(sidebarTop !== -1)?{ top: `${sidebarTop}px`, width: "330px" } : {position: "fixed", overflowY: "auto", width: "330px"}}
     >
       <Card.Section className={classes.imageSection}>
         <Image

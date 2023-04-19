@@ -6,6 +6,7 @@ using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.ImpactorsWithProjects;
 using ChainImpactAPI.Dtos.NFT;
 using ChainImpactAPI.Dtos.RecentDonations;
+using ChainImpactAPI.Dtos.SaveDonation;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
@@ -18,17 +19,20 @@ namespace ChainImpactAPI.Infrastructure.Services
         private readonly IDonationRepository donationRepository;
         private readonly IImpactorRepository impactorRepository;
         private readonly ITransactionRepository transactionRepository;
+        private readonly IProjectRepository projectRepository;
 
         public DonationService(
             IConfiguration configuration,
             IDonationRepository donationRepository,
             IImpactorRepository impactorRepository,
-            ITransactionRepository transactionRepository)
+            ITransactionRepository transactionRepository,
+            IProjectRepository projectRepository)
         {
             this.configuration = configuration;
             this.donationRepository = donationRepository;
             this.impactorRepository = impactorRepository;
             this.transactionRepository = transactionRepository;
+            this.projectRepository = projectRepository;
         }
 
         public List<ImpactorsWithDonationsResponseDto> GetImpactorsWithDonations(GenericDto<ImpactorsWithDonationsRequestDto>? impactorsWithDonationsDto)
@@ -324,5 +328,40 @@ namespace ChainImpactAPI.Infrastructure.Services
 
 
         }
+
+        public Donation SaveDonaton(SaveDonationRequestDto saveDonationRequestDto)
+        {
+            var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = saveDonationRequestDto.wallet })).Result.FirstOrDefault();
+            var project = projectRepository.SearchAsync(new GenericDto<ProjectSearchDto>(new ProjectSearchDto { id = saveDonationRequestDto.projectid })).Result.FirstOrDefault();
+
+            var donation = new Donation
+            {
+                amount = saveDonationRequestDto.amount,
+                projectid = project.id,
+                donatorid = impactor.id
+            };
+
+            var savedDonation = donationRepository.Save(donation);
+            savedDonation.donator = impactor;
+            savedDonation.project = project;
+
+            // Update NFTs
+
+            if(project.wallet != null)
+            {
+                // Project has wallet, so there will be two transactions
+                // One from donator to charity (project's wallet)
+
+                // Second from donator to ChainImpact
+
+
+            }
+
+            return savedDonation;
+
+        }
+
+
+
     }
 }

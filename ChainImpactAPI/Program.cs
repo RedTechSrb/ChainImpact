@@ -44,6 +44,7 @@ builder.Services.AddDbContextPool<ApiDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");
     options.UseNpgsql(connectionString);
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 builder.Services.AddRepositories();

@@ -13,6 +13,24 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public DonationRepository(ApiDbContext context) : base(context)
         {
         }
+/*
+        public override Donation Save(Donation entity)
+        {
+
+            context.Set<Donation>().Add(entity);
+            context.Entry(entity.donator).State = EntityState.Unchanged;
+            context.Entry(entity.project).State = EntityState.Unchanged;
+            context.Entry(entity.project.charity).State = EntityState.Unchanged;
+            context.Entry(entity.project.primarycausetype).State = EntityState.Unchanged;
+            context.Entry(entity.project.secondarycausetype).State = EntityState.Unchanged;
+            context.Entry(entity).State = EntityState.Added;
+
+            context.SaveChanges();
+            return entity;
+
+        }
+*/
+
 
 
         /*

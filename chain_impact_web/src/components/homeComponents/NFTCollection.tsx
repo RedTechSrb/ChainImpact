@@ -211,11 +211,11 @@ export default function NFTCollection() {
       <Card {...item} />
     </Carousel.Slide>
   ));
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const mobile = useMediaQuery(`(max-width: 700px)`);
   return (
     <Container size={"lg"} mt="xl">
       <Title className={classes.title} order={2}>
-        <span className={classes.gradientSpan}> Proof of Impact NFT </span> is
+        The <span className={classes.gradientSpan}> Proof of Impact NFT </span> is
         NOT something you can buy. It is something you must earn.
       </Title>
       <Text
@@ -306,21 +306,21 @@ export default function NFTCollection() {
             individual, and 1000, 5000, 20000 and 50000 if you're a company.
             <br></br>
             Better tiers will give you more utility and benefits, while
-            showacsing your impact to others.
+            showcasing your impact to others.
           </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item className={classes.item} value="credit-card">
           <Accordion.Control>
             I invested $500 into a "Social" project and $4700 in "Environment"
-            project. Which NFTs will i get? Do i get a general NFT?
+            project. Which NFTs will I get? Do I get a general NFT?
           </Accordion.Control>
           <Accordion.Panel>
             All the impact you made will be added up. In this example you've
             donated a total of $5200, which will give you: Tier 1, 2, 3 of the
             Environment NFT, Tier 1,2 of the Social NFT and all four tiers in
             General category. When donating you will see how much you need to
-            get a next tier NFT.
+            get the NFT of the next tier.
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
@@ -333,7 +333,7 @@ export default function NFTCollection() {
         mt="xl"
         style={{ fontFamily: "Space Mono, monospace", fontWeight: 100 }}
       >
-        NFT is waiting for you! Come and get it.
+        Get your Proof of Impact.
       </Button>
     </Container>
   );

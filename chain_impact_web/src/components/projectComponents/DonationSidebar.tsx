@@ -28,7 +28,7 @@ import {
 import { Icon123, IconHeart } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/Project";
-import { ProgressProject } from "../ProgressProject";
+
 import { NftStats } from "./NftStats";
 import { Program, web3, BN, AnchorProvider, Idl } from "@project-serum/anchor";
 import idl from "../../res/transactions/idl.json";
@@ -56,6 +56,7 @@ import { ImpactorIdSearch } from "../../models/dto/request/ImpactorIdSearch";
 import { Impactor } from "../../models/Impactor";
 import { useDisclosure } from "@mantine/hooks";
 import { NFTNextTierResponse } from "../../models/dto/response/NFTNextTierResponse";
+import { ProjectProgress } from "../companyComponents/ProjectProgress";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -96,6 +97,7 @@ type DonationSidebarProps = {
 
 const useStyles = createStyles((theme) => ({
   card: {
+    border: "1px solid  #BBFD00",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -281,23 +283,23 @@ export default function DonationSidebar({
     return provider;
   };
 
-  const companyTiers = [ 1000, 5000, 20000, 50000 ];
-  const nonCompanyTiers = [ 50, 200, 1000, 5000 ];
+  const companyTiers = [1000, 5000, 20000, 50000];
+  const nonCompanyTiers = [50, 200, 1000, 5000];
   const [impactor, setImpactor] = useState<Impactor>();
   let impactorData: Promise<any>;
   const [dataNftNew, setDataNftNew] = useState<NFTNextTierResponse[]>([]);
 
   function setImpactorData() {
     impactorData = getSpecificImpactor(
-        new ImpactorWalletSearch(null, null, walletKey)
-      )
-    impactorData.then(data => {
+      new ImpactorWalletSearch(null, null, walletKey)
+    );
+    impactorData.then((data) => {
       setImpactor(data);
     });
   }
 
   useEffect(() => {
-    setImpactorData()
+    setImpactorData();
   }, []);
 
   useEffect(() => {
@@ -324,13 +326,13 @@ export default function DonationSidebar({
             user_type: 1,
             cause_type: "education",
           };
-          mintAndSendNFT_v2(walletKey, nft1)
+          mintAndSendNFT_v2(walletKey, nft1);
           const nft2: NFT = {
             tier: 1,
             user_type: 1,
             cause_type: "geneRAL",
           };
-          mintAndSendNFT_v2(walletKey, nft2)
+          mintAndSendNFT_v2(walletKey, nft2);
           setTransactionStatus("success");
           open();
           setOpen(false);
@@ -610,7 +612,7 @@ export default function DonationSidebar({
       withBorder
       radius="md"
       className={classes.card}
-      style={{ top: `${sidebarTop}px` }}
+      style={(sidebarTop !== -1)?{ top: `${sidebarTop}px`, width: "330px" } : {position: "fixed", overflowY: "auto", width: "330px"}}
     >
       <Card.Section className={classes.imageSection}>
         <Image
@@ -623,11 +625,11 @@ export default function DonationSidebar({
       <Text size={"xl"} weight={500} mt="0" color={"#BBFD00"}>
         {project.name}
       </Text>
-      <ProgressProject
+      <ProjectProgress
         projectData={project}
         mtVal={"lg"}
         mbVal={"0"}
-      ></ProgressProject>
+      ></ProjectProgress>
 
       <Card.Section className={classes.section}>
         {/* <TextInput
@@ -647,8 +649,9 @@ export default function DonationSidebar({
           Donate
         </Button>
 
-        <Modal size={600}
-          style={{backgroundColor: "rgba(0, 0, 0, 0.6)"}}
+        <Modal
+          size={600}
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
           opened={opened}
           onClose={() => {
             close();
@@ -660,23 +663,39 @@ export default function DonationSidebar({
         >
           {transactionStatus === "success" && (
             <>
-              <Text mt={10} color="#33860c" weight={700} pb={10} align="center" size={30} >
+              <Text
+                mt={10}
+                color="#33860c"
+                weight={700}
+                pb={10}
+                align="center"
+                size={30}
+              >
                 Thank You for making an Impact!
               </Text>
-              <br/> <br/>
+              <br /> <br />
               <Text weight={700} size={18}>
                 NFTs that you have claimed with this donation:
                 <Grid mt="15px" mb="15px">
-                  <Grid.Col span={7} >
-                    <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG"></img>
+                  <Grid.Col span={7}>
+                    <img
+                      style={{ maxHeight: "240px", maxWidth: "240px" }}
+                      src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG"
+                    ></img>
                   </Grid.Col>
-                  <Grid.Col span={5} style={{margin: "auto"}}>
+                  <Grid.Col span={5} style={{ margin: "auto" }}>
                     Tier 1 Education NFT
                   </Grid.Col>
                   <Grid.Col span={7}>
-                  <img style={{maxHeight: "240px", maxWidth: "240px"}} src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG"></img>
+                    <img
+                      style={{ maxHeight: "240px", maxWidth: "240px" }}
+                      src="https://raw.githubusercontent.com/RedTechSrb/ChainImpact/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG"
+                    ></img>
                   </Grid.Col>
-                  <Grid.Col span={5} style={{margin: "auto", marginLeft: "auto"}}>
+                  <Grid.Col
+                    span={5}
+                    style={{ margin: "auto", marginLeft: "auto" }}
+                  >
                     Tier 1 General NFT
                   </Grid.Col>
                 </Grid>
@@ -688,7 +707,7 @@ export default function DonationSidebar({
         <Modal opened={open1} onClose={handleModalClose} size="800px">
           <Grid>
             <Grid.Col>
-              <Title>Help {project.name} reach it's goal!</Title>
+              <Title>Help {project.name} reach its goal!</Title>
               <Title size="lg" fw={200}>
                 Make an Impact today.
               </Title>
@@ -782,7 +801,7 @@ export default function DonationSidebar({
                     <span
                       style={{ color: donationAmount ? "#8468e8" : "#BBFD00" }}
                     >
-                      ${donationAmount} you donated!
+                      ${donationAmount*22} you donated!
                     </span>
                   </Text>
                 )}
@@ -814,23 +833,23 @@ export default function DonationSidebar({
                         donationAmount == 0
                           ? 100 -
                             (project.totaldonated / project.financialgoal) * 100
-                          : (donationAmount / project.financialgoal) * 100 < 20
+                          : (donationAmount*22 / project.financialgoal) * 100 < 20
                           ? 20
-                          : ((donationAmount + project.totaldonated) /
+                          : ((donationAmount*22 + project.totaldonated) /
                               project.financialgoal) *
                               100 >=
                             100
                           ? 100 -
                             (project.totaldonated / project.financialgoal) * 100
-                          : (donationAmount / project.financialgoal) * 100,
+                          : (donationAmount*22 / project.financialgoal) * 100,
 
                       label:
                         donationAmount == 0 || isNaN(donationAmount)
                           ? "You can help!"
-                          : donationAmount + project.totaldonated <
+                          : donationAmount*22 + project.totaldonated <
                             project.financialgoal
                           ? Math.round(
-                              (((donationAmount * 1.0) /
+                              (((donationAmount*22 * 1.0) /
                                 project.financialgoal) *
                                 100 +
                                 Number.EPSILON) *
@@ -851,7 +870,7 @@ export default function DonationSidebar({
                 </Text>
 
                 {((project.totaldonated * 1.0) / project.financialgoal) * 100 +
-                  (donationAmount / project.financialgoal) * 100 >=
+                  (donationAmount*22 / project.financialgoal) * 100 >=
                 100 ? (
                   <Text
                     size={30}
@@ -874,7 +893,7 @@ export default function DonationSidebar({
               </Text>
               {cookies.get("wallet") && (
                 <NftStats
-                  donationAmount={donationAmount}
+                  donationAmount={donationAmount*22}
                   primaryType={project.primarycausetype.name}
                   projectId={project.id}
                   wallet={walletKey}

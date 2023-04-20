@@ -13,7 +13,7 @@ import { Impactor } from "../models/Impactor";
 import { Project } from "../models/Project";
 import Cookies from "universal-cookie";
 
-const url = "https://192.168.1.63:443/"
+const url = "https://www.chain-impact.com/"
 
 export function useGetAllImpactors() {
   const [impactors, setImpactors] = useState<Impactor[]>([]);

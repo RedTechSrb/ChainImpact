@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS Donation;
 
 DROP TABLE IF EXISTS Transaction;
 
+DROP TABLE IF EXISTS Milestone;
+
 DROP TABLE IF EXISTS Project;
 
 DROP TABLE IF EXISTS Charity;
@@ -66,6 +68,16 @@ CREATE TABLE Impactor
 ALTER TABLE Impactor
 	ADD CONSTRAINT XAK1User UNIQUE (Wallet);
 
+CREATE TABLE Milestone
+( 
+	Id                   serial  NOT NULL ,
+	Name                 varchar(256)  NOT NULL ,
+	Description          varchar(4000)  NULL ,
+	Complete             timestamp  NULL ,
+	ProjectId            serial  NOT NULL ,
+	CONSTRAINT XPKMilestone PRIMARY KEY (Id)
+);
+
 CREATE TABLE NFTOwner
 ( 
 	Id                   serial  NOT NULL ,
@@ -93,7 +105,6 @@ CREATE TABLE Project
 	CharityId            bigint  NOT NULL ,
 	Name                 varchar(100)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
-	Milestones           varchar(4000)  NULL ,
 	FinancialGoal        decimal(20,9)  NOT NULL ,
 	TotalDonated         decimal(20,9)  NOT NULL ,
 	Website              varchar(100)  NULL ,
@@ -120,6 +131,7 @@ CREATE TABLE Transaction
 	ProjectId            bigint  NOT NULL ,
 	DonatorId            bigint  NOT NULL ,
 	Type                 integer  NULL ,
+	MilestoneId          bigint  NULL ,
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );
 
@@ -134,6 +146,12 @@ ALTER TABLE Donation
 
 ALTER TABLE Donation
 	ADD CONSTRAINT FK_User_Donation FOREIGN KEY (DonatorId) REFERENCES Impactor(Id)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT;
+
+
+ALTER TABLE Milestone
+	ADD CONSTRAINT FK_Project_Milestone FOREIGN KEY (ProjectId) REFERENCES Project(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
 
@@ -185,6 +203,11 @@ ALTER TABLE Transaction
 	ADD CONSTRAINT FK_Impactor_Transaction FOREIGN KEY (DonatorId) REFERENCES Impactor(Id)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT;
+
+ALTER TABLE Transaction
+	ADD CONSTRAINT FK_Milestone_Transaction FOREIGN KEY (MilestoneId) REFERENCES Milestone(Id)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL;
 
 COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 0 - super admin user

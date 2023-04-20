@@ -5,7 +5,7 @@ import { ProjectSearch } from "../models/dto/request/ProjectSearch";
 import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
 
-const url = "https://192.168.1.63:443/"
+const url = "https://www.chain-impact.com/"
 
 export function useGetAllProjects() {
   const [projects, setProjects] = useState<Project[]>([]);

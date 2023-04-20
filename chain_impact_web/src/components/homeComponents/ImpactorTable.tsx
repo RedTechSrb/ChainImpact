@@ -146,7 +146,7 @@ export default function ImpactorTable({
         radius={20}
       >
         <ScrollArea>
-          <Table sx={{ minWidth: 400 }} verticalSpacing="sm">
+          <Table /*sx={{ minWidth: 400 }}*/ verticalSpacing="sm">
             <thead>
               <tr>
                 <th>{isPrivate ? "Impactor" : "Company"}</th>
@@ -174,9 +174,9 @@ export default function ImpactorTable({
         style={{ borderRadius: 20 }}
       >
         <Table
-          sx={(theme) => ({
-            minWidth: 400,
-          })}
+          // sx={(theme) => ({
+          //   minWidth: 360,
+          // })}
           verticalSpacing="sm"
         >
           <thead>

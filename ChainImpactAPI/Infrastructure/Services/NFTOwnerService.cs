@@ -1,6 +1,7 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos.NFT;
+using ChainImpactAPI.Dtos.NFTOwns;
 using ChainImpactAPI.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using ChainImpactAPI.Dtos.NFTLeft;
@@ -105,6 +106,32 @@ namespace ChainImpactAPI.Infrastructure.Services
 
             return nftLeftList;
 
+        }
+
+        public List<NFTOwnsResponseDto> NFTOwns(NFTOwnsRequestDto nftOwnsRequestDto)
+        {
+            var impactor = impactorService.SearchImpactors(new GenericDto<ImpactorDto>(null, null, new ImpactorDto { wallet = nftOwnsRequestDto.wallet })).FirstOrDefault();
+            
+            var myNFTs = nFTOwnerRepository.SearchAsync(new GenericDto<NFTOwnerDto>(null, null, new NFTOwnerDto
+            {
+                impactor = impactor,
+            })).Result.FirstOrDefault();
+
+            var NFTOwned = new List<NFTOwnsResponseDto>();
+
+            if (myNFTs == null)
+            {
+                return NFTOwned;
+            }
+
+            /*foreach(var myNFT in myNFTs)
+            {
+
+            }*/
+            NFTOwned.Add(new NFTOwnsResponseDto("ASD", "ASD", 0));
+
+            return NFTOwned;
+        
         }
 
         public List<NFTOwnerDto> SearchNftOwners(GenericDto<NFTOwnerDto> genericDto)

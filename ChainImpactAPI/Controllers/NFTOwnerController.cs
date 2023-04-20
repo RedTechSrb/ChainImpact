@@ -1,4 +1,4 @@
-﻿using ChainImpactAPI.Dtos.NFT;
+﻿using ChainImpactAPI.Dtos.NFTOwns;
 using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +28,14 @@ namespace ChainImpactAPI.Controllers
         public IActionResult NFTLeft(NFTLeftRequestDto nftLeftRequestDto)
         {
             var nftLeftList = nftOwnerService.NFTLeft(nftLeftRequestDto);
+
+            return Ok(nftLeftList);
+        }
+
+        [HttpPost("NFTOwns")]
+        public IActionResult NFTOwns(NFTOwnsRequestDto nftOwnsRequestDto)
+        {
+            var nftLeftList = nftOwnerService.NFTOwns(nftOwnsRequestDto);
 
             return Ok(nftLeftList);
         }

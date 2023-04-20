@@ -6,31 +6,34 @@ namespace ChainImpactAPI.Dtos
     public class ProjectDto
     {
         public ProjectDto(
-            int? id, 
-            CharityDto? charity, 
-            string? name, 
-            string? description, 
-            string? milestones, 
-            double? financialgoal, 
-            double? totaldonated, 
-            string? website, 
-            string? facebook, 
-            string? discord, 
-            string? twitter, 
-            string? instagram, 
-            string? imageurl, 
-            ImpactorDto? angelimpactor, 
-            CauseTypeDto? primarycausetype, 
-            CauseTypeDto? secondarycausetype,
-            string? wallet)
+            int? id = null, 
+            CharityDto? charity = null, 
+            string? wallet = null, 
+            string? name = null, 
+            string? description = null, 
+            string? milestones = null, 
+            double? financialgoal = null, 
+            double? totaldonated = null, 
+            int? totalbackers = null, 
+            string? website = null, 
+            string? facebook = null, 
+            string? discord = null, 
+            string? twitter = null, 
+            string? instagram = null, 
+            string? imageurl = null, 
+            ImpactorDto? angelimpactor = null, 
+            CauseTypeDto? primarycausetype = null, 
+            CauseTypeDto? secondarycausetype = null)
         {
             this.id = id;
             this.charity = charity;
+            this.wallet = wallet;
             this.name = name;
             this.description = description;
             this.milestones = milestones;
             this.financialgoal = financialgoal;
             this.totaldonated = totaldonated;
+            this.totalbackers = totalbackers;
             this.website = website;
             this.facebook = facebook;
             this.discord = discord;
@@ -40,7 +43,6 @@ namespace ChainImpactAPI.Dtos
             this.angelimpactor = angelimpactor;
             this.primarycausetype = primarycausetype;
             this.secondarycausetype = secondarycausetype;
-            this.wallet = wallet;
         }
 
         public int? id { get; set; }
@@ -51,6 +53,7 @@ namespace ChainImpactAPI.Dtos
         public string? milestones { get; set; }
         public double? financialgoal { get; set; }
         public double? totaldonated { get; set; }
+        public int? totalbackers { get; set; }
         public string? website { get; set; }
         public string? facebook { get; set; }
         public string? discord { get; set; }

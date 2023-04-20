@@ -18,7 +18,7 @@ import {
 import { IconArrowLeft, IconArrowRight, IconSearch } from "@tabler/icons";
 import { useState, useEffect } from "react";
 import { useGetAllProjects } from "../../repositories/ProjectRepository";
-import ProjectComponent from "../ProjectComponent";
+import ProjectComponent from "./ProjectComponent";
 
 /*const mockdata = [
   {
@@ -384,7 +384,7 @@ export default function ProjectExplorer() {
             )}
           </ActionIcon>
         }
-        placeholder="Search questions"
+        placeholder="Search projects"
         rightSectionWidth={42}
         value={searchQuery}
         onChange={(event) => setSearch(event.currentTarget.value)}
@@ -407,7 +407,7 @@ export default function ProjectExplorer() {
             "Social",
             "Disaster Relief",
             "Education",
-            "Ecosystem",
+            "Health",
           ]}
           classNames={classes}
           value={tag}

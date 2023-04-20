@@ -393,7 +393,7 @@ export default function CharityExplorer() {
             )}
           </ActionIcon>
         }
-        placeholder="Search questions"
+        placeholder="Search charities"
         rightSectionWidth={42}
         value={searchQuery}
         onChange={(event) => setSearch(event.currentTarget.value)}

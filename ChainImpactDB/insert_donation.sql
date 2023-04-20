@@ -1,8 +1,8 @@
--- Anka Relief DAO
+-- Turkey Earthquake Relief
 --D1
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (10000, (select id from project where name like 'Anka Relief DAO'), (select id from impactor where name like 'RedTech'));
+	VALUES (10000, (select id from project where name like 'Turkey Earthquake Relief'), (select id from impactor where name like 'RedTech'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
@@ -10,7 +10,7 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('bguivuisegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 10000, 
-		(select id from project where name like 'Anka Relief DAO'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
 		(select id from impactor where name like 'RedTech'), 
 		1);
 
@@ -20,7 +20,7 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('fuaefuiegfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 9800, 
-		(select id from project where name like 'Anka Relief DAO'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
 		(select id from impactor where name like 'RedTech'), 
 		2);
 
@@ -30,7 +30,7 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('gfbjsdbjdbjdf', 'OffRamp', 'Turkey DAO', null, 
-		(select id from project where name like 'Anka Relief DAO'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
 		(select id from impactor where name like 'RedTech'), 
 		3);
 
@@ -38,16 +38,16 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (8000, (select id from project where name like 'Anka Relief DAO'), (select id from impactor where name like 'Google'));
+	VALUES (8000, (select id from project where name like 'Turkey Earthquake Relief'), (select id from impactor where name like 'Streamflow'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('fsdfsdfsdfdfsdfsere', 'Google', 'Chain Impact', 8000, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'Google'), 
+	VALUES ('fsdfsdfsdfdfsdfsere', 'Streamflow', 'Chain Impact', 8000, 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'Streamflow'), 
 		1);
 
 INSERT INTO public.transaction(
@@ -55,9 +55,9 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('gsegtsegsegegsegegege', 'Google', 'OffRamp', 7840, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'Google'), 
+	VALUES ('gsegtsegsegegsegegege', 'Chain Impact', 'OffRamp', 7840, 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'Streamflow'), 
 		2);
 
 INSERT INTO public.transaction(
@@ -66,8 +66,8 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('gfbjsgrhtrhthtsdbjdbjdf', 'OffRamp', 'Turkey DAO', null, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'Google'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'Streamflow'), 
 		3);
 
 	
@@ -76,16 +76,16 @@ INSERT INTO public.transaction(
 
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (2000, (select id from project where name like 'Anka Relief DAO'), (select id from impactor where name like 'mdodovic'));
+	VALUES (2000, (select id from project where name like 'Turkey Earthquake Relief'), (select id from impactor where name like 'GeorgeRedTech'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguivuisegfussssefuaseuigfeuigf', 'RedTech', 'Chain Impact', 2000, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'mdodovic'), 
+	VALUES ('bguivuisegfussssefuaseuigfeuigf', 'GeorgeRedTech', 'Chain Impact', 2000, 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'GeorgeRedTech'), 
 		1);
 
 INSERT INTO public.transaction(
@@ -94,8 +94,8 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('fuaefuiegfuiaaaageuigfeigfeui', 'Chain Impact', 'OffRamp', 1960, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'mdodovic'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'GeorgeRedTech'), 
 		2);
 
 INSERT INTO public.transaction(
@@ -104,24 +104,24 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('gfbjsdbjdbjaaaaaaaaaaadf', 'OffRamp', 'Turkey DAO', null, 
-		(select id from project where name like 'Anka Relief DAO'), 
-		(select id from impactor where name like 'mdodovic'), 
+		(select id from project where name like 'Turkey Earthquake Relief'), 
+		(select id from impactor where name like 'GeorgeRedTech'), 
 		3);
 
 
--- Anka Relief DAO
+-- Cancer Treatment for Children - St. Jude Children''s Research Hospital
 --D4
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (15000, (select id from project where name like 'Support To Life'), (select id from impactor where name like 'Facebook'));
+	VALUES (15000, (select id from project where name like 'Cancer Treatment for Children - St. Jude Children''s Research Hospital'), (select id from impactor where name like 'RedTech'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguivuisegfusefuaseuigfeuigfhfhfh', 'Facebook', 'Chain Impact', 14700, 
-		(select id from project where name like 'Support To Life'), 
+	VALUES ('bguivuisegfusefuaseuigfeuigfhfhfh', 'RedTech', 'Novak Djokovic Foundation', 14700, 
+		(select id from project where name like 'Cancer Treatment for Children - St. Jude Children''s Research Hospital'), 
 		(select id from impactor where name like 'RedTech'), 
 		0);
 
@@ -130,26 +130,26 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('fuyyyyyyyyaefuiegfuigeuigfeigfeui', 'Facebook', 'Turkey DAO', 300, 
-		(select id from project where name like 'Support To Life'), 
+	VALUES ('fuyyyyyyyyaefuiegfuigeuigfeigfeui', 'RedTech', 'Chain Impact', 300, 
+		(select id from project where name like 'Cancer Treatment for Children - St. Jude Children''s Research Hospital'), 
 		(select id from impactor where name like 'RedTech'), 
 		0);
 
 
--- HOW ARE YOU? REALLY.
+-- Education for All (EFA)
 --D5
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (20000, (select id from project where name like 'HOW ARE YOU? REALLY.'), (select id from impactor where name like 'Decenter'));
+	VALUES (20000, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'SolanaU'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguivuiwewewsegfusefuaseuigfeuigf', 'Decenter', 'Chain Impact', 20000, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'Decenter'), 
+	VALUES ('bguivuiwewewsegfusefuaseuigfeuigf', 'SolanaU', 'Chain Impact', 20000, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'SolanaU'), 
 		1);
 
 INSERT INTO public.transaction(
@@ -158,8 +158,8 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('fuwwwwwaefuiegfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 18600, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'Decenter'), 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'SolanaU'), 
 		2);
 
 INSERT INTO public.transaction(
@@ -167,25 +167,25 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('gfbewewewewejsdbjdbjdf', 'OffRamp', 'United Nations Children''s Fund (UNICEF)', null, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'Decenter'), 
+	VALUES ('gfbewewewewejsdbjdbjdf', 'OffRamp', 'UNESCO', null, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'SolanaU'), 
 		3);
 
 
 --D6
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (10000, (select id from project where name like 'HOW ARE YOU? REALLY.'), (select id from impactor where name like 'RedTech'));
+	VALUES (10000, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'UniqueVCS'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguivuiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 10000, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'RedTech'), 
+	VALUES ('bguivuiwewewsssegfusefuaseuigfeuigf', 'UniqueVCS', 'Chain Impact', 10000, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'UniqueVCS'), 
 		1);
 
 INSERT INTO public.transaction(
@@ -194,8 +194,8 @@ INSERT INTO public.transaction(
 	donatorid, 
 	type)
 	VALUES ('fuwwwwwssaefuiegfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 9800, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'RedTech'), 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'UniqueVCS'), 
 		2);
 
 INSERT INTO public.transaction(
@@ -203,25 +203,25 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('gfbewewewefdfdfwejsdbjdbjdf', 'OffRamp', 'United Nations Children''s Fund (UNICEF)', null, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'RedTech'), 
+	VALUES ('gfbewewewefdfdfwejsdbjdbjdf', 'OffRamp', 'UNESCO', null, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'UniqueVCS'), 
 		3);
 
 
 --D7
 INSERT INTO public.donation(
 	amount, projectid, donatorid)
-	VALUES (100, (select id from project where name like 'HOW ARE YOU? REALLY.'), (select id from impactor where name like 'limun'));
+	VALUES (500, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'RedTech'));
 	
 INSERT INTO public.transaction(
 	blockchainaddress, sender, receiver, amount, 
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('bguasdivuiwewewsssegfusefuaseuigfeuigf', 'limun', 'Chain Impact', 100, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'limun'), 
+	VALUES ('bguasdivusaiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 500, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
 		1);
 
 INSERT INTO public.transaction(
@@ -229,9 +229,9 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('fuwwwwwssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 2, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'limun'), 
+	VALUES ('fuwwwwaawssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 10, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
 		2);
 
 INSERT INTO public.transaction(
@@ -239,9 +239,42 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type)
-	VALUES ('eefdfdfdfdfdfdfdfdf', 'OffRamp', 'United Nations Children''s Fund (UNICEF)', null, 
-		(select id from project where name like 'HOW ARE YOU? REALLY.'), 
-		(select id from impactor where name like 'limun'), 
+	VALUES ('eefdfdsdfdfdfdfdfdfdf', 'OffRamp', 'UNESCO', null, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
 		3);
 
+-- D8
+INSERT INTO public.donation(
+	amount, projectid, donatorid)
+	VALUES (500, (select id from project where name like 'Education for All (EFA)'), (select id from impactor where name like 'RedTech'));
+	
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('bguasdivdduiwewewsssegfusefuaseuigfeuigf', 'RedTech', 'Chain Impact', 500, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		1);
 
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('fuwwwwwssaefuiegrerfuigeuigfeigfeui', 'Chain Impact', 'OffRamp', 10, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		2);
+
+INSERT INTO public.transaction(
+	blockchainaddress, sender, receiver, amount, 
+	projectid, 
+	donatorid, 
+	type)
+	VALUES ('eefdfdfdfdfdfdfdfdf', 'OffRamp', 'UNESCO', null, 
+		(select id from project where name like 'Education for All (EFA)'), 
+		(select id from impactor where name like 'RedTech'), 
+		3);

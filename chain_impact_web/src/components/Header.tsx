@@ -1,42 +1,45 @@
 import {
-  createStyles,
-  Header,
-  HoverCard,
-  Group,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
   Anchor,
-  Divider,
-  Center,
   Box,
   Burger,
-  Drawer,
+  Button,
+  Center,
   Collapse,
+  createStyles,
+  Divider,
+  Drawer,
+  Group,
+  Header,
+  HoverCard,
+  Loader,
   ScrollArea,
-  ColorSchemeProvider,
-  useMantineColorScheme,
-  Container,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
 } from "@mantine/core";
-import { IconStar, IconWallet } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
+import { PublicKey, Transaction } from "@solana/web3.js";
 import {
-  IconNotification,
-  IconCode,
   IconBook,
   IconChartPie3,
-  IconFingerprint,
-  IconCoin,
   IconChevronDown,
+  IconCode,
+  IconCoin,
+  IconFingerprint,
+  IconNotification,
+  IconWallet,
 } from "@tabler/icons";
-import LightDarkMode from "./LightDarkMode";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { PublicKey, Transaction } from "@solana/web3.js";
+import Cookies from "universal-cookie";
+import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import {
+  createNewImpactor,
+  getSpecificImpactor,
+} from "../repositories/ImpactorRepository";
+import LightDarkMode from "./LightDarkMode";
 
-const useStyles = createStyles((theme) => ({
+const useStyles: any = createStyles((theme) => ({
   header: {
     backgroundColor:
       theme.colorScheme === "dark"
@@ -66,6 +69,12 @@ const useStyles = createStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       width: "100%",
+    },
+
+    "@media (max-width: 1200px)": {
+      fontsize: theme.fontSizes.md,
+      paddingLeft: 0,
+      paddingRight: 0,
     },
 
     ...theme.fn.hover({
@@ -201,64 +210,141 @@ export default function HeaderResponsive({
   setProvider,
   walletKey,
   setWalletKey,
+  cookies
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { classes, theme } = useStyles();
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ("solana" in window) {
-      // @ts-ignore
-      const provider = window.solana as any;
-      if (provider.isPhantom) return provider as PhantomProvider;
+    if ('phantom' in window) {
+      const anyWindow: any = window;
+      const provider = anyWindow.phantom?.solana;
+  
+      if (provider?.isPhantom) {
+        return provider;
+      }
     }
-  };
+};
+
+  // detect phantom provider exists
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      //const provider = getProvider();
+      // if (provider) setProvider(provider);
+      // else{
+      //   let cookieWallet;
+      //   if ((cookieWallet = cookies.get("wallet"))) {
+      //     //connectWallet();
+      //     setWalletKey(cookieWallet);
+      //   }
+      //   else{
+      //     setProvider(undefined);
+      //   }
+      // }
+      setIsLoading(false);
+      console.log(isLoading, walletKey, provider)
+    }, 3000);
+
+    const provider = getProvider();
+    setProvider(provider);
+    console.log(walletKey)
+    
+    let cookieWallet;
+    if ((cookieWallet = cookies.get("wallet"))) {
+      setWalletKey(cookieWallet);
+    }
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [provider, isLoading]);
 
   /**
    * @description prompts user to connect wallet if it exists
    */
   const connectWallet = async () => {
     // @ts-ignore
-    const { solana } = window;
+    const provider = getProvider();
 
-    if (solana) {
+    // check if there is cookie containing a wallet
+    let cookieWallet;
+    let newUser;
+    let response
+    if ((cookieWallet = cookies.get("wallet"))) {
+      setWalletKey(walletKey);
+      return;
+    }
+
+    if (provider) {
       try {
-        const response = await solana.connect();
-        console.log("wallet account ", response.publicKey.toString());
-        setWalletKey(response.publicKey.toString());
+        const resp = await provider.connect();
+
+        // put wallet in cookie for next 365 days
+        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        // if there is already impactor with this wallet, continue
+        let impactor = getSpecificImpactor(
+          new ImpactorWalletSearch(null, null, resp.publicKey.toString())
+        );
+        if (await impactor) {
+          setWalletKey(resp.publicKey.toString());
+          return;
+        }
+
+        // if not, create new impactor with this wallet
+        newUser = {
+          wallet: resp.publicKey.toString(),
+          type: 1,
+          name: null,
+          description: null,
+          website: null,
+          facebook: null,
+          discord: null,
+          twitter: null,
+          instagram: null,
+          imageurl: null,
+          role: null,
+        };
+
+        createNewImpactor(newUser);
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
       }
+    } else {
+      return;
     }
   };
 
   /**
    * @description disconnect Phantom wallet
    */
-  const disconnectWallet = async () => {
+  const disconnectWallet = () => {
     // @ts-ignore
-    const { solana } = window;
+    const provider = getProvider();
 
-    if (walletKey && solana) {
-      await (solana as PhantomProvider).disconnect();
-      setWalletKey(undefined);
+    if(cookies.get("wallet")){
+      cookies.remove("wallet", { path: '/' });
+      setWalletKey(null);
+    }
+    if (provider) {
+      provider.disconnect();
     }
   };
 
-  // detect phantom provider exists
-  useEffect(() => {
-    const provider = getProvider();
-
-    if (provider) setProvider(provider);
-    else setProvider(undefined);
-  }, [provider, walletKey]);
 
   function PhantomWrapper() {
     const { classes } = useStyles();
     return (
       <>
-        {provider && !walletKey && (
+        {isLoading && (
+          <Button className={classes.phantomButton}>
+            Loading
+            <Loader variant="dots" style={{ marginLeft: "15px" }} />
+          </Button>
+        )}
+
+        {!isLoading && provider && !walletKey && (
           <Button
             className={classes.phantomButton}
             onClick={connectWallet}
@@ -268,13 +354,13 @@ export default function HeaderResponsive({
           </Button>
         )}
 
-        {provider && walletKey && (
+        {!isLoading && provider && walletKey && (
           <Button className={classes.phantomButton} onClick={disconnectWallet}>
             Disconnect wallet
           </Button>
         )}
 
-        {!provider && (
+        {!isLoading && !provider && (
           <>
             <Anchor href="https://phantom.app/">
               <Button className={classes.phantomButton}>Install Phantom</Button>
@@ -318,15 +404,22 @@ export default function HeaderResponsive({
                 fontWeight: "100",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: "px",
-                  fontFamily: "Space Mono, monospace",
-                  fontSize: "2rem",
-                }}
+              <Link
+                to="https://twitter.com/ChainImpactSOL"
+                style={{ textDecoration: "none" }}
+                target="_blank"
               >
-                chainimpact<span style={{ fontSize: "2rem" }}>&#8482;</span>
-              </Text>
+                <Text
+                  style={{
+                    marginLeft: "px",
+                    fontFamily: "Space Mono, monospace",
+                    fontSize: "2rem",
+                    color: "#BBFD00",
+                  }}
+                >
+                  chainimpact<span style={{ fontSize: "2rem" }}>&#8482;</span>
+                </Text>
+              </Link>
             </div>
 
             <Group
@@ -348,9 +441,9 @@ export default function HeaderResponsive({
                   <a href="#" className={classes.link}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                      <Link to="/charities" className={classes.link}>
-                        Charities
-                      </Link>
+                        <Link to="/charities" className={classes.link}>
+                          Charities
+                        </Link>
                       </Box>
                       {/*<IconChevronDown
                         size={16}
@@ -398,6 +491,9 @@ export default function HeaderResponsive({
               </a>
               <a href="#" className={classes.link}>
                 I'm confused
+              </a>
+              <a href="/esg" className={classes.link}>
+                What is ESG?
               </a>
             </Group>
           </Group>

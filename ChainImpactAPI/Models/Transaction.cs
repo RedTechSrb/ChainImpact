@@ -8,7 +8,7 @@ namespace ChainImpactAPI.Models
         public string blockchainaddress { get; set; }
         public string? sender { get; set; }
         public string? receiver { get; set; }
-        public double amount { get; set; }
+        public double? amount { get; set; }
 
         [ForeignKey("ProjectId")]
         public int projectid { get; set; }

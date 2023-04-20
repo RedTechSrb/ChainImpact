@@ -4,6 +4,7 @@ using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.NFT;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -77,7 +78,30 @@ namespace ChainImpactAPI.Infrastructure.Services
             return nftDtoList;
         }
 
+        public List<NFTTypeDto> SearchNFTs(GenericDto<NFTTypeDto> nftTypeDto)
+        {
+            var nfts = nFTTypeRepository.SearchAsync(nftTypeDto).Result;
 
+            var nftsDtoList = new List<NFTTypeDto>();
+            foreach (var nft in nfts)
+            {
+                nftsDtoList.Add(new NFTTypeDto(
+                                    nft.id, 
+                                    nft.tier, 
+                                    nft.usertype, 
+                                    new CauseTypeDto
+                                    {
+                                        id = nft.causetype.id,
+                                        name = nft.causetype.name,
+                                    },
+                                    nft.imageurl, 
+                                    nft.minimaldonation, 
+                                    nft.symbol, 
+                                    nft.description
+                             ));
+            }
 
+            return nftsDtoList;
+        }
     }
 }

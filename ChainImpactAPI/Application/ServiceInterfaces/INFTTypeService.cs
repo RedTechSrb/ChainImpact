@@ -9,5 +9,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     {
         List<NFTResponseDto> GetNFTList();
         List<NFTResponseDto> GetNFTsData(GenericDto<NFTRequestDto>? nftDto);
+        List<NFTTypeDto> SearchNFTs(GenericDto<NFTTypeDto> nftTypeDto);
     }
 }

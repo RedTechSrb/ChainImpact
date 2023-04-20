@@ -2,6 +2,7 @@
 using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.SearchDtos;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
@@ -38,11 +39,13 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.charity.imageurl,
                             project.charity.description
                         ),
+                        project.wallet,
                         project.name,
                         project.description,
                         project.milestones,
                         project.financialgoal,
                         project.totaldonated,
+                        project.totalbackers,
                         project.website,
                         project.facebook,
                         project.discord,
@@ -70,8 +73,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        ),
-                        project.wallet
+                        )
                     ));
             }
 
@@ -98,11 +100,13 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.charity.imageurl,
                             project.charity.description
                         ),
+                        project.wallet,
                         project.name,
                         project.description,
                         project.milestones,
                         project.financialgoal,
                         project.totaldonated,
+                        project.totalbackers,
                         project.website,
                         project.facebook,
                         project.discord,
@@ -130,14 +134,12 @@ namespace ChainImpactAPI.Infrastructure.Services
                         new CauseTypeDto(
                             project.secondarycausetype.id,
                             project.secondarycausetype.name
-                        ),
-                        project.wallet
+                        )
                     ));
             }
 
             return projectDtoList;
         }
-
 
     }
 }

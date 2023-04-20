@@ -14,6 +14,7 @@ namespace ChainImpactAPI.Models
         public string? milestones { get; set; }
         public double financialgoal { get; set; }
         public double totaldonated { get; set; }
+        public int totalbackers { get; set; }
         public string? website { get; set; }
         public string? facebook { get; set; }
         public string? discord { get; set; }

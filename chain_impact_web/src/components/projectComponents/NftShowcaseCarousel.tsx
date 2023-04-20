@@ -7,12 +7,16 @@ import {
   Title,
   Button,
   useMantineTheme,
+  Grid,
+  SimpleGrid,
+  Container,
+  Center,
 } from "@mantine/core";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   card: {
-    height: "60px",
+    height: "150px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -32,9 +36,13 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
   category: {
     color: theme.white,
-    opacity: 0.7,
+    opacity: 0.3,
     fontWeight: 700,
     textTransform: "uppercase",
+  },
+
+  containercss: {
+    maxWidth: "100%",
   },
 
   controls: {
@@ -66,11 +74,16 @@ function Card({ image, title, category }: CardProps) {
       shadow="md"
       p="xs"
       radius="md"
-      sx={{ backgroundImage: `url(${image})` }}
+      sx={{
+        backgroundImage: `url(${image})`,
+        flexDirection: "column",
+        flexBasis: "33.3333%",
+        flexShrink: 0,
+      }}
       className={classes.card}
     >
       <div>
-        <Text className={classes.category} size="xs">
+        <Text className={classes.category} size="sm">
           {category}
         </Text>
       </div>
@@ -81,39 +94,39 @@ function Card({ image, title, category }: CardProps) {
 const data = [
   {
     image:
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/generalnft.JPG?raw=true",
     title: "Best forests to visit in North America",
-    category: "nature",
+    category: "General",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/educationnft.JPG?raw=true",
     title: "Hawaii beaches review: better than you think",
-    category: "beach",
+    category: "Education",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/disasternft.JPG?raw=true",
     title: "Mountains at night: 12 best locations to enjoy the view",
-    category: "nature",
+    category: "Disaster Relief",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/environmentnft.JPG?raw=true",
     title: "Aurora in Norway: when to visit for best experience",
-    category: "nature",
+    category: "Environment",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/healthnft.JPG?raw=true",
     title: "Best places to visit this winter",
-    category: "tourism",
+    category: "Health",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://github.com/RedTechSrb/ChainImpact/blob/master/ChainImpactSmartContract/NFT/NFTsMetadata/socialnft.JPG?raw=true",
     title: "Active volcanos reviews: travel at your own risk",
-    category: "nature",
+    category: "Social",
   },
 ];
 
@@ -128,18 +141,22 @@ export default function NftShowcaseCarousel() {
   ));
 
   return (
-    <Carousel
-      slideSize="33.3333%"
-      breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
-      slideGap="xs"
-      align="start"
-      slidesToScroll={mobile ? 1 : 3}
-      classNames={classes}
-      nextControlIcon={<IconArrowRight size={8} />}
-      previousControlIcon={<IconArrowLeft size={8} />}
-      mt="5px"
-    >
-      {slides}
-    </Carousel>
+    <Center>
+      <SimpleGrid cols={1}>
+        <Carousel
+          slideSize="33.3333%"
+          breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}
+          slideGap="xs"
+          align="start"
+          slidesToScroll={mobile ? 1 : 3}
+          classNames={classes}
+          nextControlIcon={<IconArrowRight size={16} />}
+          previousControlIcon={<IconArrowLeft size={16} />}
+          p="5px"
+        >
+          {slides}
+        </Carousel>
+      </SimpleGrid>
+    </Center>
   );
 }

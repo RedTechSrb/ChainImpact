@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
+using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Models;
@@ -12,23 +13,25 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public DonationRepository(ApiDbContext context) : base(context)
         {
         }
+
+
         /*
-        public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations)
-        {
-            var donations = context.donation.Include(d => d.donator)
-                                            .Include(d => d.project)
-                                            .AsQueryable();
+public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations)
+{
+   var donations = context.donation.Include(d => d.donator)
+                                   .Include(d => d.project)
+                                   .AsQueryable();
 
-            // TODO!!!
+   // TODO!!!
 
-            if(donationSearchDto.projectType != null)
-            {
-                donations = donations.Where(d => d.project.primarycausetype.name == donationSearchDto.projectType);
-            }
+   if(donationSearchDto.projectType != null)
+   {
+       donations = donations.Where(d => d.project.primarycausetype.name == donationSearchDto.projectType);
+   }
 
-            return await donations.ToListAsync();
-        }
-        */
+   return await donations.ToListAsync();
+}
+*/
 
         public async Task<List<ImpactorsWithDonationsResponseDto>> SearchDonationsGroupedByImpactorsAsync(DonationSearchDto donationSearchDto)
         {
@@ -61,6 +64,58 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             return donationsGroupedByImpactors;
         }
+
+
+        public async Task<List<Donation>> SearchAsync(GenericDto<DonationDto>? donationSearchDto)
+        {
+            var donations = await base.ListAllAsync(d => d.project, d => d.donator, d => d.project.primarycausetype, d => d.project.secondarycausetype, d => d.project.charity);
+
+            int? skip = null;
+            int? take = null;
+            DonationDto donationSearch = new DonationDto();
+
+            if (donationSearchDto != null)
+            {
+                if (donationSearchDto.PageSize != null && donationSearchDto.PageNumber != null)
+                {
+                    skip = donationSearchDto.PageSize.Value * (donationSearchDto.PageNumber.Value - 1);
+                    take = donationSearchDto.PageSize.Value;
+                }
+                if (donationSearchDto.Dto != null)
+                {
+                    donationSearch = donationSearchDto.Dto;
+                }
+            }
+
+            if (donationSearch.id != null)
+            {
+                donations = donations.Where(d => d.id == donationSearch.id).ToList();
+            }
+            if (donationSearch.amount != null)
+            {
+                donations = donations.Where(d => d.amount == donationSearch.amount).ToList();
+            }
+            if (donationSearch.donator != null)
+            {
+                donations = donations.Where(d => d.donator.id == donationSearch.donator.id).ToList();
+            }
+            if (donationSearch.project != null)
+            {
+                donations = donations.Where(d => d.project.id == donationSearch.project.id).ToList();
+            }
+
+            donations = donations.OrderByDescending(d => d.amount).ToList();
+
+            if (skip != null && take != null)
+            {
+                donations = donations.Skip(skip.Value).Take(take.Value).ToList();
+            }
+
+
+            return donations;
+
+        }
+
 
     }
 }

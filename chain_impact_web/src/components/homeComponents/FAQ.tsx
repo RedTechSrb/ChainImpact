@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-scroll";
 
-import image from "../../res/images/faq_image.png";
+import image from "../../res/images/faq_green_black.png";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -135,7 +135,7 @@ export default function FAQ() {
           <span className={classes.highlight}>easily</span>,
           <span className={classes.highlight}> quickly</span> and
           <span className={classes.highlight}> transparently </span>
-          and receive{" "}
+          and receive a{" "}
           <span className={classes.gradientSpan}> Proof of Impact NFT </span>
         </Text>
       </Container>
@@ -186,6 +186,7 @@ export default function FAQ() {
               spy={true}
               smooth={true}
               duration={2500}
+              style={{ textDecoration: "none" }}
             >
               <Button
                 color="lime"
@@ -215,8 +216,8 @@ export default function FAQ() {
                 <Accordion.Panel>
                   You start by selecting a project that aligns with your values.
                   We've partnered with a number of charity organizations to
-                  bring different ESG projects. Collaborate with the Angel
-                  Impactors to bring a project to it's goal by donating.
+                  bring different ESG projects. Collaborate with Angel
+                  Impactors to bring a project to its goal by donating.
                   Impactors will receive a Proof of Impact NFT.
                 </Accordion.Panel>
               </Accordion.Item>

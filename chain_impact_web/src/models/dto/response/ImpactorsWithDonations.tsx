@@ -3,5 +3,5 @@ export interface ImpactorsWithDonations {
     wallet: string,
     totalDonations: number,
     userType: number,
-    imageurl: string
+    imageUrl: string
 }

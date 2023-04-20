@@ -1,14 +1,12 @@
 import {
-  createStyles,
-  Badge,
-  Group,
-  Title,
-  Text,
   Card,
-  SimpleGrid,
   Container,
+  createStyles,
+  SimpleGrid,
+  Text,
+  Title,
 } from "@mantine/core";
-import { IconGauge, IconUser, IconCookie } from "@tabler/icons";
+import { IconCookie, IconGauge, IconUser } from "@tabler/icons";
 import { ImpactorsWithDonations } from "../../models/dto/response/ImpactorsWithDonations";
 import { useGetImpactorsWithDonations } from "../../repositories/ImpactorRepository";
 import ImpactorTable from "./ImpactorTable";
@@ -86,12 +84,12 @@ export default function TagLeaderboard() {
 
   function arangeImpactorData(data: ImpactorsWithDonations[]) {
     const impactorData = data.map((impactor) => ({
-      avatar: impactor.imageurl
-        ? impactor.imageurl
+      avatar: impactor.imageUrl
+        ? impactor.imageUrl
         : "https://avatars.githubusercontent.com/u/1309537?v=4",
       name: impactor.name,
       job: "",
-      email: impactor.wallet,
+      wallet: impactor.wallet,
       role: "Company",
       amount: impactor.totalDonations,
     }));

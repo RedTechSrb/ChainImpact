@@ -5,87 +5,22 @@ INSERT INTO public.project(
 	wallet,
 	description, 
 	milestones, 
-	financialgoal, totaldonated, 
+	financialgoal, totaldonated, totalbackers,
 	website, facebook, discord, twitter, instagram,
 	imageurl, 
 	impactorid, 
 	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'Turkey DAO'), 'Anka Relief DAO', 
-		null,
+	VALUES ((select id from charity where name like 'Turkey DAO'), 'Turkey Earthquake Relief', 
+		'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT',
 		'Multi-sig crypto relief fund operated by industry leaders to support the people of Türkiye after the disastrous earthquakes that hit the region.', 
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		100000.0, 20000.0, 
+		100000.0, 40540.0, 11,
 		null, null, null, null, null, 
-		'https://turkiyereliefdao.org/icons/organizations/anka.png', 
+		'https://www.redcross.org/content/dam/redcross/uncategorized/1/1428x820-earthquake-relief-conduct-search-rescue-efforts.jpg.transform/1288/q82/feature/image.jpeg', 
 		(select id from impactor where name like 'RedTech'), 
 		(select id from causetype where name like 'disaster relief'), (select id from causetype where name like 'social'));
 
-INSERT INTO public.project(
-	charityid, name, 
-	wallet,
-	description, 
-	milestones, 
-	financialgoal, totaldonated, 
-	website, facebook, discord, twitter, instagram,
-	imageurl, 
-	impactorid, 
-	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'Turkey DAO'), 'Support To Life', 
-		'GgVMLWkTa2RCfyYAvuWvJKtK4br328hsM9ZTuvYTh39V',
-		'Support to Life is an independent humanitarian organization founded with the principle aim of helping disaster affected communities meet their basic needs and rights.', 
-		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		50000.0, 15000.0, 
-		null, null, null, null, null, 
-		'https://turkiyereliefdao.org/icons/organizations/support-to-life.jpg', 
-		(select id from impactor where name like 'Facebook'),
-		(select id from causetype where name like 'disaster relief'), (select id from causetype where name like 'social'));
-
-
--- UNICEF
-
-
-INSERT INTO public.project(
-	charityid, name, 
-	wallet,
-	description, 
-	milestones, 
-	financialgoal, totaldonated, 
-	website, facebook, discord, twitter, instagram,
-	imageurl, 
-	impactorid, 
-	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'United Nations Children''s Fund (UNICEF)'), 'HOW ARE YOU? REALLY.', 
-		null,
-		'A UNICEF campaign aimed at raising awareness of the importance of mental health among young people.',
-		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		100000, 30100, 
-		'https://donacije.unicef.rs/en/campaign/how-are-you-really', null, null, null, null, 
-		'https://www.unicef.org/globalinsight/sites/unicef.org.globalinsight/files/styles/crop_thumbnail/public/UNICEF-Global-Insight-policy-guidance-AI-children-draft-2.0-2021-cover.jpg?itok=eZsDXlWJ',
-		(select id from impactor where name like 'Decenter'),
-		(select id from causetype where name like 'health'), (select id from causetype where name like 'social'));
-
-
-INSERT INTO public.project(
-	charityid, name, 
-	wallet,
-	description, 
-	milestones, 
-	financialgoal, totaldonated, 
-	website, facebook, discord, twitter, instagram,
-	imageurl, 
-	impactorid, 
-	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'United Nations Children''s Fund (UNICEF)'), 'AI for children', 
-		null,
-		'Exploring how to embed child rights in the governing policies of artificial intelligence',
-		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		100000.0, 0, 
-		'https://www.unicef.org/globalinsight/featured-projects/ai-children', null, null, null, null, 
-		null,
-		null,
-		(select id from causetype where name like 'social'), (select id from causetype where name like 'education'));
-
-
+--TMP CHANGE MonkeDAO->RedTech
 
 -- UNESCO
 
@@ -94,39 +29,106 @@ INSERT INTO public.project(
 	wallet,
 	description, 
 	milestones, 
-	financialgoal, totaldonated, 
+	financialgoal, totaldonated, totalbackers,
 	website, facebook, discord, twitter, instagram,
 	imageurl, 
 	impactorid, 
 	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'United Nations Educational, Scientific and Cultural Organization (UNESCO)'), 'Education for All (EFA)', 
+	VALUES ((select id from charity where name like 'UNESCO'), 'Education for All (EFA)', 
 		null,
 		'This is a global initiative launched by UNESCO in 1990 to ensure that every child, youth, and adult has access to quality education. The initiative has set six goals, including expanding early childhood care and education, achieving universal primary education, promoting gender equality, and improving the quality of education. UNESCO works with governments, civil society organizations, and other stakeholders to achieve these goals and monitor progress towards them.',
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		10000000.0, 1000000.0, 
-		'https://en.unesco.org/gem-report/report-education-all-efa', null, null, null, null, 
-		null,
-		null,
+		10000000.0, 2540002.0, 256,
+		null, null, null, null, null, 
+		'https://assets.weforum.org/article/image/large_QzWxty3lUv2ITHZBG5TEyu0QTafPdnTFu1Nwq8f3M7A.jpg',
+		(select id from impactor where name like 'SolanaU'),
 		(select id from causetype where name like 'education'), (select id from causetype where name like 'social'));
+
+
+-- -- NOT DONATED
+INSERT INTO public.project(
+	charityid, name, 
+	wallet,
+	description, 
+	milestones, 
+	financialgoal, totaldonated, totalbackers,
+	website, facebook, discord, twitter, instagram,
+	imageurl, 
+	impactorid, 
+	primarycausetypeid, secondarycausetypeid)
+	VALUES ((select id from charity where name like 'UNESCO'), 'Innovative Sustainable Environment Education', 
+		null,
+		'Environmental education requires a close cooperation of all segments of society. Based on this belief, the ISEE project team is building cooperation among students, teachers and families around carbon footprint awareness.',
+		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
+		500000.0, 0, 0,
+		'https://ioc.unesco.org/node/2', null, null, null, null, 
+		'https://cdn.pixabay.com/photo/2014/04/17/23/26/environmental-protection-326923_1280.jpg',
+		null,
+		(select id from causetype where name like 'environment'), (select id from causetype where name like 'education'));
+
+
+
+-- Novak Djokovic Foundation
 
 INSERT INTO public.project(
 	charityid, name, 
 	wallet,
 	description, 
 	milestones, 
-	financialgoal, totaldonated, 
+	financialgoal, totaldonated, totalbackers,
 	website, facebook, discord, twitter, instagram,
 	imageurl, 
 	impactorid, 
 	primarycausetypeid, secondarycausetypeid)
-	VALUES ((select id from charity where name like 'United Nations Educational, Scientific and Cultural Organization (UNESCO)'), 'Intergovernmental Oceanographic Commission of UNESCO (IOC-UNESCO)', 
+	VALUES ((select id from charity where name like 'Novak Djokovic Foundation'), 'Cancer Treatment for Children - St. Jude Children''s Research Hospital', 
 		null,
-		'The Intergovernmental Oceanographic Commission of UNESCO (IOC) is the United Nations body responsible for supporting global ocean science and services. The IOC enables its 150 Member States to work together to protect the health of our shared ocean by coordinating programmes in areas such as ocean observations, tsunami warnings and marine spatial planning. Since it was established in 1960, the IOC has provided a focus for all other United Nations bodies that are working to understand and improve the management of our oceans, coasts and marine ecosystems. Today, the IOC is supporting all its Member States to build their scientific and institutional capacity in order to achieve the global goals including the UN Agenda 2030 and its Sustainable Development Goals, the Paris Agreement on Climate Change and the Sendai Framework on Disaster Risk Reduction.',
+		'Turn todays patients into tomorrows survivors.When you donate to St. Jude, youre joining thousands of other supporters in giving to a cause that making extraordinary impacts in the lives of kids everywhere.',
 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
-		5000000.0, 1000000.0, 
-		'https://ioc.unesco.org/node/2', null, null, null, null, 
-		'https://oceanexpert.org/uploads/institutes/6860/instituteLogo.jpg',
-		null,
-		(select id from causetype where name like 'environment'), (select id from causetype where name like 'health'));
+		100000.0, 70000.0, 1,
+		null, null, null, null, null, 
+		'https://www.stjude.org/content/sites/www/en_US/home/promotion/hello/charitable-gifts-for-kids/jcr:content/par-2/cnt_row_copy_copy_co/par-1/cnt_column_109669490/par-1/cnt_image.img.1200.high.jpg/1673634254523.jpg',
+		(select id from impactor where name like 'UniqueVCS'),
+		(select id from causetype where name like 'health'), (select id from causetype where name like 'education'));
 
 
+
+
+-- INSERT INTO public.project(
+-- 	charityid, name, 
+-- 	wallet,
+-- 	description, 
+-- 	milestones, 
+-- 	financialgoal, totaldonated, totalbackers,
+-- 	website, facebook, discord, twitter, instagram,
+-- 	imageurl, 
+-- 	impactorid, 
+-- 	primarycausetypeid, secondarycausetypeid)
+-- 	VALUES ((select id from charity where name like 'United Nations Children''s Fund (UNICEF)'), 'HOW ARE YOU? REALLY.', 
+-- 		null,
+-- 		'A UNICEF campaign aimed at raising awareness of the importance of mental health among young people.',
+-- 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
+-- 		100000, 30100, 3,
+-- 		'https://donacije.unicef.rs/en/campaign/how-are-you-really', null, null, null, null, 
+-- 		'https://www.unicef.org/globalinsight/sites/unicef.org.globalinsight/files/styles/crop_thumbnail/public/UNICEF-Global-Insight-policy-guidance-AI-children-draft-2.0-2021-cover.jpg?itok=eZsDXlWJ',
+-- 		(select id from impactor where name like 'Decenter'),
+-- 		(select id from causetype where name like 'health'), (select id from causetype where name like 'social'));
+
+-- INSERT INTO public.project(
+-- 	charityid, name, 
+-- 	wallet,
+-- 	description, 
+-- 	milestones, 
+-- 	financialgoal, totaldonated, totalbackers,
+-- 	website, facebook, discord, twitter, instagram,
+-- 	imageurl, 
+-- 	impactorid, 
+-- 	primarycausetypeid, secondarycausetypeid)
+-- 	VALUES ((select id from charity where name like 'Turkey DAO'), 'Support To Life', 
+-- 		'GgVMLWkTa2RCfyYAvuWvJKtK4br328hsM9ZTuvYTh39V',
+-- 		'Support to Life is an independent humanitarian organization founded with the principle aim of helping disaster affected communities meet their basic needs and rights.', 
+-- 		'1. Phase 1, 2. Phase 2, 3. Phase 3', 
+-- 		50000.0, 15000.0, 1,
+-- 		null, null, null, null, null, 
+-- 		'https://turkiyereliefdao.org/icons/organizations/support-to-life.jpg', 
+-- 		(select id from impactor where name like 'Facebook'),
+-- 		(select id from causetype where name like 'disaster relief'), (select id from causetype where name like 'social'));

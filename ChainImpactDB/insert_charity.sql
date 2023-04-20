@@ -3,9 +3,9 @@ INSERT INTO public.charity(
 	website, facebook, discord, twitter, instagram, 
 	imageurl, 
 	description)
-	VALUES ('Turkey DAO', null, 
+	VALUES ('Turkey DAO', 'qM1bJMbdwqtJGz8R5hQmw86xooCvfkjpnzUXqbJxbTT', 
 		'https://turkiyereliefdao.org', null, null,'https://twitter.com/TurkeyReliefDAO', null, 
-		'https://pbs.twimg.com/profile_images/1622685195261382668/30QPQ4qv_400x400.jpg', 
+		'https://pbs.twimg.com/profile_banners/1622499786770219008/1675713212/1500x500', 
 		'Türkiye Relief DAO is a decentralized autonomous organization (DAO) that was established to provide humanitarian aid to people affected by natural disasters and humanitarian crises in Turkey and around the world. The organization operates on the Ethereum blockchain, which allows for transparent and secure management of donations and funds. Türkiye Relief DAO is run by a group of volunteers who work together to identify and prioritize relief efforts, coordinate with local partners, and distribute aid to those in need. The organization is committed to providing assistance to vulnerable communities without discrimination based on race, religion, or nationality. Türkiye Relief DAO''s work is guided by principles of transparency, accountability, and community-driven decision-making. The organization also seeks to raise awareness of humanitarian issues and promote solidarity among individuals and organizations working towards the same goal.'
 		);
 	
@@ -14,10 +14,10 @@ INSERT INTO public.charity(
 	website, facebook, discord, twitter, instagram, 
 	imageurl, 
 	description)
-	VALUES ('United Nations Educational, Scientific and Cultural Organization (UNESCO)', null, 
+	VALUES ('UNESCO', null, 
 		'https://www.unicef.org/', null, null, null, null, 
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Unicef.png/261px-Unicef.png', 
-		'UNICEF is a United Nations agency that focuses on improving the well-being of children worldwide. It works towards promoting child rights, health, education, and protection. Like UNESCO, UNICEF operates on a global level and collaborates with governments, NGOs, and other stakeholders.'
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_UNESCO.svg/1200px-Flag_of_UNESCO.svg.png', 
+		'UNESCO uses education, science, culture, communication and information to foster mutual understanding and respect for our planet. UNESCO''s mission is to contribute to peace and security by promoting international collaboration through education, science, and culture in order to further universal respect for justice, the rule of law, and human rights along with fundamental freedom proclaimed in the United Nations Charter. UNESCO''s work is guided by the Universal Declaration of Human Rights and the UNESCO Constitution. The organization''s work is based on the principles of universality, impartiality, and non-discrimination. UNESCO''s work is guided by the Universal Declaration of Human Rights and the UNESCO Constitution.'
 		);
 
 	
@@ -26,7 +26,7 @@ INSERT INTO public.charity(
 	website, facebook, discord, twitter, instagram, 
 	imageurl, 
 	description)
-	VALUES ('United Nations Children''s Fund (UNICEF)', null, 
+	VALUES ('UNICEF', null, 
 		'https://www.unicef.org/', null, null, null, null, 
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Unicef.png/261px-Unicef.png', 
 		'UNICEF is a United Nations agency that focuses on improving the well-being of children worldwide. It works towards promoting child rights, health, education, and protection. Like UNESCO, UNICEF operates on a global level and collaborates with governments, NGOs, and other stakeholders.'

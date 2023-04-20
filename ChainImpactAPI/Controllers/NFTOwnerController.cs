@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChainImpactAPI.Dtos.NFTOwns;
+using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Infrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
+using ChainImpactAPI.Application.RepositoryInterfaces;
+using ChainImpactAPI.Application.ServiceInterfaces;
+using ChainImpactAPI.Dtos.NFTLeft;
 
 namespace ChainImpactAPI.Controllers
 {
@@ -6,5 +12,33 @@ namespace ChainImpactAPI.Controllers
     [Route("[controller]")]
     public class NFTOwnerController : ControllerBase
     {
+        private readonly IConfiguration configuration;
+        private readonly INFTOwnerService nftOwnerService;
+
+        public NFTOwnerController(
+            IConfiguration configuration,
+            INFTOwnerService nftOwnerService)
+        {
+            this.configuration = configuration;
+            this.nftOwnerService = nftOwnerService;
+        }
+
+
+        [HttpPost("NFTLeft")]
+        public IActionResult NFTLeft(NFTLeftRequestDto nftLeftRequestDto)
+        {
+            var nftLeftList = nftOwnerService.NFTLeft(nftLeftRequestDto);
+
+            return Ok(nftLeftList);
+        }
+
+        [HttpPost("NFTOwns")]
+        public IActionResult NFTOwns(NFTOwnsRequestDto nftOwnsRequestDto)
+        {
+            var nftLeftList = nftOwnerService.NFTOwns(nftOwnsRequestDto);
+
+            return Ok(nftLeftList);
+        }
+
     }
 }

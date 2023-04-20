@@ -13,9 +13,13 @@ import {
   Container,
   SimpleGrid,
   Spoiler,
+  Grid,
 } from "@mantine/core";
-import { Project } from "../models/Project";
-import { ProgressProject } from "./ProgressProject";
+import { Project } from "../../models/Project";
+
+import { useMediaQuery } from "@mantine/hooks";
+import { Link } from "react-router-dom";
+import { ProjectProgress } from "../companyComponents/ProjectProgress";
 
 type ProjectComponentProps = {
   project: Project;
@@ -56,23 +60,34 @@ const useStyles = createStyles((theme) => ({
 export default function ProjectComponent({ project }: ProjectComponentProps) {
   const { classes, theme } = useStyles();
 
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
+  const href = isMobile ? `/mobile` : `/project/${project.id}`;
+
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
-        <Image src={project.imageurl} height={180} />
+        <Link to={href}>
+          <Image src={project.imageurl} height={180} />
+        </Link>
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Group position="apart">
-          <Text size="lg" weight={500}>
-            {project.name}
-          </Text>
-          <Group position="right">
-            <Badge size="sm">{project.primarycausetype.name}</Badge>
-            <Badge size="sm">{project.secondarycausetype.name}</Badge>
-          </Group>
-        </Group>
-        <Text size="sm" mt="xs">
+        <Grid>
+          <Grid.Col span={7}>
+            <Text size="lg" weight={500} color="#BBFD00">
+              {project.name}
+            </Text>
+          </Grid.Col>
+          <Grid.Col span={5}>
+            <Group position="right">
+              <Badge size="sm">{project.primarycausetype.name}</Badge>
+              <Badge size="sm">{project.secondarycausetype.name}</Badge>
+            </Group>
+          </Grid.Col>
+        </Grid>
+        <Group position="apart"></Group>
+        <Text size="sm" mt="xs" style={{ textAlign: "justify" }}>
           <Spoiler
             showLabel="Read more"
             hideLabel="Read less"
@@ -96,29 +111,29 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
 
             <div style={{ flex: 1 }}>
               {project.totaldonated !== 0 ? (
-                <Text size="sm" weight={500}>
-                  {project.angelimpactor?.name}
-                </Text>
+                <div>
+                  <Text size="sm" weight={500}>
+                    {project.angelimpactor?.name}
+                  </Text>
+                  <Text color="dimmed" size="xs">
+                    {project.angelimpactor?.wallet.slice(0, 6) +
+                      "..." +
+                      project.angelimpactor?.wallet.slice(-6)}
+                  </Text>
+                </div>
               ) : (
                 <Text size="sm" weight={500}>
                   Your company name and logo can be here too!
                 </Text>
               )}
-              <Text color="dimmed" size="xs">
-                {project.angelimpactor?.wallet}
-              </Text>
             </div>
           </Group>
           <Group>
             <Avatar src={project.charity.imageurl} radius="xl" />
 
             <div style={{ flex: 1 }}>
-              <Text size="sm" weight={500}>
+              <Text size="md" weight={500}>
                 {project.charity.name}
-              </Text>
-
-              <Text color="dimmed" size="xs">
-                {project.charity.wallet}
               </Text>
             </div>
           </Group>
@@ -135,28 +150,40 @@ export default function ProjectComponent({ project }: ProjectComponentProps) {
           radius="xl"
         /> */}
 
-        <ProgressProject
+        <ProjectProgress
           projectData={project}
           mtVal={""}
           mbVal={""}
-        ></ProgressProject>
+        ></ProjectProgress>
       </Card.Section>
 
       {project.totaldonated !== 0 ? (
         <Group mt="xs">
-          <Button radius="md" style={{ flex: 1 }} color="lime">
+          <Button
+            radius="md"
+            style={{ flex: 1 }}
+            color="lime"
+            component="a"
+            href={href}
+          >
             Donate
           </Button>
         </Group>
       ) : (
         <Group mt="xs">
-          <Text size="lg" weight={500} mt="lg">
-            Be the first company to donate and become an Angel Impactor.
+          <Text size="md" weight={500} color="lime">
+            Be the first company to donate and become an Angel Impactor!
             Showcase your company values by making a project your own.
           </Text>
 
-          <Button radius="md" style={{ flex: 1 }} color="pink">
-            Become Angel Investor
+          <Button
+            radius="md"
+            style={{ flex: 1 }}
+            color="pink"
+            component="a"
+            href={href}
+          >
+            Become Angel Impactor
           </Button>
         </Group>
       )}

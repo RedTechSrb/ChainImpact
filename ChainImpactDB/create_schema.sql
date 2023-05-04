@@ -239,4 +239,5 @@ COMMENT ON COLUMN Transaction.Type IS 'Type of transaction (who are Sender and R
 0 - Donator pays directly to Charity (there will be 2 transactions, one between Donator and Charity and the other between Donator and ChainImpact)
 1 - Donator pays to ChainImpact
 2 - ChainImpact pays to OffRamp service
-3 - confirmation of payment from OffRamp service to Charity';
+3 - Confirmation of payment from OffRamp service to Charity
+4 - Milestone transaction';

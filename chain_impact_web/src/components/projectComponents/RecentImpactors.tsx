@@ -166,7 +166,7 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
 
   return (
     <Center>
-      <SimpleGrid cols={1}>
+      <SimpleGrid cols={1} style={{marginTop: "30px"}}>
         <Carousel
           slideSize={laptop ? "50%" : "33.3333%"}
           breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: "lg" }]}

@@ -3,6 +3,7 @@ using ChainImpactAPI.Dtos;
 using ChainImpactAPI.Dtos.BiggestDonations;
 using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.RecentDonations;
+using ChainImpactAPI.Dtos.SaveDonation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChainImpactAPI.Controllers
@@ -45,6 +46,14 @@ namespace ChainImpactAPI.Controllers
             return Ok(biggestDonationsDtoList);
         }
 
+        [HttpPost("SaveDonation")]
+        public IActionResult SaveDonation(SaveDonationRequestDto saveDonationRequestDto)
+        {
+
+            var savedDonation = donationService.SaveDonaton(saveDonationRequestDto);
+
+            return Ok(savedDonation);
+        }
 
 
     }

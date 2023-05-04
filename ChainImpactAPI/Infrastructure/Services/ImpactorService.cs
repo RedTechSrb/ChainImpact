@@ -16,20 +16,20 @@ namespace ChainImpactAPI.Infrastructure.Services
     {
         private readonly IConfiguration configuration;
         private readonly IImpactorRepository impactorRepository;
-        private readonly IDonationService donationService;
+        private readonly IDonationRepository donationRepository;
         private readonly IProjectService projectService;
         private readonly INFTOwnerRepository nftOwnerRepository;
 
         public ImpactorService(
             IConfiguration configuration,
             IImpactorRepository impactorRepository,
-            IDonationService donationService,
+            IDonationRepository donationRepository,
             IProjectService projectService,
             INFTOwnerRepository nftOwnerRepository)
         {
             this.configuration = configuration;
             this.impactorRepository = impactorRepository;
-            this.donationService = donationService;
+            this.donationRepository = donationRepository;
             this.projectService = projectService;
             this.nftOwnerRepository = nftOwnerRepository;
         }
@@ -134,14 +134,14 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.type
                         );
 
-                var donations = donationService.SearchDonations(new GenericDto<DonationDto>(new DonationDto { donator = impactorDto }));
+                var donations = donationRepository.SearchAsync(new GenericDto<DonationDto>(null, null, new DonationDto { donator = impactorDto })).Result;
 
                 var donatedProjects = donations.GroupBy(d => new {
                                                 d.project.id,
                                             }).Select(gpb => new DonatedProjectDto
                                             (
                                                 projectService.SearchProjects(new GenericDto<ProjectSearchDto>(null, null, new ProjectSearchDto { id = gpb.Key.id })).FirstOrDefault(),
-                                                gpb.Sum(d => d.amount.Value)
+                                                gpb.Sum(d => d.amount)
                                             )).OrderByDescending(iwp => iwp.totalDonation).ToList();
 
                 impactorsWithProjectsDtoList.Add(

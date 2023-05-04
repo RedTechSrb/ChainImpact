@@ -60,7 +60,8 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public T Save(T entity)
+        
+        virtual public T Save(T entity)
         {
             if (entity.id != 0)
             {

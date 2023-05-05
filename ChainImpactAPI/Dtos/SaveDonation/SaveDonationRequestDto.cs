@@ -5,5 +5,6 @@
         public double amount { get; set; }
         public int projectid { get; set; }
         public string wallet { get; set; }
+        public string blockchainaddress { get; set; }
     }
 }

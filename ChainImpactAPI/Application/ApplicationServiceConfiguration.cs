@@ -16,6 +16,7 @@ namespace ChainImpactAPI.Application
                     .AddScoped<INFTTypeService, NFTTypeService>()
                     .AddScoped<IProjectService, ProjectService>()
                     .AddScoped<ITransactionService, TransactionService>()
+                    .AddScoped<IMilestoneService, MilestoneService>()
                     ;
 
             return services;

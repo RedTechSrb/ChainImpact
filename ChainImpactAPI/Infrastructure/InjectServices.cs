@@ -16,6 +16,7 @@ namespace ChainImpactAPI.Infrastructure
                     .AddTransient<INFTTypeRepository, NFTTypeRepository>()
                     .AddTransient<IProjectRepository, ProjectRepository>()
                     .AddTransient<ITransactionRepository, TransactionRepository>()
+                    .AddTransient<IMilestoneRepository, MilestoneRepository>()
                     ;
 
             return services;

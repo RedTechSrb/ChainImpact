@@ -16,6 +16,7 @@ namespace ChainImpactAPI.Infrastructure
         public virtual DbSet<NFTType> nfttype { get; set; }
         public virtual DbSet<Project> project { get; set; }
         public virtual DbSet<Transaction> transaction { get; set; }
+        public virtual DbSet<Milestone> milestone { get; set; }
 
 
 

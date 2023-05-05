@@ -11,7 +11,6 @@ namespace ChainImpactAPI.Dtos
             string? wallet = null, 
             string? name = null, 
             string? description = null, 
-            string? milestones = null, 
             double? financialgoal = null, 
             double? totaldonated = null, 
             int? totalbackers = null, 
@@ -30,7 +29,6 @@ namespace ChainImpactAPI.Dtos
             this.wallet = wallet;
             this.name = name;
             this.description = description;
-            this.milestones = milestones;
             this.financialgoal = financialgoal;
             this.totaldonated = totaldonated;
             this.totalbackers = totalbackers;
@@ -50,7 +48,6 @@ namespace ChainImpactAPI.Dtos
         public string? wallet { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
-        public string? milestones { get; set; }
         public double? financialgoal { get; set; }
         public double? totaldonated { get; set; }
         public int? totalbackers { get; set; }

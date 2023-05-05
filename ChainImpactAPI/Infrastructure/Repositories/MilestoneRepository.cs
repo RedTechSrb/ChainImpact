@@ -12,7 +12,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
         public async Task<List<Milestone>> SearchAsync(GenericDto<MilestoneDto>? milestoneSearchDto)
         {
-            var milestones = await base.ListAllAsync(m => m.project);
+            var milestones = await base.ListAllAsync(m => m.project, m => m.project.primarycausetype, m => m.project.secondarycausetype, m => m.project.charity);
 
             int? skip = null;
             int? take = null;

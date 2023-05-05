@@ -7,7 +7,7 @@ namespace ChainImpactAPI.Models
     {
         public string name { get; set; }
         public string? description { get; set; }
-        public string? complete { get; set; }
+        public long? complete { get; set; }
 
         [ForeignKey("ProjectId")]
         public int projectid { get; set; }

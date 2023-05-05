@@ -1,10 +1,11 @@
 ﻿using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Dtos.MilestonesWithTransactions;
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
 {
     public interface IMilestoneService
     {
-        List<MilestoneDto> SearchMilestones(GenericDto<MilestoneDto>? milestoneDto);
+        List<MilestonesWithTransactionsResponse> SearchMilestones(GenericDto<MilestoneDto>? milestoneDto);
 
     }
 }

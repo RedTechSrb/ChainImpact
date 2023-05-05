@@ -4,6 +4,6 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
 {
     public interface ITransactionService
     {
-        List<TransactionDto> SearchTransactions(GenericDto<TransactionDto>? transactionDto)
+        List<TransactionDto> SearchTransactions(GenericDto<TransactionDto>? transactionDto);
     }
 }

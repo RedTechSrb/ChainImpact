@@ -57,6 +57,8 @@ import { Impactor } from "../../models/Impactor";
 import { useDisclosure } from "@mantine/hooks";
 import { NFTNextTierResponse } from "../../models/dto/response/NFTNextTierResponse";
 import { ProjectProgress } from "../companyComponents/ProjectProgress";
+import { saveDonation } from "../../repositories/DonationRepository";
+import { DonationSaveRequest } from "../../models/dto/request/DonationSaveRequest";
 window.Buffer = Buffer;
 
 type DisplayEncoding = "utf8" | "hex";
@@ -314,7 +316,7 @@ export default function DonationSidebar({
     }
 
     try {
-      await donateToProject();
+      const ts: string | undefined = await donateToProject();
       if (!skip) {
         if (donationAmount <= 0) {
           setTransactionStatus("You can't donate this amount");
@@ -334,6 +336,17 @@ export default function DonationSidebar({
           };
           mintAndSendNFT_v2(walletKey, nft2);
           setTransactionStatus("success");
+
+          // save donation info
+          const donationInfo: DonationSaveRequest = {
+            wallet: walletKey,
+            projectId: project.id,
+            amount: donationAmount,
+            blockchainaddress: ts
+          };
+          console.log(donationInfo)
+          saveDonation(donationInfo);
+          // open/close modals
           open();
           setOpen(false);
         }
@@ -393,6 +406,7 @@ export default function DonationSidebar({
       console.log("Transaction signature:", ts);
       balance = (await connection.getBalance(to)) / web3.LAMPORTS_PER_SOL;
       console.log("Limun wealth: ", balance);
+      return ts;
     } catch (err) {
       console.error("Error in donating to Limun", err);
       throw err;

@@ -74,7 +74,7 @@ CREATE TABLE Milestone
 	Name                 varchar(256)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
 	Complete             bigint  NULL ,
-	ProjectId            serial  NOT NULL ,
+	ProjectId            bigint  NOT NULL ,
 	CONSTRAINT XPKMilestone PRIMARY KEY (Id)
 );
 

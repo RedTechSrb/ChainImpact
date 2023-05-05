@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Container,
   createStyles,
+  Flex,
   Grid,
   Group,
   Loader,
@@ -102,7 +103,7 @@ export default function ProjectOverview({
   const donationSearch = {
     dto: { projectid: Number(id) },
     pageNumber: 1,
-    pageSize: 4,
+    pageSize: 12,
   };
 
   const [donationSidebarPosition, setDonationSidebarPosition] = useState(0);
@@ -216,7 +217,7 @@ export default function ProjectOverview({
               </SimpleGrid>
 
               <Text size={24} weight={500} color="white" mt="sm">
-                Description:
+                Description
               </Text>
               <Text
                 size="md"
@@ -239,7 +240,7 @@ export default function ProjectOverview({
                   color="white"
                   mt="sm"
                 >
-                  Recent Impactors:
+                  Video Presentation
                 </Text>
                 <Text
                   size={laptop ? 20 : 24}
@@ -247,28 +248,50 @@ export default function ProjectOverview({
                   color="white"
                   mt="sm"
                 >
-                  Angel Impactor who brought this project to life.
+                  Angel Impactor who brought this project to life
                 </Text>
 
-                <RecentImpactors
-                  recentImpactors={recentImpactors}
-                ></RecentImpactors>
+                <Flex justify="center" align="center"
+                    sx={(theme) => ({
+                      backgroundColor:
+                        theme.colorScheme === "dark" ? theme.colors.dark[9] : theme.white,
+                    })}
+                    style={{borderRadius: "30px", width: "100%", height: "100%"}}
+                    >
+                  <Text style={{
+                    margin: "auto 0px", fontSize: "40px"}}>
+                      Coming soon
+                  </Text>
+                </Flex>
 
                 <AngelImpactor
                   impactor={projectData.angelimpactor}
                 ></AngelImpactor>
               </SimpleGrid>
 
-              <SimpleGrid cols={1}>
+              <SimpleGrid cols={2}>
+              <Text
+                  size={laptop ? 20 : 24}
+                  weight={500}
+                  color="white"
+                  mt="sm"
+                  style={{ marginRight: "auto", marginTop: "50px" }}
+                >
+                  Recent Impactors
+                </Text>
                 <Text
                   size={laptop ? 20 : 24}
                   weight={500}
                   color="white"
                   mt="sm"
-                  style={{ marginRight: "auto", marginTop: "30px" }}
+                  style={{ marginRight: "auto", marginTop: "50px" }}
                 >
-                  Biggest Impactors:
+                  Biggest Impactors
                 </Text>
+
+                <RecentImpactors
+                  recentImpactors={recentImpactors}
+                ></RecentImpactors>
 
                 <BiggestImpactors
                   biggestImpactors={biggestImpactors}
@@ -281,9 +304,9 @@ export default function ProjectOverview({
                   weight={500}
                   color="white"
                   mt="sm"
-                  style={{ marginRight: "auto", marginTop: "30px" }}
+                  style={{ marginRight: "auto", marginTop: "70px" }}
                 >
-                  Project Milestones: (Coming Soon)
+                  Project Milestones (Coming Soon)
                 </Text>
 
                 <Timeline

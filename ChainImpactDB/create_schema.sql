@@ -73,7 +73,7 @@ CREATE TABLE Milestone
 	Id                   serial  NOT NULL ,
 	Name                 varchar(256)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
-	Complete             timestamp  NULL ,
+	Complete             bigint  NULL ,
 	ProjectId            serial  NOT NULL ,
 	CONSTRAINT XPKMilestone PRIMARY KEY (Id)
 );
@@ -216,6 +216,8 @@ COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 COMMENT ON COLUMN Impactor.Type IS 'User type:
 0 - company
 1 - private user';
+
+COMMENT ON COLUMN Milestone.Complete IS 'Timestamp (from 1.1.1970.) of milestone realization';
 
 COMMENT ON TABLE NFTType IS 'There are fixed number of NFTTypes
 approximatelly 6 for all differen number of tiers for Tier

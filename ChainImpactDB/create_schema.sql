@@ -73,7 +73,7 @@ CREATE TABLE Milestone
 	Id                   serial  NOT NULL ,
 	Name                 varchar(256)  NOT NULL ,
 	Description          varchar(4000)  NULL ,
-	Complete             timestamp  NULL ,
+	Complete             timestamp with time zone NULL ,
 	ProjectId            serial  NOT NULL ,
 	CONSTRAINT XPKMilestone PRIMARY KEY (Id)
 );

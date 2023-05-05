@@ -1,7 +1,7 @@
 -- Turkey Earthquake Relief
 
 INSERT INTO public.milestone(
-	name, order, description, 
+	name, ordernumber, description, 
 	complete, 
 	projectid)
 	VALUES ('Hire professors', 1, 'Hire professors to teach your students.' 
@@ -11,7 +11,7 @@ INSERT INTO public.milestone(
 
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Organize classes', 2, 'Organize classes for your students, transport professors to a location' 
@@ -20,7 +20,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Find the students in desired country', 3, 'Find the students in desired country, and motivate and educate them to come to lectures.'
@@ -29,7 +29,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hold classes', 4, 'Have more than 10000 students attend your classes.'
@@ -40,7 +40,7 @@ INSERT INTO public.milestone(
 -- Cancer Treatment for Children - St. Jude Children''s Research Hospital
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hire professors', 1, 'Hire professors to teach your students.' 
@@ -50,7 +50,7 @@ INSERT INTO public.milestone(
 
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Organize classes', 2, 'Organize classes for your students, transport professors to a location' 
@@ -59,7 +59,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Find the students in desired country', 3, 'Find the students in desired country, and motivate and educate them to come to lectures.'
@@ -68,7 +68,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hold classes', 4, 'Have more than 10000 students attend your classes.'
@@ -79,7 +79,7 @@ INSERT INTO public.milestone(
 -- Innovative Sustainable Environment Education
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hire professors', 1, 'Hire professors to teach your students.' 
@@ -89,7 +89,7 @@ INSERT INTO public.milestone(
 
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Organize classes', 2, 'Organize classes for your students, transport professors to a location' 
@@ -98,7 +98,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Find the students in desired country', 3, 'Find the students in desired country, and motivate and educate them to come to lectures.'
@@ -107,7 +107,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hold classes', 4, 'Have more than 10000 students attend your classes.'
@@ -119,7 +119,7 @@ INSERT INTO public.milestone(
 -- Education for All (EFA)
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hire professors', 1, 'Hire professors to teach your students.' 
@@ -129,7 +129,7 @@ INSERT INTO public.milestone(
 
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Organize classes', 2, 'Organize classes for your students, transport professors to a location' 
@@ -138,7 +138,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Find the students in desired country', 3, 'Find the students in desired country, and motivate and educate them to come to lectures.'
@@ -147,7 +147,7 @@ INSERT INTO public.milestone(
 			);
 
 INSERT INTO public.milestone(
-	name, order, description,  
+	name, ordernumber, description,  
 	complete, 
 	projectid)
 	VALUES ('Hold classes', 4, 'Have more than 10000 students attend your classes.'

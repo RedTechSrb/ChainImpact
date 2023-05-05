@@ -12,7 +12,8 @@ namespace ChainImpactAPI.Dtos
             string? receiver = null, 
             double? amount = null, 
             ProjectDto? project = null, 
-            ImpactorDto? donator = null)
+            ImpactorDto? donator = null,
+            MilestoneDto? milestone = null)
         {
             this.id = id;
             this.blockchainaddress = blockchainaddress;
@@ -21,6 +22,7 @@ namespace ChainImpactAPI.Dtos
             this.amount = amount;
             this.project = project;
             this.donator = donator;
+            this.milestone = milestone;
         }
 
         public int? id { get; set; }
@@ -30,5 +32,6 @@ namespace ChainImpactAPI.Dtos
         public double? amount { get; set; }
         public ProjectDto? project { get; set; }
         public ImpactorDto? donator { get; set; }
+        public MilestoneDto? milestone { get; set; }
     }
 }

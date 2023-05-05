@@ -51,6 +51,11 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             // TODO more search requests...
 
+            if (transactionSearch.milestone != null)
+            {
+                transactions = transactions.Where(t => t.milestone.id == transactionSearch.milestone.id).ToList();
+            }
+
             transactions = transactions.OrderBy(t => t.id).ToList();
 
             if (skip != null && take != null)

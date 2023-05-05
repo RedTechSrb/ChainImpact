@@ -13,7 +13,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
         public async Task<List<Transaction>> SearchAsync(GenericDto<TransactionDto>? transactionSearchDto)
         {
-            var transactions = await base.ListAllAsync(t => t.project, t => t.donator, t => t.project.primarycausetype, t => t.project.secondarycausetype, t => t.project.charity);
+            var transactions = await base.ListAllAsync(t => t.project, t => t.donator, t => t.project.primarycausetype, t => t.project.secondarycausetype, t => t.project.charity, t => t.milestone, t => t.milestone.project, t => t.milestone.project.primarycausetype, t => t.milestone.project.secondarycausetype, t => t.milestone.project.charity);
 
             int? skip = null;
             int? take = null;
@@ -53,7 +53,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             if (transactionSearch.milestone != null)
             {
-                transactions = transactions.Where(t => t.milestone.id == transactionSearch.milestone.id).ToList();
+                transactions = transactions.Where(t => (t.milestone != null && t.milestone.id == transactionSearch.milestone.id)).ToList();
             }
 
             transactions = transactions.OrderBy(t => t.id).ToList();

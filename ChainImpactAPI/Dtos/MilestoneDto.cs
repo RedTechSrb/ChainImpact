@@ -9,7 +9,7 @@ namespace ChainImpactAPI.Dtos
             int? id = null,
             string? name = null,
             string? description = null,
-            string? complete = null,
+            long? complete = null,
             ProjectDto? project = null)
         {
             this.id = id;
@@ -22,7 +22,7 @@ namespace ChainImpactAPI.Dtos
         public int? id { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
-        public string? complete { get; set; }
+        public long? complete { get; set; }
         public ProjectDto? project { get; set; }
 
     }

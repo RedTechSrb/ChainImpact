@@ -4,6 +4,9 @@ import { DonationSearch } from "../models/dto/request/DonationSearch";
 import { ProjectSearch } from "../models/dto/request/ProjectSearch";
 import { BiggestDonators } from "../models/dto/response/BiggestDonators";
 import { Project } from "../models/Project";
+import { Milestone } from "../models/Milestone";
+import { MilestoneSearch } from "../models/dto/request/MilestoneSearch";
+import { MilestoneResponse } from "../models/dto/response/MilestonesResponse";
 
 const url = "https://www.chain-impact.com/"
 
@@ -45,4 +48,16 @@ export function useGetBiggestImpactors(filter: DonationSearch) {
   }, []);
 
   return impactors;
+}
+
+export function useGetMilestones(filter: MilestoneSearch) {
+  const [milestones, setMilestones] = useState<MilestoneResponse[]>([]);
+  useEffect(() => {
+    axios.post(url + "Milestone/search", filter).then((response) => {
+      const milestoneData = response.data as MilestoneResponse[];
+      setMilestones(milestoneData);
+    });
+  }, []);
+
+  return milestones;
 }

@@ -1,18 +1,20 @@
 import {
   ActionIcon,
+  Anchor,
   Container,
   createStyles,
   Flex,
   Grid,
   Group,
   Loader,
+  Modal,
   SimpleGrid,
   Text,
   Timeline,
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   IconBrandDiscord,
   IconBrandInstagram,
@@ -25,6 +27,11 @@ import {
   IconNumber2,
   IconNumber3,
   IconNumber4,
+  IconNumber5,
+  IconNumber6,
+  IconNumber7,
+  IconNumber8,
+  IconNumber9,
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -44,9 +51,14 @@ import { useGetRecentDonations } from "../repositories/DonationRepository";
 
 import {
   useGetBiggestImpactors,
+  useGetMilestones,
   useGetSpecificProject,
 } from "../repositories/ProjectRepository";
 import NotFound from "./NotFound";
+import { MilestoneSearch } from "../models/dto/request/MilestoneSearch";
+import { Milestone } from "../models/Milestone";
+import { MilestoneResponse } from "../models/dto/response/MilestonesResponse";
+import { Transaction } from "../models/Transaction";
 
 const PRIMARY_COL_HEIGHT = "32rem";
 
@@ -60,14 +72,17 @@ const useStyles = createStyles((theme) => ({
       marginRight: "2.5rem",
     },
   },
+
   links: {
     [theme.fn.smallerThan("xs")]: {
       marginTop: theme.spacing.md,
     },
   },
+
   grid: {
     maxHeight: "60vh",
   },
+
   loadingContainer: {
     display: "flex",
     flexDirection: "column",
@@ -75,10 +90,23 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     minHeight: "623px",
   },
+
   loadingBar: {
     margin: "15vh auto 10px auto",
     fontSize: "30px",
   },
+
+  hoverable: {
+    padding: "5px 20px",
+    marginBottom: "10px",
+    '&:hover': {
+      backgroundColor: theme.colorScheme === "dark"
+        ? theme.colors.dark[4] : "white",
+      borderTopRightRadius: "15px",
+      borderBottomRightRadius: "15px",
+      cursor: "pointer"
+    }
+  }
 }));
 
 interface WalletKey {
@@ -95,6 +123,9 @@ export default function ProjectOverview({
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarTop, setSidebarTop] = useState(0);
 
+  const { classes } = useStyles();
+  const laptop = useMediaQuery(`(max-width: 1440px)`);
+
   const mobile = useMediaQuery(`(max-width: 900px)`);
   let { id } = useParams();
   const projectSearch = { dto: { id: Number(id) } };
@@ -105,6 +136,102 @@ export default function ProjectOverview({
     pageNumber: 1,
     pageSize: 12,
   };
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const [milestoneAndTransactions, setMilestoneAndTransactions] = useState<MilestoneResponse>();
+ // const [ModalMilestones, setModalMilestones] = useState<MilestoneResponse>();
+  
+
+  function handleOpen(milestoneData: MilestoneResponse) {
+    setMilestoneAndTransactions(milestoneData);
+    console.log(milestoneAndTransactions?.milestone.complete != null)
+    open();
+  }
+
+  function handleClose() {
+    close();
+  }
+
+
+  function formatDate(epochTime: number) {
+    const dateObj = new Date(epochTime * 1000);
+    const options = { hour12: false };
+    const formattedDate = dateObj.toLocaleDateString();
+    const formattedTime = dateObj.toLocaleTimeString(undefined, options);
+    return `${formattedDate} ${formattedTime}`;
+  };
+  
+  function TimeAgoMessage(dateTimeString: string) {
+    const dateTime = new Date(dateTimeString);
+    const currentDate = new Date();
+    const elapsedMilliseconds = currentDate.getTime() - dateTime.getTime();
+
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+    const elapsedHours = Math.floor(elapsedMinutes / 60);
+    const elapsedDays = Math.floor(elapsedHours / 24);
+    const elapsedWeeks = Math.floor(elapsedDays / 7);
+    const elapsedMonths = Math.floor(elapsedDays / 30);
+    const elapsedYears = Math.floor(elapsedDays / 365);
+
+    if (elapsedSeconds < 60) {
+      return `${elapsedSeconds} ${elapsedSeconds>1?"seconds":"second"} ago`;
+    } else if (elapsedMinutes < 60) {
+      return `${elapsedMinutes} ${elapsedMinutes>1?"minutes":"minute"} ago`;
+    } else if (elapsedHours < 24) {
+      return `${elapsedHours} ${elapsedHours>1?"hours":"hour"} ago`;
+    } else if (elapsedDays < 7) {
+      return `${elapsedDays} ${elapsedDays>1?"days":"day"} ago`;
+    } else if (elapsedWeeks < 4) {
+      return `${elapsedWeeks} ${elapsedWeeks>1?"weeks":"week"} ago`;
+    } else if (elapsedMonths < 12) {
+      return `${elapsedMonths} ${elapsedMonths>1?"months":"month"} ago`;
+    } else {
+      return `${elapsedYears} ${elapsedYears>1?"years":"year"} ago`;
+    }
+  };
+
+  const milestoneSearch: MilestoneSearch = { dto: { project: { id: Number(id)} } };
+  const milestonesAPI: MilestoneResponse[] = useGetMilestones(milestoneSearch);
+  let milestonesCompleted = -1;
+  const milestonesDATA = milestonesAPI.map((item, index) => {
+    if (item.milestone.complete) milestonesCompleted+=1;
+    return (
+      <Timeline.Item key={index} className={classes.hoverable}
+         onClick={() => handleOpen(item)}
+        bullet=
+          {
+            index===0?<IconNumber1 size={12} />
+            :
+            index===1?<IconNumber2 size={12} />
+            :
+            index===2?<IconNumber3 size={12} />
+            :
+            index===3?<IconNumber4 size={12} />
+            :
+            index===4?<IconNumber5 size={12} />
+            :
+            index===5?<IconNumber6 size={12} />
+            :
+            index===6?<IconNumber7 size={12} />
+            :
+            index===7?<IconNumber8 size={12} />
+            :
+            <IconNumber9 size={12} />
+          }
+        title={item.milestone.name}
+        lineVariant={(milestonesAPI[index+1])?!milestonesAPI[index+1].milestone.complete?"dashed":"solid":"solid"}
+      >
+        <Text color="dimmed" size="sm">
+          {item.milestone.description}
+        </Text>
+        <Text size="xs" mt={4}>
+          {item.milestone.complete?TimeAgoMessage(formatDate(item.milestone.complete)):"soon"}
+        </Text>
+      </Timeline.Item>
+    );
+  })
+  console.log(milestonesAPI);
 
   const [donationSidebarPosition, setDonationSidebarPosition] = useState(0);
 
@@ -159,8 +286,6 @@ export default function ProjectOverview({
     };
   }, [isLoading, projectData]);
 
-  const { classes } = useStyles();
-  const laptop = useMediaQuery(`(max-width: 1440px)`);
 
   return (
     <>
@@ -298,6 +423,59 @@ export default function ProjectOverview({
                 ></BiggestImpactors>
               </SimpleGrid>
 
+              <Modal opened={opened} onClose={handleClose} title="Milestone transactions" centered
+                  size="lg" padding="xl" radius={15}>
+                  {/* if milestone has been completed */}
+                  { milestoneAndTransactions?.milestone.complete &&
+                    <>
+                      { // if milestone has been completed, but there is still no transaction
+                        milestoneAndTransactions.transactions.length===0 &&
+                        <SimpleGrid cols={1}>
+                          <Text align="center" style={{padding: "5px 0px", fontWeight: "bold"}}>
+                            Transaction for this milestone will be added shortly
+                          </Text>
+                        </SimpleGrid>
+                      }
+                      { // if milestone has been completed, and there are transactions
+                        milestoneAndTransactions.transactions.length>0 &&
+                        <SimpleGrid cols={2}>
+                          {
+                            milestoneAndTransactions.transactions.map((item) => 
+                              <>
+                                <Text align="right" style={{padding: "5px 0px", fontWeight: "bold"}}>
+                                  {
+                                    item.sender + " -> " + item.receiver + ": "
+                                  }
+                                </Text>
+                                <Text style={{padding: "5px 0px 5px 40px", fontWeight: "bold"}}>
+                                  {
+                                    item.amount?'$'+item.amount:""
+                                  }
+                                </Text>
+                              </>
+                            )
+                          }
+                    
+                    </SimpleGrid>
+                      }
+                    </>
+                  
+                  }
+                  {  // if milestone has not been completed
+                    !milestoneAndTransactions?.milestone.complete &&
+                    <>
+                      { // and there are no transactions for it
+                        milestoneAndTransactions?.transactions.length===0 &&
+                        <SimpleGrid cols={1}>
+                          <Text align="center" style={{padding: "5px 0px", fontWeight: "bold"}}>
+                            Transaction for this milestone will be added once the milestone has been completed
+                          </Text>
+                        </SimpleGrid>
+                      }
+                    </>
+                  }
+              </Modal>
+
               <SimpleGrid cols={1}>
                 <Text
                   size={laptop ? 20 : 24}
@@ -306,64 +484,17 @@ export default function ProjectOverview({
                   mt="sm"
                   style={{ marginRight: "auto", marginTop: "70px" }}
                 >
-                  Project Milestones (Coming Soon)
+                  Project Milestones
                 </Text>
 
                 <Timeline
                   color="lime"
                   radius="md"
-                  active={2}
+                  active={milestonesCompleted}
                   bulletSize={24}
                   mt="xl"
                 >
-                  <Timeline.Item
-                    bullet={<IconNumber1 size={12} />}
-                    title="Hire professors"
-                  >
-                    <Text color="dimmed" size="sm">
-                      Hire professors to teach your students.
-                    </Text>
-                    <Text size="xs" mt={4}>
-                      2 weeks ago
-                    </Text>
-                  </Timeline.Item>
-
-                  <Timeline.Item
-                    bullet={<IconNumber2 size={12} />}
-                    title="Organize classes"
-                  >
-                    <Text color="dimmed" size="sm">
-                      Organize classes for your students, transport professors
-                      to a location
-                    </Text>
-                    <Text size="xs" mt={4}>
-                      1 week ago
-                    </Text>
-                  </Timeline.Item>
-
-                  <Timeline.Item
-                    title="Find the students in desired country"
-                    bullet={<IconNumber3 size={12} />}
-                    lineVariant="dashed"
-                  >
-                    <Text color="dimmed" size="sm">
-                      Find the students in desired country, and motivate and
-                      educate them to come to lectures.
-                    </Text>
-                    <Text size="xs" mt={4}>
-                      2 days ago
-                    </Text>
-                  </Timeline.Item>
-
-                  <Timeline.Item
-                    title="Hold classes"
-                    bullet={<IconNumber4 size={12} />}
-                  >
-                    Have more than 10000 students attend your classes.
-                    <Text size="xs" mt={4}>
-                      Soon
-                    </Text>
-                  </Timeline.Item>
+                  {milestonesDATA}
                 </Timeline>
               </SimpleGrid>
 

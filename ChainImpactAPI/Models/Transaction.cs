@@ -21,6 +21,7 @@ namespace ChainImpactAPI.Models
         [ForeignKey("MilestoneId")]
         public int? milestoneid { get; set; }
         public Milestone milestone { get; set; }
+        public int type { get; set; }
 
     }
 }

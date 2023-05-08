@@ -97,6 +97,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                                         tranaction.milestone == null ? null : new MilestoneDto(
                                             tranaction.milestone.id,
                                             tranaction.milestone.name,
+                                            tranaction.milestone.ordernumber,
                                             tranaction.milestone.description,
                                             tranaction.milestone.complete,
                                             new ProjectDto(

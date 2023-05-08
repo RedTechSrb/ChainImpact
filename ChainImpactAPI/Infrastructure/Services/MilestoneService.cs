@@ -48,6 +48,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                         complete = milestone.complete,
                         description = milestone.description,
                         name = milestone.name,
+                        ordernumber= milestone.ordernumber,
                         project = new ProjectDto(
                                             milestone.project.id,
                                             new CharityDto(

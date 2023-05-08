@@ -136,9 +136,6 @@ CREATE TABLE Transaction
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );
 
-ALTER TABLE Transaction
-	ADD CONSTRAINT XAK1Transaction UNIQUE (BlockchainAddress);
-
 
 ALTER TABLE Donation
 	ADD CONSTRAINT FK_Project_Donation FOREIGN KEY (ProjectId) REFERENCES Project(Id)

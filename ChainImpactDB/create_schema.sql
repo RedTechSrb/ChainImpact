@@ -131,7 +131,7 @@ CREATE TABLE Transaction
 	Amount               decimal(20,9)  NULL ,
 	ProjectId            bigint  NOT NULL ,
 	DonatorId            bigint  NOT NULL ,
-	Type                 integer  NULL ,
+	Type                 integer  NOT NULL ,
 	MilestoneId          bigint  NULL ,
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );

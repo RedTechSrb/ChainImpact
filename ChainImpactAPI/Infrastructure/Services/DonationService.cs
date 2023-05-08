@@ -20,19 +20,22 @@ namespace ChainImpactAPI.Infrastructure.Services
         private readonly IImpactorRepository impactorRepository;
         private readonly ITransactionRepository transactionRepository;
         private readonly IProjectRepository projectRepository;
+        private readonly ICharityRepository charityRepository;
 
         public DonationService(
             IConfiguration configuration,
             IDonationRepository donationRepository,
             IImpactorRepository impactorRepository,
             ITransactionRepository transactionRepository,
-            IProjectRepository projectRepository)
+            IProjectRepository projectRepository,
+            ICharityRepository charityRepository)
         {
             this.configuration = configuration;
             this.donationRepository = donationRepository;
             this.impactorRepository = impactorRepository;
             this.transactionRepository = transactionRepository;
             this.projectRepository = projectRepository;
+            this.charityRepository = charityRepository;
         }
 
         public List<ImpactorsWithDonationsResponseDto> GetImpactorsWithDonations(GenericDto<ImpactorsWithDonationsRequestDto>? impactorsWithDonationsDto)
@@ -156,6 +159,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             tranaction.sender,
                                             tranaction.receiver,
                                             tranaction.amount,
+                                            tranaction.type,
                                             new ProjectDto(
                                                 tranaction.project.id,
                                                 new CharityDto(
@@ -404,14 +408,37 @@ namespace ChainImpactAPI.Infrastructure.Services
             {
                 // Project has wallet, so there will be two transactions
                 // One from donator to charity (project's wallet)
-                
+
+                var transactionDonatorCharity = new Transaction
+                {
+                    amount = saveDonationRequestDto.amount * 0.98,
+                    blockchainaddress = saveDonationRequestDto.blockchainaddress,
+                    donatorid = impactor.id,
+                    projectid = project.id,
+                    sender = impactor.name,
+                    receiver = project.charity.name,
+                    type = 0
+                };
+                var savedTransactionDonatorCharity = transactionRepository.Save(transactionDonatorCharity);
 
 
                 // Second from donator to ChainImpact
 
+                var transactionDonatorChainImpact = new Transaction
+                {
+                    amount = saveDonationRequestDto.amount * 0.02,
+                    blockchainaddress = saveDonationRequestDto.blockchainaddress,
+                    donatorid = impactor.id,
+                    projectid = project.id,
+                    sender = impactor.name,
+                    receiver = "Chain Impact",
+                    type = 0
+                };
+                var savedTransactionDonatorChainImpact = transactionRepository.Save(transactionDonatorChainImpact);
 
 
-            } else
+            }
+            else
             {
                 // Project has no wallet, so there will be three transactions
                 // TBD

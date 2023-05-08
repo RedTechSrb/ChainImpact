@@ -11,6 +11,7 @@ psql -U postgres -d chainimpactdb -h localhost  -p 5432 -f insert_nfttype.sql
 
 psql -U postgres -d chainimpactdb -h localhost  -p 5432 -f insert_project.sql
 psql -U postgres -d chainimpactdb -h localhost  -p 5432 -f insert_milestone.sql
+psql -U postgres -d chainimpactdb -h localhost  -p 5432 -f insert_milestonetransactions.sql
 
 psql -U postgres -d chainimpactdb -h localhost  -p 5432 -f insert_donation.sql
 

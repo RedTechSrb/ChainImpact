@@ -10,7 +10,8 @@ namespace ChainImpactAPI.Dtos
             string? blockchainaddress = null, 
             string? sender = null, 
             string? receiver = null, 
-            double? amount = null, 
+            double? amount = null,
+            int? type = null,
             ProjectDto? project = null, 
             ImpactorDto? donator = null,
             MilestoneDto? milestone = null)
@@ -23,6 +24,7 @@ namespace ChainImpactAPI.Dtos
             this.project = project;
             this.donator = donator;
             this.milestone = milestone;
+            this.type = type;
         }
 
         public int? id { get; set; }
@@ -33,5 +35,6 @@ namespace ChainImpactAPI.Dtos
         public ProjectDto? project { get; set; }
         public ImpactorDto? donator { get; set; }
         public MilestoneDto? milestone { get; set; }
+        public int? type { get; set; }
     }
 }

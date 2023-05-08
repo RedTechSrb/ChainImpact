@@ -32,6 +32,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                                         tranaction.sender,
                                         tranaction.receiver,
                                         tranaction.amount,
+                                        tranaction.type,
                                         new ProjectDto(
                                             tranaction.project.id,
                                             new CharityDto(

@@ -1,7 +1,7 @@
 import { Impactor } from "./Impactor";
 import { Project } from "./Project";
 
-export interface Transaction {
+export interface Transaction { // human-readable
   id: number;
   blockchainaddress: string;
   sender: string;
@@ -9,4 +9,5 @@ export interface Transaction {
   amount: number;
   project: Project;
   donator: Impactor;
+  milestoneid: number;
 }

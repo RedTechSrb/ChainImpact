@@ -1,5 +1,5 @@
 import { Carousel } from "@mantine/carousel";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   createStyles,
   Paper,
@@ -14,8 +14,11 @@ import {
   Center,
   SimpleGrid,
   Anchor,
+  Modal,
 } from "@mantine/core";
 import { Donation } from "../../models/Donation";
+import { Transaction } from "../../models/Transaction";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -120,6 +123,20 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const laptop = useMediaQuery(`(max-width: 1440px)`);
   const { classes } = useStyles();
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  function handleOpen(transactions: Transaction[]) {
+    setTransactions(transactions);
+    open();
+  }
+
+  function handleClose() {
+    setTransactions([]);
+    close();
+  }
+
   const slides = recentImpactors.recentImpactors.map((item) => (
     <Carousel.Slide key={item.impactor.name}>
       <Card withBorder radius="md" className={classes.card}>
@@ -153,11 +170,10 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
             Donated
           </Text>
           <Center>
-            <Anchor href="https://solscan.io/tx/4A7PCVcgDzyDgioTRKcdsHtmbz3HhTpc9S4Yx6UazvpjV5rZ5uV2JnNbEzc2j5kz3UuRgN189TkwfhAVHDPPU3Zp?cluster=devnet" target="_blank">
-              <Button radius="xl" style={{ flex: 1, marginTop: 25 }}>
-                Impact trace
-              </Button>
-            </Anchor>
+            <Button radius="xl" style={{ flex: 1, marginTop: 25 }} 
+              onClick={() => handleOpen(item.transactions)}>
+              Impact trace
+            </Button>
           </Center>
         </Card.Section>
       </Card>
@@ -166,6 +182,24 @@ export default function RecentImpactors(recentImpactors: RecentImpactorsProps) {
 
   return (
     <Center>
+      <Modal opened={opened} onClose={handleClose} title="Donation transactions" centered
+          size="lg" padding="xl" radius={15}>
+        {transactions.map((item) => 
+        <SimpleGrid cols={2}>
+          <Text align="right" style={{padding: "5px 0px", fontWeight: "bold"}}>
+            {
+              item.sender + " -> " + item.receiver + ": "
+            }
+          </Text>
+          <Text style={{padding: "5px 0px 5px 40px", fontWeight: "bold"}}>
+            {
+              item.amount?'$'+item.amount:""
+            }
+          </Text>
+        </SimpleGrid>
+        )}
+      </Modal>
+
       <SimpleGrid cols={1} style={{marginTop: "30px"}}>
         <Carousel
           slideSize={laptop ? "50%" : "33.3333%"}

@@ -7,7 +7,6 @@ export interface Project {
   charity: Charity;
   name: string;
   description: string | null;
-  milestones: string | null;
   financialgoal: number;
   totaldonated: number;
   website: string | null;

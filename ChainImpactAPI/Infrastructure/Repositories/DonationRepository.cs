@@ -68,6 +68,11 @@ public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donatio
                     donations = donations.Where(d => d.project.primarycausetype.name == "social" || d.project.primarycausetype.name == "ekosystem" || d.project.primarycausetype.name == "education");
                 }
             }
+            if (donationSearchDto.projectid != null)
+            {
+                donations = donations.Where(d => d.project.id == donationSearchDto.projectid);
+            }
+
 
             List<ImpactorsWithDonationsResponseDto> donationsGroupedByImpactors = await donations.GroupBy(d => new {
                                                                                                     d.donator.id, d.donator.name, d.donator.wallet, d.donator.type, d.donator.imageurl

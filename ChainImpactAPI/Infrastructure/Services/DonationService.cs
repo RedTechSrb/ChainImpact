@@ -391,6 +391,18 @@ namespace ChainImpactAPI.Infrastructure.Services
             var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = saveDonationRequestDto.wallet })).Result.FirstOrDefault();
             var project = projectRepository.SearchAsync(new GenericDto<ProjectSearchDto>(new ProjectSearchDto { id = saveDonationRequestDto.projectid })).Result.FirstOrDefault();
 
+            // Gather project's informations about backers and donations
+
+            project.totaldonated += saveDonationRequestDto.amount;
+
+            var thisProjectDonations = donationRepository.SearchDonationsGroupedByImpactorsAsync(new DonationSearchDto { projectid = project.id }).Result;
+            if (thisProjectDonations.FindAll(d => d.wallet == saveDonationRequestDto.wallet).Count == 0)
+            {
+                project.totalbackers += 1;
+            }
+
+            // Donate 
+
             var donation = new Donation
             {
                 amount = saveDonationRequestDto.amount,
@@ -402,9 +414,12 @@ namespace ChainImpactAPI.Infrastructure.Services
             savedDonation.donator = impactor;
             savedDonation.project = project;
 
-            // Update NFTs
+            // Upadte information about project
+            project = projectRepository.Update(project);
 
-            if(project.wallet != null)
+            // Add trasactions 
+
+            if (project.wallet != null)
             {
                 // Project has wallet, so there will be two transactions
                 // One from donator to charity (project's wallet)
@@ -443,6 +458,12 @@ namespace ChainImpactAPI.Infrastructure.Services
                 // Project has no wallet, so there will be three transactions
                 // TBD
             }
+
+            // Update NFTs
+
+
+
+
 
             return savedDonation;
 

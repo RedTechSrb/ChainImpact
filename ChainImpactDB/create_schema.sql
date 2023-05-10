@@ -45,6 +45,7 @@ CREATE TABLE Donation
 	Amount               decimal(20,9)  NULL ,
 	ProjectId            bigint  NOT NULL ,
 	DonatorId            bigint  NOT NULL ,
+	CreateDate           bigint  NOT NULL ,
 	CONSTRAINT XPKDonation PRIMARY KEY (Id)
 );
 
@@ -133,6 +134,7 @@ CREATE TABLE Transaction
 	DonatorId            bigint  NOT NULL ,
 	Type                 integer  NOT NULL ,
 	MilestoneId          bigint  NULL ,
+	CreationDate         bigint  NOT NULL ,
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );
 

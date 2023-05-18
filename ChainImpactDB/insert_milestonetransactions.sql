@@ -5,12 +5,13 @@ INSERT INTO public.transaction(
 	projectid, 
 	donatorid, 
 	type,
-	milestoneid)
+	milestoneid, 
+	creationdate)
 	VALUES ('bfuiasfdfidi', 'RedTech', 'Turkey DAO', 10, 
 		(select id from project where name like 'Turkey Earthquake Relief'), 
 		(select id from impactor where name like 'RedTech'), 
 		4,
 		(select id from milestone where name like 'Hire professors' and projectid = (select id from project where name like 'Turkey Earthquake Relief'))
-		);
+		, 1676711570);
 		
-		
+	

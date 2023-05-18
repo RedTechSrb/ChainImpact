@@ -44,8 +44,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 projects = projects.Where(p => p.id == projectSearch.id).ToList();
             }
 
-            projects = projects.OrderBy(p => p.id).ToList();
-
             if (skip != null && take != null)
             {
                 projects = projects.Skip(skip.Value).Take(take.Value).ToList();

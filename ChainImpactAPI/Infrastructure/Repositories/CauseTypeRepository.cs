@@ -41,8 +41,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 causeTypes = causeTypes.Where(ct => ct.name == causeTypeSearch.name).ToList();
             }
 
-            causeTypes = causeTypes.OrderBy(ct => ct.name).ToList();
-
             if (skip != null && take != null)
             {
                 causeTypes = causeTypes.Skip(skip.Value).Take(take.Value).ToList();

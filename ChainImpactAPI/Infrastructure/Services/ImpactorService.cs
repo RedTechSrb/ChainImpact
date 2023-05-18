@@ -70,14 +70,14 @@ namespace ChainImpactAPI.Infrastructure.Services
                 impactor= new Impactor(impactorDto.wallet, impactorDto.type.Value);
             } else
             {
-                impactor.name = impactorDto.name != null ? impactorDto.name : impactor.name;
-                impactor.description = impactorDto.description != null ? impactorDto.description : impactor.description;
-                impactor.website = impactorDto.website != null ? impactorDto.website : impactor.website;
-                impactor.facebook = impactorDto.facebook != null ? impactorDto.facebook : impactor.facebook;
-                impactor.discord = impactorDto.discord != null ? impactorDto.discord : impactor.discord;
-                impactor.twitter = impactorDto.twitter != null ? impactorDto.twitter : impactor.twitter;
-                impactor.instagram = impactorDto.instagram != null ? impactorDto.instagram : impactor.instagram;
-                impactor.imageurl = impactorDto.imageurl != null ? impactorDto.imageurl : impactor.imageurl;
+                impactor.name = impactorDto.name;
+                impactor.description = impactorDto.description;
+                impactor.website = impactorDto.website;
+                impactor.facebook = impactorDto.facebook;
+                impactor.discord = impactorDto.discord;
+                impactor.twitter = impactorDto.twitter;
+                impactor.instagram = impactorDto.instagram;
+                impactor.imageurl = impactorDto.imageurl;
                 impactor.type = impactorDto.type != null ? impactorDto.type.Value : impactor.type;
                 impactor.role = impactorDto.role != null ? impactorDto.role.Value : impactor.role;  
             }

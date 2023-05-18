@@ -1,3 +1,4 @@
+import { Donation } from "./Donation";
 import { Impactor } from "./Impactor";
 import { Project } from "./Project";
 
@@ -7,7 +8,6 @@ export interface Transaction { // human-readable
   sender: string;
   receiver: string;
   amount: number;
-  project: Project;
-  donator: Impactor;
+  donation: Donation;
   milestoneid: number;
 }

@@ -52,8 +52,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 milestones = milestones.Where(t => t.project.id == milestoneSearch.project.id).ToList();
             }
 
-            milestones = milestones.OrderBy(t => t.ordernumber).ToList();
-
             if (skip != null && take != null)
             {
                 milestones = milestones.Skip(skip.Value).Take(take.Value).ToList();

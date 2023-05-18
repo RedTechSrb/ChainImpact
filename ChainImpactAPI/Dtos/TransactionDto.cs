@@ -12,8 +12,8 @@ namespace ChainImpactAPI.Dtos
             string? receiver = null, 
             double? amount = null,
             int? type = null,
-            ProjectDto? project = null, 
-            ImpactorDto? donator = null,
+            long? creationdate = null,
+            DonationDto? donation = null,
             MilestoneDto? milestone = null)
         {
             this.id = id;
@@ -21,9 +21,9 @@ namespace ChainImpactAPI.Dtos
             this.sender = sender;
             this.receiver = receiver;
             this.amount = amount;
-            this.project = project;
-            this.donator = donator;
+            this.donation = donation;
             this.milestone = milestone;
+            this.creationdate = creationdate;
             this.type = type;
         }
 
@@ -32,9 +32,9 @@ namespace ChainImpactAPI.Dtos
         public string? sender { get; set; }
         public string? receiver { get; set; }
         public double? amount { get; set; }
-        public ProjectDto? project { get; set; }
-        public ImpactorDto? donator { get; set; }
+        public DonationDto? donation { get; set; }
         public MilestoneDto? milestone { get; set; }
         public int? type { get; set; }
+        public long? creationdate { get; set; }
     }
 }

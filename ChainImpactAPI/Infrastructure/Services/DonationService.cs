@@ -149,7 +149,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             var recentImpactors= new List<RecentDonationsResponseDto>();
             foreach (var donation in donations)
             {
-                var tranactions = transactionRepository.SearchAsync(new GenericDto<TransactionDto>(null, null, new TransactionDto { donator = new ImpactorDto { id = donation.donator.id }, project = new ProjectDto { id = donation.project.id } })).Result;
+                var tranactions = transactionRepository.SearchAsync(new GenericDto<TransactionDto>(null, null, new TransactionDto { donation = new DonationDto { id = donation.id } })).Result;
                 List<TransactionDto> transactionsDto = new List<TransactionDto>();
                 foreach (var tranaction in tranactions)
                 {
@@ -160,67 +160,73 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             tranaction.receiver,
                                             tranaction.amount,
                                             tranaction.type,
-                                            new ProjectDto(
-                                                tranaction.project.id,
-                                                new CharityDto(
-                                                    tranaction.project.charity.id,
-                                                    tranaction.project.charity.name,
-                                                    tranaction.project.charity.wallet,
-                                                    tranaction.project.charity.website,
-                                                    tranaction.project.charity.facebook,
-                                                    tranaction.project.charity.discord,
-                                                    tranaction.project.charity.twitter,
-                                                    tranaction.project.charity.imageurl,
-                                                    tranaction.project.charity.description
+                                            tranaction.creationdate,
+                                            tranaction.donation == null ? null : new DonationDto(
+                                                tranaction.donation.id,
+                                                tranaction.donation.amount,
+                                                tranaction.donation.creationdate,
+                                                new ProjectDto(
+                                                    tranaction.donation.project.id,
+                                                    new CharityDto(
+                                                        tranaction.donation.project.charity.id,
+                                                        tranaction.donation.project.charity.name,
+                                                        tranaction.donation.project.charity.wallet,
+                                                        tranaction.donation.project.charity.website,
+                                                        tranaction.donation.project.charity.facebook,
+                                                        tranaction.donation.project.charity.discord,
+                                                        tranaction.donation.project.charity.twitter,
+                                                        tranaction.donation.project.charity.imageurl,
+                                                        tranaction.donation.project.charity.description
+                                                    ),
+                                                    tranaction.donation.project.wallet,
+                                                    tranaction.donation.project.name,
+                                                    tranaction.donation.project.description,
+                                                    tranaction.donation.project.financialgoal,
+                                                    tranaction.donation.project.totaldonated,
+                                                    tranaction.donation.project.totalbackers,
+                                                    tranaction.donation.project.website,
+                                                    tranaction.donation.project.facebook,
+                                                    tranaction.donation.project.discord,
+                                                    tranaction.donation.project.twitter,
+                                                    tranaction.donation.project.instagram,
+                                                    tranaction.donation.project.imageurl,
+                                                    tranaction.donation.project.impactor == null ? null : new ImpactorDto(
+                                                        tranaction.donation.project.impactor.id,
+                                                        tranaction.donation.project.impactor.wallet,
+                                                        tranaction.donation.project.impactor.name,
+                                                        tranaction.donation.project.impactor.description,
+                                                        tranaction.donation.project.impactor.website,
+                                                        tranaction.donation.project.impactor.facebook,
+                                                        tranaction.donation.project.impactor.discord,
+                                                        tranaction.donation.project.impactor.twitter,
+                                                        tranaction.donation.project.impactor.instagram,
+                                                        tranaction.donation.project.impactor.imageurl,
+                                                        tranaction.donation.project.impactor.role,
+                                                        tranaction.donation.project.impactor.type
+                                                    ),
+                                                    new CauseTypeDto(
+                                                        tranaction.donation.project.primarycausetype.id,
+                                                        tranaction.donation.project.primarycausetype.name
+                                                    ),
+                                                    new CauseTypeDto(
+                                                        tranaction.donation.project.secondarycausetype.id,
+                                                        tranaction.donation.project.secondarycausetype.name
+                                                    )
                                                 ),
-                                                tranaction.project.wallet,
-                                                tranaction.project.name,
-                                                tranaction.project.description,
-                                                tranaction.project.financialgoal,
-                                                tranaction.project.totaldonated,
-                                                tranaction.project.totalbackers,
-                                                tranaction.project.website,
-                                                tranaction.project.facebook,
-                                                tranaction.project.discord,
-                                                tranaction.project.twitter,
-                                                tranaction.project.instagram,
-                                                tranaction.project.imageurl,
-                                                tranaction.project.impactor == null ? null : new ImpactorDto(
-                                                    tranaction.project.impactor.id,
-                                                    tranaction.project.impactor.wallet,
-                                                    tranaction.project.impactor.name,
-                                                    tranaction.project.impactor.description,
-                                                    tranaction.project.impactor.website,
-                                                    tranaction.project.impactor.facebook,
-                                                    tranaction.project.impactor.discord,
-                                                    tranaction.project.impactor.twitter,
-                                                    tranaction.project.impactor.instagram,
-                                                    tranaction.project.impactor.imageurl,
-                                                    tranaction.project.impactor.role,
-                                                    tranaction.project.impactor.type
-                                                ),
-                                                new CauseTypeDto(
-                                                    tranaction.project.primarycausetype.id,
-                                                    tranaction.project.primarycausetype.name
-                                                ),
-                                                new CauseTypeDto(
-                                                    tranaction.project.secondarycausetype.id,
-                                                    tranaction.project.secondarycausetype.name
+                                                new ImpactorDto(
+                                                    tranaction.donation.donator.id,
+                                                    tranaction.donation.donator.wallet,
+                                                    tranaction.donation.donator.name,
+                                                    tranaction.donation.donator.description,
+                                                    tranaction.donation.donator.website,
+                                                    tranaction.donation.donator.facebook,
+                                                    tranaction.donation.donator.discord,
+                                                    tranaction.donation.donator.twitter,
+                                                    tranaction.donation.donator.instagram,
+                                                    tranaction.donation.donator.imageurl,
+                                                    tranaction.donation.donator.role,
+                                                    tranaction.donation.donator.type
                                                 )
-                                            ),
-                                            new ImpactorDto(
-                                                tranaction.donator.id,
-                                                tranaction.donator.wallet,
-                                                tranaction.donator.name,
-                                                tranaction.donator.description,
-                                                tranaction.donator.website,
-                                                tranaction.donator.facebook,
-                                                tranaction.donator.discord,
-                                                tranaction.donator.twitter,
-                                                tranaction.donator.instagram,
-                                                tranaction.donator.imageurl,
-                                                tranaction.donator.role,
-                                                tranaction.donator.type
                                             ),
                                             tranaction.milestone == null ? null : new MilestoneDto(
                                                 tranaction.milestone.id,
@@ -316,6 +322,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                 donationDtoList.Add(new DonationDto(
                                             donation.id, 
                                             donation.amount,
+                                            donation.creationdate,
                                             new ProjectDto(
                                                 donation.project.id,
                                                 new CharityDto(
@@ -392,7 +399,6 @@ namespace ChainImpactAPI.Infrastructure.Services
             var project = projectRepository.SearchAsync(new GenericDto<ProjectSearchDto>(new ProjectSearchDto { id = saveDonationRequestDto.projectid })).Result.FirstOrDefault();
 
             // Gather project's informations about backers and donations
-
             project.totaldonated += saveDonationRequestDto.amount;
 
             var thisProjectDonations = donationRepository.SearchDonationsGroupedByImpactorsAsync(new DonationSearchDto { projectid = project.id }).Result;
@@ -401,13 +407,14 @@ namespace ChainImpactAPI.Infrastructure.Services
                 project.totalbackers += 1;
             }
 
-            // Donate 
+            // Donate (save donation
 
             var donation = new Donation
             {
                 amount = saveDonationRequestDto.amount,
                 projectid = project.id,
-                donatorid = impactor.id
+                donatorid = impactor.id,
+                creationdate = saveDonationRequestDto.creationdate
             };
 
             var savedDonation = donationRepository.Save(donation);
@@ -428,11 +435,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                 {
                     amount = saveDonationRequestDto.amount * 0.98,
                     blockchainaddress = saveDonationRequestDto.blockchainaddress,
-                    donatorid = impactor.id,
-                    projectid = project.id,
-                    sender = impactor.name,
+                    donationid = savedDonation.id,
                     receiver = project.charity.name,
-                    type = 0
+                    type = 0,
+                    creationdate = saveDonationRequestDto.creationdate
                 };
                 var savedTransactionDonatorCharity = transactionRepository.Save(transactionDonatorCharity);
 
@@ -443,8 +449,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                 {
                     amount = saveDonationRequestDto.amount * 0.02,
                     blockchainaddress = saveDonationRequestDto.blockchainaddress,
-                    donatorid = impactor.id,
-                    projectid = project.id,
+                    donationid = savedDonation.id,
                     sender = impactor.name,
                     receiver = "Chain Impact",
                     type = 0

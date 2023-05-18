@@ -13,7 +13,10 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
         public async Task<List<Transaction>> SearchAsync(GenericDto<TransactionDto>? transactionSearchDto)
         {
-            var transactions = await base.ListAllAsync(t => t.project, t => t.donator, t => t.project.primarycausetype, t => t.project.secondarycausetype, t => t.project.charity, t => t.milestone, t => t.milestone.project, t => t.milestone.project.primarycausetype, t => t.milestone.project.secondarycausetype, t => t.milestone.project.charity);
+            var transactions = await base.ListAllAsync(t => t.donation, 
+                                                       t => t.donation.project, t => t.donation.project.primarycausetype, t => t.donation.project.secondarycausetype, t => t.donation.project.charity,
+                                                       t => t.donation.donator, 
+                                                       t => t.milestone, t => t.milestone.project, t => t.milestone.project.primarycausetype, t => t.milestone.project.secondarycausetype, t => t.milestone.project.charity);
 
             int? skip = null;
             int? take = null;
@@ -40,23 +43,32 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             {
                 transactions = transactions.Where(t => t.amount == transactionSearch.amount).ToList();
             }
-            if (transactionSearch.donator != null)
+            if (transactionSearch.sender != null)
             {
-                transactions = transactions.Where(t => t.donator.id == transactionSearch.donator.id).ToList();
+                transactions = transactions.Where(t => t.sender == transactionSearch.sender).ToList();
             }
-            if (transactionSearch.project != null)
+            if (transactionSearch.receiver != null)
             {
-                transactions = transactions.Where(t => t.project.id == transactionSearch.project.id).ToList();
+                transactions = transactions.Where(t => t.receiver == transactionSearch.receiver).ToList();
+            }
+            if (transactionSearch.type != null)
+            {
+                transactions = transactions.Where(t => t.type == transactionSearch.type).ToList();
+            }
+            if (transactionSearch.creationdate != null)
+            {
+                transactions = transactions.Where(t => t.creationdate == transactionSearch.creationdate).ToList();
             }
 
-            // TODO more search requests...
-
+            // search by objects
+            if (transactionSearch.donation != null)
+            {
+                transactions = transactions.Where(t => (t.donation != null && t.donation.id == transactionSearch.donation.id)).ToList();
+            }
             if (transactionSearch.milestone != null)
             {
                 transactions = transactions.Where(t => (t.milestone != null && t.milestone.id == transactionSearch.milestone.id)).ToList();
             }
-
-            transactions = transactions.OrderBy(t => t.id).ToList();
 
             if (skip != null && take != null)
             {

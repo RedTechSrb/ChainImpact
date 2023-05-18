@@ -138,7 +138,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             // TODO: Recent donations are returned, if someone donated twice in the recent period, he will be in the retunred list twice. 
             // TODO: Probably, this should be fixed to group recent users
 
-            donations = donations.OrderBy(d => d.id).ToList();
+            donations = donations.OrderByDescending(d => d.creationdate).ToList();
 
             if (skip != null && take != null)
             {
@@ -285,7 +285,6 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             )
                                     ));
                 }
-
 
                 recentImpactors.Add(new RecentDonationsResponseDto
                 {

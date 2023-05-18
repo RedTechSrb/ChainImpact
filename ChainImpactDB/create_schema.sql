@@ -133,7 +133,7 @@ CREATE TABLE Transaction
 	Type                 integer  NOT NULL ,
 	MilestoneId          bigint  NULL ,
 	CreationDate         bigint  NOT NULL ,
-	DonationId           bigint  NOT NULL ,
+	DonationId           bigint  NULL ,
 	CONSTRAINT XPKTransaction PRIMARY KEY (Id)
 );
 
@@ -200,8 +200,8 @@ ALTER TABLE Transaction
 
 ALTER TABLE Transaction
 	ADD CONSTRAINT FK_Donation_Transaction FOREIGN KEY (DonationId) REFERENCES Donation(Id)
-		ON UPDATE RESTRICT
-		ON DELETE RESTRICT;
+		ON UPDATE SET NULL
+		ON DELETE SET NULL;
 
 COMMENT ON COLUMN Impactor.Role IS 'What user can do.
 0 - super admin user

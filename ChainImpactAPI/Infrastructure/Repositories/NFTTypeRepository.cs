@@ -52,8 +52,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 nfts = nfts.Where(nft => nft.causetype.id == nftTypeSearch.causetype.id).ToList();
             }
 
-            nfts = nfts.OrderBy(nft => nft.symbol).ToList();
-
             if (skip != null && take != null)
             {
                 nfts = nfts.Skip(skip.Value).Take(take.Value).ToList();
@@ -96,10 +94,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             {
                 nfts = nfts.Where(nft => nft.usertype == nftTypeSearch.usertype).ToList();
             }
-
-            // TODO!!!
-
-            nfts = nfts.OrderBy(nft => nft.tier).ToList();
 
             if (skip != null && take != null)
             {

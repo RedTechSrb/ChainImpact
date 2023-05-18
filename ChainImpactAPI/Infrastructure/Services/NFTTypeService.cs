@@ -62,6 +62,9 @@ namespace ChainImpactAPI.Infrastructure.Services
 
             var nfts = nFTTypeRepository.SearchAsync(new GenericDto<NFTTypeSearchDto>(nftRequestDto?.PageNumber, nftRequestDto?.PageSize, nftDto)).Result;
 
+            // [order by] Sort by symbol
+            nfts = nfts.OrderBy(nft => nft.symbol).ToList();
+
             var nftDtoList = new List<NFTResponseDto>();
             foreach (var nft in nfts)
             {
@@ -81,6 +84,9 @@ namespace ChainImpactAPI.Infrastructure.Services
         public List<NFTTypeDto> SearchNFTs(GenericDto<NFTTypeDto> nftTypeDto)
         {
             var nfts = nFTTypeRepository.SearchAsync(nftTypeDto).Result;
+
+            // [order by] Sort by symbol
+            nfts = nfts.OrderBy(nft => nft.tier).ToList();
 
             var nftsDtoList = new List<NFTTypeDto>();
             foreach (var nft in nfts)

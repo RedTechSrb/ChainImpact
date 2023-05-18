@@ -8,5 +8,6 @@
         }
 
         public string? projectType { get; set; }
+        public int? projectid { get; set; }
     }
 }

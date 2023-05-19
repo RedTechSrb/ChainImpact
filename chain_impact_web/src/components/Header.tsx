@@ -12,6 +12,7 @@ import {
   Header,
   HoverCard,
   Loader,
+  Modal,
   ScrollArea,
   Text,
   ThemeIcon,
@@ -37,6 +38,7 @@ import {
   createNewImpactor,
   getSpecificImpactor,
 } from "../repositories/ImpactorRepository";
+import UserProfileModal from "./homeComponents/UserProfleModal";
 import LightDarkMode from "./LightDarkMode";
 
 const useStyles: any = createStyles((theme) => ({
@@ -210,24 +212,25 @@ export default function HeaderResponsive({
   setProvider,
   walletKey,
   setWalletKey,
-  cookies
+  cookies,
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState(true);
   const { classes, theme } = useStyles();
+  const [signInopened, { open, close }] = useDisclosure(false);
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ('phantom' in window) {
+    if ("phantom" in window) {
       const anyWindow: any = window;
       const provider = anyWindow.phantom?.solana;
-  
+
       if (provider?.isPhantom) {
         return provider;
       }
     }
-};
+  };
 
   // detect phantom provider exists
   useEffect(() => {
@@ -245,13 +248,13 @@ export default function HeaderResponsive({
       //   }
       // }
       setIsLoading(false);
-      console.log(isLoading, walletKey, provider)
+      console.log(isLoading, walletKey, provider);
     }, 3000);
 
     const provider = getProvider();
     setProvider(provider);
-    console.log(walletKey)
-    
+    console.log(walletKey);
+
     let cookieWallet;
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
@@ -271,7 +274,7 @@ export default function HeaderResponsive({
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
-    let response
+    let response;
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(walletKey);
       return;
@@ -282,7 +285,7 @@ export default function HeaderResponsive({
         const resp = await provider.connect();
 
         // put wallet in cookie for next 365 days
-        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        cookies.set("wallet", resp.publicKey.toString(), { path: "/" });
         // if there is already impactor with this wallet, continue
         let impactor = getSpecificImpactor(
           new ImpactorWalletSearch(null, null, resp.publicKey.toString())
@@ -323,15 +326,14 @@ export default function HeaderResponsive({
     // @ts-ignore
     const provider = getProvider();
 
-    if(cookies.get("wallet")){
-      cookies.remove("wallet", { path: '/' });
+    if (cookies.get("wallet")) {
+      cookies.remove("wallet", { path: "/" });
       setWalletKey(null);
     }
     if (provider) {
       provider.disconnect();
     }
   };
-
 
   function PhantomWrapper() {
     const { classes } = useStyles();
@@ -495,6 +497,12 @@ export default function HeaderResponsive({
               <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>
+
+              <Button onClick={open}>Sign In</Button>
+              <UserProfileModal
+                isOpen={signInopened}
+                onClose={close}
+              ></UserProfileModal>
             </Group>
           </Group>
 

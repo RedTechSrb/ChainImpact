@@ -25,9 +25,11 @@ import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 export default function UserProfileModal({
   isOpen,
   onClose,
+  onClickPhantom,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  onClickPhantom: () => void;
 }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");

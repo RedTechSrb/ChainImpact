@@ -345,40 +345,322 @@ export default function HeaderResponsive({
     }
   };
 
-  function PhantomWrapper() {
+  function PhantomWrapperStari() {
     const { classes } = useStyles();
     return (
       <>
-        {isLoading && (
-          <Button className={classes.phantomButton}>
-            Loading
-            <Loader variant="dots" style={{ marginLeft: "15px" }} />
-          </Button>
-        )}
-
-        {!isLoading && provider && !walletKey && (
-          <Button
-            className={classes.phantomButton}
-            onClick={connectWallet}
-            leftIcon={<IconWallet></IconWallet>}
-          >
-            Connect wallet
-          </Button>
-        )}
-
-        {!isLoading && provider && walletKey && (
-          <Button className={classes.phantomButton} onClick={disconnectWallet}>
-            Disconnect wallet
-          </Button>
-        )}
-
-        {!isLoading && !provider && (
+        <Button
+          className={classes.phantomButton}
+          onClick={open}
+          leftIcon={<IconWallet></IconWallet>}
+        >
+          SignIn/SignUp
+        </Button>
+        <Modal
+          opened={signInopened}
+          onClose={close}
+          title="Add more info about yourself"
+          size={"xl"}
+        >
           <>
-            <Anchor href="https://phantom.app/">
-              <Button className={classes.phantomButton}>Install Phantom</Button>
-            </Anchor>
+            {isLoading && (
+              <Button className={classes.phantomButton}>
+                Loading
+                <Loader variant="dots" style={{ marginLeft: "15px" }} />
+              </Button>
+            )}
+
+            {!isLoading && provider && !walletKey && (
+              <Button
+                className={classes.phantomButton}
+                onClick={connectWallet}
+                leftIcon={<IconWallet></IconWallet>}
+              >
+                Connect wallet
+              </Button>
+            )}
+
+            {!isLoading && provider && walletKey && (
+              <Button
+                className={classes.phantomButton}
+                onClick={disconnectWallet}
+              >
+                Disconnect wallet
+              </Button>
+            )}
+
+            {!isLoading && !provider && (
+              <>
+                <Anchor href="https://phantom.app/">
+                  <Button className={classes.phantomButton}>
+                    Install Phantom
+                  </Button>
+                </Anchor>
+              </>
+            )}
           </>
-        )}
+          <Grid gutter="sm">
+            <Grid.Col span={6}>
+              <Flex gap="md" justify="center" direction="column" wrap="wrap">
+                <div>
+                  Profile Image
+                  {profileImagePreview}
+                </div>
+                <TextInput
+                  label="Username"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  required
+                />
+                <TextInput
+                  type="password"
+                  label="Password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+                <TextInput
+                  type="password"
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  required
+                />
+                <Textarea
+                  label="Description"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                />
+                <TextInput
+                  label="Twitter"
+                  value={twitter}
+                  onChange={(event) => setTwitter(event.target.value)}
+                />
+                <Checkbox
+                  label="Company Account"
+                  checked={isCompany}
+                  onChange={() => setIsCompany(!isCompany)}
+                  description="Only companies can be an Angel Impactors. This way your profile will need to be verified by our team."
+                />
+                <Flex
+                  gap="sm"
+                  justify="center"
+                  align="center"
+                  direction="row"
+                  wrap="wrap"
+                >
+                  <Button color="blue" onClick={handleSubmit}>
+                    Submit
+                  </Button>
+                  <Button variant="outline" onClick={close}>
+                    Cancel
+                  </Button>
+                </Flex>
+              </Flex>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Dropzone
+                onDrop={setProfileImage}
+                onReject={(files) => console.log("rejected files", files)}
+                maxSize={3 * 1024 ** 2}
+                accept={IMAGE_MIME_TYPE}
+              >
+                <Group
+                  position="center"
+                  spacing="xl"
+                  style={{ minHeight: 220, pointerEvents: "none" }}
+                >
+                  <Dropzone.Accept>
+                    <IconUpload size={50} stroke={1.5} />
+                  </Dropzone.Accept>
+                  <Dropzone.Reject>
+                    <IconX size={50} stroke={1.5} />
+                  </Dropzone.Reject>
+                  <Dropzone.Idle>
+                    <IconPhoto size={50} stroke={1.5} />
+                  </Dropzone.Idle>
+
+                  <div>
+                    <Text size="xl" inline>
+                      Drag images here or click to select files
+                    </Text>
+                    <Text size="sm" color="dimmed" inline mt={7}>
+                      Attach as many files as you like, each file should not
+                      exceed 5mb
+                    </Text>
+                  </div>
+                </Group>
+              </Dropzone>
+            </Grid.Col>
+          </Grid>
+        </Modal>
+      </>
+    );
+  }
+
+  function PhantomWrapper() {
+    const { classes } = useStyles();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const handleSubmit = () => {
+      // ...existing handleSubmit function code...
+    };
+
+    useEffect(() => {
+      // Check if user is already authenticated (tokens in cookies)
+      const tokens = cookies.get("tokens");
+      setIsAuthenticated(tokens ? true : false);
+    }, []);
+
+    return (
+      <>
+        <Button
+          className={classes.phantomButton}
+          onClick={open}
+          leftIcon={<IconWallet></IconWallet>}
+        >
+          SignIn/SignUp
+        </Button>
+        <Modal
+          opened={signInopened}
+          onClose={close}
+          title="SignIn/SignUp"
+          size={"xl"}
+        >
+          {isLoading ? (
+            <Button className={classes.phantomButton}>
+              Loading
+              <Loader variant="dots" style={{ marginLeft: "15px" }} />
+            </Button>
+          ) : (
+            <>
+              {provider && !walletKey && (
+                <Button
+                  className={classes.phantomButton}
+                  onClick={connectWallet}
+                  leftIcon={<IconWallet></IconWallet>}
+                >
+                  Connect wallet
+                </Button>
+              )}
+
+              {provider && walletKey && isAuthenticated && (
+                <Button
+                  className={classes.phantomButton}
+                  onClick={disconnectWallet}
+                >
+                  Disconnect wallet
+                </Button>
+              )}
+
+              {provider && walletKey && !isAuthenticated && (
+                <Grid gutter="sm">
+                  <Grid.Col span={12}>
+                    <Text>
+                      Your wallet is{" "}
+                      {walletKey.slice(0, 6) + "..." + walletKey.slice(-6)}{" "}
+                      <br></br>
+                      Complete your profile below.
+                    </Text>
+                  </Grid.Col>
+                  <Grid.Col span={6}>
+                    <Flex
+                      gap="md"
+                      justify="center"
+                      direction="column"
+                      wrap="wrap"
+                    >
+                      <div>
+                        Profile Image
+                        {profileImagePreview}
+                      </div>
+                      <TextInput
+                        label="Username"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                      />
+                      <Textarea
+                        label="Description"
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                      />
+                      <TextInput
+                        label="Twitter"
+                        value={twitter}
+                        onChange={(event) => setTwitter(event.target.value)}
+                      />
+                      <Checkbox
+                        label="Company Account"
+                        checked={isCompany}
+                        onChange={() => setIsCompany(!isCompany)}
+                        description="Only companies can be an Angel Impactors. This way your profile will need to be verified by our team."
+                      />
+                      <Flex
+                        gap="sm"
+                        justify="center"
+                        align="center"
+                        direction="row"
+                        wrap="wrap"
+                      >
+                        <Button color="blue" onClick={handleSubmit}>
+                          Submit
+                        </Button>
+                        <Button variant="outline" onClick={close}>
+                          Cancel
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Grid.Col>
+                  <Grid.Col span={6}>
+                    <Dropzone
+                      onDrop={setProfileImage}
+                      onReject={(files) => console.log("rejected files", files)}
+                      maxSize={3 * 1024 ** 2}
+                      accept={IMAGE_MIME_TYPE}
+                    >
+                      <Group
+                        position="center"
+                        spacing="xl"
+                        style={{ minHeight: 220, pointerEvents: "none" }}
+                      >
+                        <Dropzone.Accept>
+                          <IconUpload size={50} stroke={1.5} />
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                          <IconX size={50} stroke={1.5} />
+                        </Dropzone.Reject>
+                        <Dropzone.Idle>
+                          <IconPhoto size={50} stroke={1.5} />
+                        </Dropzone.Idle>
+
+                        <div>
+                          <Text size="xl" inline>
+                            Drag images here or click to select files
+                          </Text>
+                          <Text size="sm" color="dimmed" inline mt={7}>
+                            Attach as many files as you like, each file should
+                            not exceed 5mb
+                          </Text>
+                        </div>
+                      </Group>
+                    </Dropzone>
+                  </Grid.Col>
+                </Grid>
+              )}
+
+              {!provider && (
+                <>
+                  <Anchor href="https://phantom.app/">
+                    <Button className={classes.phantomButton}>
+                      Install Phantom
+                    </Button>
+                  </Anchor>
+                </>
+              )}
+            </>
+          )}
+        </Modal>
       </>
     );
   }
@@ -544,116 +826,6 @@ export default function HeaderResponsive({
               <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>
-
-              <Button onClick={open}>Sign In</Button>
-              <Modal
-                opened={signInopened}
-                onClose={close}
-                title="Add more info about yourself"
-                size={"xl"}
-              >
-                <Grid gutter="sm">
-                  <Grid.Col span={6}>
-                    <Flex
-                      gap="md"
-                      justify="center"
-                      direction="column"
-                      wrap="wrap"
-                    >
-                      <div>
-                        Profile Image
-                        {profileImagePreview}
-                      </div>
-                      <TextInput
-                        label="Username"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        required
-                      />
-                      <TextInput
-                        type="password"
-                        label="Password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        required
-                      />
-                      <TextInput
-                        type="password"
-                        label="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(event) =>
-                          setConfirmPassword(event.target.value)
-                        }
-                        required
-                      />
-                      <Textarea
-                        label="Description"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                      />
-                      <TextInput
-                        label="Twitter"
-                        value={twitter}
-                        onChange={(event) => setTwitter(event.target.value)}
-                      />
-                      <Checkbox
-                        label="Company Account"
-                        checked={isCompany}
-                        onChange={() => setIsCompany(!isCompany)}
-                        description="Only companies can be an Angel Impactors. This way your profile will need to be verified by our team."
-                      />
-                      <Flex
-                        gap="sm"
-                        justify="center"
-                        align="center"
-                        direction="row"
-                        wrap="wrap"
-                      >
-                        <Button color="blue" onClick={handleSubmit}>
-                          Submit
-                        </Button>
-                        <Button variant="outline" onClick={close}>
-                          Cancel
-                        </Button>
-                      </Flex>
-                    </Flex>
-                  </Grid.Col>
-                  <Grid.Col span={6}>
-                    <Dropzone
-                      onDrop={setProfileImage}
-                      onReject={(files) => console.log("rejected files", files)}
-                      maxSize={3 * 1024 ** 2}
-                      accept={IMAGE_MIME_TYPE}
-                    >
-                      <Group
-                        position="center"
-                        spacing="xl"
-                        style={{ minHeight: 220, pointerEvents: "none" }}
-                      >
-                        <Dropzone.Accept>
-                          <IconUpload size={50} stroke={1.5} />
-                        </Dropzone.Accept>
-                        <Dropzone.Reject>
-                          <IconX size={50} stroke={1.5} />
-                        </Dropzone.Reject>
-                        <Dropzone.Idle>
-                          <IconPhoto size={50} stroke={1.5} />
-                        </Dropzone.Idle>
-
-                        <div>
-                          <Text size="xl" inline>
-                            Drag images here or click to select files
-                          </Text>
-                          <Text size="sm" color="dimmed" inline mt={7}>
-                            Attach as many files as you like, each file should
-                            not exceed 5mb
-                          </Text>
-                        </div>
-                      </Group>
-                    </Dropzone>
-                  </Grid.Col>
-                </Grid>
-              </Modal>
             </Group>
           </Group>
 

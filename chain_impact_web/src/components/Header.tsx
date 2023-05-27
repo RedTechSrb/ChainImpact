@@ -817,12 +817,7 @@ export default function HeaderResponsive({
                   </div>
                 </HoverCard.Dropdown>*/}
               </HoverCard>
-              <a href="#" className={classes.link}>
-                Whitepaper
-              </a>
-              <a href="#" className={classes.link}>
-                I'm confused
-              </a>
+
               <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>

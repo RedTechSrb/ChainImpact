@@ -1,5 +1,6 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ChainImpactAPI.Application
 {
@@ -20,6 +21,10 @@ namespace ChainImpactAPI.Application
                     ;
 
             return services;
+        }
+        public static IServiceCollection AddAuthenticationJwt(this IServiceCollection services)
+        {
+            return services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
 
     }

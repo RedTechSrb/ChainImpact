@@ -1,6 +1,5 @@
 ﻿using ChainImpactAPI.Application.ServiceInterfaces;
 using ChainImpactAPI.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 
 namespace ChainImpactAPI.Application
 {

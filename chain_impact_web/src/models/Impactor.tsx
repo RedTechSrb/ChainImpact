@@ -11,4 +11,6 @@ export interface Impactor {
   imageurl: string | null;
   role: number;
   type: number;
+  confirmed: boolean;
+  password: string;
 }

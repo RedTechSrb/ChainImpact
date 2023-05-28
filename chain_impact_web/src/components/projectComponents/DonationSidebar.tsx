@@ -213,7 +213,7 @@ export default function DonationSidebar({
   // console.log(dataNftNew);
 
   let solana: any;
-  console.log(transactionStatus);
+  //console.log(transactionStatus);
 
   const connectWallet = async () => {
     // @ts-ignore
@@ -230,7 +230,7 @@ export default function DonationSidebar({
       }
     }
 
-    console.log(provider);
+    //console.log(provider);
     if (provider) {
       try {
         const resp = await provider.connect();
@@ -344,7 +344,7 @@ export default function DonationSidebar({
             amount: donationAmount,
             blockchainaddress: ts,
           };
-          console.log(donationInfo);
+          //console.log(donationInfo);
           saveDonation(donationInfo);
           // open/close modals
           open();
@@ -369,9 +369,9 @@ export default function DonationSidebar({
       } else {
         key = await connectWallet();
       }
-      console.log(key);
+      //console.log(key);
       const provider = getProvider();
-      console.log("Amount donated:", donationAmount);
+      //console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const program = new Program(idl as Idl, programID, provider);
       let poreskaUprava: any;

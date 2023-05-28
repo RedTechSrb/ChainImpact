@@ -118,8 +118,6 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
-
-
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
@@ -138,22 +136,19 @@ function App() {
 
   const cookies = new Cookies();
 
-
-  console.log(cookies.get("ChainImpactWallet"))
-
+  //console.log(cookies.get("ChainImpactWallet"))
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ('phantom' in window) {
+    if ("phantom" in window) {
       const anyWindow: any = window;
       const provider = anyWindow.phantom?.solana;
-  
+
       if (provider?.isPhantom) {
         return provider;
       }
     }
-};
+  };
 
-  
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}

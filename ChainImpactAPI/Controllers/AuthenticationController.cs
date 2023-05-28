@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChainImpactAPI.Application.ServiceInterfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChainImpactAPI.Controllers
 {
-    public class AuthenticationController : Controller
+
+    [ApiController]
+    [Route("[controller]")]
+    public class AuthenticationController : ControllerBase
     {
-        public IActionResult Index()
+ 
+        private readonly IAuthenticationService authenticationService;
+
+        public AuthenticationController(IAuthenticationService authenticationService)
         {
-            return View();
+            this.authenticationService = authenticationService;
         }
+
+
     }
 }

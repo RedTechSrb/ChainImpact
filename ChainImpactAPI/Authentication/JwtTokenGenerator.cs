@@ -19,7 +19,7 @@ namespace ChainImpactAPI.Authentication
             this.jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateJwtToken(AuthenticationDto authenticationDto)
+        public string GenerateJwtToken(AuthenticationRequestDto authenticationRequestDto)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(
@@ -32,7 +32,7 @@ namespace ChainImpactAPI.Authentication
             {
                 //new Claim(JwtRegisteredClaimNames.Name, /*user.Username*/ "boki"),
                 //new Claim(JwtRegisteredClaimNames.Nonce, /*user.Username*/ "boki"), // ovo je password
-                new Claim(JwtRegisteredClaimNames.Name, authenticationDto.wallet),
+                new Claim(JwtRegisteredClaimNames.Name, authenticationRequestDto.wallet),
 //                new Claim(JwtRegisteredClaimNames.GivenName, createJWTDto.AppAuthToken), // ovo je appAuth token
 //                new Claim("username", createJWTDto.username),
 //                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

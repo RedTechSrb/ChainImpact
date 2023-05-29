@@ -63,7 +63,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.impactor.instagram, 
                             project.impactor.imageurl, 
                             project.impactor.role, 
-                            project.impactor.type
+                            project.impactor.type,
+                            project.impactor.confirmed
                         ),
                         new CauseTypeDto(
                             project.primarycausetype.id,
@@ -123,7 +124,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.impactor.instagram,
                             project.impactor.imageurl,
                             project.impactor.role,
-                            project.impactor.type
+                            project.impactor.type,
+                            project.impactor.confirmed
                         ),
                         new CauseTypeDto(
                             project.primarycausetype.id,

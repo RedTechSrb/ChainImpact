@@ -53,7 +53,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.instagram,
                             impactor.imageurl,
                             impactor.role,
-                            impactor.type
+                            impactor.type,
+                            impactor.confirmed
                         )
                 );
             }
@@ -67,7 +68,30 @@ namespace ChainImpactAPI.Infrastructure.Services
             var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorDto.wallet })).Result.FirstOrDefault();
             if (impactor == null)
             {
-                impactor= new Impactor(impactorDto.wallet, impactorDto.type.Value);
+                impactor = new Impactor
+                {
+                    wallet = impactorDto.wallet,
+                    confirmed = false,
+                    role = 1,
+                    type = impactorDto.type.Value,
+                    password = "12134"
+                };
+            } else
+            {
+                throw new Exception("Error, Impactor with this wallet has already been saved");
+            }
+
+            return impactorRepository.Save(impactor);
+        }
+
+
+/*        public Impactor SaveImpactor(ImpactorDto impactorDto)
+        {
+
+            var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorDto.wallet })).Result.FirstOrDefault();
+            if (impactor == null)
+            {
+                impactor = new Impactor(impactorDto.wallet, impactorDto.type.Value);
             } else
             {
                 impactor.name = impactorDto.name;
@@ -84,7 +108,7 @@ namespace ChainImpactAPI.Infrastructure.Services
 
             return impactorRepository.Save(impactor);
         }
-
+*/
         public List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto)
         {
             var impactors = impactorRepository.SearchAsync(impactorSearchDto).Result;
@@ -104,7 +128,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.instagram,
                             impactor.imageurl,
                             impactor.role,
-                            impactor.type
+                            impactor.type,
+                            impactor.confirmed
                         )
                 );
             }
@@ -131,7 +156,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.instagram,
                             impactor.imageurl,
                             impactor.role,
-                            impactor.type
+                            impactor.type,
+                            impactor.confirmed
                         );
 
                 var donations = donationRepository.SearchAsync(new GenericDto<DonationDto>(null, null, new DonationDto { donator = impactorDto })).Result;

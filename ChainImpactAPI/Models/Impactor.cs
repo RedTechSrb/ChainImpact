@@ -5,6 +5,13 @@ namespace ChainImpactAPI.Models
 {
     public class Impactor : BaseEntity
     {
+        public Impactor()
+        {
+            this.wallet = wallet;
+            this.role = 1;
+            this.type = type;
+        }
+
         public Impactor(string wallet, int type)
         {
             this.wallet = wallet;
@@ -30,6 +37,8 @@ namespace ChainImpactAPI.Models
         public string? imageurl { get; set; }
         public int role { get; set; }
         public int type { get; set; }
+        public bool confirmed { get; set; }
+        public string password { get; set; }
 
     }
 }

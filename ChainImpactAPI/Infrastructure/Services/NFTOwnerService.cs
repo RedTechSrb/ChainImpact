@@ -168,7 +168,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                             nftowner.impactor.instagram,
                             nftowner.impactor.imageurl,
                             nftowner.impactor.role,
-                            nftowner.impactor.type
+                            nftowner.impactor.type,
+                            nftowner.impactor.confirmed
                             )
                     ));
             }

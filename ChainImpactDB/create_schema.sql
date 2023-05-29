@@ -64,7 +64,7 @@ CREATE TABLE Impactor
 	Type                 integer  NULL ,
 	ImageUrl             varchar(10000)  NULL ,
 	Confirmed            boolean  NOT NULL ,
-	Password             varchar(400)  NOT NULL ,
+	Password             varchar(400)  NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 
@@ -122,6 +122,7 @@ CREATE TABLE Project
 	SecondaryCauseTypeId bigint  NOT NULL ,
 	Wallet               varchar(256)  NULL ,
 	TotalBackers         integer  NOT NULL ,
+	Confirmed            boolean  NOT NULL ,
 	CONSTRAINT XPKProject PRIMARY KEY (Id)
 );
 

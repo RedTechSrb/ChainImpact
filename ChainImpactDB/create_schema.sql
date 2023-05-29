@@ -36,6 +36,7 @@ CREATE TABLE Charity
 	Instagram            varchar(100)  NULL ,
 	ImageUrl             varchar(1000)  NULL ,
 	Description          varchar(4000)  NULL ,
+	Confirmed            boolean  NOT NULL ,
 	CONSTRAINT XPKCharity PRIMARY KEY (Id)
 );
 

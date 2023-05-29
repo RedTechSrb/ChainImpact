@@ -58,10 +58,10 @@ export default function Home() {
   return (
     <>
       <Hero2 />
-      <TagLeaderboard />
-      <BiggestImpactors />
       <ProjectExplorer />
       <FAQ />
+      <TagLeaderboard />
+      <BiggestImpactors />
       <NFTCollection></NFTCollection>
       <Testimonials
         supTitle={testimonialsData.supTitle}

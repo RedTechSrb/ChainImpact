@@ -1,22 +1,30 @@
 import {
   Anchor,
+  Avatar,
   Box,
   Burger,
   Button,
   Center,
+  Checkbox,
   Collapse,
   createStyles,
   Divider,
   Drawer,
+  Flex,
+  Grid,
   Group,
   Header,
   HoverCard,
   Loader,
+  Modal,
   ScrollArea,
   Text,
+  Textarea,
+  TextInput,
   ThemeIcon,
   UnstyledButton,
 } from "@mantine/core";
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { PublicKey, Transaction } from "@solana/web3.js";
 import {
@@ -27,16 +35,21 @@ import {
   IconCoin,
   IconFingerprint,
   IconNotification,
+  IconPhoto,
+  IconUpload,
   IconWallet,
+  IconX,
 } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { ImpactorWalletSearch } from "../models/dto/request/ImpactorWalletSearch";
+import { Impactor } from "../models/Impactor";
 import {
   createNewImpactor,
   getSpecificImpactor,
 } from "../repositories/ImpactorRepository";
+import UserProfileModal from "./homeComponents/UserProfileModal";
 import LightDarkMode from "./LightDarkMode";
 
 const useStyles: any = createStyles((theme) => ({
@@ -210,24 +223,26 @@ export default function HeaderResponsive({
   setProvider,
   walletKey,
   setWalletKey,
-  cookies
+  cookies,
 }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState(true);
   const { classes, theme } = useStyles();
+  const [signInopened, { open, close }] = useDisclosure(false);
+  const [impactor, setImpactor] = useState<Impactor>();
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ('phantom' in window) {
+    if ("phantom" in window) {
       const anyWindow: any = window;
       const provider = anyWindow.phantom?.solana;
-  
+
       if (provider?.isPhantom) {
         return provider;
       }
     }
-};
+  };
 
   // detect phantom provider exists
   useEffect(() => {
@@ -245,13 +260,13 @@ export default function HeaderResponsive({
       //   }
       // }
       setIsLoading(false);
-      console.log(isLoading, walletKey, provider)
+      //console.log(isLoading, walletKey, provider);
     }, 3000);
 
     const provider = getProvider();
     setProvider(provider);
-    console.log(walletKey)
-    
+    //console.log(walletKey);
+
     let cookieWallet;
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(cookieWallet);
@@ -266,12 +281,14 @@ export default function HeaderResponsive({
    */
   const connectWallet = async () => {
     // @ts-ignore
+
+    //fali da se doda ubacivanje tokena
     const provider = getProvider();
 
     // check if there is cookie containing a wallet
     let cookieWallet;
     let newUser;
-    let response
+    let response;
     if ((cookieWallet = cookies.get("wallet"))) {
       setWalletKey(walletKey);
       return;
@@ -282,13 +299,14 @@ export default function HeaderResponsive({
         const resp = await provider.connect();
 
         // put wallet in cookie for next 365 days
-        cookies.set("wallet", resp.publicKey.toString(), { path: '/' });
+        cookies.set("wallet", resp.publicKey.toString(), { path: "/" });
         // if there is already impactor with this wallet, continue
         let impactor = getSpecificImpactor(
           new ImpactorWalletSearch(null, null, resp.publicKey.toString())
         );
         if (await impactor) {
           setWalletKey(resp.publicKey.toString());
+          //set token
           return;
         }
 
@@ -323,8 +341,8 @@ export default function HeaderResponsive({
     // @ts-ignore
     const provider = getProvider();
 
-    if(cookies.get("wallet")){
-      cookies.remove("wallet", { path: '/' });
+    if (cookies.get("wallet")) {
+      cookies.remove("wallet", { path: "/" });
       setWalletKey(null);
     }
     if (provider) {
@@ -332,41 +350,339 @@ export default function HeaderResponsive({
     }
   };
 
+  // function PhantomWrapperStari() {
+  //   const { classes } = useStyles();
+  //   return (
+  //     <>
+  //       <Button
+  //         className={classes.phantomButton}
+  //         onClick={open}
+  //         leftIcon={<IconWallet></IconWallet>}
+  //       >
+  //         SignIn/SignUp
+  //       </Button>
+  //       <Modal
+  //         opened={signInopened}
+  //         onClose={close}
+  //         title="Add more info about yourself"
+  //         size={"xl"}
+  //       >
+  //         <>
+  //           {isLoading && (
+  //             <Button className={classes.phantomButton}>
+  //               Loading
+  //               <Loader variant="dots" style={{ marginLeft: "15px" }} />
+  //             </Button>
+  //           )}
+
+  //           {!isLoading && provider && !walletKey && (
+  //             <Button
+  //               className={classes.phantomButton}
+  //               onClick={connectWallet}
+  //               leftIcon={<IconWallet></IconWallet>}
+  //             >
+  //               Connect wallet
+  //             </Button>
+  //           )}
+
+  //           {!isLoading && provider && walletKey && (
+  //             <Button
+  //               className={classes.phantomButton}
+  //               onClick={disconnectWallet}
+  //             >
+  //               Disconnect wallet
+  //             </Button>
+  //           )}
+
+  //           {!isLoading && !provider && (
+  //             <>
+  //               <Anchor href="https://phantom.app/">
+  //                 <Button className={classes.phantomButton}>
+  //                   Install Phantom
+  //                 </Button>
+  //               </Anchor>
+  //             </>
+  //           )}
+  //         </>
+  //         <Grid gutter="sm">
+  //           <Grid.Col span={6}>
+  //             <Flex gap="md" justify="center" direction="column" wrap="wrap">
+  //               <div>
+  //                 Profile Image
+  //                 {profileImagePreview}
+  //               </div>
+  //               <TextInput
+  //                 label="Username"
+  //                 value={name}
+  //                 onChange={(event) => setName(event.target.value)}
+  //                 required
+  //               />
+  //               <TextInput
+  //                 type="password"
+  //                 label="Password"
+  //                 value={password}
+  //                 onChange={(event) => setPassword(event.target.value)}
+  //                 required
+  //               />
+  //               <TextInput
+  //                 type="password"
+  //                 label="Confirm Password"
+  //                 value={confirmPassword}
+  //                 onChange={(event) => setConfirmPassword(event.target.value)}
+  //                 required
+  //               />
+  //               <Textarea
+  //                 label="Description"
+  //                 value={description}
+  //                 onChange={(event) => setDescription(event.target.value)}
+  //               />
+  //               <TextInput
+  //                 label="Twitter"
+  //                 value={twitter}
+  //                 onChange={(event) => setTwitter(event.target.value)}
+  //               />
+  //               <Checkbox
+  //                 label="Company Account"
+  //                 checked={isCompany}
+  //                 onChange={() => setIsCompany(!isCompany)}
+  //                 description="Only companies can be an Angel Impactors. This way your profile will need to be verified by our team."
+  //               />
+  //               <Flex
+  //                 gap="sm"
+  //                 justify="center"
+  //                 align="center"
+  //                 direction="row"
+  //                 wrap="wrap"
+  //               >
+  //                 <Button color="blue" onClick={handleSubmit}>
+  //                   Submit
+  //                 </Button>
+  //                 <Button variant="outline" onClick={close}>
+  //                   Cancel
+  //                 </Button>
+  //               </Flex>
+  //             </Flex>
+  //           </Grid.Col>
+  //           <Grid.Col span={6}>
+  //             <Dropzone
+  //               onDrop={setProfileImage}
+  //               onReject={(files) => console.log("rejected files", files)}
+  //               maxSize={3 * 1024 ** 2}
+  //               accept={IMAGE_MIME_TYPE}
+  //             >
+  //               <Group
+  //                 position="center"
+  //                 spacing="xl"
+  //                 style={{ minHeight: 220, pointerEvents: "none" }}
+  //               >
+  //                 <Dropzone.Accept>
+  //                   <IconUpload size={50} stroke={1.5} />
+  //                 </Dropzone.Accept>
+  //                 <Dropzone.Reject>
+  //                   <IconX size={50} stroke={1.5} />
+  //                 </Dropzone.Reject>
+  //                 <Dropzone.Idle>
+  //                   <IconPhoto size={50} stroke={1.5} />
+  //                 </Dropzone.Idle>
+
+  //                 <div>
+  //                   <Text size="xl" inline>
+  //                     Drag images here or click to select files
+  //                   </Text>
+  //                   <Text size="sm" color="dimmed" inline mt={7}>
+  //                     Attach as many files as you like, each file should not
+  //                     exceed 5mb
+  //                   </Text>
+  //                 </div>
+  //               </Group>
+  //             </Dropzone>
+  //           </Grid.Col>
+  //         </Grid>
+  //       </Modal>
+  //     </>
+  //   );
+  // }
 
   function PhantomWrapper() {
     const { classes } = useStyles();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const handleSubmit = () => {
+      // ...existing handleSubmit function code...
+    };
+
+    let impactorData: Promise<any>;
+    function setImpactorData(wallet: any) {
+      impactorData = getSpecificImpactor(
+        new ImpactorWalletSearch(null, null, wallet)
+      );
+      impactorData.then((data) => {
+        setImpactor(data);
+      });
+    }
+
+    useEffect(() => {
+      // Check if user is already authenticated (tokens in cookies)
+      let wallet = cookies.get("wallet");
+      setImpactorData(wallet);
+      const tokens = cookies.get("tokens");
+      setIsAuthenticated(tokens ? true : false);
+
+      console.log(impactor?.wallet + "KURCINAAAA");
+    }, []);
+
     return (
       <>
-        {isLoading && (
-          <Button className={classes.phantomButton}>
-            Loading
-            <Loader variant="dots" style={{ marginLeft: "15px" }} />
-          </Button>
-        )}
+        <Button
+          className={classes.phantomButton}
+          onClick={open}
+          leftIcon={<IconWallet></IconWallet>}
+        >
+          SignIn/SignUp
+        </Button>
+        <Modal
+          opened={signInopened}
+          onClose={close}
+          title="SignIn/SignUp"
+          size={"xl"}
+        >
+          {isLoading ? (
+            <Button className={classes.phantomButton}>
+              Loading
+              <Loader variant="dots" style={{ marginLeft: "15px" }} />
+            </Button>
+          ) : (
+            <>
+              {provider && !walletKey && (
+                <Button
+                  className={classes.phantomButton}
+                  onClick={connectWallet}
+                  leftIcon={<IconWallet></IconWallet>}
+                >
+                  Connect wallet
+                </Button>
+              )}
 
-        {!isLoading && provider && !walletKey && (
-          <Button
-            className={classes.phantomButton}
-            onClick={connectWallet}
-            leftIcon={<IconWallet></IconWallet>}
-          >
-            Connect wallet
-          </Button>
-        )}
+              {provider && walletKey && isAuthenticated && (
+                <>
+                  <Button
+                    className={classes.phantomButton}
+                    onClick={disconnectWallet}
+                  >
+                    Disconnect wallet
+                  </Button>
+                  <Text>Go to your profile to change things</Text>
+                </>
+              )}
 
-        {!isLoading && provider && walletKey && (
-          <Button className={classes.phantomButton} onClick={disconnectWallet}>
-            Disconnect wallet
-          </Button>
-        )}
+              {provider && walletKey && !isAuthenticated && (
+                <Grid gutter="sm">
+                  <Grid.Col span={12}>
+                    <Text>
+                      Your wallet is{" "}
+                      {walletKey.slice(0, 6) + "..." + walletKey.slice(-6)}{" "}
+                      <br></br>
+                      Complete your profile below.
+                    </Text>
+                  </Grid.Col>
+                  <Grid.Col span={6}>
+                    <Flex
+                      gap="md"
+                      justify="center"
+                      direction="column"
+                      wrap="wrap"
+                    >
+                      <div>
+                        Profile Image
+                        {profileImagePreview}
+                      </div>
+                      <TextInput
+                        label="Username"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                      />
+                      <Textarea
+                        label="Description"
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                      />
+                      <TextInput
+                        label="Twitter"
+                        value={twitter}
+                        onChange={(event) => setTwitter(event.target.value)}
+                      />
+                      <Checkbox
+                        label="Company Account"
+                        checked={isCompany}
+                        onChange={() => setIsCompany(!isCompany)}
+                        description="Only companies can be an Angel Impactors. This way your profile will need to be verified by our team."
+                      />
+                      <Flex
+                        gap="sm"
+                        justify="center"
+                        align="center"
+                        direction="row"
+                        wrap="wrap"
+                      >
+                        <Button color="blue" onClick={handleSubmit}>
+                          Submit
+                        </Button>
+                        <Button variant="outline" onClick={close}>
+                          Cancel
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Grid.Col>
+                  <Grid.Col span={6}>
+                    <Dropzone
+                      onDrop={setProfileImage}
+                      onReject={(files) => console.log("rejected files", files)}
+                      maxSize={3 * 1024 ** 2}
+                      accept={IMAGE_MIME_TYPE}
+                    >
+                      <Group
+                        position="center"
+                        spacing="xl"
+                        style={{ minHeight: 220, pointerEvents: "none" }}
+                      >
+                        <Dropzone.Accept>
+                          <IconUpload size={50} stroke={1.5} />
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                          <IconX size={50} stroke={1.5} />
+                        </Dropzone.Reject>
+                        <Dropzone.Idle>
+                          <IconPhoto size={50} stroke={1.5} />
+                        </Dropzone.Idle>
 
-        {!isLoading && !provider && (
-          <>
-            <Anchor href="https://phantom.app/">
-              <Button className={classes.phantomButton}>Install Phantom</Button>
-            </Anchor>
-          </>
-        )}
+                        <div>
+                          <Text size="xl" inline>
+                            Drag images here or click to select files
+                          </Text>
+                          <Text size="sm" color="dimmed" inline mt={7}>
+                            Attach as many files as you like, each file should
+                            not exceed 5mb
+                          </Text>
+                        </div>
+                      </Group>
+                    </Dropzone>
+                  </Grid.Col>
+                </Grid>
+              )}
+
+              {!provider && (
+                <>
+                  <Anchor href="https://phantom.app/">
+                    <Button className={classes.phantomButton}>
+                      Install Phantom
+                    </Button>
+                  </Anchor>
+                </>
+              )}
+            </>
+          )}
+        </Modal>
       </>
     );
   }
@@ -388,6 +704,42 @@ export default function HeaderResponsive({
       </Group>
     </UnstyledButton>
   ));
+
+  // USER MODAL
+
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [description, setDescription] = useState("");
+  const [isCompany, setIsCompany] = useState(false);
+  const [twitter, setTwitter] = useState("");
+  const [profileImage, setProfileImage] = useState<FileWithPath[]>([]);
+
+  const handleSubmit = () => {
+    // Perform form submission and user profile update here
+    // You can access the form values from the state variables (name, password, etc.)
+    // Handle any additional logic, validation, and API calls as needed
+    // Close the modal after the form is submitted successfully
+  };
+
+  const previews = profileImage.map((file, index) => {
+    const imageUrl = URL.createObjectURL(file);
+    return (
+      <Avatar
+        key={index}
+        src={imageUrl}
+        radius="xl"
+        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        size="xl"
+      />
+    );
+  });
+
+  const placeholderAvatar = <Avatar radius="xl" size="xl" />;
+
+  const profileImagePreview =
+    profileImage.length > 0 ? previews : placeholderAvatar;
+
+  //
 
   return (
     <Box>
@@ -486,14 +838,12 @@ export default function HeaderResponsive({
                   </div>
                 </HoverCard.Dropdown>*/}
               </HoverCard>
-              <a href="#" className={classes.link}>
-                Whitepaper
-              </a>
-              <a href="#" className={classes.link}>
-                I'm confused
-              </a>
+
               <a href="/esg" className={classes.link}>
                 What is ESG?
+              </a>
+              <a href="/proposal" className={classes.link}>
+                Propose a project
               </a>
             </Group>
           </Group>

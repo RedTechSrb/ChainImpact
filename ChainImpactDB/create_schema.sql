@@ -63,6 +63,8 @@ CREATE TABLE Impactor
 	Role                 integer  NULL ,
 	Type                 integer  NULL ,
 	ImageUrl             varchar(10000)  NULL ,
+	Confirmed            boolean  NOT NULL ,
+	Password             varchar(400)  NOT NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 

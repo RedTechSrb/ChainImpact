@@ -21,14 +21,22 @@ namespace ChainImpactAPI.Controllers
 
 
         [HttpPost("search")]
-        public IActionResult SearchCharities(GenericDto<CharitySearchDto>? charitySearchDto)
+        public IActionResult SearchCharities(GenericDto<CharityDto>? charityDto)
         {
 
-            var charityDtoList = charityService.SearchCharities(charitySearchDto);
+            var savedCharity = charityService.SearchCharities(charityDto);
+
+            return Ok(savedCharity);
+        }
+
+        [HttpPost("save")]
+        public IActionResult SaveCharity(CharityDto charityDto)
+        {
+
+            var charityDtoList = charityService.SaveCharity(charityDto);
 
             return Ok(charityDtoList);
         }
-
 
     }
 }

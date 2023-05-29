@@ -21,7 +21,8 @@ namespace ChainImpactAPI.Dtos
             string? instagram = null, 
             string? imageurl = null, 
             int? role = null, 
-            int? type = null)
+            int? type = null,
+            bool? confirmed = null)
         {
             this.id = id;
             this.wallet = wallet;
@@ -35,6 +36,7 @@ namespace ChainImpactAPI.Dtos
             this.imageurl = imageurl;
             this.role = role;
             this.type = type;
+            this.confirmed = confirmed;
         }
 
         public int? id { get; set; }
@@ -49,6 +51,7 @@ namespace ChainImpactAPI.Dtos
         public string? imageurl { get; set; }
         public int? role { get; set; }
         public int? type { get; set; }
+        public bool? confirmed { get; set; }
 
     }
 }

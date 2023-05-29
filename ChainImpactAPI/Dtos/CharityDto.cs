@@ -5,15 +5,15 @@ namespace ChainImpactAPI.Dtos
     public class CharityDto
     {
         public CharityDto(
-            int? id,
-            string? name,
-            string? wallet,
-            string? website,
-            string? facebook,
-            string? discord,
-            string? twitter,
-            string? imageurl,
-            string? description)
+            int? id = null,
+            string? name = null,
+            string? wallet = null,
+            string? website = null,
+            string? facebook = null,
+            string? discord = null,
+            string? twitter = null,
+            string? imageurl = null,
+            string? description = null)
         {
             this.id = id;
             this.name = name;

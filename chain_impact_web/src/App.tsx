@@ -12,6 +12,7 @@ import Cookies from "universal-cookie";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ProjectProposalPage from "./components/ProjectProposal";
 import "./index.css";
 import { ImpactorIdSearch } from "./models/dto/request/ImpactorIdSearch";
 import { ImpactorWalletSearch } from "./models/dto/request/ImpactorWalletSearch";
@@ -192,6 +193,7 @@ function App() {
             }
           />
           <Route path="/charities" element={<Charities />} />
+          <Route path="/proposal" element={<ProjectProposalPage />} />
           <Route path="/esg" element={<ESGFAQ />} />
           <Route path="/mobile" element={<MobileVersionSoon />} />
           <Route path="/*" element={<NotFound />} />

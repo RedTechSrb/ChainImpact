@@ -842,6 +842,9 @@ export default function HeaderResponsive({
               <a href="/esg" className={classes.link}>
                 What is ESG?
               </a>
+              <a href="/proposal" className={classes.link}>
+                Propose a project
+              </a>
             </Group>
           </Group>
 

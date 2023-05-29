@@ -80,8 +80,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 impactors = impactors.Where(i => i.type == impactorSearch.type).ToList();
             }
 
-            impactors = impactors.OrderBy(i => i.name).ToList();
-
             if (skip != null && take != null)
             {
                 impactors = impactors.Skip(skip.Value).Take(take.Value).ToList();

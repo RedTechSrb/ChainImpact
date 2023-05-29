@@ -1,5 +1,8 @@
 ﻿using ChainImpactAPI.Application.RepositoryInterfaces;
 using ChainImpactAPI.Infrastructure.Repositories;
+using Serilog.Extensions.Hosting;
+using Serilog;
+using ChainImpactAPI.Authentication;
 
 namespace ChainImpactAPI.Infrastructure
 {
@@ -21,6 +24,18 @@ namespace ChainImpactAPI.Infrastructure
 
             return services;
         }
+
+        public static IServiceCollection AddJwtTokenGenerator(this IServiceCollection services)
+        {
+            services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddSingleton<JwtSettings>();
+            services.AddSingleton<DiagnosticContext>();
+            services.AddSingleton<Serilog.ILogger>(new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger());
+            return services;
+        }
+
 
     }
 }

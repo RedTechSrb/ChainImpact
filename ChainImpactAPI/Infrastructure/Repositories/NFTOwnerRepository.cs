@@ -45,8 +45,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                 nftowners = nftowners.Where(o => o.nfttype.id == nftOwnerSearch.nfttype.id).ToList();
             }
 
-            nftowners = nftowners.OrderBy(o => o.id).ToList();
-
             if (skip != null && take != null)
             {
                 nftowners = nftowners.Skip(skip.Value).Take(take.Value).ToList();

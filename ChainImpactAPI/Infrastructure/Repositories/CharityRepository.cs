@@ -30,8 +30,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
 
             }
 
-            charities = charities.OrderBy(p => p.name).ToList();
-
             if (skip != null && take != null)
             {
                 charities = charities.Skip(skip.Value).Take(take.Value).ToList();

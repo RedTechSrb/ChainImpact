@@ -213,7 +213,7 @@ export default function DonationSidebar({
   // console.log(dataNftNew);
 
   let solana: any;
-  console.log(transactionStatus);
+  //console.log(transactionStatus);
 
   const connectWallet = async () => {
     // @ts-ignore
@@ -230,7 +230,7 @@ export default function DonationSidebar({
       }
     }
 
-    console.log(provider);
+    //console.log(provider);
     if (provider) {
       try {
         const resp = await provider.connect();
@@ -342,9 +342,9 @@ export default function DonationSidebar({
             wallet: walletKey,
             projectId: project.id,
             amount: donationAmount,
-            blockchainaddress: ts
+            blockchainaddress: ts,
           };
-          console.log(donationInfo)
+          //console.log(donationInfo);
           saveDonation(donationInfo);
           // open/close modals
           open();
@@ -369,9 +369,9 @@ export default function DonationSidebar({
       } else {
         key = await connectWallet();
       }
-      console.log(key);
+      //console.log(key);
       const provider = getProvider();
-      console.log("Amount donated:", donationAmount);
+      //console.log("Amount donated:", donationAmount);
       const connection = new Connection(network, opts.preflightCommitment);
       const program = new Program(idl as Idl, programID, provider);
       let poreskaUprava: any;
@@ -626,7 +626,11 @@ export default function DonationSidebar({
       withBorder
       radius="md"
       className={classes.card}
-      style={(sidebarTop !== -1)?{ top: `${sidebarTop}px`, width: "330px" } : {position: "fixed", overflowY: "auto", width: "330px"}}
+      style={
+        sidebarTop !== -1
+          ? { top: `${sidebarTop}px`, width: "330px" }
+          : { position: "fixed", overflowY: "auto", width: "330px" }
+      }
     >
       <Card.Section className={classes.imageSection}>
         <Image
@@ -815,7 +819,7 @@ export default function DonationSidebar({
                     <span
                       style={{ color: donationAmount ? "#8468e8" : "#BBFD00" }}
                     >
-                      ${donationAmount*22} you donated!
+                      ${donationAmount * 22} you donated!
                     </span>
                   </Text>
                 )}
@@ -847,23 +851,26 @@ export default function DonationSidebar({
                         donationAmount == 0
                           ? 100 -
                             (project.totaldonated / project.financialgoal) * 100
-                          : (donationAmount*22 / project.financialgoal) * 100 < 20
+                          : ((donationAmount * 22) / project.financialgoal) *
+                              100 <
+                            20
                           ? 20
-                          : ((donationAmount*22 + project.totaldonated) /
+                          : ((donationAmount * 22 + project.totaldonated) /
                               project.financialgoal) *
                               100 >=
                             100
                           ? 100 -
                             (project.totaldonated / project.financialgoal) * 100
-                          : (donationAmount*22 / project.financialgoal) * 100,
+                          : ((donationAmount * 22) / project.financialgoal) *
+                            100,
 
                       label:
                         donationAmount == 0 || isNaN(donationAmount)
                           ? "You can help!"
-                          : donationAmount*22 + project.totaldonated <
+                          : donationAmount * 22 + project.totaldonated <
                             project.financialgoal
                           ? Math.round(
-                              (((donationAmount*22 * 1.0) /
+                              (((donationAmount * 22 * 1.0) /
                                 project.financialgoal) *
                                 100 +
                                 Number.EPSILON) *
@@ -884,7 +891,7 @@ export default function DonationSidebar({
                 </Text>
 
                 {((project.totaldonated * 1.0) / project.financialgoal) * 100 +
-                  (donationAmount*22 / project.financialgoal) * 100 >=
+                  ((donationAmount * 22) / project.financialgoal) * 100 >=
                 100 ? (
                   <Text
                     size={30}
@@ -907,7 +914,7 @@ export default function DonationSidebar({
               </Text>
               {cookies.get("wallet") && (
                 <NftStats
-                  donationAmount={donationAmount*22}
+                  donationAmount={donationAmount * 22}
                   primaryType={project.primarycausetype.name}
                   projectId={project.id}
                   wallet={walletKey}

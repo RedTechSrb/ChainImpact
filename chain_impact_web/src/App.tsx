@@ -12,6 +12,7 @@ import Cookies from "universal-cookie";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ProjectProposalPage from "./components/ProjectProposal";
 import "./index.css";
 import { ImpactorIdSearch } from "./models/dto/request/ImpactorIdSearch";
 import { ImpactorWalletSearch } from "./models/dto/request/ImpactorWalletSearch";
@@ -118,8 +119,6 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
-
-
 function App() {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
@@ -138,22 +137,19 @@ function App() {
 
   const cookies = new Cookies();
 
-
-  console.log(cookies.get("ChainImpactWallet"))
-
+  //console.log(cookies.get("ChainImpactWallet"))
 
   const getProvider = (): PhantomProvider | undefined => {
-    if ('phantom' in window) {
+    if ("phantom" in window) {
       const anyWindow: any = window;
       const provider = anyWindow.phantom?.solana;
-  
+
       if (provider?.isPhantom) {
         return provider;
       }
     }
-};
+  };
 
-  
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -197,6 +193,7 @@ function App() {
             }
           />
           <Route path="/charities" element={<Charities />} />
+          <Route path="/proposal" element={<ProjectProposalPage />} />
           <Route path="/esg" element={<ESGFAQ />} />
           <Route path="/mobile" element={<MobileVersionSoon />} />
           <Route path="/*" element={<NotFound />} />

@@ -14,5 +14,6 @@ namespace ChainImpactAPI.Models
         public int donatorid { get; set; }
         public Impactor donator { get; set; }
 
+        public long? creationdate { get; set; }
     }
 }

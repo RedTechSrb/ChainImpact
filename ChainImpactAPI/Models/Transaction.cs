@@ -10,18 +10,15 @@ namespace ChainImpactAPI.Models
         public string? receiver { get; set; }
         public double? amount { get; set; }
 
-        [ForeignKey("ProjectId")]
-        public int projectid { get; set; }
-        public Project project { get; set; }
-
-        [ForeignKey("DonatorId")]
-        public int donatorid { get; set; }
-        public Impactor donator { get; set; }
+        [ForeignKey("DonationId")]
+        public int? donationid { get; set; }
+        public Donation donation { get; set; }
 
         [ForeignKey("MilestoneId")]
         public int? milestoneid { get; set; }
         public Milestone milestone { get; set; }
         public int type { get; set; }
+        public long? creationdate { get; set; }
 
     }
 }

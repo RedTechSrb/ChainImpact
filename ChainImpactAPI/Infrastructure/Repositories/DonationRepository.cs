@@ -13,43 +13,6 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         public DonationRepository(ApiDbContext context) : base(context)
         {
         }
-/*
-        public override Donation Save(Donation entity)
-        {
-
-            context.Set<Donation>().Add(entity);
-            context.Entry(entity.donator).State = EntityState.Unchanged;
-            context.Entry(entity.project).State = EntityState.Unchanged;
-            context.Entry(entity.project.charity).State = EntityState.Unchanged;
-            context.Entry(entity.project.primarycausetype).State = EntityState.Unchanged;
-            context.Entry(entity.project.secondarycausetype).State = EntityState.Unchanged;
-            context.Entry(entity).State = EntityState.Added;
-
-            context.SaveChanges();
-            return entity;
-
-        }
-*/
-
-
-
-        /*
-public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donationSearchDto, Expression<Func<BaseEntity, object>>[] relations)
-{
-   var donations = context.donation.Include(d => d.donator)
-                                   .Include(d => d.project)
-                                   .AsQueryable();
-
-   // TODO!!!
-
-   if(donationSearchDto.projectType != null)
-   {
-       donations = donations.Where(d => d.project.primarycausetype.name == donationSearchDto.projectType);
-   }
-
-   return await donations.ToListAsync();
-}
-*/
 
         public async Task<List<ImpactorsWithDonationsResponseDto>> SearchDonationsGroupedByImpactorsAsync(DonationSearchDto donationSearchDto)
         {
@@ -126,8 +89,6 @@ public async Task<List<Donation>> SearchDonationsAsync(DonationSearchDto donatio
             {
                 donations = donations.Where(d => d.project.id == donationSearch.project.id).ToList();
             }
-
-            donations = donations.OrderByDescending(d => d.amount).ToList();
 
             if (skip != null && take != null)
             {

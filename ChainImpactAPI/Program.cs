@@ -1,22 +1,63 @@
 using ChainImpactAPI.Application;
+using ChainImpactAPI.Authentication;
 using ChainImpactAPI.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient(); 
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+// Authentication service 
+
+builder.Services.AddJwtTokenGenerator();
+
 // Application layer: services
+
 builder.Services.AddServices();
+
+// JWT Beare settings
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidateAudience = true,
+            ValidIssuer = builder.Configuration["JWTSettings:Issuer"],
+            ValidAudience = builder.Configuration["JWTSettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    JwtTokenGenerator.GetSuperSecretKey(builder.Configuration["JWTSettings:Secret"]) //adds the backup in case the hardware one fails
+                )
+            )
+        };
+    });
+
 
 
 
@@ -29,11 +70,16 @@ var logger = new LoggerConfiguration().ReadFrom
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddCors();
 builder.Services.AddHttpLogging(options =>
 {
-    options.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.ResponseBody;
+    options.LoggingFields =
+        HttpLoggingFields.RequestHeaders |
+        HttpLoggingFields.RequestBody |
+        HttpLoggingFields.ResponseHeaders |
+        HttpLoggingFields.ResponseBody;
+
 });
+builder.Services.AddCors();
 
 
 // Infrastructure layer: database, repositories
@@ -52,6 +98,8 @@ builder.Services.AddRepositories();
 
 
 var app = builder.Build();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 

@@ -26,6 +26,10 @@ namespace ChainImpactAPI.Infrastructure.Services
         public List<MilestonesWithTransactionsResponse> SearchMilestones(GenericDto<MilestoneDto>? milestoneDto)
         {
             var milestones = milestoneRepository.SearchAsync(milestoneDto).Result;
+
+            // [order by] Sort by ordernumber
+            milestones = milestones.OrderBy(m => m.ordernumber).ToList();
+
             var milestonesWithTransactions = new List<MilestonesWithTransactionsResponse>();
 
             foreach (var milestone in milestones)

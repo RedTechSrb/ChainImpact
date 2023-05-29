@@ -90,7 +90,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 milestone.project.impactor.instagram,
                                                 milestone.project.impactor.imageurl,
                                                 milestone.project.impactor.role,
-                                                milestone.project.impactor.type
+                                                milestone.project.impactor.type,
+                                                milestone.project.impactor.confirmed
                                             ),
                                             new CauseTypeDto(
                                                 milestone.project.primarycausetype.id,

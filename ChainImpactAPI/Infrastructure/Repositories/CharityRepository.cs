@@ -12,7 +12,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
         }
 
 
-        public async Task<List<Charity>> SearchAsync(GenericDto<CharitySearchDto>? charitySearchDto)
+        public async Task<List<Charity>> SearchAsync(GenericDto<CharityDto>? charityDto)
         {
             var charities = await base.ListAllAsync();
 
@@ -20,15 +20,17 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             int? take = null;
             CharitySearchDto chairtySearch = new CharitySearchDto();
 
-            if (charitySearchDto != null)
+            if (charityDto != null)
             {
-                if (charitySearchDto.PageSize != null && charitySearchDto.PageNumber != null)
+                if (charityDto.PageSize != null && charityDto.PageNumber != null)
                 {
-                    skip = charitySearchDto.PageSize.Value * (charitySearchDto.PageNumber.Value - 1);
-                    take = charitySearchDto.PageSize.Value;
+                    skip = charityDto.PageSize.Value * (charityDto.PageNumber.Value - 1);
+                    take = charityDto.PageSize.Value;
                 }
 
             }
+
+
 
             if (skip != null && take != null)
             {

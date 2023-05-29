@@ -6,6 +6,6 @@ namespace ChainImpactAPI.Application.RepositoryInterfaces
 {
     public interface ICharityRepository : IGenericRepository<Charity>
     {
-        Task<List<Charity>> SearchAsync(GenericDto<CharitySearchDto>? charitySearchDto);
+        Task<List<Charity>> SearchAsync(GenericDto<CharityDto>? charityDto);
     }
 }

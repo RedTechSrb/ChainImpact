@@ -1,10 +1,12 @@
 ﻿using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Dtos;
+using ChainImpactAPI.Models;
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
 {
     public interface ICharityService
     {
-        List<CharityDto> SearchCharities(GenericDto<CharitySearchDto>? charitySearchDto);
+        Charity SaveCharity(CharityDto charityDto);
+        List<CharityDto> SearchCharities(GenericDto<CharityDto>? charityDto);
     }
 }

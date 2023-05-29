@@ -202,7 +202,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         tranaction.donation.project.impactor.instagram,
                                                         tranaction.donation.project.impactor.imageurl,
                                                         tranaction.donation.project.impactor.role,
-                                                        tranaction.donation.project.impactor.type
+                                                        tranaction.donation.project.impactor.type,
+                                                        tranaction.donation.project.impactor.confirmed
                                                     ),
                                                     new CauseTypeDto(
                                                         tranaction.donation.project.primarycausetype.id,
@@ -225,7 +226,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                     tranaction.donation.donator.instagram,
                                                     tranaction.donation.donator.imageurl,
                                                     tranaction.donation.donator.role,
-                                                    tranaction.donation.donator.type
+                                                    tranaction.donation.donator.type,
+                                                    tranaction.donation.donator.confirmed
                                                 )
                                             ),
                                             tranaction.milestone == null ? null : new MilestoneDto(
@@ -271,7 +273,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         tranaction.milestone.project.impactor.instagram,
                                                         tranaction.milestone.project.impactor.imageurl,
                                                         tranaction.milestone.project.impactor.role,
-                                                        tranaction.milestone.project.impactor.type
+                                                        tranaction.milestone.project.impactor.type,
+                                                        tranaction.milestone.project.impactor.confirmed
                                                     ),
                                                     new CauseTypeDto(
                                                         tranaction.milestone.project.primarycausetype.id,
@@ -300,7 +303,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             donation.donator.instagram,
                                             donation.donator.imageurl,
                                             donation.donator.role,
-                                            donation.donator.type
+                                            donation.donator.type,
+                                            donation.donator.confirmed
                                            ),
                     amount = donation.amount,
                     transactions = transactionsDto
@@ -359,7 +363,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                     donation.project.impactor.instagram,
                                                     donation.project.impactor.imageurl,
                                                     donation.project.impactor.role,
-                                                    donation.project.impactor.type
+                                                    donation.project.impactor.type,
+                                                    donation.project.impactor.confirmed
                                                 ),
                                                 new CauseTypeDto(
                                                     donation.project.primarycausetype.id,
@@ -382,7 +387,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 donation.donator.instagram,
                                                 donation.donator.imageurl,
                                                 donation.donator.role,
-                                                donation.donator.type
+                                                donation.donator.type,
+                                                donation.donator.confirmed
                                             )
                                         ));
             }

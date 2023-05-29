@@ -11,18 +11,26 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient(); 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-// JWT token configuration
+// Authentication service 
 
-builder.Services.AddAuthenticationJwt();
 builder.Services.AddJwtTokenGenerator();
+
+// Application layer: services
+
+builder.Services.AddServices();
+
+// JWT Beare settings
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 builder.Services
@@ -51,9 +59,6 @@ builder.Services
     });
 
 
-// Application layer: services
-builder.Services.AddServices();
-
 
 
 // Logger
@@ -65,11 +70,16 @@ var logger = new LoggerConfiguration().ReadFrom
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddCors();
 builder.Services.AddHttpLogging(options =>
 {
-    options.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.ResponseBody;
+    options.LoggingFields =
+        HttpLoggingFields.RequestHeaders |
+        HttpLoggingFields.RequestBody |
+        HttpLoggingFields.ResponseHeaders |
+        HttpLoggingFields.ResponseBody;
+
 });
+builder.Services.AddCors();
 
 
 // Infrastructure layer: database, repositories

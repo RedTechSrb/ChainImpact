@@ -17,14 +17,10 @@ namespace ChainImpactAPI.Application
                     .AddScoped<IProjectService, ProjectService>()
                     .AddScoped<ITransactionService, TransactionService>()
                     .AddScoped<IMilestoneService, MilestoneService>()
+                    .AddScoped<IAuthService, AuthService>()
                     ;
 
             return services;
         }
-        public static IServiceCollection AddAuthenticationJwt(this IServiceCollection services)
-        {
-            return services.AddScoped<IAuthenticationService, AuthenticationService>();
-        }
-
     }
 }

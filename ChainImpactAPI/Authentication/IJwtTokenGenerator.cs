@@ -4,7 +4,7 @@ namespace ChainImpactAPI.Authentication
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateJwtToken(AuthenticationRequestDto authenticationRequestDto);
+        string GenerateJwtToken(JwtDto jwtDto);
     }
 
 }

@@ -19,7 +19,7 @@ namespace ChainImpactAPI.Authentication
             this.jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateJwtToken(AuthenticationRequestDto authenticationRequestDto)
+        public string GenerateJwtToken(JwtDto jwtDto)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(
@@ -32,7 +32,7 @@ namespace ChainImpactAPI.Authentication
             {
                 //new Claim(JwtRegisteredClaimNames.Name, /*user.Username*/ "boki"),
                 //new Claim(JwtRegisteredClaimNames.Nonce, /*user.Username*/ "boki"), // ovo je password
-                new Claim(JwtRegisteredClaimNames.Name, authenticationRequestDto.wallet),
+                new Claim(JwtRegisteredClaimNames.Name, jwtDto.wallet),
 //                new Claim(JwtRegisteredClaimNames.GivenName, createJWTDto.AppAuthToken), // ovo je appAuth token
 //                new Claim("username", createJWTDto.username),
 //                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -54,10 +54,10 @@ namespace ChainImpactAPI.Authentication
         //takes the value either from hardware id or jwt settings
         public static string GetSuperSecretKey(string backupSuperSecretKey)
         {
-            //returns a 16 char value for key. IT HAS TO BE 16 bcs of crpythography algorithm
+            //returns a 32 char value for key. IT HAS TO BE 32 bcs of crpythography algorithm
             try
             {
-                return GetHardwareId()[..16];
+                return GetHardwareId()[..32];
             }
             catch (Exception e)
             {

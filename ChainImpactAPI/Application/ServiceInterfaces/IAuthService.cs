@@ -2,7 +2,7 @@
 
 namespace ChainImpactAPI.Application.ServiceInterfaces
 {
-    public interface IAuthenticationService
+    public interface IAuthService
     {
         AuthenticationResponse LoginAsync(AuthenticationRequestDto loginRequestDto);
 

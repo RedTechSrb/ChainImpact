@@ -5,14 +5,14 @@ using Microsoft.AspNet.Identity;
 
 namespace ChainImpactAPI.Infrastructure.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthService : IAuthService
     {
         private readonly IJwtTokenGenerator jwtTokenGenerator;
         private readonly IConfiguration configuration;
         private readonly IHttpClientFactory httpClientFactory;
         private PasswordHasher passwordHasher;
 
-        public AuthenticationService(
+        public AuthService(
             IConfiguration configuration,
             IJwtTokenGenerator jwtTokenGenerator,
             IHttpClientFactory httpClientFactory
@@ -26,12 +26,25 @@ namespace ChainImpactAPI.Infrastructure.Services
 
         public string generateJWT(AuthenticationRequestDto authenticationRequestDto)
         {
-            return jwtTokenGenerator.GenerateJwtToken(authenticationRequestDto);
+            var jwtDto = new JwtDto(authenticationRequestDto.wallet);
+
+            return jwtTokenGenerator.GenerateJwtToken(jwtDto);
         }
 
         public AuthenticationResponse LoginAsync(AuthenticationRequestDto authenticationRequestDto)
         {
-            throw new NotImplementedException();
+            if (authenticationRequestDto.password == "string")
+            {
+                var token = generateJWT(authenticationRequestDto);
+                return new AuthenticationResponse
+                {
+                    token = token
+                };
+            } else
+            {
+                throw new Exception("Greška, već ste ulogovani preko drugog uređaja!");
+            }
+
         }
     }
 }

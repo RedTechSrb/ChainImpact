@@ -84,9 +84,9 @@ namespace ChainImpactAPI.Infrastructure.Services
             return projectDtoList;
         }
 
-        public List<ProjectDto> SearchProjects(GenericDto<ProjectSearchDto>? projectSearchDto)
+        public List<ProjectDto> SearchProjects(GenericDto<ProjectDto>? projectDto)
         {
-            var projects = projectRepository.SearchAsync(projectSearchDto).Result;
+            var projects = projectRepository.SearchAsync(projectDto).Result;
 
             var projectDtoList = new List<ProjectDto>();
             foreach (var project in projects)

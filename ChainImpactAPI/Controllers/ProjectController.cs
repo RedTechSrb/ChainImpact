@@ -27,10 +27,10 @@ namespace ChainImpactAPI.Controllers
         }
 
         [HttpPost("search")]
-        public IActionResult SearchProjects(GenericDto<ProjectSearchDto>? projectSearchDto)
+        public IActionResult SearchProjects(GenericDto<ProjectDto>? projectDto)
         {
 
-            var projectDtoList = projectService.SearchProjects(projectSearchDto);
+            var projectDtoList = projectService.SearchProjects(projectDto);
 
             return Ok(projectDtoList);
         }

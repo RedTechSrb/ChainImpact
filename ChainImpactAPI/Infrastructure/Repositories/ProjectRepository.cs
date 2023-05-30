@@ -21,13 +21,13 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             return await base.ListAllAsync(p => p.charity, p => p.impactor, p => p.primarycausetype, p => p.secondarycausetype);
         }
 
-        public async Task<List<Project>> SearchAsync(GenericDto<ProjectSearchDto>? projectSearchDto)
+        public async Task<List<Project>> SearchAsync(GenericDto<ProjectDto>? projectSearchDto)
         {
             var projects = await base.ListAllAsync(p => p.charity, p => p.impactor, p => p.primarycausetype, p => p.secondarycausetype);
 
             int? skip = null;
             int? take = null;
-            ProjectSearchDto projectSearch = new ProjectSearchDto();
+            ProjectDto projectSearch = new ProjectDto();
 
             if (projectSearchDto != null)
             {
@@ -43,6 +43,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             {
                 projects = projects.Where(p => p.id == projectSearch.id).ToList();
             }
+            // TODO: Add other searchable parameters
 
             if (skip != null && take != null)
             {

@@ -176,7 +176,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         tranaction.donation.project.charity.discord,
                                                         tranaction.donation.project.charity.twitter,
                                                         tranaction.donation.project.charity.imageurl,
-                                                        tranaction.donation.project.charity.description
+                                                        tranaction.donation.project.charity.description,
+                                                        tranaction.donation.project.charity.instagram,
+                                                        tranaction.donation.project.charity.confirmed,
+                                                        tranaction.donation.project.charity.email
                                                     ),
                                                     tranaction.donation.project.wallet,
                                                     tranaction.donation.project.name,
@@ -247,7 +250,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         tranaction.milestone.project.charity.discord,
                                                         tranaction.milestone.project.charity.twitter,
                                                         tranaction.milestone.project.charity.imageurl,
-                                                        tranaction.milestone.project.charity.description
+                                                        tranaction.milestone.project.charity.description,
+                                                        tranaction.milestone.project.charity.instagram,
+                                                        tranaction.milestone.project.charity.confirmed,
+                                                        tranaction.milestone.project.charity.email
                                                     ),
                                                     tranaction.milestone.project.wallet,
                                                     tranaction.milestone.project.name,
@@ -337,7 +343,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                     donation.project.charity.discord,
                                                     donation.project.charity.twitter,
                                                     donation.project.charity.imageurl,
-                                                    donation.project.charity.description
+                                                    donation.project.charity.description,
+                                                    donation.project.charity.instagram,
+                                                    donation.project.charity.confirmed,
+                                                    donation.project.charity.email
                                                 ),
                                                 donation.project.wallet,
                                                 donation.project.name,

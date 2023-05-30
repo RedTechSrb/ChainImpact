@@ -37,7 +37,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.charity.discord,
                             project.charity.twitter,
                             project.charity.imageurl,
-                            project.charity.description
+                            project.charity.description,
+                            project.charity.instagram,
+                            project.charity.confirmed,
+                            project.charity.email
                         ),
                         project.wallet,
                         project.name,
@@ -98,7 +101,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.charity.discord,
                             project.charity.twitter,
                             project.charity.imageurl,
-                            project.charity.description
+                            project.charity.description,
+                            project.charity.instagram,
+                            project.charity.confirmed,
+                            project.charity.email
                         ),
                         project.wallet,
                         project.name,

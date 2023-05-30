@@ -36,7 +36,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                         charity.discord,
                         charity.twitter,
                         charity.imageurl,
-                        charity.description
+                        charity.description,
+                        charity.instagram,
+                        charity.confirmed,
+                        charity.email
                     ));
             }
 

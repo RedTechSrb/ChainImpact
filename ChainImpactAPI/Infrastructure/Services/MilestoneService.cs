@@ -64,7 +64,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 milestone.project.charity.discord,
                                                 milestone.project.charity.twitter,
                                                 milestone.project.charity.imageurl,
-                                                milestone.project.charity.description
+                                                milestone.project.charity.description,
+                                                milestone.project.charity.instagram,
+                                                milestone.project.charity.confirmed,
+                                                milestone.project.charity.email
                                             ),
                                             milestone.project.wallet,
                                             milestone.project.name,

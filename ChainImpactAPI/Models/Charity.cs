@@ -12,6 +12,9 @@ namespace ChainImpactAPI.Models
         public string? twitter { get; set; }
         public string? imageurl { get; set; }
         public string? description { get; set; }
+        public string? instagram { get; set; }
+        public bool confirmed { get; set; }
+        public string email { get; set; }
 
     }
 }

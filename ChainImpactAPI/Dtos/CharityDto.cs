@@ -13,7 +13,10 @@ namespace ChainImpactAPI.Dtos
             string? discord = null,
             string? twitter = null,
             string? imageurl = null,
-            string? description = null)
+            string? description = null,
+            string? instagram = null,
+            bool? confirmed = null,
+            string? email = null)
         {
             this.id = id;
             this.name = name;
@@ -24,6 +27,9 @@ namespace ChainImpactAPI.Dtos
             this.twitter = twitter;
             this.imageurl = imageurl;
             this.description = description;
+            this.instagram = instagram;
+            this.confirmed = confirmed;
+            this.email = email;
         }
 
         public int? id { get; set; }
@@ -35,6 +41,9 @@ namespace ChainImpactAPI.Dtos
         public string? twitter { get; set; }
         public string? imageurl { get; set; }
         public string? description { get; set; }
+        public string? instagram { get; set; }
+        public bool? confirmed { get; set; }
+        public string? email { get; set; }
 
     }
 }

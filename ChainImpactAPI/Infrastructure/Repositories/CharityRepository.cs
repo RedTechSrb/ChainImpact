@@ -27,7 +27,10 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                     skip = charityDto.PageSize.Value * (charityDto.PageNumber.Value - 1);
                     take = charityDto.PageSize.Value;
                 }
-
+                if (charityDto.Dto != null)
+                {
+                    chairtySearch = charityDto.Dto;
+                }
             }
 
             if (chairtySearch.id != null)

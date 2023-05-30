@@ -37,6 +37,7 @@ CREATE TABLE Charity
 	ImageUrl             varchar(1000)  NULL ,
 	Description          varchar(4000)  NULL ,
 	Confirmed            boolean  NOT NULL ,
+	Email                varchar(100)  NOT NULL ,
 	CONSTRAINT XPKCharity PRIMARY KEY (Id)
 );
 
@@ -66,6 +67,8 @@ CREATE TABLE Impactor
 	ImageUrl             varchar(10000)  NULL ,
 	Confirmed            boolean  NOT NULL ,
 	Password             varchar(400)  NULL ,
+	Username             varchar(100)  NULL ,
+	Email                varchar(100)  NULL ,
 	CONSTRAINT XPKUser PRIMARY KEY (Id)
 );
 

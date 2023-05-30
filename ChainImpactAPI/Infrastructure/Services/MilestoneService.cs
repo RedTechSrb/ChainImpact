@@ -103,7 +103,8 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             new CauseTypeDto(
                                                 milestone.project.secondarycausetype.id,
                                                 milestone.project.secondarycausetype.name
-                                            )
+                                            ),
+                                            milestone.project.confirmed
                                         )
                     },
                     transactions = transactionsOfMilestone

@@ -39,7 +39,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             var impactor = impactorService.SearchImpactors(new GenericDto<ImpactorDto>(null, null, new ImpactorDto { wallet = nftLeftRequestDto.wallet })).FirstOrDefault();
             var impactorWithProjects = impactorService.GetImpactorsWithProjects(new GenericDto<ImpactorDto>(null, null, new ImpactorDto { wallet = nftLeftRequestDto.wallet })).FirstOrDefault();
 
-            var project = projectService.SearchProjects(new GenericDto<ProjectSearchDto>(null, null, new ProjectSearchDto(nftLeftRequestDto.projectid))).FirstOrDefault();
+            var project = projectService.SearchProjects(new GenericDto<ProjectDto>(null, null, new ProjectDto { id = nftLeftRequestDto.projectid })).FirstOrDefault();
 
             var primaryCauseType = causeTypeService.SearchCauseTypes(new GenericDto<CauseTypeDto>(new CauseTypeDto { name = project.primarycausetype.name })).FirstOrDefault();
             var nftPrimaryTypes = nftTypeService.SearchNFTs(new GenericDto<NFTTypeDto>(null, null, new NFTTypeDto { causetype = primaryCauseType, usertype = impactor.type }));

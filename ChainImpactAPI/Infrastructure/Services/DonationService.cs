@@ -413,7 +413,7 @@ namespace ChainImpactAPI.Infrastructure.Services
         public Donation SaveDonaton(SaveDonationRequestDto saveDonationRequestDto)
         {
             var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = saveDonationRequestDto.wallet })).Result.FirstOrDefault();
-            var project = projectRepository.SearchAsync(new GenericDto<ProjectSearchDto>(new ProjectSearchDto { id = saveDonationRequestDto.projectid })).Result.FirstOrDefault();
+            var project = projectRepository.SearchAsync(new GenericDto<ProjectDto>(new ProjectDto { id = saveDonationRequestDto.projectid })).Result.FirstOrDefault();
 
             // Gather project's informations about backers and donations
             project.totaldonated += saveDonationRequestDto.amount;

@@ -7,6 +7,7 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
     public interface IProjectService
     {
         List<ProjectDto> GetProjects();
-        List<ProjectDto> SearchProjects(GenericDto<ProjectSearchDto>? projectSearchDto);
+        Project SaveProject(ProjectDto projectDto);
+        List<ProjectDto> SearchProjects(GenericDto<ProjectDto>? projectDto);
     }
 }

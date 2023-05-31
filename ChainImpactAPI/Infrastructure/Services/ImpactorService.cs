@@ -166,7 +166,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 d.project.id,
                                             }).Select(gpb => new DonatedProjectDto
                                             (
-                                                projectService.SearchProjects(new GenericDto<ProjectSearchDto>(null, null, new ProjectSearchDto { id = gpb.Key.id })).FirstOrDefault(),
+                                                projectService.SearchProjects(new GenericDto<ProjectDto>(null, null, new ProjectDto { id = gpb.Key.id })).FirstOrDefault(),
                                                 gpb.Sum(d => d.amount)
                                             )).OrderByDescending(iwp => iwp.totalDonation).ToList();
 

@@ -6,23 +6,24 @@ namespace ChainImpactAPI.Dtos
     public class ProjectDto
     {
         public ProjectDto(
-            int? id = null, 
-            CharityDto? charity = null, 
-            string? wallet = null, 
-            string? name = null, 
-            string? description = null, 
-            double? financialgoal = null, 
-            double? totaldonated = null, 
-            int? totalbackers = null, 
-            string? website = null, 
-            string? facebook = null, 
-            string? discord = null, 
-            string? twitter = null, 
-            string? instagram = null, 
-            string? imageurl = null, 
-            ImpactorDto? angelimpactor = null, 
-            CauseTypeDto? primarycausetype = null, 
-            CauseTypeDto? secondarycausetype = null)
+            int? id = null,
+            CharityDto? charity = null,
+            string? wallet = null,
+            string? name = null,
+            string? description = null,
+            double? financialgoal = null,
+            double? totaldonated = null,
+            int? totalbackers = null,
+            string? website = null,
+            string? facebook = null,
+            string? discord = null,
+            string? twitter = null,
+            string? instagram = null,
+            string? imageurl = null,
+            ImpactorDto? angelimpactor = null,
+            CauseTypeDto? primarycausetype = null,
+            CauseTypeDto? secondarycausetype = null,
+            bool? confirmed = null)
         {
             this.id = id;
             this.charity = charity;
@@ -41,6 +42,7 @@ namespace ChainImpactAPI.Dtos
             this.angelimpactor = angelimpactor;
             this.primarycausetype = primarycausetype;
             this.secondarycausetype = secondarycausetype;
+            this.confirmed = confirmed;
         }
 
         public int? id { get; set; }
@@ -60,5 +62,7 @@ namespace ChainImpactAPI.Dtos
         public ImpactorDto? angelimpactor { get; set; }
         public CauseTypeDto? primarycausetype { get; set; }
         public CauseTypeDto? secondarycausetype { get; set; }
+        public bool? confirmed { get; set; }
+
     }
 }

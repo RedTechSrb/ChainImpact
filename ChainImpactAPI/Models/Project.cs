@@ -35,5 +35,6 @@ namespace ChainImpactAPI.Models
         [ForeignKey("SecondaryCauseTypeId")]
         public int secondarycausetypeid { get; set; }
         public CauseType secondarycausetype { get; set; }
+        public bool confirmed { get; set; }
     }
 }

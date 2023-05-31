@@ -41,6 +41,10 @@ namespace ChainImpactAPI.Infrastructure.Repositories
             {
                 charities = charities.Where(i => i.name == chairtySearch.name).ToList();
             }
+            if (chairtySearch.wallet != null)
+            {
+                charities = charities.Where(i => i.wallet == chairtySearch.wallet).ToList();
+            }
             if (chairtySearch.website != null)
             {
                 charities = charities.Where(i => i.website == chairtySearch.website).ToList();

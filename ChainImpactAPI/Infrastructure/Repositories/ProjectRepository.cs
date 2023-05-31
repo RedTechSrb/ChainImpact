@@ -36,7 +36,10 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                     skip = projectSearchDto.PageSize.Value * (projectSearchDto.PageNumber.Value - 1);
                     take = projectSearchDto.PageSize.Value;
                 }
-                projectSearch.id = projectSearchDto.Dto?.id;
+                if (projectSearchDto.Dto != null)
+                {
+                    projectSearch = projectSearchDto.Dto;
+                }
             }
 
             if(projectSearch.id != null)

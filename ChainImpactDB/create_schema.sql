@@ -62,7 +62,7 @@ CREATE TABLE Impactor
 	Instagram            varchar(100)  NULL ,
 	Website              varchar(100)  NULL ,
 	Discord              varchar(100)  NULL ,
-	Role                 integer  NULL ,
+	Role                 integer  NOT NULL ,
 	Type                 integer  NULL ,
 	ImageUrl             varchar(10000)  NULL ,
 	Confirmed            boolean  NOT NULL ,

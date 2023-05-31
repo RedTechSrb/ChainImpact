@@ -42,7 +42,7 @@ namespace ChainImpactAPI.Infrastructure.Repositories
                                                                                          }).Select(gpb => new ImpactorsWithDonationsResponseDto {
                                                                                             name = gpb.Key.name,
                                                                                             wallet = gpb.Key.wallet,
-                                                                                            userType = gpb.Key.type,
+                                                                                            userType = gpb.Key.type.Value,
                                                                                             imageUrl = gpb.Key.imageurl,
                                                                                             totalDonations = gpb.Sum(d => d.amount)
                                                                                          }).OrderByDescending(iwd => iwd.totalDonations)

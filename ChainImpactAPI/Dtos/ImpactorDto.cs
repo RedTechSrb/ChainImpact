@@ -4,11 +4,6 @@ namespace ChainImpactAPI.Dtos
 {
     public class ImpactorDto
     {
-        public ImpactorDto() 
-        { 
-
-        }
-
         public ImpactorDto(
             int? id = null, 
             string? wallet = null,
@@ -22,7 +17,10 @@ namespace ChainImpactAPI.Dtos
             string? imageurl = null, 
             int? role = null, 
             int? type = null,
-            bool? confirmed = null)
+            bool? confirmed = null,
+            string? password = null,
+            string? username = null,
+            string? email = null)
         {
             this.id = id;
             this.wallet = wallet;
@@ -37,6 +35,9 @@ namespace ChainImpactAPI.Dtos
             this.role = role;
             this.type = type;
             this.confirmed = confirmed;
+            this.password = password;
+            this.username = username;
+            this.email = email;
         }
 
         public int? id { get; set; }
@@ -52,6 +53,8 @@ namespace ChainImpactAPI.Dtos
         public int? role { get; set; }
         public int? type { get; set; }
         public bool? confirmed { get; set; }
-
+        public string? password { get; set; }
+        public string? username { get; set; }
+        public string? email { get; set; }
     }
 }

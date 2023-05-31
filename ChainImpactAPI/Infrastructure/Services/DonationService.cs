@@ -206,7 +206,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         transaction.donation.project.impactor.imageurl,
                                                         transaction.donation.project.impactor.role,
                                                         transaction.donation.project.impactor.type,
-                                                        transaction.donation.project.impactor.confirmed
+                                                        transaction.donation.project.impactor.confirmed,
+                                                        transaction.donation.project.impactor.password,
+                                                        transaction.donation.project.impactor.username,
+                                                        transaction.donation.project.impactor.email
                                                     ),
                                                     new CauseTypeDto(
                                                         transaction.donation.project.primarycausetype.id,
@@ -231,7 +234,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                     transaction.donation.donator.imageurl,
                                                     transaction.donation.donator.role,
                                                     transaction.donation.donator.type,
-                                                    transaction.donation.donator.confirmed
+                                                    transaction.donation.donator.confirmed,
+                                                    transaction.donation.donator.password,
+                                                    transaction.donation.donator.username,
+                                                    transaction.donation.donator.email
                                                 )
                                             ),
                                             transaction.milestone == null ? null : new MilestoneDto(
@@ -281,7 +287,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                         transaction.milestone.project.impactor.imageurl,
                                                         transaction.milestone.project.impactor.role,
                                                         transaction.milestone.project.impactor.type,
-                                                        transaction.milestone.project.impactor.confirmed
+                                                        transaction.milestone.project.impactor.confirmed,
+                                                        transaction.milestone.project.impactor.password,
+                                                        transaction.milestone.project.impactor.username,
+                                                        transaction.milestone.project.impactor.email
                                                     ),
                                                     new CauseTypeDto(
                                                         transaction.milestone.project.primarycausetype.id,
@@ -312,7 +321,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                             donation.donator.imageurl,
                                             donation.donator.role,
                                             donation.donator.type,
-                                            donation.donator.confirmed
+                                            donation.donator.confirmed,
+                                            donation.donator.password,
+                                            donation.donator.username,
+                                            donation.donator.email
                                            ),
                     amount = donation.amount,
                     transactions = transactionsDto
@@ -375,7 +387,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                     donation.project.impactor.imageurl,
                                                     donation.project.impactor.role,
                                                     donation.project.impactor.type,
-                                                    donation.project.impactor.confirmed
+                                                    donation.project.impactor.confirmed,
+                                                    donation.project.impactor.password,
+                                                    donation.project.impactor.username,
+                                                    donation.project.impactor.email
                                                 ),
                                                 new CauseTypeDto(
                                                     donation.project.primarycausetype.id,
@@ -400,7 +415,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 donation.donator.imageurl,
                                                 donation.donator.role,
                                                 donation.donator.type,
-                                                donation.donator.confirmed
+                                                donation.donator.confirmed,
+                                                donation.donator.password,
+                                                donation.donator.username,
+                                                donation.donator.email
                                             )
                                         ));
             }

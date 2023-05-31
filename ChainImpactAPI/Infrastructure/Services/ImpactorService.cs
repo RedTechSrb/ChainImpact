@@ -54,7 +54,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.imageurl,
                             impactor.role,
                             impactor.type,
-                            impactor.confirmed
+                            impactor.confirmed,
+                            impactor.password,
+                            impactor.username,
+                            impactor.email
                         )
                 );
             }
@@ -129,7 +132,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.imageurl,
                             impactor.role,
                             impactor.type,
-                            impactor.confirmed
+                            impactor.confirmed,
+                            impactor.password,
+                            impactor.username,
+                            impactor.email
                         )
                 );
             }
@@ -157,7 +163,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             impactor.imageurl,
                             impactor.role,
                             impactor.type,
-                            impactor.confirmed
+                            impactor.confirmed,
+                            impactor.password,
+                            impactor.username,
+                            impactor.email
                         );
 
                 var donations = donationRepository.SearchAsync(new GenericDto<DonationDto>(null, null, new DonationDto { donator = impactorDto })).Result;

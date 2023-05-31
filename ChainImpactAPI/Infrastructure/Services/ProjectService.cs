@@ -74,7 +74,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.impactor.imageurl, 
                             project.impactor.role, 
                             project.impactor.type,
-                            project.impactor.confirmed
+                            project.impactor.confirmed,
+                            project.impactor.password,
+                            project.impactor.username,
+                            project.impactor.email
                         ),
                         new CauseTypeDto(
                             project.primarycausetype.id,
@@ -139,7 +142,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             project.impactor.imageurl,
                             project.impactor.role,
                             project.impactor.type,
-                            project.impactor.confirmed
+                            project.impactor.confirmed,
+                            project.impactor.password,
+                            project.impactor.username,
+                            project.impactor.email
                         ),
                         new CauseTypeDto(
                             project.primarycausetype.id,

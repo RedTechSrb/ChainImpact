@@ -7,23 +7,6 @@ namespace ChainImpactAPI.Models
     {
         public Impactor()
         {
-            this.wallet = wallet;
-            this.role = 1;
-            this.type = type;
-        }
-
-        public Impactor(string wallet, int type)
-        {
-            this.wallet = wallet;
-            this.role = 1;
-            this.type = type;
-        }
-
-        public Impactor(string wallet, int role, int type)
-        {
-            this.wallet = wallet;
-            this.role = role;
-            this.type = type;
         }
 
         public string wallet { get; set; }
@@ -36,9 +19,11 @@ namespace ChainImpactAPI.Models
         public string? instagram { get; set; }
         public string? imageurl { get; set; }
         public int role { get; set; }
-        public int type { get; set; }
+        public int? type { get; set; }
         public bool confirmed { get; set; }
-        public string password { get; set; }
+        public string? password { get; set; }
+        public string? username { get; set; }
+        public string? email { get; set; }
 
     }
 }

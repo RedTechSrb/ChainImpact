@@ -94,7 +94,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                                                 milestone.project.impactor.imageurl,
                                                 milestone.project.impactor.role,
                                                 milestone.project.impactor.type,
-                                                milestone.project.impactor.confirmed
+                                                milestone.project.impactor.confirmed,
+                                                milestone.project.impactor.password,
+                                                milestone.project.impactor.username,
+                                                milestone.project.impactor.email
                                             ),
                                             new CauseTypeDto(
                                                 milestone.project.primarycausetype.id,

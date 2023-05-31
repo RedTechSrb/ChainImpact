@@ -169,7 +169,10 @@ namespace ChainImpactAPI.Infrastructure.Services
                             nftowner.impactor.imageurl,
                             nftowner.impactor.role,
                             nftowner.impactor.type,
-                            nftowner.impactor.confirmed
+                            nftowner.impactor.confirmed,
+                            nftowner.impactor.password,
+                            nftowner.impactor.username,
+                            nftowner.impactor.email
                             )
                     ));
             }

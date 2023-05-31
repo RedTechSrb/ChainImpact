@@ -35,6 +35,14 @@ namespace ChainImpactAPI.Controllers
             return Ok(projectDtoList);
         }
 
+        [HttpPost("save")]
+        public IActionResult SaveProject(ProjectDto projectDto)
+        {
+
+            var savedProject = projectService.SaveProject(projectDto);
+
+            return Ok(savedProject);
+        }
 
     }
 }

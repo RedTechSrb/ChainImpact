@@ -1,4 +1,6 @@
-﻿namespace ChainImpactAPI.Dtos.Authentication
+﻿using ChainImpactAPI.Models.Enums;
+
+namespace ChainImpactAPI.Dtos.Authentication
 {
-    public record JwtDto (string wallet);
+    public record JwtDto (string wallet, ImpactorRole role);
 }

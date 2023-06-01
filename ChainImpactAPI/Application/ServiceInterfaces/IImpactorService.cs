@@ -10,6 +10,8 @@ namespace ChainImpactAPI.Application.ServiceInterfaces
         List<NFTTypeDto> GetImpactorsWithNFTs(ImpactorDto impactorDto);
         List<ImpactorsWithProjectsResponseDto> GetImpactorsWithProjects(GenericDto<ImpactorDto>? impactorsWithDonationsRequestDto);
         Impactor SaveImpactor(ImpactorDto impactorDto);
+        Impactor UpdateImpactor(ImpactorDto impactorDto);
+        Impactor RegisterImpactor(ImpactorDto impactorDto);
         List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto);
     }
 }

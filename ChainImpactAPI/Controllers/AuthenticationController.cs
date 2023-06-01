@@ -22,23 +22,9 @@ namespace ChainImpactAPI.Controllers
         [HttpPost("auth")]
         public IActionResult Auth(AuthenticationRequestDto authenticationRequestDto)
         {
-
-        //    var authResult = new AuthenticationResponse();
-        //    try
-        //    {
-                var authResult = authenticationService.LoginAsync(authenticationRequestDto);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (ex.Message.Contains(""))
-        //            return StatusCode(401, "Istekla Vam je sesija, molimo Vas da se ponovo ulogujete!");
-        //        else
-        //            return BadRequest("Uneli ste pogresnu lozinku");
-        //    }
-
+            var authResult = authenticationService.LoginAsync(authenticationRequestDto);
 
             return Ok(authResult);
-
         }
 
     }

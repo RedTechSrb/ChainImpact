@@ -4,6 +4,7 @@ using ChainImpactAPI.Dtos.ImpactorsWithDonations;
 using ChainImpactAPI.Dtos.ImpactorsWithProjects;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChainImpactAPI.Controllers
@@ -32,18 +33,49 @@ namespace ChainImpactAPI.Controllers
         public IActionResult SearchImpactor(GenericDto<ImpactorDto>? impactorSearchDto)
         {
 
-            var impactorSavedImpactor = impactorService.SearchImpactors(impactorSearchDto);
+            var impactorDtoList = impactorService.SearchImpactors(impactorSearchDto);
 
-            return Ok(impactorSavedImpactor);
+            return Ok(impactorDtoList);
         }
 
+        [AllowAnonymous]
         [HttpPost("save")]
         public IActionResult SaveImpactor(ImpactorDto impactorDto)
         {
 
-            var impactorSavedImpactor = impactorService.SaveImpactor(impactorDto);
+            var savedImpactor = impactorService.SaveImpactor(impactorDto);
 
-            return Ok(impactorSavedImpactor);
+            return Ok(savedImpactor);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult RegisterImpactor(ImpactorDto impactorDto)
+        {
+
+            var updatedImpactor = impactorService.RegisterImpactor(impactorDto);
+
+            return Ok(updatedImpactor);
+        }
+
+        [Authorize]
+        [HttpPost("update")]
+        public IActionResult UpdateImpactor(ImpactorDto impactorDto)
+        {
+
+            var updatedImpactor = impactorService.UpdateImpactor(impactorDto);
+
+            return Ok(updatedImpactor);
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost("confirm")]
+        public IActionResult ConfirmImpactor(ImpactorDto impactorDto)
+        {
+
+            var confirmedImpactor = impactorService.UpdateImpactor(impactorDto);
+
+            return Ok(confirmedImpactor);
         }
 
         [HttpPost("ImpactorsWithProjects")]

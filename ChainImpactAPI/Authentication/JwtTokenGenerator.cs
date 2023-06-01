@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Dtos.Authentication;
+using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -28,15 +29,14 @@ namespace ChainImpactAPI.Authentication
                 SecurityAlgorithms.HmacSha256
             );
 
+            string? userType = Enum.GetName(jwtDto.role) is null
+                ? "Client"
+                : Enum.GetName(jwtDto.role);
+
             var claims = new[]
             {
-                //new Claim(JwtRegisteredClaimNames.Name, /*user.Username*/ "boki"),
-                //new Claim(JwtRegisteredClaimNames.Nonce, /*user.Username*/ "boki"), // ovo je password
                 new Claim(JwtRegisteredClaimNames.Name, jwtDto.wallet),
-//                new Claim(JwtRegisteredClaimNames.GivenName, createJWTDto.AppAuthToken), // ovo je appAuth token
-//                new Claim("username", createJWTDto.username),
-//                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-//                new Claim(ClaimTypes.Role, userType)
+                new Claim(ClaimTypes.Role, userType)
             };
 
             var securityToken = new JwtSecurityToken(

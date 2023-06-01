@@ -9,6 +9,7 @@ using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
 using ChainImpactAPI.Models.Enums;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 
 namespace ChainImpactAPI.Infrastructure.Services
@@ -20,6 +21,7 @@ namespace ChainImpactAPI.Infrastructure.Services
         private readonly IDonationRepository donationRepository;
         private readonly IProjectService projectService;
         private readonly INFTOwnerRepository nftOwnerRepository;
+        private readonly PasswordHasher passwordHasher;
 
         public ImpactorService(
             IConfiguration configuration,
@@ -33,6 +35,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             this.donationRepository = donationRepository;
             this.projectService = projectService;
             this.nftOwnerRepository = nftOwnerRepository;
+            passwordHasher = new PasswordHasher();
         }
 
         public List<ImpactorDto> GetImpactors()
@@ -77,40 +80,80 @@ namespace ChainImpactAPI.Infrastructure.Services
                     wallet = impactorDto.wallet,
                     confirmed = false,
                     role = ImpactorRole.Client
+                    // TODO type set??
                 };
             } else
             {
-                throw new Exception("Error, Impactor with this wallet has already been saved");
+                throw new Exception("Error, Impactor with wallet \"" + impactorDto.wallet + "\" has already been saved");
             }
 
             return impactorRepository.Save(impactor);
         }
 
-
-/*        public Impactor SaveImpactor(ImpactorDto impactorDto)
+        public Impactor RegisterImpactor(ImpactorDto impactorDto)
         {
 
             var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorDto.wallet })).Result.FirstOrDefault();
             if (impactor == null)
             {
-                impactor = new Impactor(impactorDto.wallet, impactorDto.type.Value);
-            } else
-            {
-                impactor.name = impactorDto.name;
-                impactor.description = impactorDto.description;
-                impactor.website = impactorDto.website;
-                impactor.facebook = impactorDto.facebook;
-                impactor.discord = impactorDto.discord;
-                impactor.twitter = impactorDto.twitter;
-                impactor.instagram = impactorDto.instagram;
-                impactor.imageurl = impactorDto.imageurl;
-                impactor.type = impactorDto.type != null ? impactorDto.type.Value : impactor.type;
-                impactor.role = impactorDto.role != null ? impactorDto.role.Value : impactor.role;  
+                throw new Exception("Error, Impactor with wallet \"" + impactorDto.wallet + "\" does not exists");
             }
+
+            // TODO check this - what exactly I should set and what has to be set!
+            if (impactorDto.password == null)
+            {
+                throw new Exception("Error, Password has to be sent");
+            }
+
+            impactor.password = passwordHasher.HashPassword(impactorDto.password);
+
+
+            impactor.name = impactorDto.name != null ? impactorDto.name : impactor.name;
+            impactor.description = impactorDto.description != null ? impactorDto.description : impactor.description;
+            impactor.website = impactorDto.website != null ? impactorDto.website : impactor.website;
+            impactor.facebook = impactorDto.facebook != null ? impactorDto.facebook : impactor.facebook;
+            impactor.discord = impactorDto.discord != null ? impactorDto.discord : impactor.discord;
+            impactor.twitter = impactorDto.twitter != null ? impactorDto.twitter : impactor.twitter;
+            impactor.instagram = impactorDto.instagram != null ? impactorDto.instagram : impactor.instagram;
+            impactor.imageurl = impactorDto.imageurl != null ? impactorDto.imageurl : impactor.imageurl;
+            impactor.type = impactorDto.type != null ? impactorDto.type.Value : impactor.type;
+            impactor.username = impactorDto.username != null ? impactorDto.username : impactor.username;
+            impactor.email = impactorDto.email != null ? impactorDto.email : impactor.email;
+
 
             return impactorRepository.Save(impactor);
         }
-*/
+
+        public Impactor UpdateImpactor(ImpactorDto impactorDto)
+        {
+
+            var impactor = impactorRepository.SearchAsync(new GenericDto<ImpactorDto>(new ImpactorDto { wallet = impactorDto.wallet })).Result.FirstOrDefault();
+            if (impactor == null)
+            {
+                throw new Exception("Error, Impactor with wallet \"" + impactorDto.wallet + "\" does not exists");
+            }
+
+            // TODO check this - what exactly I should update 
+            // And when ...
+
+            impactor.name = impactorDto.name != null ? impactorDto.name : impactor.name;
+            impactor.description = impactorDto.description != null ? impactorDto.description : impactor.description;
+            impactor.website = impactorDto.website != null ? impactorDto.website : impactor.website;
+            impactor.facebook = impactorDto.facebook != null ? impactorDto.facebook : impactor.facebook;
+            impactor.discord = impactorDto.discord != null ? impactorDto.discord : impactor.discord;
+            impactor.twitter = impactorDto.twitter != null ? impactorDto.twitter : impactor.twitter;
+            impactor.instagram = impactorDto.instagram != null ? impactorDto.instagram : impactor.instagram;
+            impactor.imageurl = impactorDto.imageurl != null ? impactorDto.imageurl : impactor.imageurl;
+            impactor.type = impactorDto.type != null ? impactorDto.type.Value : impactor.type;
+            impactor.username = impactorDto.username != null ? impactorDto.username : impactor.username;
+            impactor.email = impactorDto.email != null ? impactorDto.email : impactor.email;
+
+
+            return impactorRepository.Save(impactor);
+        }
+
+
+
         public List<ImpactorDto> SearchImpactors(GenericDto<ImpactorDto>? impactorSearchDto)
         {
             var impactors = impactorRepository.SearchAsync(impactorSearchDto).Result;

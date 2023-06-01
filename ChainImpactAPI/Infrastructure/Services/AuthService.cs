@@ -29,9 +29,9 @@ namespace ChainImpactAPI.Infrastructure.Services
             this.impactorService = impactorService;
         }
 
-        public string generateJWT(AuthenticationRequestDto authenticationRequestDto)
+        public string generateJWT(ImpactorDto user)
         {
-            var jwtDto = new JwtDto(authenticationRequestDto.wallet);
+            var jwtDto = new JwtDto(user.wallet, user.role.Value);
 
             return jwtTokenGenerator.GenerateJwtToken(jwtDto);
         }
@@ -55,7 +55,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                     throw new Exception("Password Rehash needed");
                 }
 
-                var token = generateJWT(authenticationRequestDto);
+                var token = generateJWT(user);
                 return new AuthenticationResponse
                 {
                     token = token

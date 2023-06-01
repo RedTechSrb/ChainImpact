@@ -8,6 +8,7 @@ using ChainImpactAPI.Dtos.NFTLeft;
 using ChainImpactAPI.Dtos.SearchDtos;
 using ChainImpactAPI.Infrastructure.Repositories;
 using ChainImpactAPI.Models;
+using ChainImpactAPI.Models.Enums;
 using System.Collections.Generic;
 
 namespace ChainImpactAPI.Infrastructure.Services
@@ -75,9 +76,7 @@ namespace ChainImpactAPI.Infrastructure.Services
                 {
                     wallet = impactorDto.wallet,
                     confirmed = false,
-                    role = 1,
-                    type = impactorDto.type.Value,
-                    password = "12134"
+                    role = ImpactorRole.Client
                 };
             } else
             {

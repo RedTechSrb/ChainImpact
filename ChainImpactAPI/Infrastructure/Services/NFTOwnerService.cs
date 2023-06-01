@@ -42,7 +42,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             var project = projectService.SearchProjects(new GenericDto<ProjectDto>(null, null, new ProjectDto { id = nftLeftRequestDto.projectid })).FirstOrDefault();
 
             var primaryCauseType = causeTypeService.SearchCauseTypes(new GenericDto<CauseTypeDto>(new CauseTypeDto { name = project.primarycausetype.name })).FirstOrDefault();
-            var nftPrimaryTypes = nftTypeService.SearchNFTs(new GenericDto<NFTTypeDto>(null, null, new NFTTypeDto { causetype = primaryCauseType, usertype = impactor.type }));
+            var nftPrimaryTypes = nftTypeService.SearchNFTs(new GenericDto<NFTTypeDto>(null, null, new NFTTypeDto { causetype = primaryCauseType, usertype = (int)impactor.type }));
 
 
             double generalDonationAmount = 0.0;
@@ -81,7 +81,7 @@ namespace ChainImpactAPI.Infrastructure.Services
             }
 
             var generalCauseType = causeTypeService.SearchCauseTypes(new GenericDto<CauseTypeDto>(new CauseTypeDto { name = "general" })).FirstOrDefault();
-            var nftGeneralTypes = nftTypeService.SearchNFTs(new GenericDto<NFTTypeDto>(null, null, new NFTTypeDto { causetype = generalCauseType, usertype = impactor.type }));
+            var nftGeneralTypes = nftTypeService.SearchNFTs(new GenericDto<NFTTypeDto>(null, null, new NFTTypeDto { causetype = generalCauseType, usertype = (int)impactor.type }));
 
             foreach (var nftgeneraltype in nftGeneralTypes)
             {

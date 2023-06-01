@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Models;
+using ChainImpactAPI.Models.Enums;
 using System.Data;
 
 namespace ChainImpactAPI.Models
@@ -18,8 +19,8 @@ namespace ChainImpactAPI.Models
         public string? twitter { get; set; }
         public string? instagram { get; set; }
         public string? imageurl { get; set; }
-        public int role { get; set; }
-        public int? type { get; set; }
+        public ImpactorRole role { get; set; }
+        public ImpactorType? type { get; set; }
         public bool confirmed { get; set; }
         public string? password { get; set; }
         public string? username { get; set; }

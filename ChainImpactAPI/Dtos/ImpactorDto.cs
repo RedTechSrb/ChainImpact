@@ -1,4 +1,5 @@
 ﻿using ChainImpactAPI.Models;
+using ChainImpactAPI.Models.Enums;
 
 namespace ChainImpactAPI.Dtos
 {
@@ -14,9 +15,9 @@ namespace ChainImpactAPI.Dtos
             string? discord = null, 
             string? twitter = null, 
             string? instagram = null, 
-            string? imageurl = null, 
-            int? role = null, 
-            int? type = null,
+            string? imageurl = null,
+            ImpactorRole? role = null,
+            ImpactorType? type = null,
             bool? confirmed = null,
             string? password = null,
             string? username = null,
@@ -50,8 +51,8 @@ namespace ChainImpactAPI.Dtos
         public string? twitter { get; set; }
         public string? instagram { get; set; }
         public string? imageurl { get; set; }
-        public int? role { get; set; }
-        public int? type { get; set; }
+        public ImpactorRole? role { get; set; }
+        public ImpactorType? type { get; set; }
         public bool? confirmed { get; set; }
         public string? password { get; set; }
         public string? username { get; set; }
